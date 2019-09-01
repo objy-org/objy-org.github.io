@@ -26,6 +26,7 @@
 </head>
 
 <body style="background:#212121 !important;">
+
     <div class="wrapper" id="app">
         <div class="demo-header " style="display:initial;    ">
             <div class="motto text-center container-expand" style="padding:100px 50px;text-shadow:none;">
@@ -56,16 +57,12 @@
 
                             <div class="text-left" style="max-width:1000px;margin-left: auto;margin-right: auto;">
                             <pre style="font-size:15px;border-radius: 10px"><code class="javascript" style="padding:20px;font-size:19px;background:#1b1b1b;" >
-var Yogurt = OBJY({
-  name: "My Yogurt",
-  properties: {
-    eatable: true,
-    expire: {
-      date: '20.20.2020',
-      action: 'this.eatable = false;this.save()'
-    }
-  }
-}).add();
+var Yogurt = OBJY(🍦).add();
+
+Yogurt.addProperty('expires', { 
+    date: '20.20.20', 
+    action:'this.expired=true;'
+}).save();
 </code></pre>
 </div>
 
