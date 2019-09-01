@@ -41,7 +41,7 @@
                                 <br>
                                 <br>
                                 <br>
-                                <h3 style="font-size:40px;color:#888888;font-weight: 400;">
+                                <h3 style="font-size:40px;color:#888888;font-weight: 400;max-width:1000px;margin-left: auto;margin-right: auto;">
                                     <!--Forget about complex code! -->
                                     Create software by modelling behaviour-driven objects, that do the work for you, not by writing complex code. On any platform, at any scale.
                                     <br>
@@ -50,7 +50,31 @@
                                 </h3>
                                 <br>
                                 <br>
+
+                                
                             </div>
+
+                            <div class="text-left" style="max-width:1000px;margin-left: auto;margin-right: auto;">
+                            <pre style="font-size:15px;border-radius: 10px"><code class="javascript" style="padding:20px;font-size:19px" >
+var Yogurt = OBJY({
+  name: "My Yogurt",
+  properties: {
+    eatable: true,
+    expire: {
+      date: '20.20.2020',
+      action: 'this.eatable = false;this.save()'
+    },
+    open: {
+      type: 'action',
+      value: 'this.expire.date = $now().plus("3d")'
+    },
+  }
+}.add();
+</code></pre>
+</div>
+
+
+
                         </div>
                     </div>
                 </div>
