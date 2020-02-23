@@ -55,7 +55,14 @@
                                 <br>
                                 <h3 style="text-align:left;font-size:40px;color:#888888;font-weight: 400;max-width:1000px;margin-left: auto;margin-right: auto;">
                                     <pre style="border-radius: 10px"><code class="javascript" style="padding:20px;background:#212121;" >
-OBJY(🍦).setName('Yourt').addProperty('expires', {date: '20.20.20', action:'this.expired=true'}).save();
+objy.object({
+   name: "yogurt",
+   expired: false,
+   expires: {
+      date: "2020-10-10",
+      action: "this.expired=true;
+   }
+})
 </code></pre>
                                 </h3>
                                 
