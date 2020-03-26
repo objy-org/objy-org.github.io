@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="leto-group leto-width-full leto-horizontal-center leto-mt-xl">
-                <div class="leto-group leto-width-half leto-mt-xxl">
+                <div class="leto-group leto-width-half leto-mt-xxl leto-ph-xl">
                     <div class="leto-width-full" v-show="currentPreview==1">
                         <pre style="border-radius: 10px">
 <code class="javascript" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
@@ -137,19 +137,18 @@ objy.user({name: 'Anythin'}).add()
 </div>
                     </div>
 
-
+                    <div class="leto-width-third leto-mt-xxl">
+                        <div class="leto-mt-lg">
+                             <div class="leto-group leto-text-xl leto-mt-sm leto-vertical-center leto-horizontal-left leto-click" v-for="item in previewItems" v-on:click="currentPreview=item.index">
+                                <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentPreview==item.index}"></div>
+                                <div>{{item.name}}</div>
+                            </div>
+                        </div>
+                    </div>
             </div>
 
             </div>
 
-        </div>
-
-        <div class="leto-container-full leto-group leto-horizontal-center leto-pb-xxl">
-
-            <div class="leto-bubble-wrapper-xl leto-click" v-for="item in previewItems" v-on:click="currentPreview=item.index">
-                <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentPreview==item.index}"></div>
-                <label>{{item.name}}</label>
-            </div>
         </div>
 
 
@@ -165,9 +164,9 @@ objy.user({name: 'Anythin'}).add()
                  CLI<span class="leto-ml-xs fa fa-chevron-right"></span>
              </div>
 
-             <div class="leto-button">
+             <!--div class="leto-button">
                  OBJY UI<span class="leto-ml-xs fa fa-chevron-right"></span>
-             </div>
+             </div-->
 
             </div>
              
