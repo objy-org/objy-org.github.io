@@ -67,7 +67,7 @@
 
                     <div class="leto-group leto-mt-xxl">
                          <div class=" leto-text-xxl leto-text-center">
-                            An open source programming framework that brings data-objects to life,<br> making real-life use cases easy to implement
+                            An open source programming framework that brings data-objects to life
                         </div>
                     </div>
 
@@ -77,12 +77,12 @@
 
                 <div class="leto-group leto-width-full leto-horizontal-center leto-mt-xl">
                 <div class="leto-column leto-width-half leto-mt-xxl leto-ph-xl">
-                    <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
+                    <!--div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
                         <div class="leto-group leto-text-xl leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
                             <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
                             <div>{{item}}</div>
                         </div>
-                    </div>
+                    </div-->
                     <div class="leto-width-full" v-show="currentPreview==1">
                         <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
@@ -165,7 +165,7 @@ add user with name=Anything
                     </div>
 
                     <div class="leto-width-third leto-mt-xxl">
-                        <div class="leto-mt-xxl">
+                        <div class="leto-mt-xl">
                              <div class="leto-group leto-text-xl leto-mt-sm leto-vertical-center leto-horizontal-left leto-click" v-for="item in previewItems" v-on:click="currentPreview=item.index">
                                 <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentPreview==item.index}"></div>
                                 <div>{{item.name}}</div>
