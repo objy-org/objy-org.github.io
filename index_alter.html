@@ -60,6 +60,10 @@
                         Docs
                     </a>
 
+                    <a class="leto-mh-sm">
+                        Tools
+                    </a>
+
                     <div class="leto-right">
                          <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
                         <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
@@ -78,7 +82,7 @@
 
                     <div class="leto-group leto-mt-xxl">
                          <div class=" leto-text-xxl leto-text-center">
-                            An abstract, open source programming language for devs and non-devs.
+                            An abstract, open source programming language for real-life programming.
                         </div>
                     </div>
 
@@ -117,9 +121,9 @@ add object with
                         <div class="leto-mt-xl">
                               <div class="leto-text-xl">Everything is an object</div>
                               <br>
-                              There is nothing else but objects. 
-                              <br>
-                              Dynamic, alive.
+                              
+                              Objects have caracteristics,
+                              <br>behaviours and actions.
                         </div>
                     </div>
             </div>
@@ -189,7 +193,10 @@ objy.object({name: 'Anythin'}).add()
 
 objy.objects({name: 'Anythin'}).get()
 
-objy.object("123").addProperty('color', 'blue').update()
+objy.object("123")
+    .addProperty('maintain', {
+        interval: '1 day', action: 'email'
+    }).update()
 
 objy.object("123").remove()
 
