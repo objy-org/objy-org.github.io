@@ -37,7 +37,7 @@
     </style>
 </head>
 
-<body>
+<body class="leto-frame-dark">
 
 
     <div class="leto-frame-dark" id="app">
@@ -83,9 +83,9 @@
                             <div>{{item}}</div>
                         </div>
                     </div-->
-                    <div class="leto-width-full" v-show="currentPreview==1">
+                    <div class="leto-width-full">
                         <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
+<code class="javascript" style="font-size:20px;background:#232323;padding:20px" >
 objy.object({
    name: "yogurt",
    expires: {
@@ -93,68 +93,7 @@ objy.object({
       action: "self.expired=true"
    }
 }).add()
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >// ...
-add object with name=Yourt,expires={date: "2020-10-10",action: "self.expired=true"}
-</code>
-</pre>
-</div>
 
-<div class="leto-width-full" v-show="currentPreview==2">
-<pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
-objy.object("123").addProperty('expires', {
-    type: "date",
-    action: "222"
-})
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >// ...
-add object with name=Yourt,_onChange={checkDate: {value: "asf"}
-</code>
-</pre>
-</div>
-
-<div class="leto-width-full" v-show="currentPreview==3">
-<pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// add an object
-objy.object({name: 'Anythin'}).add()
-
-// query objects
-objy.objects({name: 'Anythin'}).get()
-
-// get a particular object by id
-objy.object("123").get()
-
-// delete an object
-objy.object("123").remove()
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
-add object with name=Anything
-
-get objects with name=Anything
-
-get object 123
-
-delete object 123
-</code>
-</pre>
-</div>
-
-<div class="leto-width-full" v-show="currentPreview==4">
-<pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// define you own object families with custom backends for storage, processor and observer
-objy.define({
-    name: 'user',
-    pluralName: 'users',
-    storage: new MongoMapper()
-})
-
-objy.user({name: 'Anythin'}).add()
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
-define with name=user, pluralName=users
-
-add user with name=Anything
 </code>
 </pre>
 </div>
@@ -162,10 +101,9 @@ add user with name=Anything
 
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl">
-                             <div class="leto-group leto-text-xl leto-mt-sm leto-vertical-center leto-horizontal-left leto-click" v-for="item in previewItems" v-on:click="currentPreview=item.index">
-                                <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentPreview==item.index}"></div>
-                                <div>{{item.name}}</div>
-                            </div>
+                              <div class="leto-text-xl">Fully object-driven</div>
+                              <br>
+                              Everything is an object
                         </div>
                     </div>
             </div>
@@ -178,11 +116,8 @@ add user with name=Anything
                 <div class="leto-group leto-width-full leto-horizontal-center leto-mt-xl">
 
                        <div class="leto-width-third leto-mt-xxl">
-                        <div class="leto-mt-xl">
-                             <div class="leto-group leto-text-xl leto-mt-sm leto-vertical-center leto-horizontal-left leto-click" v-for="item in previewItems" v-on:click="currentPreview=item.index">
-                                <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentPreview==item.index}"></div>
-                                <div>{{item.name}}</div>
-                            </div>
+                        <div class="leto-mt-xl leto-vertical-right">
+                             <div class="leto-text-xl">Objects are alive</div>
                         </div>
                     </div>
 
@@ -196,79 +131,22 @@ add user with name=Anything
                     </div-->
                     <div class="leto-width-full" v-show="currentPreview==1">
                         <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
-objy.object({
-   name: "yogurt",
-   expires: {
-      date: "2020-10-10",
-      action: "self.expired=true"
-   }
-}).add()
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >// ...
-add object with name=Yourt,expires={date: "2020-10-10",action: "self.expired=true"}
-</code>
-</pre>
-</div>
-
-<div class="leto-width-full" v-show="currentPreview==2">
+<div class="leto-width-full">
 <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
+<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
 objy.object("123").addProperty('expires', {
     type: "date",
     action: "222"
-})
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >// ...
-add object with name=Yourt,_onChange={checkDate: {value: "asf"}
-</code>
-</pre>
-</div>
-
-<div class="leto-width-full" v-show="currentPreview==3">
-<pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// add an object
-objy.object({name: 'Anythin'}).add()
-
-// query objects
-objy.objects({name: 'Anythin'}).get()
-
-// get a particular object by id
-objy.object("123").get()
-
-// delete an object
-objy.object("123").remove()
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
-add object with name=Anything
-
-get objects with name=Anything
-
-get object 123
-
-delete object 123
-</code>
-</pre>
-</div>
-
-<div class="leto-width-full" v-show="currentPreview==4">
-<pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >// define you own object families with custom backends for storage, processor and observer
-objy.define({
-    name: 'user',
-    pluralName: 'users',
-    storage: new MongoMapper()
+}).addProperty('_onCreate', {
+    validate: {
+        value: "222"
+    }
 })
 
-objy.user({name: 'Anythin'}).add()
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >// define a yogurt that handles expiration itself
-define with name=user, pluralName=users
-
-add user with name=Anything
 </code>
 </pre>
 </div>
+
                     </div>
 
                  
@@ -276,6 +154,43 @@ add user with name=Anything
 
 
 
+            </div>
+
+
+            <br>
+
+
+                            <div class="leto-group leto-width-full leto-horizontal-center leto-mt-xl">
+                <div class="leto-column leto-width-half leto-mt-xxl leto-ph-xl">
+                    <!--div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
+                        <div class="leto-group leto-text-xl leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
+                            <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
+                            <div>{{item}}</div>
+                        </div>
+                    </div-->
+                    <div class="leto-width-full">
+                        <pre style="border-radius: 10px">
+<code class="javascript" style="font-size:20px;background:#232323;padding:20px" >
+objy.object({name: 'Anythin'}).add()
+
+objy.objects({name: 'Anythin'}).get()
+
+objy.object("123").get()
+
+objy.object("123").remove()
+
+</code>
+</pre>
+</div>
+                    </div>
+
+                    <div class="leto-width-third leto-mt-xxl">
+                        <div class="leto-mt-xl">
+                              <div class="leto-text-xl">Simple Interface</div>
+                              <br>
+                              Everything is an object
+                        </div>
+                    </div>
             </div>
 
         </div>

@@ -4,6 +4,6 @@ var app = new Vue({
     currentPreview: 1,
     currentLang: 'JS',
     langs: ['JS', 'CLI'],
-    previewItems: [{name: 'Everything is an object', index: 1}, {name: 'Objects have behaviours', index: 2}, {name: 'Simple CRUD API', index: 3}, {name: 'Extendable', index: 4}]
+    previewItems: [{name: 'Objects', index: 1}, {name: 'Behaviours', index: 2}, {name: 'CRUD API', index: 3}, {name: 'Extendable', index: 4}]
   }
 })
