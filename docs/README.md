@@ -3,47 +3,54 @@
 OBJY is an abstract domain specific language for real life programming.
 It has some simple concepts and is aimed to be used by developers as well as non-developers.
 
-## Programming concept
-
-sdhdsfh
 
 
-```html
-<script src="https://spoo.io/code/spoo-cloud.min.js"></script>
-```
 
-or
+# Getting started
+
+## Installing
 
 ```javascript
-npm install spoocloud-js
+npm install objy
 ```
+
+
+
+# Programming concept
+
+In OBJY, everything is a dynamic object. Really everything!
+Objects are behaviour-driven. Meaning they can execute actions based upon time-, or event-driven events.
 
 
 ```javascript
-// Initialize
-spoo = new SPOO_Client("WORKSPACE").App("APP");
-
-// Usage
-spoo.io().SomeFunction()
+objy.object({
+	_id: 123,
+	name: "Passport",
+    expires: { date: "20.20.20", action: "email or so"},
+    _onChange: { validate: "dsl..." }
+})
 ```
-
-
-
-
-# Objects
-
 
 
 Objects are the foundation of your applications. They represent entities, hold information, methods, listeners and events.
-There are 5 types of objects:
 
 Type | Description 
 --------- | ------- 
-Object | A plain object that can be used to represent anything
-User | A special kind of object that represents a user. A user can login using it's credentials and has a set of privileges for access control
-Template | A Template encapsulates common information and functionality that can be reused in other object types
-EventLog | These are immutable objects that can be written once, but not altered. Perfekt for events or logs.
-File | A file is an object that holds a real file of any mimetype
+caracteristics | Dynamic information
+behaviours | time-, or event-driven actions
+actions | trigger-driven functions
+
+
+
+
+# Simple API
+
+# Inheritance
+
+# Mappers
+
+# Examples
+
 
 
 
