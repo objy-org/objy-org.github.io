@@ -115,8 +115,8 @@
 object({
    name: "yogurt",
    expires: {
-      date: "2020-10-10",
-      action: "self.expired=true"
+      on: "20-20-02",
+      do: "self.expired=true"
    }
 }).add()
 
@@ -169,11 +169,11 @@ add object with
 object({
     name: "Passport",
     expires: {
-        date: "20.20.20",
-        action: "email or so" // automatic email on that day
+        on: "2020-20-20",
+        do: "email or so"
     },
-    _onChange: {
-        validate: "dsl..."
+    @change: {
+        do: "dsl..."
     }
 })
 
