@@ -66,7 +66,7 @@
 
                     <div class="leto-right">
                          <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
-                        <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
+                                <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
                                     <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
                                     <div>{{item}}</div>
                                 </div>
@@ -87,8 +87,22 @@
                     </div>
 
                     <br>
-
                 </div>
+
+                 <!--div class="leto-group leto-horizontal-center leto-mt-xl">
+
+                    <div class="leto-group leto-mt-xxl">
+                          <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
+                                <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
+                                    <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
+                                    <div>{{item}}</div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <br>
+
+                </div-->
 
                 <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl">
 
@@ -98,7 +112,7 @@
                     <div class="leto-width-full">
                         <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-objy.object({
+object({
    name: "yogurt",
    expires: {
       date: "2020-10-10",
@@ -119,11 +133,11 @@ add object with
 
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl">
-                              <div class="leto-text-xl">Everything is an object</div>
+                              <div class="leto-text-xl">There are only objects</div>
                               <br>
                               
-                              Objects have caracteristics,
-                              <br>behaviours and actions.
+                              Everything is represented as a dynamic object. Everything.
+                             
                         </div>
                     </div>
             </div>
@@ -140,7 +154,7 @@ add object with
                         <div class="leto-mt-xl leto-vertical-right">
                              <div class="leto-text-xl">Objects are alive</div>
                              <br>
-                            Add behaviours using time-<br> or event-driven hanlders
+                            Objects have a behaviour, are self-observing and can take actions.
                         </div>
                     </div>
 
@@ -152,7 +166,7 @@ add object with
 <div class="leto-width-full">
 <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-objy.object({
+object({
     name: "Passport",
     expires: {
         date: "20.20.20",
@@ -189,16 +203,16 @@ add object with name=Yourt,_onChange={checkDate: {value: "asf"}
                     <div class="leto-width-full">
                         <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-objy.object({name: 'Anythin'}).add()
+object({name: 'Anythin'}).add()
 
-objy.objects({name: 'Anythin'}).get()
+objects({name: 'Anythin'}).get()
 
-objy.object("123")
+object("123")
     .addProperty('maintain', {
         interval: '1 day', action: 'email'
     }).update()
 
-objy.object("123").remove()
+object("123").remove()
 
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
