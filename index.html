@@ -171,9 +171,6 @@ object({
     expires: {
         on: "2020-20-20",
         do: "email or so"
-    },
-    @change: {
-        do: "dsl..."
     }
 })
 
@@ -206,11 +203,6 @@ add object with name=Yourt,_onChange={checkDate: {value: "asf"}
 object({name: 'Anythin'}).add()
 
 objects({name: 'Anythin'}).get()
-
-object("123")
-    .addProperty('maintain', {
-        interval: '1 day', action: 'email'
-    }).update()
 
 object("123").remove()
 
