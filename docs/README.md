@@ -28,9 +28,11 @@ objy.object({
 	name: "Passport",
     expires: { date: "20.20.20", action: "email or so"},
     _onChange: { validate: "dsl..." }
-})
+}).add()
 ```
 
+
+# Objects
 
 Objects are the foundation of your applications. They represent entities, hold information, methods, listeners and events.
 
@@ -39,7 +41,6 @@ Type | Description
 caracteristics | Dynamic information
 behaviours | time-, or event-driven actions
 actions | trigger-driven functions
-
 
 
 
