@@ -113,10 +113,11 @@
                         <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
 object({
-   name: "yogurt",
-   expires: {
-      on: "20-20-02",
-      do: "email('me@objy.io', 'eat me!')"
+   name: "Person",
+   email: "me@me.io",
+   birtday: {
+      date: "202020",
+      action: "email(this.email, 'happy birtday!')"
    }
 })
 
@@ -133,7 +134,7 @@ add object with
 
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl">
-                              <div class="leto-text-xl">Turn everything into objects</div>
+                              <div class="leto-text-xl">Everything is an alive object</div>
                               <br>
                               
                               Everything is represented as a dynamic object. Really everything.
@@ -145,54 +146,6 @@ add object with
 </div>
 
 <br>
-
-
-
-
-
-
-<div class="leto-group leto-horizontal-center leto-vertical-center ">
-
-                <div class="leto-group leto-width-two-thirds leto-horizontal-center ">
-                <div class="leto-column leto-width-two-thirds leto-mt-xxl leto-ph-xl">
-                   
-                   <div class="leto-width-full">
-<pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-object({
-    name: "Ice Cream",
-    melt: {
-        type: "action",
-        value: "email or so"
-    }
-})
-
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
-add object with name=Yourt,_onChange={checkDate: {value: "asf"}
-
-</code>
-</pre>
-</div>
-
-                    </div>
-
-                    <div class="leto-width-third leto-mt-xxl">
-                        <div class="leto-mt-xl">
-                              <div class="leto-text-xl">Objects have a behaviour</div>
-                             <br>
-                            Objects are alive. They are self-observing and can react to events and trigger actions.
-                             
-                        </div>
-                    </div>
-            </div>
-
-</div>
-
-<br>
-
-
-
 
 
 
@@ -239,10 +192,94 @@ delete object 123
 
 </div>
 
+
+
 <br>
 
 
 
+
+<div class="leto-group leto-horizontal-center leto-vertical-center ">
+
+                <div class="leto-group leto-width-two-thirds leto-horizontal-center ">
+                <div class="leto-column leto-width-two-thirds leto-mt-xxl leto-ph-xl">
+                   
+                   <div class="leto-width-full">
+<pre style="border-radius: 10px">
+<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
+object({
+    // simple props
+    string: "test",
+    number: 123,
+    bool: true,
+
+    // time-driven triggers
+    trigger: {
+       date: "20-20-20",
+       value: "do something"
+    },
+
+    // actions
+    action: {
+       type: "action",
+       value: "do something"
+    },
+
+    // event-driven triggers
+    onChange: {
+        do: "something"
+    }
+})
+
+
+</code>
+<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
+add object with name=Yourt,_onChange={checkDate: {value: "asf"}
+
+</code>
+</pre>
+</div>
+
+                    </div>
+
+                    <div class="leto-width-third leto-mt-xxl">
+                        <div class="leto-mt-xl">
+                              <div class="leto-text-xl">Objects have a behaviour</div>
+                             <br>
+                            Objects are alive. They are self-observing and can react to events and trigger actions.
+                             
+                        </div>
+                    </div>
+            </div>
+
+</div>
+
+<br>
+
+
+
+
+
+
+            <br>
+
+            <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl">
+
+                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-vertical-center leto-mt-xl">
+
+                    <div class="leto-width-full leto-mt-xxl">
+                        <div class="leto-mt-lg leto-group leto-horizontal-center leto-vertical-center">
+                             <div class="leto-text-xl">+ more powerful, yet simple features</div>
+                        </div>
+                        <div class="leto-mt leto-group leto-horizontal-center leto-vertical-center">
+                            Inheritance, User management, Acces-control, Pluggable mappers (MDB, InMem, Redis), Custom actions
+                        </div>
+                    </div>
+
+           
+            </div>
+
+        </div>
 
 
 
