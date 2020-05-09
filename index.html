@@ -139,11 +139,11 @@ add object {
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl">
 
-                              <div class="leto-text-xl">Digitalize entities, the way they behave in real life</div>
+                              <div class="leto-text-xl">Behaviour-driven entities</div>
 
                               <br>
                               
-                              Everything is represented as a dynamic object. Really everything.
+                              Represent anything with dynamic objects. Define behaviours to make them alive. OBJY will do the rest.
                              
                         </div>
                     </div>
@@ -160,9 +160,9 @@ add object {
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl leto-vertical-right">
 
-                             <div class="leto-text-xl">Add behaviours, bring it to life</div>
+                             <div class="leto-text-xl">Bring things to life</div>
                              <br>
-                            Besides simple attributes, you may add time-<br> or event-driven behaviours.
+                            Besides simple attributes, you may add time or event-driven behaviours.
 
                         </div>
                     </div>
@@ -178,9 +178,7 @@ add object {
 object({
     name: "Passport",
     valid: true,
-    on:change: {
-        checkvalisation: "if(!this.valid) email(...)"
-    }
+    onChange: "if(!this.valid) email(...)"
 }).add()
 
 </code>
