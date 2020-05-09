@@ -139,7 +139,7 @@ add object {
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl">
 
-                              <div class="leto-text-xl">Build digital representations of real-live entities</div>
+                              <div class="leto-text-xl">Digitalize entities, the way they behave in real life</div>
 
                               <br>
                               
@@ -160,7 +160,7 @@ add object {
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl leto-vertical-right">
 
-                             <div class="leto-text-xl">Model anything, add behaviours</div>
+                             <div class="leto-text-xl">Add behaviours, bring it to life</div>
                              <br>
                             Besides simple attributes, you may add time-<br> or event-driven behaviours.
 
@@ -185,7 +185,14 @@ object({
 
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
-add object with name=Yourt,_onChange={checkDate: {value: "asf"}
+add object {
+    name: "Yourt",
+    on:change: {
+        checkDate: {
+            value: "asf"
+        }
+    }
+}
 
 </code>
 </pre>
@@ -219,9 +226,9 @@ object("123").remove()
 
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
-add object with name=Anything
+add object {name: "Anything"}
 
-get objects with name=Anything
+get objects {name: "Anything"}
 
 get object 123
 
@@ -234,7 +241,7 @@ delete object 123
 
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl">
-                              <div class="leto-text-xl">Simple Interface</div>
+                              <div class="leto-text-xl">Build anything.<br> With the simple interface</div>
                               <br>
                               Create, Read, Update, Delete. The rest works automatically
                         </div>
@@ -244,7 +251,31 @@ delete object 123
             </div>
 
 
-            <br>
+            <div class="leto-group leto-horizontal-center leto-vertical-center ">
+
+                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-vertical-center leto-mt-xl">
+
+                    <div class="leto-width-full leto-mt-xxl">
+                        <div class="leto-mt-lg leto-group leto-horizontal-center leto-vertical-center">
+                             <div class="leto-text-xl">Runs with...</div>
+                        </div>
+                        <div class="leto-mt leto-group leto-horizontal-center leto-vertical-center">
+                            <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
+                     <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
+                                    <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
+                                    <div>{{item}}</div>
+                                </div>
+                        </div>
+                        </div>
+                    </div>
+
+           
+            </div>
+
+        </div>
+
+
+         <br>
 
             <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl">
 
