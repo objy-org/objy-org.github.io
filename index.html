@@ -84,6 +84,7 @@
                          <div class=" leto-text-xxl leto-text-center">
                             An abstract, open source domain specific language for real-life programming.
                         </div>
+                       
                     </div>
 
                     <br>
@@ -98,19 +99,23 @@
                     <div class="leto-width-full">
                         <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-objy.object({
+object({
    name: "yogurt",
    expires: {
       date: "2020-10-10",
-      action: "self.expired=true"
+      action: "this.remove()"
    }
 }).add()
 
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
-add object with 
-    name=Yourt,
-    expires={date: "2020-10-10",action: "self.expired=true"}
+add object { 
+    name: "Yourt",
+    expires: {
+      date: "2020-10-10",
+      action: "self.expired=true"
+    }
+}
 
 </code>
 </pre>
@@ -119,7 +124,7 @@ add object with
 
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl">
-                              <div class="leto-text-xl">Everything is an object</div>
+                              <div class="leto-text-xl">Build digital representations of real-live entities</div>
                               <br>
                               
                               Objects have caracteristics,
@@ -138,9 +143,9 @@ add object with
 
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl leto-vertical-right">
-                             <div class="leto-text-xl">Objects are alive</div>
+                             <div class="leto-text-xl">Model anything, add behaviours</div>
                              <br>
-                            Add behaviours using time-<br> or event-driven hanlders
+                            Besides simple attributes, you may add time-<br> or event-driven behaviours.
                         </div>
                     </div>
 
@@ -152,16 +157,13 @@ add object with
 <div class="leto-width-full">
 <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-objy.object({
+object({
     name: "Passport",
-    expires: {
-        date: "20.20.20",
-        action: "email or so" // automatic email on that day
-    },
-    _onChange: {
-        validate: "dsl..."
+    valid: true,
+    on:change: {
+        checkvalisation: "if(!this.valid) email(...)"
     }
-})
+}).add()
 
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
@@ -189,16 +191,13 @@ add object with name=Yourt,_onChange={checkDate: {value: "asf"}
                     <div class="leto-width-full">
                         <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-objy.object({name: 'Anythin'}).add()
+object({name: 'Anakin'}).add()
 
-objy.objects({name: 'Anythin'}).get()
+objects({name: 'Anakin'}).get()
 
-objy.object("123")
-    .addProperty('maintain', {
-        interval: '1 day', action: 'email'
-    }).update()
+object({name: 'Anakin Skywalker'}).update()
 
-objy.object("123").remove()
+object("123").remove()
 
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
