@@ -53,23 +53,25 @@
                         <img src="newlogo.png" style="width: 50px;"> <img src="objy.png" style="width: 100px;"> 
                     </div>
 
-                    <a class="leto-mh-sm">
-                        Get it
-                    </a>
-
-                    <a class="leto-mh-sm">
-                        Docs
-                    </a>
-
                   
-                    <div class="leto-right">
+                    <div class="leto-left leto-mb-sm">
                          <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
-                     <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">RUNS WITH:</div> <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
+                     <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">RUNS WITH:</div--> <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
                                     <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
                                     <div>{{item}}</div>
                                 </div>
                         </div>
                     </div>
+
+
+                    <a class="leto-mh-sm">
+                        <div class="leto-button">Coming soon</div>
+                    </a>
+
+                    <!--a class="leto-mh-sm">
+                        Docs
+                    </a-->
+
                 </div>
 
 
