@@ -113,19 +113,23 @@
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
 object({
    name: "yogurt",
-   expires: {
-      date: "2020-10-10",
-      action: "this.remove()"
-   }
+   properties: {
+       expires: {
+          date: "2020-10-10",
+          action: "this.remove()"
+       }
+    }
 }).add()
 
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
 add object { 
     name: "Yourt",
-    expires: {
-      date: "2020-10-10",
-      action: "self.expired=true"
+    properties: {
+        expires: {
+          date: "2020-10-10",
+          action: "self.expired=true"
+        }
     }
 }
 
@@ -185,7 +189,7 @@ object({
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
 add object {
     name: "Yourt",
-    on:change: {
+    onChange: {
         checkDate: {
             value: "asf"
         }
