@@ -18,77 +18,58 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
     <link rel="stylesheet" href="assets/css/leto.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    
     <style type="text/css">
     body {
         color: #66615b;
         font-size: 16px;
         font-family: 'Montserrat', "Helvetica", Arial, sans-serif;
-        height:100%;
-        letter-spacing:0.9px;
+        height: 100%;
+        letter-spacing: 0.9px;
     }
 
     html {
-        height:100%;
+        height: 100%;
     }
 
     .leto-frame-dark {
-        height:100%;
+        height: 100%;
     }
     </style>
 </head>
 
 <body class="leto-frame-dark">
-
-
     <div class="leto-frame-dark" id="app">
-
         <div class="leto-container-full leto-p-xl leto-pt-none leto-pb-none">
-            
             <div class="leto-card leto-bg-black leto-width-full leto-text-white leto-border-none leto-pb-none leto-roundness-md leto-p-xl">
-               
                 <div class="leto-group leto-vertical-center">
-                    
                     <div class="leto-mr-lg">
-                        <img src="newlogo.png" style="width: 50px;"> <img src="objy.png" style="width: 100px;"> 
+                        <img src="newlogo.png" style="width: 50px;"> <img src="objy.png" style="width: 100px;">
                     </div>
-
-                  
                     <div class="leto-left leto-mb-sm">
-                         <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
-                     <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">RUNS WITH:</div--> <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
-                                    <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
-                                    <div>{{item}}</div>
-                                </div>
+                        <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
+                            <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">RUNS WITH:</div-->
+                            <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
+                                <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
+                                <div>{{item}}</div>
+                            </div>
                         </div>
                     </div>
-
-
                     <a class="leto-mh-sm">
                         <div class="leto-button">Coming soon</div>
                     </a>
-
                     <!--a class="leto-mh-sm">
                         Docs
                     </a-->
-
                 </div>
-
-
                 <div class="leto-group leto-horizontal-center leto-mt-xl">
-
                     <div class="leto-group leto-mt-xxl">
-                         <div class=" leto-text-xxl leto-text-center">
+                        <div class=" leto-text-xxl leto-text-center">
                             An abstract, open source JavaScript framework for real-life programming.
                         </div>
-                       
                     </div>
-
                     <br>
                 </div>
-
-
-                 <!--div class="leto-group leto-horizontal-center leto-mt-xl">
+                <!--div class="leto-group leto-horizontal-center leto-mt-xl">
 
                     <div class="leto-group leto-mt-xxl">
                           <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
@@ -102,16 +83,13 @@
                     <br>
 
                 </div-->
-
                 <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl">
-
-                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
-                <div class="leto-column leto-width-two-thirds leto-mt-xxl leto-ph-xl">
-                   
-                    <div class="leto-width-full">
-                        <pre style="border-radius: 10px">
+                    <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
+                        <div class="leto-column leto-width-two-thirds leto-mt-xxl leto-ph-xl">
+                            <div class="leto-width-full">
+                                <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-object({
+OBJY.object({
    name: "yogurt",
    properties: {
        expires: {
@@ -135,88 +113,62 @@ add object {
 
 </code>
 </pre>
-</div>
-                    </div>
-
-                    <div class="leto-width-third leto-mt-xxl">
-                        <div class="leto-mt-xl">
-
-                              <div class="leto-text-xl">Objects with <u>behaviour</u></div>
-
-                              <br>
-
-                              Represent anything with dynamic objects. Define behaviours to make them alive. OBJY will do the rest.
-                             
+                            </div>
+                        </div>
+                        <div class="leto-width-third leto-mt-xxl">
+                            <div class="leto-mt-xl">
+                                <div class="leto-text-xl">Objects with <u>behaviour</u></div>
+                                <br>
+                                Represent anything with dynamic objects. Define behaviours to make them alive. OBJY will do the rest.
+                            </div>
                         </div>
                     </div>
-            </div>
-
-</div>
-
-<br>
-
-
-
-<div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl">
-
-                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
-
-                    <div class="leto-width-third leto-mt-xxl">
-                        <div class="leto-mt-xl leto-vertical-right">
-
-                             <div class="leto-text-xl">Model pretty much anything</div>
-                             <br>
-                             Use standard JSON to model any object with simple attributes and time or event-driven behaviours.
-
+                </div>
+                <br>
+                <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl">
+                    <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
+                        <div class="leto-width-third leto-mt-xxl">
+                            <div class="leto-mt-xl leto-vertical-right">
+                                <div class="leto-text-xl">Adjustable Technologies</div>
+                                <br>
+                                Define, where your objects are stored, how they are processed and observed using an open and extendable mapper ecosystem.
+                            </div>
                         </div>
-                    </div>
-
-                    
-                <div class="leto-column leto-width-two-thirds leto-mt-xxl leto-ph-xl">
-                   
-                    <div class="leto-width-full" v-show="currentPreview==1">
-                        <pre style="border-radius: 10px">
+                        <div class="leto-column leto-width-two-thirds leto-mt-xxl leto-ph-xl">
+                            <div class="leto-width-full" v-show="currentPreview==1">
+                                <pre style="border-radius: 10px">
 <div class="leto-width-full">
 <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-object({
-    name: "Passport",
-    valid: true,
-    onChange: "if(!this.valid) email(...)"
-}).add()
+OBJY.define({
+    name: "asset",
+    pluralName: "assets",
+    storage: new MongoMapper('localhost'),
+    processor: new vmMapper()
+})
 
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
-add object {
-    name: "Yourt",
-    onChange: {
-        checkDate: {
-            value: "asf"
-        }
-    }
+define objectFamily {
+    name: "asset",
+    pluralName: "assets",
+    storage: new MongoMapper('localhost'),
+    processor: new vmMapper()
 }
 
 </code>
 </pre>
-</div>
-
+                            </div>
+                        </div>
                     </div>
-
-                 
+                </div>
             </div>
-
-            </div>
-
-        </div>
             <br>
-
-<div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl ">
-
-                            <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
-                <div class="leto-column leto-width-two-thirds leto-mt-xxl leto-ph-xl">
-                    
-                    <div class="leto-width-full">
-                        <pre style="border-radius: 10px">
+            <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl ">
+                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
+                    <div class="leto-column leto-width-two-thirds leto-mt-xxl leto-ph-xl">
+                        <div class="leto-width-full">
+                            <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
 object({name: 'Anakin'}).add()
 
@@ -238,91 +190,65 @@ delete object 123
 
 </code>
 </pre>
-</div>
+                        </div>
                     </div>
-
                     <div class="leto-width-third leto-mt-xxl">
                         <div class="leto-mt-xl">
-                              <div class="leto-text-xl">Works easily.<br> With the simple interface</div>
-                              <br>
-                              Create, Read, Update, Delete. The rest works automatically
+                            <div class="leto-text-xl">Works easily.<br> With a simple interface</div>
+                            <br>
+                            Create, Read, Update, Delete. That's all it takes, the rest is handled by OBJY
                         </div>
                     </div>
+                </div>
             </div>
-
-            </div>
-
-
-            <div class="leto-group leto-horizontal-center leto-vertical-center ">
-
+            <br>
+            <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt">
                 <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-vertical-center leto-mt-xl">
-
                     <div class="leto-width-full leto-mt-xxl">
                         <div class="leto-mt-lg leto-group leto-horizontal-center leto-vertical-center">
-                             <div class="leto-text-xl">Runs on...</div>
-                        </div>
-                        <div class="leto-mt leto-group leto-horizontal-center leto-vertical-center">
-                            <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
-                                <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-on:click="currentLang=item">
-                                    Node, Deno, Browser, CLI
-                                </div>
-                        </div>
-                        </div>
-                    </div>           
-            </div>
-
-        </div>
-
-         <br>
-
-            <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl">
-
-                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-vertical-center leto-mt-xl">
-
-                    <div class="leto-width-full leto-mt-xxl">
-                        <div class="leto-mt-lg leto-group leto-horizontal-center leto-vertical-center">
-                             <div class="leto-text-xl">+ more powerful, yet simple features</div>
+                            <div class="leto-text-xl">+ more powerful, yet simple features</div>
                         </div>
                         <div class="leto-mt leto-group leto-horizontal-center leto-vertical-center">
                             Inheritance, User management, Acces-control, Pluggable mappers (MDB, InMem, Redis), Custom actions
                         </div>
                     </div>
-
-           
+                </div>
             </div>
-
+            <div class="leto-container-full leto-p-xl ">
+                <div class="leto-group leto-horizontal-center">
+                    <div class="leto-button leto-ml-none">
+                        Coming Soon
+                    </div>
+                </div>
+            </div>
+            <div class="leto-group leto-horizontal-center leto-vertical-center ">
+                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-vertical-center leto-mt-xl">
+                    <div class="leto-width-full leto-mt-xl">
+                        <div class="leto-mt-lg leto-group leto-horizontal-center leto-vertical-center">
+                            <div class="leto-text-xl">Runs on...</div>
+                        </div>
+                        <div class="leto-mt leto-group leto-horizontal-center leto-vertical-center">
+                            <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
+                                <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-on:click="currentLang=item">
+                                    Node, Browser, CLI (coming soon)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        </div>
-
-
         <div class="leto-container-full leto-p-xl ">
-
             <div class="leto-group leto-horizontal-center">
-
-             <div class="leto-button leto-ml-none">
-                 Coming Soon <!--span class="leto-ml-xs fa fa-chevron-right"></span-->
-             </div>
-
-             <!--div class="leto-button">
-                 CLI<span class="leto-ml-xs fa fa-chevron-right"></span>
-             </div-->
-
-             <!--div class="leto-button">
-                 OBJY UI<span class="leto-ml-xs fa fa-chevron-right"></span>
-             </div-->
-
             </div>
-             
-            <div class="leto-text-xs leto-text-lighter-grey leto-p-xxl">OBJY is open source and released under the MIT License.</div>
+            <div class="leto-text-xs leto-text-lighter-grey leto-p-xxl">OBJY is open source and released under the MIT License. Copyright (c) OBJY collaborators</div>
+
         </div>
-
-
     </div>
-
-<script>
-hljs.initHighlightingOnLoad();
-</script>
+    <script>
+    hljs.initHighlightingOnLoad();
+    </script>
 </body>
 <script type="text/javascript" src="index.js"></script>
+
 </html>
