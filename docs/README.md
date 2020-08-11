@@ -169,5 +169,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Connect
 
 * [objy.io](https://objy.io) - OBJY's official website
-* [Twitter](https://www.twitter.com/objy7) - OBJY's Twitter
 
