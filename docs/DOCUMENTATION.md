@@ -1,47 +1,181 @@
-# OBJY
+# OBJY Documentation
 
-OBJY is an abstract domain specific language for real life programming.
-It has some simple concepts and is aimed to be used by developers as well as non-developers.
-
+Official Documentation of the OBJY framework. Here you will learn about the concepts of the framework as well as how to use them.
 
 
+# Prequesits
 
-# Getting started
+When reading this documentation, you should have installed OBJY as shown in the official [README](./README.md).
 
-## Installing
+
+# Object Families
+
+Before starting with OBJY, you'll need to define one or more Object Families. 
+An Object Family is a configuration, that is valid for all single objects that are part of the particular family.
+
+Object Families define important information, like the constructor for handling objects and the storage, processing and observation backends.
+
 
 ```javascript
-npm install objy
+OBY.define({
+	name: "object",
+	pluralName: "objects"
+})
+```
+
+# Object structure
+
+Every object, despite what object family it belongs to, is represented as JS object and has a basic structure
+
+```javascript
+{
+	/* Basic structure (always present) */
+	_id: "", // a unique id
+	name: "", // an object name
+	type: "", // a custom type
+	applications: [], // a list of apps that this object is available in
+	inherits: [], // a list of other object's ids that this object inherits from
+	properties: {}, // an object that holds all your custom properties
+	
+	/* Additions (only available when filled) */
+	permissions: {}, // permissions for access control
+	onCreate: {}, // an object for different action handlers
+	onchange: {}, // an object for different action handlers
+	onDelete: {}, // an object for different action handlers
+}
+```
+
+
+# Handling Objects
+
+Each Object Family introduces two constructors that are used as a wrappers for objects that are part of the family: a singular and a plural constructor.
+
+* ***singular constructors*** are for handling single objects
+* ***plural constructors*** are for handling multiple objects
+
+```javascript
+//single constructor
+OBJY.object(...)
+
+// plural constructor
+OBJY.objects(...)
+```
+
+## CRUD
+
+When it comes to working with objects, the basic operations you need are ***CRUD*** (Create, Read, Update, Delete)
+
+| Operation        | available for  | Explanation           | 
+| ------------- |-------------| -------------| 
+| `add(success, err)`      | singular + plural      | Adds one or more objects | 
+| `get(success, err)`      | singular + plural     | Gets one or more objects | 
+| `update(success, err)`     | singular       | Updates an object | 
+| `delete(success, err)`     | singular      | Deletes an object | 
+
+
+> Examples:
+
+```javascript
+// Add a single object
+OBJY.object({}).add()
+
+// Add multiple objects (array of objects)
+OBJY.objects([{},{}])
+
+// Get single object (by id)
+OBJY.object("ID").get();
+
+// Get multiple objects (using a json query)
+OBJY.objects({query}).get()
+
+// Update an object (by id)
+OBJY.object("ID").get(obj => {
+	obj.setName("Test").update()
+})
+
+// Delete an object (by id)
+OBJY.object("ID").delete()
+```
+
+## Object operations
+
+Each single object has some built-in functionality for it's definition.
+
+> Object functions can be chained!
+
+
+```javascript
+OBJY.object({})
+	.setName('hello')
+	.setType('world')
+	.update(obj => {})
+```
+
+
+### setName
+
+Sets the object's name
+
+```javascript
+/* takes a name as String*/
+OBJY.object({}).setName("test").update();
+```
+
+### setType
+
+Sets the object's type
+
+```javascript
+/* takes a type as String*/
+OBJY.object({}).setType("test").update();
+```
+
+### addApplication
+
+Adds an application that this object is available in
+
+```javascript
+/* takes an app identifier as String*/
+OBJY.object({}).addApplication("demo").update();
+```
+
+### removeApplication
+
+Removes an assigned application
+
+```javascript
+/* takes an app identifier as String*/
+OBJY.object({}).removeApplication("demo").update();
+```
+
+### addInherit
+
+```javascript
+/* takes an object id as String*/
+OBJY.object({}).addInherit("123").update();
+```
+
+### removeInherit
+
+```javascript
+/* takes an object id as String*/
+OBJY.object({}).removeInherit("123").update();
 ```
 
 
 
-# Programming concept
 
-In OBJY, everything is a dynamic object. Really everything!
-Objects are behaviour-driven. Meaning they can execute actions based upon time-, or event-driven events.
+Available Functions:
 
-
-```javascript
-objy.object({
-	_id: 123,
-	name: "Passport",
-    expires: { date: "20.20.20", action: "email or so"},
-    _onChange: { validate: "dsl..." }
-}).add()
-```
-
-
-# Objects
-
-Objects are the foundation of your applications. They represent entities, hold information, methods, listeners and events.
-
-Type | Description 
---------- | ------- 
-caracteristics | Dynamic information
-behaviours | time-, or event-driven actions
-actions | trigger-driven functions
-
+| Function        | params  | Explanation           | 
+| ------------- |-------------| -------------| 
+| `setName(name)`      | `name` = String     | Sets the object's name | 
+| `setType(type)`      | `type` = String     | Sets the object's type | 
+| `addApplication(app)`      | `app` = String  | Assignes the object to an app | 
+| `removeApplication(app)`      | `app` = String  | Removes the object to an app | 
+| `addInherit(id)`      | `id` = String  | Adds a template to inherit from |
+| `removeInherit(id)`      | `id` = String  | Removes the inherit |
+| `addProperty(name, content)`  | `name` = String, `content` = String\|Object  | Adds a property |
 
 
 # Simple API
