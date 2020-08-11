@@ -130,7 +130,7 @@ OBJY.define({
 	name: "object",
 	pluralName: "objects"
 	
-	// mappers (default mappers are already initialized)
+	// mappers
 	storage: {}, // defaults to "in memory"
 	processor: {}, // defaults to "eval"
 	observer: {} // defaults to "interval",
@@ -138,6 +138,8 @@ OBJY.define({
 	// + other optional options
 })
 ```
+
+> Default mappers are already initialized! If you'd like to work in memory, just ignore the mappers section
 
 ### Mapper types
 
