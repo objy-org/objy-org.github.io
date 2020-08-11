@@ -25,6 +25,8 @@ OBY.define({
 })
 ```
 
+## Dynamic Properties
+
 ## Inheritance
 
 ## Application Context
@@ -191,7 +193,7 @@ OBJY.object({}). addProperty("123")
 
 
 
-## Custom Properties
+## Dynamic Properties
 
 ...
 
