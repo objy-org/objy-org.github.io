@@ -136,6 +136,11 @@ OBJY.define({
 	observer: {} // defaults to "interval",
 	
 	// + other optional options
+	authable: false, // Defines wether objects in a family can have privileges for access control
+	templateFamily: null, // Defines which object family is the source for inheritence. Defaults to the own object family
+	staticProps: {}, // Defines static properties that are preset for all objects in the object family
+	staticFuncs: {}, // Defines static functions that are preset for all objects in the object family
+	hasAffects: false // Defines wether the object family serves as bucket for defining affectables
 })
 ```
 
@@ -149,15 +154,6 @@ OBJY.define({
 | `processor`      | Processor Mappers define, how object actions are executed. | 
 | `observer`      | Observer Mappers define, how object events are observed and time-based actions triggered. | 
 
-### Optional options
-
-| Option        | Explanation           | 
-| ------------- |-------------| 
-| `authable`      | Defines wether objects in a family can have privileges for access control | 
-| `templateFamily`      | Defines from which object family is the source for inheritence. Defaults to the own object family. |
-| `staticProps`      | Defines static properties that are preset for all objects in the object family. |
-| `staticFuncs`      | Defines static functions that are preset for all objects in the object family. |
-| `hasAffects`      | Defines wether the object family serves as bucket for defining affectables |
 
 
 ## Authors
