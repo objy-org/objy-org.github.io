@@ -1,6 +1,7 @@
 var app = new Vue({
   el: '#app',
   data: {
+  	showInstallInstructions: false,
     currentPreview: 1,
     currentLang: 'JS',
     langs: [/*'JS', 'CLI'*/],

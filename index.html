@@ -54,20 +54,39 @@
                             </div>
                         </div>
                     </div>
-                    <a class="leto-mh-sm">
-                        <div class="leto-button">Coming soon</div>
-                    </a>
+                    <div class="leto-mh-sm">
+                        <div class="leto-button leto-ml-none" v-on:click="showInstallInstructions = !showInstallInstructions">
+                            <span v-if="!showInstallInstructions">Install</span><span v-else>Close</span>
+                        </div>
+                    </div>
+                    <div class="leto-mh-sm">
+                        <a href="https://objy-org.github.io/docs" target="_blank" class="leto-button leto-ml-none">
+                            Docs <span class="fa fa-chevron-right leto-ml-xs"></span>
+                        </a>
+                    </div>
                     <!--a class="leto-mh-sm">
                         Docs
                     </a-->
                 </div>
                 <div class="leto-group leto-horizontal-center leto-mt-xl">
-                    <div class="leto-group leto-mt-xxl">
-                        <div class=" leto-text-xxl leto-text-center">
+                    <div class=" leto-mt-xxl">
+                        <div class=" leto-text-xxl leto-text-center" v-show="!showInstallInstructions">
                             An abstract, open source javascript framework for object programming.
                         </div>
+                        <div v-show="showInstallInstructions">
+                            
+                                <pre style="border-radius: 10px">
+<code class="javascript" style="font-size:20px;background:#232323;padding:20px" >npm install objy
+</code></pre>      
+
+<center> OR </center>
+
+                                <pre style="border-radius: 10px">
+<code class="javascript" style="font-size:20px;background:#232323;padding:20px" >&lt;script src="..." />
+</code></pre>               
+
+                        </div>
                     </div>
-                    <br>
                 </div>
                 <!--div class="leto-group leto-horizontal-center leto-mt-xl">
 
@@ -216,9 +235,9 @@ delete object 123
             </div>
             <div class="leto-container-full leto-p-xl ">
                 <div class="leto-group leto-horizontal-center">
-                    <div class="leto-button leto-ml-none">
-                        Coming Soon
-                    </div>
+                    <a href="https://objy-org.github.io/docs" target="_blank" class="leto-button leto-ml-none">
+                        Docs <span class="fa fa-chevron-right leto-ml-xs"></span>
+                    </a>
                 </div>
             </div>
             <div class="leto-group leto-horizontal-center leto-vertical-center ">
