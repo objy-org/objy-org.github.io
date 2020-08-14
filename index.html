@@ -56,7 +56,7 @@
                     </div>
                     <div class="leto-mh-sm">
                         <div class="leto-button leto-ml-none" v-on:click="showInstallInstructions = !showInstallInstructions">
-                            <span v-if="!showInstallInstructions">Install</span><span v-else>Close</span>
+                            <span v-if="!showInstallInstructions">Get it</span><span v-else>Close</span>
                         </div>
                     </div>
                     <div class="leto-mh-sm">
@@ -74,7 +74,8 @@
                             An abstract, open source javascript framework for object programming.
                         </div>
                         <div v-show="showInstallInstructions">
-                            
+
+<center> <h4>1. Install</h4> </center>
                                 <pre style="border-radius: 10px">
 <code class="javascript" style="font-size:20px;background:#232323;padding:20px" >npm install objy
 </code></pre>      
@@ -83,6 +84,18 @@
 
                                 <pre style="border-radius: 10px">
 <code class="javascript" style="font-size:20px;background:#232323;padding:20px" >&lt;script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js" />
+</code></pre>     
+
+<br><br>
+<center> <h4>2. Run</h4> </center>
+
+                                <pre style="border-radius: 10px">
+<code class="javascript" style="font-size:20px;background:#232323;padding:20px" >OBJY.define({
+    name: "object",
+    pluralName: "objects"
+});
+
+OBJY.object({name: "hello world"}).add()
 </code></pre>               
 
                         </div>
@@ -107,8 +120,7 @@
                         <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl leto-ph-xl">
                             <div class="leto-width-full">
                                 <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-OBJY.object({
+<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.object({
    name: "yogurt",
    properties: {
        expires: {
@@ -117,10 +129,8 @@ OBJY.object({
        }
     }
 }).add()
-
 </code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
-add object { 
+<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >add object { 
     name: "Yourt",
     properties: {
         expires: {
@@ -129,7 +139,6 @@ add object {
         }
     }
 }
-
 </code>
 </pre>
                             </div>
@@ -158,23 +167,19 @@ add object {
                                 <pre style="border-radius: 10px">
 <div class="leto-width-full">
 <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-OBJY.define({
+<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.define({
     name: "asset",
     pluralName: "assets",
     storage: new MongoMapper('localhost'),
     processor: new vmMapper()
 })
-
 </code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
-define objectFamily {
+<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >define objectFamily {
     name: "asset",
     pluralName: "assets",
     storage: new MongoMapper('localhost'),
     processor: new vmMapper()
 }
-
 </code>
 </pre>
                             </div>
@@ -188,25 +193,21 @@ define objectFamily {
                     <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl leto-ph-xl">
                         <div class="leto-width-full">
                             <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >
-object({name: 'Anakin'}).add()
+<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >object({name: 'Anakin'}).add()
 
 objects({name: 'Anakin'}).get()
 
 object({name: 'Anakin Skywalker'}).update()
 
 object("123").remove()
-
 </code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >
-add object {name: "Anything"}
+<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >add object {name: "Anything"}
 
 get objects {name: "Anything"}
 
 get object 123
 
 delete object 123
-
 </code>
 </pre>
                         </div>
