@@ -98,6 +98,37 @@ OBJY.object({name: "hello world"}).add()
                         </div>
                     </div>
                 </div>
+
+
+
+                 <div class="leto-group leto-horizontal-center ">
+                    <div class="leto-two-thirds leto-full-tablet-pc">
+                    <div class="leto-group leto-horizontal-center leto-mt-xl">
+                            <div class="leto-group leto-mt-xxl">
+                                  <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
+                                        <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
+                                        EXAMPLES:</div-->
+                                        <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="(item, i) in examples" v-on:click="currentExample=i">
+                                            <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentExample==i}"></div>
+                                            <div>{{item.name}}</div>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <br>
+
+                             </div>
+                        <div>
+
+<pre style="border-radius: 10px" class="leto-block leto-mt">
+<code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="examples[currentExample].code"></code></pre>               
+
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <!--div class="leto-group leto-horizontal-center leto-mt-xl">
 
                     <div class="leto-group leto-mt-xxl">
@@ -118,11 +149,10 @@ OBJY.object({name: "hello world"}).add()
                             <div class="leto-width-full">
                                 <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.object({
-   properties: {
-       expires: {
-          date: "2020-10-10",
-          action: "this.remove()"
-       }
+    ...
+    expires: {
+       date: "2020-10-10",
+       action: "this.remove()"
     }
 })
 </code>
@@ -152,7 +182,7 @@ OBJY.object({name: "hello world"}).add()
                     <div class="leto-wrap leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
                         <div class="leto-full leto-third-tablet-pc leto-mt-xxl">
                             <div class="leto-mt-xl leto-vertical-right">
-                                <div class="leto-text-xl">Define your own objects</div>
+                                <div class="leto-text-xl">Define your own object wrappers</div>
                                 <br>
                                 Define, where your objects are stored, how they are processed and observed using an open and extendable mapper ecosystem.
                             </div>
@@ -166,7 +196,8 @@ OBJY.object({name: "hello world"}).add()
     name: "asset",
     pluralName: "assets",
     storage: new MongoMapper('localhost'),
-    processor: new vmMapper()
+    processor: new vmMapper(),
+    observer: new intervalMapper()
 })
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >define objectFamily {
