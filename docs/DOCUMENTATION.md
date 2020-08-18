@@ -2,15 +2,11 @@
 
 Official Documentation of the OBJY framework. Here you will learn about the concepts of the framework as well as how to use them.
 
-
 # Prequesits
 
 When reading this documentation, you should have installed OBJY as shown in the official [README](./README.md).
 
-
-# Concepts
-
-## Object Families
+# Object Families
 
 Before starting with OBJY, you'll need to define one or more Object Families. 
 An Object Family is a configuration, that is valid for all single objects that are part of the particular family.
@@ -28,6 +24,9 @@ OBY.define({
 OBJY.object(...)
 OBJY.objects(...)
 ```
+
+
+# Objects
 
 ## Object structure
 
@@ -52,7 +51,6 @@ Every object, despite what object family it belongs to, is represented as JS obj
 ```
 
 
-# Handling Objects
 
 Each Object Family introduces two constructors that are used as a wrappers for objects that are part of the family: a singular and a plural constructor.
 
@@ -468,4 +466,4 @@ OBJY.define({
 ```
 
 
-# Mappers
+## Mappers
