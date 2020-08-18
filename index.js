@@ -19,7 +19,7 @@ var app = new Vue({
         examples: [
             { name: "Simple Object", code: `
 // 1. Create an object wrapper
-OBJY.define({name: "object",pluralName: "objects"});
+OBJY.define({name: "object", pluralName: "objects"});
 
 // 2. Add an object
 OBJY.object({
