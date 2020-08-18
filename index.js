@@ -65,15 +65,14 @@ OBJY.object({
             { name: "Inheritance", code: `
 // 1. Create an object that serves as a template
 OBJY.object({
+   _id: 123,
    name: "template",
    type: "whatever"
-}).add(templ => {
-   // templ._id = 123
-})
+}).add(templ => {})
 
 // 2. Add another object that inherits from the one above
 OBJY.object({inherits: [123]}).add(obj => {
-   // objy will look the same
+   // obj will look the same
 })
   	` },
 
