@@ -481,14 +481,35 @@ OBJY.object({}).removeProperty("123", 1.8)
 
 ## Handlers
 
-...
+Handlers can be used to automatically trigger an action when an object is created, changed or deleted.
+
+### setOnCreate
+
+Adds/Sets an onCreate handler
+
+```javascript
+/* takes the handler name and content as object */
+OBJY.object({}).setOnCreate("validate", {
+   value: "action code...",
+   trigger: "before" // defines wether the handler triggeres before or after the main operation
+}})
+```
+
+### removeOnCreate
+
+Removes an onCreate handler
+
+```javascript
+/* takes the handler name  */
+OBJY.object({}).removeOnCreate("validate")
+```
 
 ### setOnChange
 
 Adds/Sets an on change handler
 
 ```javascript
-/* takes the property name  */
+/* takes the handler name and content as object */
 OBJY.object({}).setOnChange("validate", {
    value: "action code...",
    trigger: "before" // defines wether the handler triggeres before or after the main operation
@@ -500,9 +521,31 @@ OBJY.object({}).setOnChange("validate", {
 Removes an on change handler
 
 ```javascript
-/* takes the property name  */
+/* takes the handler name  */
 OBJY.object({}).removeOnChange("validate")
 ```
+
+### setOnDelete
+
+Adds/Sets an onDelete handler
+
+```javascript
+/* takes the handler name and content as object */
+OBJY.object({}).setOnDelete("validate", {
+   value: "action code...",
+   trigger: "before" // defines wether the handler triggeres before or after the main operation
+}})
+```
+
+### removeOnDelete
+
+Removes an onDelete handler
+
+```javascript
+/* takes the handler name  */
+OBJY.object({}).removeOnDelete("validate")
+```
+
 
 
 ## Permissions
@@ -661,18 +704,83 @@ OBJY.define({
 
 OBJY comes with a mapper api that allows you to create your own mappers for different third-party systems, like databases, file systems, processing frameworks, ...
 
-### storage
+### Storage
 
-...
+```javascript
+var Mapper = function(OBJY, options) {
+
+   return Object.assign(new OBJY.StorageTemplate(OBJY, options), {
+
+      createClient: function(client, success, error) {
+
+      },
+
+      getDBByMultitenancy: function(client) {
+
+      },
+
+      listClients: function(success, error) {
+         
+      },
+
+      getById: function(id, success, error, app, client) {
+
+      },
+
+      getByCriteria: function(criteria, success, error, app, client, flags) {
+
+      },
+
+      count: function(criteria, success, error, app, client, flags) {
+
+      },
+
+      update: function(spooElement, success, error, app, client) {
+
+      },
+
+      add: function(spooElement, success, error, app, client) {
+
+      },
+
+      remove: function(spooElement, success, error, app, client) {
+
+      }
+   })
+}
+```
 
 
-### processor
+### Processor
 
-...
+```javascript
+Mapper = function(OBJY) {
+   return Object.assign(new OBJY.ProcessorTemplate(OBJY), {
+
+      execute: function(dsl, obj, prop, data, callback, client, app, user, options) {
+
+      }
+   })
+}
+```
+
 
 ### observer
 
-...
+```javascript
+Mapper = function(OBJY) {
+   return Object.assign(new OBJY.ObserverTemplate(OBJY), {
+   	
+      initialize: function(millis) {
+         
+      },
+
+      run: function(date) {
+
+      }
+   })
+}
+```
 
 
 
