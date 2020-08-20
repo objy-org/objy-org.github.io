@@ -261,6 +261,11 @@ Removes an inherit-relationship
 OBJY.object({}).removeInherit("123")
 ```
 
+## Affectables
+
+> This feature is coming soon!
+
+
 
 ## Dynamic Properties
 
@@ -770,7 +775,7 @@ Mapper = function(OBJY) {
 ```javascript
 Mapper = function(OBJY) {
    return Object.assign(new OBJY.ObserverTemplate(OBJY), {
-   	
+
       initialize: function(millis) {
          
       },
