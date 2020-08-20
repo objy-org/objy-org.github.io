@@ -713,7 +713,6 @@ OBJY comes with a mapper api that allows you to create your own mappers for diff
 
 ```javascript
 var Mapper = function(OBJY, options) {
-
    return Object.assign(new OBJY.StorageTemplate(OBJY, options), {
 
       createClient: function(client, success, error) {
@@ -761,7 +760,7 @@ var Mapper = function(OBJY, options) {
 ```javascript
 Mapper = function(OBJY) {
    return Object.assign(new OBJY.ProcessorTemplate(OBJY), {
-
+      
       execute: function(dsl, obj, prop, data, callback, client, app, user, options) {
 
       }
@@ -775,7 +774,6 @@ Mapper = function(OBJY) {
 ```javascript
 Mapper = function(OBJY) {
    return Object.assign(new OBJY.ObserverTemplate(OBJY), {
-
       initialize: function(millis) {
          
       },
