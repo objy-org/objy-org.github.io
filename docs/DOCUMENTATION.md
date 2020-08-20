@@ -131,26 +131,13 @@ OBJY.object(id).delete(callback);
 ```
 
 
-## Object parts and operations
-
-Each single object comes with some built-in functionalities for defining and changing it's own structure.
-
-
-> Object functions can be chained!
-
-```javascript
-OBJY.object({})
-	.setName('hello')
-	.setType('world')
-	.update(obj => {})
-```
-
 ## Basic information
 
 Every object has some basic attributes that are always present:
 
 ```javascript
 {
+   ...
    name: null,
    type: null
 }
@@ -195,11 +182,6 @@ An application context can be set using `OBJY.app(appName)`.
 ```javascript
 // Set the application context
 OBJY.app("demo");
-
-// When an object is created, the demo app will automatically be added to its list of assigned applications
-OBJY.object({}).add(obj => {
-	console.log(oby); // {_id: 123, applications: ["demo"], ...}
-})
 ```
 
 
@@ -419,20 +401,12 @@ Bags are nested properties and can even contain other bags. Instead of the value
 }
 ```
 
-### addProperty
+### addProperty (without type)
 
-> Properties are key/value pairs, stored in an object under `properties`. The value can either be a simple literal or an object containing a type and value.
-> The second variant is way more powerful, because you will have type checking, you can add property-permissions, handlers and more.
+Adds a simple property to an object
 
 ```javascript
-/* takes a name as string and content as object*/
-
-OBJY.object({}).addProperty("123", {
-   type: "number",
-   value: 2.5
-})
-
-// If you don't like a strict type, just use the literal:
+/* takes a name as string and content as literal*/
 
 OBJY.object({}).addProperty("123", 2.5)
 ```
@@ -440,20 +414,7 @@ OBJY.object({}).addProperty("123", 2.5)
 > If you are adding a sub property to a bag, access is done using `dot notation`:
 
 ```javascript
-OBJY.object({}).addProperty("myBag.subProp", {
-   type: "number",
-   value: 2.5
-})
-```
-
-
-### setPropertyValue
-
-Changes the value of a property
-
-```javascript
-/* takes the property name and new value*/
-OBJY.object({}).setPropertyValue("123", 1.8)
+OBJY.object({}).addProperty("myBag.subProp", 2.5)
 ```
 
 ### setProperty
@@ -470,6 +431,41 @@ OBJY.object({}).setProperty("123", {
 // If you are working with literals as value
 
 OBJY.object({}).setProperty("123", 1.8)
+```
+
+### addProperty (with type)
+
+Adds a compley property to an object
+
+> Properties are key/value pairs, stored in an object under `properties`. The value can either be a simple literal (like above) or an object containing a type and value.
+> The second variant is way more powerful, because you will have type checking, you can add property-permissions, handlers and more.
+
+```javascript
+/* takes a name as string and content as object*/
+
+OBJY.object({}).addProperty("123", {
+   type: "number",
+   value: 2.5
+})
+```
+
+> If you are adding a sub property to a bag, access is done using `dot notation`:
+
+```javascript
+OBJY.object({}).addProperty("myBag.subProp", {
+   type: "number",
+   value: 2.5
+})
+```
+
+
+### setPropertyValue
+
+Changes the value of a property. 
+
+```javascript
+/* takes the property name and new value*/
+OBJY.object({}).setPropertyValue("123", 1.8)
 ```
 
 
@@ -548,7 +544,7 @@ On the other side of a permission, objects can be used as users that can access 
 OBJY.define({
 	name: "user",
 	pluralName: "users",
-	authable: true
+	authable: true // Set this to true
 })
 
 // objects from families with the authable flag = true have the following additional attributes:
@@ -568,7 +564,68 @@ OBJY.define({
 ```
 
 
-## Mappers
+### setUsername
+
+Sets the username. The username will be used for authentication
+
+```javascript
+/* takes a username as string*/
+OBJY.object({}).setUsername("peter")
+```
+
+
+### setEmail
+
+Sets the email. The email will be used for authentication
+
+```javascript
+/* takes an email as string*/
+OBJY.object({}).setEmail("peter@griffin.com")
+```
+
+### addPrivilege
+
+> Can only be used when working in an app context
+
+Adds a privilege (role name).
+
+```javascript
+/* takes a privilege name as string*/
+OBJY.object({}).addPrivilege("admin")
+```
+
+> ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
+
+```javascript
+OBJY.useApp("demo"):
+
+OBJY.object({}).addPrivilege("admin")
+
+/*
+ {
+ 	...
+ 	privileges: {
+ 		demo: [{name: admin}]
+ 	}
+ }
+ */
+```
+
+### removePrivilege
+
+> Can only be used when working in an app context
+
+Removes a privilege (role name).
+
+```javascript
+OBJY.useApp("demo");
+
+/* takes a privilege name as string*/
+OBJY.object({}).removePrivilege("admin")
+```
+
+
+# Mappers
 
 Mappers can be used do define where objects inside a particular wrapper are persisted, processed and observed.
 
@@ -596,24 +653,24 @@ OBJY.define({
 | `observer`    | Observer Mappers define, how object events are observed and time-based actions triggered. | 
 
 
-### Use existing mappers
+## Use existing mappers
 
 ...
 
-### Develop custom mappers
+## Develop custom mappers
 
 OBJY comes with a mapper api that allows you to create your own mappers for different third-party systems, like databases, file systems, processing frameworks, ...
 
-***storage***
+### storage
 
 ...
 
 
-***processor***
+### processor
 
 ...
 
-***observer***
+### observer
 
 ...
 
