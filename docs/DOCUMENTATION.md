@@ -289,7 +289,7 @@ Each object can have custom, dynamic properties, that bring an object to life. T
 Properties can have any of the following types:
 
 * `shortText` a string with up to 255 chars
-* `longText` a string with up more than 255 charsy
+* `longText` a string with up more than 255 chars
 * `number` a number (decimal or non-decimal)
 * `boolean` a boolean value (true or false)
 * `date` an ISO8601 date string
@@ -319,7 +319,7 @@ Properties can have any of the following types:
 }
 ```
 
-### numbery
+### number
 
 ```javascript
 {
