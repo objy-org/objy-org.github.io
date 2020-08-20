@@ -1,6 +1,6 @@
 # OBJY
 
-An object-driven, cross-platform programming framework, written in JavaScript, that uses behaviour-driven objects for modelling use cases.
+An object-driven, cross-platform JS programming framework, that uses behaviour-driven objects for abstract development.
 
 ![OBJY LOGO](https://objy-org.github.io/logo.png "OBJY")
 
@@ -17,7 +17,7 @@ npm install objy
 ### Browser
 
 ```html
-<script src="https://raw.githubusercontent.com/objy-org/objy/dev/dist/browser.js">
+<script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js">
 ```
 
 
@@ -26,15 +26,15 @@ npm install objy
 
 Programming on OBJY is done in two simple steps:
 
-1. Define an Object Family (a bucket of objects) an choose how objects in this family are stored, processed and observed.
+1. Define an object wrapper (a bucket of objects) an choose how objects in this wrapper are stored, processed and observed.
 2. Build and handle objects and tell them what to do.
 
 
-### Object Family
+### Object Wrappers
 
 ```javascript
 
-//Define Object Family
+// Define an object wrapper
 
 OBJY.define({
 	name: "object", // singular constructor name
@@ -51,7 +51,7 @@ OBJY.objects() // as wrapper for multiple objects
 
 ```javascript
 
-//Build an object
+// Build an object
 
 OBJY.object({
    name: "Passport",
@@ -66,13 +66,14 @@ OBJY.object({
 
 ```javascript
 
-//Build an object
+// Build an object
 
 OBJY.object({
-   ...
-   warnMe: {
-      date: "2020-10-05",
-      action: "email('expiring soon!')"
+   properties: {
+      warnMe: {
+         date: "2020-10-05",
+         action: "email('expiring soon!')"
+      },
    },
    onChange: "if(this.number.length == 0) return;"
 })
@@ -122,7 +123,7 @@ OBJY.object(id).delete(callback);
 
 ## Customize
 
-Objects can be very different in their nature. Some objects are big, some are small, some are produced very vast, some not so fast. When you define an object family, you can tell OBJY where objects in this family are stored, how they are processed and observed, along with other options.
+Objects can be very different in their nature. Some objects are big, some are small, some are produced very vast, some not so fast. When you define an object wrapper, you can tell OBJY where objects in this wrapper are stored, how they are processed and observed, along with other options.
 
 ```javascript
 OBJY.define({
@@ -148,11 +149,11 @@ OBJY.define({
 
 ### Mapper types
 
-| Type        | Explanation           | 
+| Type        | Explanation  | 
 | ------------- |-------------| 
-| `storage`      | Storage mappers can be plugged in to define where and how objects in an object family are persistent. | 
-| `processor`      | Processor Mappers define, how object actions are executed. | 
-| `observer`      | Observer Mappers define, how object events are observed and time-based actions triggered. | 
+| `storage`     | Storage mappers can be plugged in to define where and how objects in an object family are persistent. | 
+| `processor`   | Processor Mappers define, how object actions are executed. | 
+| `observer`    | Observer Mappers define, how object events are observed and time-based actions triggered. | 
 
 
 
@@ -162,9 +163,11 @@ OBJY.define({
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/objy-org/objy/blob/master/LICENSE.md) file for details.
 
 ## Connect
 
 * [objy.io](https://objy.io) - OBJY's official website
+* [GitHub](https://github.com/objy-org) - OBJY on Github
+* [npm](https://www.npmjs.com/package/objy) - OBJY on npm
 
