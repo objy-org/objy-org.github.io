@@ -17,70 +17,77 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-            { name: "Simple Object", code: `
-// 1. Create an object wrapper
-OBJY.define({name: "object", pluralName: "objects"});
+         { name: "Events", code: `
+/*
+ *  Create an object that executes a custom action at a specific time 
+ */
 
-// 2. Add an object
-OBJY.object({
-   name: "yogurt"
-}).add()
-  	` },
-            { name: "Behaviours", code: `
 OBJY.object({
    name: "yogurt",
    properties: {
-   	expires: {
-   	  type: "event",
-   	  date: "20-20-2020",
-   	  action: "..." // This action will be triggered on that date
-   	}
+    expires: {
+      type: "event",
+      date: "20-20-2020",
+      action: "..." 
+    }
    }
 }).add()
-  	` },
-            { name: "Events", code: `
+    ` },
+                      
+            { name: "Behaviours", code: `
+/*
+ *  Create an object that executes a custom action when the object is changed
+ */
+
 OBJY.object({
    name: "yogurt",
    onChange: {
-   	  notify: {
-   	    action: "email('i have changed')"
-   	  }
-   },
-   onDelete: {
-   	  notify: {
-   	    action: "OBJY.object(this).add()"
-   	  }
+     notify: {
+       action: "email('i have changed')"
+     }
    }
 }).add()
   	` },
-            { name: "Interface", code: `
+            { name: "Object API", code: `
+/*
+ *  A simple fluent interface makes handling objects very simple
+ */
+
 OBJY.object({
    name: "yogurt",
 }).addProperty('flavour', {
    type: "text",
    value: "vanilla"
-})
+}).setType('product').save()
   	` },
 
             { name: "Inheritance", code: `
-// 1. Create an object that serves as a template
+/*
+ *  Objects can inherit from each other.
+ */
+
 OBJY.object({
    _id: 123,
    name: "template",
    type: "whatever"
 }).add(templ => {})
 
-// 2. Add another object that inherits from the one above
 OBJY.object({inherits: [123]}).add(obj => {
    // obj will look the same
 })
   	` },
 
             { name: "Customize", code: `
+/*
+ *  Custom object wrappers can be created. Define how objects are handled internaly
+ */
+
 OBJY.define({
-  name: "item",
-  pluralName: "items",
-  storage: new MongoMapper('...')
+  name: "item", // singular name of object wrapper
+  pluralName: "items", // plural name of object wrapper for bulk operations
+  storage: new MongoMapper('...'), // where objects are stored
+  processor: new vm2Mapper('...'), // where objects actions are processed
+  observer: new intervalMapper('...') // how object events are observed
 })
   	` },
 

@@ -6,12 +6,12 @@ Official Documentation of the OBJY framework. Here you will learn about the conc
 
 When reading this documentation, you should have installed OBJY as shown in the official [README](./README.md).
 
-# Object Families
+# Object Wrappers
 
-Before starting with OBJY, you'll need to define one or more Object Families. 
-An Object Family is a configuration, that is valid for all single objects that are part of the particular family.
+Before starting with OBJY, you'll need to define one or more Object Wrappers. 
+An Object Wrapper is a configuration, that is valid for all single objects that are part of the particular wrapper.
 
-Object Families define important information, like the constructor for handling objects and the storage, processing and observation backends.
+Object Wrappers define important information, like the constructor for handling objects and the storage, processing and observation backends.
 
 
 ```javascript
@@ -20,7 +20,8 @@ OBY.define({
 	pluralName: "objects"
 })
 
-// once defined, objects in this object family can be wrapped with:
+// once defined, objects in this object wrapper can be wrapped with:
+
 OBJY.object(...)
 OBJY.objects(...)
 ```
@@ -74,6 +75,8 @@ OBJY.objects([
 ])
 ```
 
+
+
 ## CRUD
 
 When it comes to working with objects, the basic operations you need are ***CRUD*** (Create, Read, Update, Delete)
@@ -86,54 +89,66 @@ When it comes to working with objects, the basic operations you need are ***CRUD
 | `delete(success, err)`     | singular      | Deletes an object | 
 
 
-> Examples:
+### Add
 
 ```javascript
-// Add a single object
-OBJY.object({}).add()
+// add one
+OBJY.object({}).add(callback);
 
-// Add multiple objects (array of objects)
-OBJY.objects([{},{}])
+// add multiple
+OBJY.objects([{}],[{}]).add(callback);
+```
 
-// Get single object (by id)
-OBJY.object("ID").get();
+### Get one
+```javascript
+OBJY.object(id).get(callback);
+```
 
-// Get multiple objects (using a json query)
-OBJY.objects({query}).get()
+### Query
 
-// Update an object (by id)
-OBJY.object("ID").get(obj => {
-	obj.setName("Test").update()
-})
+```javascript
+OBJY.objects({type:'example', 'properties.expired' : false}).get(callback);
+```
 
-// Delete an object (by id)
-OBJY.object("ID").delete()
+### Update
+
+```javascript
+// update one
+OBJY.object(id)
+   .setPropertyValue('expired', false)
+   .addProperty('open', false).
+   .save(callback)
+
+// replace one
+OBJY.Object(id).replace(newObject).save(callback);
+```
+
+### Delete
+
+```javascript
+// delete one
+OBJY.object(id).delete(callback);
 ```
 
 
+## Basic information
 
-## Object operations
-
-Each single object comes with some built-in functionalities for defining it's own nature.
-
-
-> Object functions can be chained!
-
+Every object has some basic attributes that are always present:
 
 ```javascript
-OBJY.object({})
-	.setName('hello')
-	.setType('world')
-	.update(obj => {})
+{
+   ...
+   name: null,
+   type: null
+}
 ```
-
 
 ### setName
 
 Sets the object's name
 
 ```javascript
-/* takes a name as String*/
+/* takes a name as string*/
 OBJY.object({}).setName("test")
 ```
 
@@ -142,16 +157,40 @@ OBJY.object({}).setName("test")
 Sets the object's type
 
 ```javascript
-/* takes a type as String*/
+/* takes a type as string*/
 OBJY.object({}).setType("test")
 ```
+
+## Applications
+
+Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
+
+```javascript
+{
+	_id: 123,
+	applications: ["appOne", "appTwo"],
+	...
+}
+```
+
+An application context can be set using `OBJY.app(appName)`.
+
+> When you are in an app context, everything you do is restricted to that context. E.g. when you add an object, it will be assigned to that app or when your query for objects, you will only get results that are assigned to the current app.
+
+
+
+```javascript
+// Set the application context
+OBJY.app("demo");
+```
+
 
 ### addApplication
 
 Adds an application that this object is available in
 
 ```javascript
-/* takes an app identifier as String*/
+/* takes an app identifier as string*/
 OBJY.object({}).addApplication("demo")
 ```
 
@@ -160,8 +199,48 @@ OBJY.object({}).addApplication("demo")
 Removes an assigned application
 
 ```javascript
-/* takes an app identifier as String*/
+/* takes an app identifier as string*/
 OBJY.object({}).removeApplication("demo")
+```
+
+## Inheritance
+
+Objects can inherit attributes from other objects. This is useful for creating templates or reusing patterns.
+Each object has the `inherits` attribute, in which the id's of the objects to inherits from are defined.
+
+```javascript
+// This is used as a template
+OBJY.object({
+	_id: "321",
+	name: "carTemplate", 
+	properties: {
+		color: {
+			type: "shortText",
+			value: "red"
+		}
+	}
+})
+
+// Create an object that inherits from the template above.
+// Any attribute missing here, will be added from the template
+OBJY.object({
+	inherits: ["321"],
+	name: "car"
+}).add(obj => {
+	console.log(obj);
+	/*
+		{
+			name: "car",
+			properties: {
+				color: {
+					type: "shortText",
+					value: "red",
+					template: "321" // this tells you when an attribute is inherited with the template id.
+				}
+			}
+		}
+	*/
+})
 ```
 
 ### addInherit
@@ -169,7 +248,7 @@ OBJY.object({}).removeApplication("demo")
 Adds another object to inherit from
 
 ```javascript
-/* takes an object id as String*/
+/* takes an object id as string*/
 OBJY.object({}).addInherit("123")
 ```
 
@@ -178,20 +257,13 @@ OBJY.object({}).addInherit("123")
 Removes an inherit-relationship
 
 ```javascript
-/* takes an object id as String*/
+/* takes an object id as string*/
 OBJY.object({}).removeInherit("123")
 ```
 
-### addProperty
+## Affectables
 
-
-```javascript
-/* takes a name as string and content as Object*/
-OBJY.object({}). addProperty("123")
-```
-
-
-...
+> This feature is coming soon!
 
 
 
@@ -217,7 +289,7 @@ Each object can have custom, dynamic properties, that bring an object to life. T
 Properties can have any of the following types:
 
 * `shortText` a string with up to 255 chars
-* `longText`a string with up more than 255 chars
+* `longText` a string with up more than 255 chars
 * `number` a number (decimal or non-decimal)
 * `boolean` a boolean value (true or false)
 * `date` an ISO8601 date string
@@ -281,7 +353,6 @@ Properties can have any of the following types:
 ```
 
 
-
 ### date
 
 ```javascript
@@ -335,80 +406,154 @@ Bags are nested properties and can even contain other bags. Instead of the value
 }
 ```
 
-## Application Context
+### addProperty (without type)
 
-> This is an optional feature
-
-Each object can be assigned to one or more applications, by defining the `applications` attribute.
+Adds a simple property to an object
 
 ```javascript
-{
-	_id: 123,
-	applications: ["appOne", "appTwo"],
-	...
-}
+/* takes a name as string and content as literal*/
+
+OBJY.object({}).addProperty("123", 2.5)
 ```
 
-An application context can be set using `OBJY.app(appName)`.
-
-> When you are in an app context, everything you do is restricted to that context. E.g. when you add an object, it will be assigned to that app or when your query for objects, you will only get results that are assigned to the current app.
-
-
+> If you are adding a sub property to a bag, access is done using `dot notation`:
 
 ```javascript
-// Set the application context
-OBJY.app("demo");
+OBJY.object({}).addProperty("myBag.subProp", 2.5)
+```
 
-// When an object is created, the demo app will automatically be added to its list of assigned applications
-OBJY.object({}).add(obj => {
-	console.log(oby); // {_id: 123, applications: ["demo"], ...}
+### setProperty
+
+Replaces the content of a property
+
+```javascript
+/* takes the property name and new content*/
+OBJY.object({}).setProperty("123", {
+   type: "number",
+   value: 1.8
+})
+
+// If you are working with literals as value
+
+OBJY.object({}).setProperty("123", 1.8)
+```
+
+### addProperty (with type)
+
+Adds a compley property to an object
+
+> Properties are key/value pairs, stored in an object under `properties`. The value can either be a simple literal (like above) or an object containing a type and value.
+> The second variant is way more powerful, because you will have type checking, you can add property-permissions, handlers and more.
+
+```javascript
+/* takes a name as string and content as object*/
+
+OBJY.object({}).addProperty("123", {
+   type: "number",
+   value: 2.5
 })
 ```
 
-## Inheritance
-
-
-Objects can inherit attributes from other objects. This is useful for creating templates or reusing patterns.
-Each object has the `inherits` attribute, in which the id's of the objects to inherits from are defined.
+> If you are adding a sub property to a bag, access is done using `dot notation`:
 
 ```javascript
-// This is used as a template
-OBJY.object({
-	_id: "321",
-	name: "carTemplate", 
-	properties: {
-		color: {
-			type: "shortText",
-			value: "red"
-		}
-	}
-})
-
-// Create an object that inherits from the template above.
-// Any attribute missing here, will be added from the template
-OBJY.object({
-	inherits: ["321"],
-	name: "car"
-}).add(obj => {
-	console.log(obj);
-	/*
-		{
-			name: "car",
-			properties: {
-				color: {
-					type: "shortText",
-					value: "red",
-					template: "321" // this tells you when an attribute is inherited with the template id.
-				}
-			}
-		}
-	*/
+OBJY.object({}).addProperty("myBag.subProp", {
+   type: "number",
+   value: 2.5
 })
 ```
 
-## User Context and Permissions
 
-> This is optional!
+### setPropertyValue
+
+Changes the value of a property. 
+
+```javascript
+/* takes the property name and new value*/
+OBJY.object({}).setPropertyValue("123", 1.8)
+```
+
+
+### removeProperty
+
+Removes a property from an object
+
+```javascript
+/* takes the property name  */
+OBJY.object({}).removeProperty("123", 1.8)
+```
+
+
+## Handlers
+
+Handlers can be used to automatically trigger an action when an object is created, changed or deleted.
+
+### setOnCreate
+
+Adds/Sets an onCreate handler
+
+```javascript
+/* takes the handler name and content as object */
+OBJY.object({}).setOnCreate("validate", {
+   value: "action code...",
+   trigger: "before" // defines wether the handler triggeres before or after the main operation
+}})
+```
+
+### removeOnCreate
+
+Removes an onCreate handler
+
+```javascript
+/* takes the handler name  */
+OBJY.object({}).removeOnCreate("validate")
+```
+
+### setOnChange
+
+Adds/Sets an on change handler
+
+```javascript
+/* takes the handler name and content as object */
+OBJY.object({}).setOnChange("validate", {
+   value: "action code...",
+   trigger: "before" // defines wether the handler triggeres before or after the main operation
+}})
+```
+
+### removeOnChange
+
+Removes an on change handler
+
+```javascript
+/* takes the handler name  */
+OBJY.object({}).removeOnChange("validate")
+```
+
+### setOnDelete
+
+Adds/Sets an onDelete handler
+
+```javascript
+/* takes the handler name and content as object */
+OBJY.object({}).setOnDelete("validate", {
+   value: "action code...",
+   trigger: "before" // defines wether the handler triggeres before or after the main operation
+}})
+```
+
+### removeOnDelete
+
+Removes an onDelete handler
+
+```javascript
+/* takes the handler name  */
+OBJY.object({}).removeOnDelete("validate")
+```
+
+
+
+## Permissions
 
 Each object can have permissions (optional) for access control. Permissions are mounted under the `permissions` attribute and are structured with the role name as key and an object with a value for permission codes: `{admin: {value: "*"}}`
 
@@ -439,14 +584,15 @@ Available permission codes:
 * `d` Delete
 
 
+## Authable objects (e.g. users)
 
-On the other side, objects can be used as users that can access other objects. To make certain objects authable, set the `authable` flag wehen defining the object family:
+On the other side of a permission, objects can be used as users that can access other objects. To make certain objects authable, set the `authable` flag wehen defining the object family:
 
 ```javascript
 OBJY.define({
 	name: "user",
 	pluralName: "users",
-	authable: true
+	authable: true // Set this to true
 })
 
 // objects from families with the authable flag = true have the following additional attributes:
@@ -466,4 +612,178 @@ OBJY.define({
 ```
 
 
-## Mappers
+### setUsername
+
+Sets the username. The username will be used for authentication
+
+```javascript
+/* takes a username as string*/
+OBJY.object({}).setUsername("peter")
+```
+
+
+### setEmail
+
+Sets the email. The email will be used for authentication
+
+```javascript
+/* takes an email as string*/
+OBJY.object({}).setEmail("peter@griffin.com")
+```
+
+### addPrivilege
+
+> Can only be used when working in an app context
+
+Adds a privilege (role name).
+
+```javascript
+/* takes a privilege name as string*/
+OBJY.object({}).addPrivilege("admin")
+```
+
+> ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
+
+```javascript
+OBJY.useApp("demo"):
+
+OBJY.object({}).addPrivilege("admin")
+
+/*
+ {
+ 	...
+ 	privileges: {
+ 		demo: [{name: admin}]
+ 	}
+ }
+ */
+```
+
+### removePrivilege
+
+> Can only be used when working in an app context
+
+Removes a privilege (role name).
+
+```javascript
+OBJY.useApp("demo");
+
+/* takes a privilege name as string*/
+OBJY.object({}).removePrivilege("admin")
+```
+
+
+# Mappers
+
+Mappers can be used do define where objects inside a particular wrapper are persisted, processed and observed.
+
+
+```javascript
+OBJY.define({
+	name: "object",
+	pluralName: "objects"
+	
+	// mappers
+	storage: {}, // defaults to "in memory"
+	processor: {}, // defaults to "eval"
+	observer: {} // defaults to "interval",
+})
+```
+
+> Default mappers are already initialized! If you'd like to work in memory, just ignore the mappers section
+
+> Mapper types
+
+| Type        | Explanation  | 
+| ------------- |-------------| 
+| `storage`     | Storage mappers can be plugged in to define where and how objects in an object family are persistent. | 
+| `processor`   | Processor Mappers define, how object actions are executed. | 
+| `observer`    | Observer Mappers define, how object events are observed and time-based actions triggered. | 
+
+
+## Use existing mappers
+
+...
+
+## Develop custom mappers
+
+OBJY comes with a mapper api that allows you to create your own mappers for different third-party systems, like databases, file systems, processing frameworks, ...
+
+### Storage
+
+```javascript
+var Mapper = function(OBJY, options) {
+   return Object.assign(new OBJY.StorageTemplate(OBJY, options), {
+
+      createClient: function(client, success, error) {
+
+      },
+
+      getDBByMultitenancy: function(client) {
+
+      },
+
+      listClients: function(success, error) {
+         
+      },
+
+      getById: function(id, success, error, app, client) {
+
+      },
+
+      getByCriteria: function(criteria, success, error, app, client, flags) {
+
+      },
+
+      count: function(criteria, success, error, app, client, flags) {
+
+      },
+
+      update: function(spooElement, success, error, app, client) {
+
+      },
+
+      add: function(spooElement, success, error, app, client) {
+
+      },
+
+      remove: function(spooElement, success, error, app, client) {
+
+      }
+   })
+}
+```
+
+
+### Processor
+
+```javascript
+Mapper = function(OBJY) {
+   return Object.assign(new OBJY.ProcessorTemplate(OBJY), {
+      
+      execute: function(dsl, obj, prop, data, callback, client, app, user, options) {
+
+      }
+   })
+}
+```
+
+
+### observer
+
+```javascript
+Mapper = function(OBJY) {
+   return Object.assign(new OBJY.ObserverTemplate(OBJY), {
+      initialize: function(millis) {
+         
+      },
+
+      run: function(date) {
+
+      }
+   })
+}
+```
+
+
+
