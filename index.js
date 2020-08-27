@@ -48,7 +48,7 @@ OBJY.object({
    }
 }).add()
   	` },
-            { name: "Object API", code: `
+            { name: "Fluent API", code: `
 /*
  *  A simple fluent interface makes handling objects very simple
  */
