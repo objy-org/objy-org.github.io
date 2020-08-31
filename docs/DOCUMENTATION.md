@@ -27,9 +27,7 @@ OBJY.objects(...)
 ```
 
 
-# Objects
-
-## Object structure
+# Object structure
 
 Every object, despite what object family it belongs to, is represented as JS object and has a basic structure
 
@@ -77,7 +75,7 @@ OBJY.objects([
 
 
 
-## CRUD
+# CRUD
 
 When it comes to working with objects, the basic operations you need are ***CRUD*** (Create, Read, Update, Delete)
 
@@ -89,7 +87,7 @@ When it comes to working with objects, the basic operations you need are ***CRUD
 | `delete(success, err)`     | singular      | Deletes an object | 
 
 
-### Add
+## Add
 
 ```javascript
 // add one
@@ -99,18 +97,18 @@ OBJY.object({}).add(callback);
 OBJY.objects([{}],[{}]).add(callback);
 ```
 
-### Get one
+## Get one
 ```javascript
 OBJY.object(id).get(callback);
 ```
 
-### Query
+## Query
 
 ```javascript
 OBJY.objects({type:'example', 'properties.expired' : false}).get(callback);
 ```
 
-### Update
+## Update
 
 ```javascript
 // update one
@@ -123,7 +121,7 @@ OBJY.object(id)
 OBJY.Object(id).replace(newObject).save(callback);
 ```
 
-### Delete
+## Delete
 
 ```javascript
 // delete one
@@ -131,7 +129,7 @@ OBJY.object(id).delete(callback);
 ```
 
 
-## Basic information
+# Basic information
 
 Every object has some basic attributes that are always present:
 
@@ -143,7 +141,7 @@ Every object has some basic attributes that are always present:
 }
 ```
 
-### setName
+## setName
 
 Sets the object's name
 
@@ -152,7 +150,7 @@ Sets the object's name
 OBJY.object({}).setName("test")
 ```
 
-### setType
+## setType
 
 Sets the object's type
 
@@ -161,7 +159,7 @@ Sets the object's type
 OBJY.object({}).setType("test")
 ```
 
-## Applications
+# Applications
 
 Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
 
@@ -185,7 +183,7 @@ OBJY.app("demo");
 ```
 
 
-### addApplication
+## addApplication
 
 Adds an application that this object is available in
 
@@ -194,7 +192,7 @@ Adds an application that this object is available in
 OBJY.object({}).addApplication("demo")
 ```
 
-### removeApplication
+## removeApplication
 
 Removes an assigned application
 
@@ -203,7 +201,7 @@ Removes an assigned application
 OBJY.object({}).removeApplication("demo")
 ```
 
-## Inheritance
+# Inheritance
 
 Objects can inherit attributes from other objects. This is useful for creating templates or reusing patterns.
 Each object has the `inherits` attribute, in which the id's of the objects to inherits from are defined.
@@ -243,7 +241,7 @@ OBJY.object({
 })
 ```
 
-### addInherit
+## addInherit
 
 Adds another object to inherit from
 
@@ -252,7 +250,7 @@ Adds another object to inherit from
 OBJY.object({}).addInherit("123")
 ```
 
-### removeInherit
+## removeInherit
 
 Removes an inherit-relationship
 
@@ -261,13 +259,26 @@ Removes an inherit-relationship
 OBJY.object({}).removeInherit("123")
 ```
 
-## Affectables
+# Affectables
 
-> This feature is coming soon!
+Affectables are rules that can simply be applied to objects with a matching criteria.
+
+```javascript
+OBJY.affectables = [{
+	_id: 123,
+	affects: { // define a query (match the objects that you want to use the rules on)
+		type: 'car'
+	}, 
+	applies: { // this part will be logically added to any object matching the criteria, when performing an operation on an object
+
+	}
+}]
+```
+
+> This feature is currently experimental
 
 
-
-## Dynamic Properties
+# Dynamic Properties
 
 Each object can have custom, dynamic properties, that bring an object to life. They are mounted to the `properties` attribute on an object and are structured with the name as key and an object containing the property type and value: `{propName: {type: "", value: ""}}`.
 
@@ -297,7 +308,7 @@ Properties can have any of the following types:
 * `event` a time-based event that is observed in the background
 * `bag` nested properties
 
-### shortText
+## shortText
 
 ```javascript
 {
@@ -308,7 +319,7 @@ Properties can have any of the following types:
 }
 ```
 
-### longText
+## longText
 
 ```javascript
 {
@@ -319,7 +330,7 @@ Properties can have any of the following types:
 }
 ```
 
-### number
+## number
 
 ```javascript
 {
@@ -330,7 +341,7 @@ Properties can have any of the following types:
 }
 ```
 
-### boolean
+## boolean
 
 ```javascript
 {
@@ -341,7 +352,7 @@ Properties can have any of the following types:
 }
 ```
 
-### action
+## action
 
 ```javascript
 {
@@ -353,7 +364,7 @@ Properties can have any of the following types:
 ```
 
 
-### date
+## date
 
 ```javascript
 {
@@ -364,7 +375,7 @@ Properties can have any of the following types:
 }
 ```
 
-### event
+## event
 
 Date properties can either have a strict `date` or an `interval`
 
@@ -383,7 +394,7 @@ Date properties can either have a strict `date` or an `interval`
 }
 ```
 
-### bag
+## bag
 
 Bags are nested properties and can even contain other bags. Instead of the value attrubte, they have `properties`
 
@@ -406,7 +417,7 @@ Bags are nested properties and can even contain other bags. Instead of the value
 }
 ```
 
-### addProperty (without type)
+## addProperty (without type)
 
 Adds a simple property to an object
 
@@ -422,7 +433,7 @@ OBJY.object({}).addProperty("123", 2.5)
 OBJY.object({}).addProperty("myBag.subProp", 2.5)
 ```
 
-### setProperty
+## setProperty
 
 Replaces the content of a property
 
@@ -438,7 +449,7 @@ OBJY.object({}).setProperty("123", {
 OBJY.object({}).setProperty("123", 1.8)
 ```
 
-### addProperty (with type)
+## addProperty (with type)
 
 Adds a compley property to an object
 
@@ -464,7 +475,7 @@ OBJY.object({}).addProperty("myBag.subProp", {
 ```
 
 
-### setPropertyValue
+## setPropertyValue
 
 Changes the value of a property. 
 
@@ -474,7 +485,7 @@ OBJY.object({}).setPropertyValue("123", 1.8)
 ```
 
 
-### removeProperty
+## removeProperty
 
 Removes a property from an object
 
@@ -484,11 +495,11 @@ OBJY.object({}).removeProperty("123", 1.8)
 ```
 
 
-## Handlers
+# Handlers
 
 Handlers can be used to automatically trigger an action when an object is created, changed or deleted.
 
-### setOnCreate
+## setOnCreate
 
 Adds/Sets an onCreate handler
 
@@ -500,7 +511,7 @@ OBJY.object({}).setOnCreate("validate", {
 }})
 ```
 
-### removeOnCreate
+## removeOnCreate
 
 Removes an onCreate handler
 
@@ -509,7 +520,7 @@ Removes an onCreate handler
 OBJY.object({}).removeOnCreate("validate")
 ```
 
-### setOnChange
+## setOnChange
 
 Adds/Sets an on change handler
 
@@ -521,7 +532,7 @@ OBJY.object({}).setOnChange("validate", {
 }})
 ```
 
-### removeOnChange
+## removeOnChange
 
 Removes an on change handler
 
@@ -530,7 +541,7 @@ Removes an on change handler
 OBJY.object({}).removeOnChange("validate")
 ```
 
-### setOnDelete
+## setOnDelete
 
 Adds/Sets an onDelete handler
 
@@ -542,7 +553,7 @@ OBJY.object({}).setOnDelete("validate", {
 }})
 ```
 
-### removeOnDelete
+## removeOnDelete
 
 Removes an onDelete handler
 
@@ -553,7 +564,7 @@ OBJY.object({}).removeOnDelete("validate")
 
 
 
-## Permissions
+# Permissions
 
 Each object can have permissions (optional) for access control. Permissions are mounted under the `permissions` attribute and are structured with the role name as key and an object with a value for permission codes: `{admin: {value: "*"}}`
 
@@ -584,7 +595,7 @@ Available permission codes:
 * `d` Delete
 
 
-## Authable objects (e.g. users)
+# Authable objects (e.g. users)
 
 On the other side of a permission, objects can be used as users that can access other objects. To make certain objects authable, set the `authable` flag wehen defining the object family:
 
@@ -612,7 +623,7 @@ OBJY.define({
 ```
 
 
-### setUsername
+## setUsername
 
 Sets the username. The username will be used for authentication
 
@@ -622,7 +633,7 @@ OBJY.object({}).setUsername("peter")
 ```
 
 
-### setEmail
+## setEmail
 
 Sets the email. The email will be used for authentication
 
@@ -631,7 +642,7 @@ Sets the email. The email will be used for authentication
 OBJY.object({}).setEmail("peter@griffin.com")
 ```
 
-### addPrivilege
+## addPrivilege
 
 > Can only be used when working in an app context
 
@@ -659,7 +670,7 @@ OBJY.object({}).addPrivilege("admin")
  */
 ```
 
-### removePrivilege
+## removePrivilege
 
 > Can only be used when working in an app context
 
@@ -709,7 +720,7 @@ OBJY.define({
 
 OBJY comes with a mapper api that allows you to create your own mappers for different third-party systems, like databases, file systems, processing frameworks, ...
 
-### Storage
+## Storage
 
 ```javascript
 var Mapper = function(OBJY, options) {
@@ -755,7 +766,7 @@ var Mapper = function(OBJY, options) {
 ```
 
 
-### Processor
+## Processor
 
 ```javascript
 Mapper = function(OBJY) {
@@ -769,7 +780,7 @@ Mapper = function(OBJY) {
 ```
 
 
-### observer
+## observer
 
 ```javascript
 Mapper = function(OBJY) {
