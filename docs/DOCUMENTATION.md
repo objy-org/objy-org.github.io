@@ -159,7 +159,25 @@ Sets the object's type
 OBJY.object({}).setType("test")
 ```
 
-# Applications
+# Client Context
+
+OBJY by default is multi-tenancy capable.
+
+The objects of each tenant (or `client`) will be treated seperately.
+
+You can set and change a client context with `OBJY.client('name')`
+
+```javascript
+OBJY.client('mycompany');
+// mycompany context available from here
+// ...
+
+OBJY.client('anothercompany');
+// anothercompany context available now
+// ...
+```
+
+# Application Context
 
 Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
 
