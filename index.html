@@ -234,13 +234,13 @@
                     <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl leto-ph-xl">
                         <div class="leto-width-full">
                             <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >object({name: 'Anakin'}).add()
+<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.object({name: 'Anakin'}).add()
 
-objects({name: 'Anakin'}).get()
+OBJY.object("123")
+    .setName('Luke')
+    .save()
 
-object({name: 'Anakin Skywalker'}).update()
-
-object("123").remove()
+OBJY.object("123").remove()
 </code>
 <code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >add object {name: "Anything"}
 
