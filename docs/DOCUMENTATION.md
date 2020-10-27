@@ -613,6 +613,25 @@ Available permission codes:
 * `d` Delete
 
 
+## setPermission
+
+Sets a permission
+
+```javascript
+/* takes the handler name  */
+OBJY.object({}).setPermission("name", {value: "*"})
+```
+
+## removePermission
+
+Removes a permission
+
+```javascript
+/* takes the handler name  */
+OBJY.object({}).removePermission("name")
+```
+
+
 # Authable objects (e.g. users)
 
 On the other side of a permission, objects can be used as users that can access other objects. To make certain objects authable, set the `authable` flag wehen defining the object family:
