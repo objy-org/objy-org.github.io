@@ -159,25 +159,7 @@ Sets the object's type
 OBJY.object({}).setType("test")
 ```
 
-# Client Context
-
-OBJY by default is multi-tenancy capable.
-
-The objects of each tenant (or `client`) will be treated seperately.
-
-You can set and change a client context with `OBJY.client('name')`
-
-```javascript
-OBJY.client('mycompany');
-// mycompany context available from here
-// ...
-
-OBJY.client('anothercompany');
-// anothercompany context available now
-// ...
-```
-
-# Application Context
+# Application Contexts
 
 Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
 
@@ -510,6 +492,25 @@ Removes a property from an object
 ```javascript
 /* takes the property name  */
 OBJY.object({}).removeProperty("123", 1.8)
+```
+
+
+# Client Context
+
+OBJY by default is multi-tenancy capable.
+
+The objects of each tenant (or `client`) will be treated seperately.
+
+You can set and change a client context with `OBJY.client('name')`
+
+```javascript
+OBJY.client('mycompany');
+// mycompany context available from here
+// ...
+
+OBJY.client('anothercompany');
+// anothercompany context available now
+// ...
 ```
 
 
