@@ -17,7 +17,22 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Events", code: `
+         { name: "Properties", code: `
+/*
+ *  Create an object that represents some entity
+ */
+
+OBJY.object({
+   name: "yogurt",
+   properties: {
+    flavour: {
+      type: "shortText",
+      value: "strawberry"
+    }
+   }
+}).add()
+    ` },
+    { name: "Observable Events", code: `
 /*
  *  Create an object that executes a custom action at a specific time 
  */
@@ -34,7 +49,7 @@ OBJY.object({
 }).add()
     ` },
                       
-            { name: "Behaviours", code: `
+            { name: "Triggers", code: `
 /*
  *  Create an object that executes a custom action when the object is changed
  */
@@ -48,19 +63,19 @@ OBJY.object({
    }
 }).add()
   	` },
-            { name: "Fluent API", code: `
+    { name: "Actions", code: `
 /*
- *  A simple fluent interface makes handling objects very simple
+ *  Create an object with an action, that deletes the object
  */
 
 OBJY.object({
    name: "yogurt",
-}).addProperty('flavour', {
-   type: "text",
-   value: "vanilla"
-}).setType('product').save()
-  	` },
-
+   deleteMe: {
+     type: "action",
+     value: "obj.remove()"
+   }
+}).add()
+    ` },
             { name: "Inheritance", code: `
 /*
  *  Objects can inherit from each other.
