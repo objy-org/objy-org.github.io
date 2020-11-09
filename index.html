@@ -175,19 +175,12 @@
 <div class="leto-width-full">
 <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.define({
-    name: "asset",
-    pluralName: "assets",
+    name: "object",
+    pluralName: "objects",
     storage: new MongoMapper('localhost'),
     processor: new vmMapper(),
     observer: new intervalMapper()
 })
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >define objectFamily {
-    name: "asset",
-    pluralName: "assets",
-    storage: new MongoMapper('localhost'),
-    processor: new vmMapper()
-}
 </code>
 </pre>
                             </div>
@@ -208,15 +201,6 @@
        action: "this.remove()"
     }
 })
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >add object { ‚
-    properties: {
-        expires: {
-          date: "2020-10-10",
-          action: "self.expired=true"
-        }
-    }
-}
 </code>
 </pre>
                         </div>
@@ -250,14 +234,6 @@ OBJY.object("123")
     .save()
 
 OBJY.object("123").remove()
-</code>
-<code class="javascript" v-show="currentLang=='CLI'" style="font-size:20px;background:#232323;padding:20px" >add object {name: "Anything"}
-
-get objects {name: "Anything"}
-
-get object 123
-
-delete object 123
 </code>
 </pre>
                         </div>
