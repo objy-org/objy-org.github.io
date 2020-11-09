@@ -32,7 +32,7 @@ OBJY.object({
    }
 }).add()
     ` },
-    { name: "Observable Events", code: `
+    { name: "Events", code: `
 /*
  *  Create an object that executes a custom action at a specific time 
  */
