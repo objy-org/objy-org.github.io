@@ -417,22 +417,6 @@ Bags are nested properties and can even contain other bags. Instead of the value
 }
 ```
 
-## addProperty (without type)
-
-Adds a simple property to an object
-
-```javascript
-/* takes a name as string and content as literal*/
-
-OBJY.object({}).addProperty("123", 2.5)
-```
-
-> If you are adding a sub property to a bag, access is done using `dot notation`:
-
-```javascript
-OBJY.object({}).addProperty("myBag.subProp", 2.5)
-```
-
 ## setProperty
 
 Replaces the content of a property
@@ -449,7 +433,7 @@ OBJY.object({}).setProperty("123", {
 OBJY.object({}).setProperty("123", 1.8)
 ```
 
-## addProperty (with type)
+## addProperty
 
 Adds a compley property to an object
 
@@ -472,6 +456,23 @@ OBJY.object({}).addProperty("myBag.subProp", {
    type: "number",
    value: 2.5
 })
+```
+
+
+---
+
+Add a simple property to an object (without type definition)
+
+```javascript
+/* takes a name as string and content as literal*/
+
+OBJY.object({}).addProperty("123", 2.5)
+```
+
+> If you are adding a sub property to a bag, access is done using `dot notation`:
+
+```javascript
+OBJY.object({}).addProperty("myBag.subProp", 2.5)
 ```
 
 
