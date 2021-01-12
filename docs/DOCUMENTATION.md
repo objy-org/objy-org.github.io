@@ -752,7 +752,27 @@ OBJY.define({
 
 ## Use existing mappers
 
-...
+There is a project called [objy-catalog](https://github.com/objy-org/objy-catalog), which is an open source collection of existing (and proven) mappers.
+
+Just install the npm module and use it:
+
+```shell
+npm i objy-catalog
+```
+
+```javascript
+var OBJY = require('objy');
+var OBJY_CATALOG = require('objy-catalog');
+
+OBJY.define({
+	name: "object",
+	pluralName: "objects",
+	storage: OBJY_CATALOG.mappers.storage.mongo(),
+	processor: OBJY_CATALOG.mappers.processors.vm(),
+	observer: OBJY_CATALOG.mappers.observers.interval()
+})
+
+```
 
 ## Develop custom mappers
 
@@ -761,7 +781,8 @@ OBJY comes with a mapper api that allows you to create your own mappers for diff
 ## Storage
 
 ```javascript
-var Mapper = function(OBJY, options) {
+// Define it
+var MyMapper = function(OBJY, options) {
    return Object.assign(new OBJY.StorageTemplate(OBJY, options), {
 
       createClient: function(client, success, error) {
@@ -801,13 +822,20 @@ var Mapper = function(OBJY, options) {
       }
    })
 }
+
+// Use it
+OBJY.define({
+	...
+	storage: MyMapper()
+})
 ```
 
 
 ## Processor
 
 ```javascript
-Mapper = function(OBJY) {
+// Define it
+var MyMapper = function(OBJY) {
    return Object.assign(new OBJY.ProcessorTemplate(OBJY), {
       
       execute: function(dsl, obj, prop, data, callback, client, app, user, options) {
@@ -815,13 +843,20 @@ Mapper = function(OBJY) {
       }
    })
 }
+
+// Use it
+OBJY.define({
+	...
+	processor: MyMapper()
+})
 ```
 
 
 ## observer
 
 ```javascript
-Mapper = function(OBJY) {
+// Define it
+var MyMapper = function(OBJY) {
    return Object.assign(new OBJY.ObserverTemplate(OBJY), {
       initialize: function(millis) {
          
@@ -832,6 +867,12 @@ Mapper = function(OBJY) {
       }
    })
 }
+
+// Use it
+OBJY.define({
+	...
+	observer: MyMapper()
+})
 ```
 
 
