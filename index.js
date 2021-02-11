@@ -17,20 +17,17 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Properties", code: `
-/*
- *  Create an object that represents some entity
- */
-
+         { name: "CRUD", code: `
 OBJY.object({
    name: "yogurt",
-   properties: {
-    flavour: {
-      type: "shortText",
-      value: "strawberry"
-    }
-   }
+   flavour: "strawberry"
 }).add()
+
+OBJY.object("123").get(object => {  })
+
+OBJY.object("123").addProperty('color', 'blue').update(object => {  })
+
+OBJY.object("123").delete(object => {  })
     ` },
     { name: "Events", code: `
 /*
@@ -39,12 +36,10 @@ OBJY.object({
 
 OBJY.object({
    name: "yogurt",
-   properties: {
-    expires: {
-      type: "event",
-      date: "20-20-2020",
-      action: "..." 
-    }
+   expires: {
+     type: "event",
+     date: "20-20-2020",
+     action: () => { ... }
    }
 }).add()
     ` },
@@ -63,19 +58,6 @@ OBJY.object({
    }
 }).add()
   	` },
-    { name: "Actions", code: `
-/*
- *  Create an object with an action, that deletes the object
- */
-
-OBJY.object({
-   name: "yogurt",
-   deleteMe: {
-     type: "action",
-     value: "obj.remove()"
-   }
-}).add()
-    ` },
             { name: "Inheritance", code: `
 /*
  *  Objects can inherit from each other.
@@ -92,7 +74,32 @@ OBJY.object({inherits: [123]}).add(obj => {
 })
   	` },
 
-            { name: "Customize", code: `
+     { name: "Object example", code: `
+/*
+ *  Objects can have multiple, even nested props, triggers, events, ...
+ */
+
+OBJY.object({
+   name: "credit card",
+   owner: 'Peter Griffin',
+   expires: {       // <- an event that is observed by objy
+     type: "event",
+     date: "20-20-2020",
+     action: () => { ... }
+   },
+   deleteMe: {      // <- an action that that runs some cusom function
+     type: "action",
+     value: () => { OBJY(this._id).remove() }
+   },
+   onDelete: {    // <- a crud-trigger that runs some custom functionality
+    notify: {
+    action: () => { /* email or something */ }
+    }
+   }
+}).add()
+    ` },
+
+   { name: "Custom source", code: `
 /*
  *  Custom object wrappers can be created. Define how objects are handled internaly
  */
