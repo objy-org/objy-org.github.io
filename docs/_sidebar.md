@@ -1,5 +1,5 @@
 <!-- docs/_sidebar.md -->
 
 * [Quickstart](README.md)
-* [Examples](EXAMPLES.md)
+* [Guides](EXAMPLES.md)
 * [Documentation](DOCUMENTATION.md)
