@@ -36,28 +36,18 @@ OBJY.object("123").delete(object => {  })
 
 OBJY.object({
    name: "yogurt",
-   expires: {
+   expires: {     // a date-based event
      type: "event",
      date: "20-20-2020",
      action: () => { ... }
-   }
-}).add()
-    ` },
-                      
-            { name: "Triggers", code: `
-/*
- *  Create an object that executes a custom action when the object is changed
- */
-
-OBJY.object({
-   name: "yogurt",
-   onChange: {
+   },
+   onChange: {    // a trigger based event
      notify: {
        action: "email('i have changed')"
      }
    }
 }).add()
-  	` },
+    ` },
             { name: "Inheritance", code: `
 /*
  *  Objects can inherit from each other.
@@ -99,7 +89,7 @@ OBJY.object({
 }).add()
     ` },
 
-   { name: "Custom source", code: `
+   { name: "External sources", code: `
 /*
  *  Custom object wrappers can be created. Define how objects are handled internaly
  */
@@ -113,7 +103,28 @@ OBJY.define({
 })
   	` },
 
+{ name: "Custom source", code: `
+/*
+ *  Build custom mappers for storage, observation and processing
+ *  Attach third party technologies.
+ */
 
+OBJY.define({
+  name: "item",
+  pluralName: "items", 
+  storage: OBJY.customStorage({
+    getById: () => {},
+    add: () => {},
+    remove: () => {}
+  }),
+  processor: OBJY.customProcessor({
+    ...
+  }),
+  observer: OBJY.customObserver({
+    ...
+  })
+})
+    ` },
 
 
 
