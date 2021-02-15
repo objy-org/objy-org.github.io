@@ -50,7 +50,6 @@ Every object, despite what object family it belongs to, is represented as JS obj
 ```
 
 
-
 Each Object Family introduces two constructors that are used as a wrappers for objects that are part of the family: a singular and a plural constructor.
 
 * ***singular constructors*** are for handling single objects

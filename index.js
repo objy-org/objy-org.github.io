@@ -17,17 +17,15 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "CRUD", code: `
-OBJY.object({
+         { name: "Basics", code: `
+var myObj = OBJY.object({
    name: "yogurt",
    flavour: "strawberry"
-}).add()
+})
 
-OBJY.object("123").get(object => {  })
+myObj.addProperty('color', 'blue')
 
-OBJY.object("123").addProperty('color', 'blue').update(object => {  })
-
-OBJY.object("123").delete(object => {  })
+myObj.remove()
     ` },
     { name: "Events", code: `
 /*
@@ -46,7 +44,7 @@ OBJY.object({
        action: "email('i have changed')"
      }
    }
-}).add()
+})
     ` },
             { name: "Inheritance", code: `
 /*
@@ -57,11 +55,9 @@ OBJY.object({
    _id: 123,
    name: "template",
    type: "whatever"
-}).add(templ => {})
-
-OBJY.object({inherits: [123]}).add(obj => {
-   // obj will look the same
 })
+
+OBJY.object({inherits: [123]})
   	` },
 
      { name: "Object example", code: `
@@ -86,7 +82,7 @@ OBJY.object({
     action: () => { /* email or something */ }
     }
    }
-}).add()
+})
     ` },
 
    { name: "External sources", code: `
