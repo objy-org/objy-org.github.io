@@ -29,24 +29,29 @@ OBJY.objects(...)
 
 # Object structure
 
-Every object, despite what object family it belongs to, is represented as JS object and has a basic structure
+Every object, despite what object family it belongs to, is represented as JS object. It can have any structure.
 
 ```javascript
-{
-	/* Basic structure (always present) */
+OBJY.object({
+	key: value
+})
+```
+
+However, there are some predefined attributes, that can be used for certain functionality:
+
+```javascript
+OBJY.object({
+	/* Basic structure (optional) */
 	_id: "", // a unique id
-	name: "", // an object name
-	type: "", // a custom type
 	applications: [], // a list of apps that this object is available in
 	inherits: [], // a list of other object's ids that this object inherits from
-	properties: {}, // an object that holds all your custom properties
 	
 	/* Additions (only available when filled) */
 	permissions: {}, // permissions for access control
 	onCreate: {}, // an object for different action handlers
 	onchange: {}, // an object for different action handlers
 	onDelete: {}, // an object for different action handlers
-}
+})
 ```
 
 

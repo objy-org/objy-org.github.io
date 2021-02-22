@@ -85,78 +85,109 @@ OBJY.object({
 
 ```javascript
 // add one
-OBJY.object({}).add(callback);
+OBJY.object({...})
 
 // add multiple
-OBJY.objects([{}],[{}]).add(callback);
+OBJY.objects([{...}, {...}])
 ```
 
 ### Get one
 ```javascript
-OBJY.object(id).get(callback);
+// by its reference:
+let myObj = OBJY.object({...});
+console.log(myObj);
+
+// or via the get method
+OBJY.object(id).get(obj => {
+	console.log(obj)
+});
 ```
 
 ### Query
 
 ```javascript
-OBJY.objects({type:'example', 'properties.expired' : false}).get(callback);
+OBJY.objects({type:'example', 'properties.expired' : false}).get(objs => {
+	console.log(objs) // [{},{}]
+});
 ```
 
 ### Update
 
 ```javascript
-// update one
-OBJY.object(id)
-   .setPropertyValue('expired', false)
-   .addProperty('open', false).
-   .save(callback)
 
-// replace one
-OBJY.Object(id).replace(newObject).save(callback);
+var myObj = OBJY.object({
+	name: "my object"
+});
+
+// Update directly
+myObj.type = 'test';
+
+// or use built-in methods
+
+myObj.setProperty('name', 'our object')
+   .addProperty('open', false).
 ```
 
 ### Delete
 
 ```javascript
 // delete one
-OBJY.object(id).delete(callback);
+OBJY.object({
+	...
+}).delete(callback);
 ```
 
 
-## Customize
+## Persistence
 
-Objects can be very different in their nature. Some objects are big, some are small, some are produced very vast, some not so fast. When you define an object wrapper, you can tell OBJY where objects in this wrapper are stored, how they are processed and observed, along with other options.
+Naturally, OBJY objects life in the JavaScript instance. You can, however use customized or predefined persistence mappers.
+
+Predefined from [OBJY Catalog](...):
 
 ```javascript
 OBJY.define({
-	// manatory
 	name: "object",
 	pluralName: "objects"
-	
-	// mappers
-	storage: {}, // defaults to "in memory"
-	processor: {}, // defaults to "eval"
-	observer: {} // defaults to "interval",
-	
-	// + other optional options
-	authable: false, // Defines wether objects in a family can have privileges for access control
-	templateFamily: null, // Defines which object family is the source for inheritence. Defaults to the own object family
-	staticProps: {}, // Defines static properties that are preset for all objects in the object family
-	staticFuncs: {}, // Defines static functions that are preset for all objects in the object family
-	hasAffects: false // Defines wether the object family serves as bucket for defining affectables
+	storage: new OBJY_CATALOG.mappers.storage.mongoDB('mongodb://...'), 
 })
 ```
 
-> Default mappers are already initialized! If you'd like to work in memory, just ignore the mappers section
+Custom mapper:
 
-### Mapper types
+```javascript
+OBJY.define({
+	name: "object",
+	pluralName: "objects"
+	storage: OBJY.customStorage({
+      add: () => {},
+      getById: () => {},
+      ...
+   })
+})
+```
 
-| Type        | Explanation  | 
-| ------------- |-------------| 
-| `storage`     | Storage mappers can be plugged in to define where and how objects in an object family are persistent. | 
-| `processor`   | Processor Mappers define, how object actions are executed. | 
-| `observer`    | Observer Mappers define, how object events are observed and time-based actions triggered. | 
+When using persistence, CRUD operations are done with:
 
+
+```javascript
+// Add to persistence
+OBJY.object({...}).add(obj => {})
+
+// Get by id
+OBJY.object(id).get(obj => {})
+
+// Query
+OBJY.objects({query...}).get(objs => {})
+
+// Update (methods can be chained)
+OBJY.object({...})
+	.addProperty('color', 'blue')
+	.setProperty('name', 'Test')
+	.save(obj => {})
+
+// Delete
+OBJY.object({...}).delete(obj => {})
+```
 
 
 ## Authors
