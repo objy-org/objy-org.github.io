@@ -35,6 +35,10 @@
         height: 100%;
     }
 
+    .leto-text-xxxl {
+        font-size: 40px;
+    }
+
     @media (max-width: 1440px) {
 
         .leto-full-tablet-pc {
@@ -81,10 +85,14 @@
                         Docs
                     </a-->
                 </div>
-                <div class="leto-group leto-horizontal-center leto-mt-xl">
+                <div class="leto-group leto-horizontal-center leto-mt-xxl leto-mb-xxl">
                     <div class=" leto-mt-xxl">
-                        <div class=" leto-text-xxl leto-text-center leto-text-darker-grey" v-show="!showInstallInstructions">
-                            A <span class="leto-text-white">Javascript</span> framework that uses <span class="leto-text-white">behaviour-driven objects</span> for building use cases.
+                        <div class="leto-text-xxxl leto-text-center leto-text-darker-grey" v-show="!showInstallInstructions">
+                            "<span class="leto-text-white">Javascript objects with behaviour</span>"
+                        </div>
+                        <br>
+                        <div class="leto-text-lg leto-text-center leto-text-darker-grey" v-show="!showInstallInstructions">
+                            OBJY is a JS framework that uses behaviour-driven objects for building use cases.
                         </div>
                         <div v-show="showInstallInstructions">
                             <center>
@@ -104,16 +112,10 @@
                         
                     </div>
                 </div>
-                <center class="leto-mt-xxl">
-                    <img class="" src="assets/img/OBJY-object-code.png" style="min-width: 50%;max-width:100%;border-radius: 10px">
+                <center class="leto-mt-xxl leto-mb-xxl">
+                    <img class="" src="assets/img/OBJY-object-code.png" style="max-width:100%;width:900px;border-radius: 10px">
                 </center>
-                <div class=" leto-text-xl leto-text-center leto-text-darker-grey leto-mt-xxl" v-show="!showInstallInstructions">
-                            * Use abstract objects, that have a behaviour
-                            <br>
-                            * Objects live in-instance or in third-party technologies
-                            <br>
-                            * Leverage inheritance, events, actions and more
-                        </div>
+              
                 <div class="leto-group leto-horizontal-center ">
                     <div class="leto-four-fifths leto-full-tablet-pc">
                         <div class="leto-group leto-horizontal-center leto-mt-none leto-mb">
@@ -138,6 +140,18 @@
                         </div>
                     </div>
                 </div>
+
+                <br>
+
+                  <div class=" leto-text-xl leto-text-center leto-text-darker-grey leto-mt-xxl" v-show="!showInstallInstructions">
+                            * Use abstract objects, that have a behaviour
+                            <br>
+                            * Objects live in-instance or in third-party technologies
+                            <br>
+                            * Leverage inheritance, events, actions and more
+                        </div>
+
+
                 <!--div class="leto-group leto-horizontal-center leto-mt-xl">
 
                     <div class="leto-group leto-mt-xxl">
