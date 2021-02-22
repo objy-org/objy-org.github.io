@@ -34,14 +34,27 @@
     .leto-frame-dark {
         height: 100%;
     }
+
+    @media (max-width: 1440px) {
+
+        .leto-full-tablet-pc {
+            width: 100% !important;
+        }
+
+        .scroll-h {
+            max-width: 100%;
+            overflow:scroll;
+        }
+
+    }
     </style>
 </head>
 
 <body class="leto-frame-dark">
     <div class="leto-frame-dark" id="app">
-        <div class="leto-container-full leto-p-xl leto-pt-none leto-pb-none">
-            <div class="leto-card leto-bg-black leto-width-full leto-text-white leto-border-none leto-pb-none leto-roundness-md leto-p-xl">
-                <div class="leto-group leto-vertical-center">
+        <div class="leto-container-full leto-pt-none leto-pb-none">
+            <div class="leto-card leto-bg-black leto-width-full leto-text-white leto-border-none leto-pb-none leto-roundness-md">
+                <div class="leto-group leto-vertical-center scroll-h">
                     <div class="leto-mr-lg">
                         <img src="logo.png" style="width: 50px;"> <img src="objy.png" style="width: 100px;">
                     </div>
@@ -101,11 +114,11 @@
                             <br>
                             * Leverage inheritance, events, actions and more
                         </div>
-                <div class="leto-group leto-horizontal-center leto-mt-xl">
+                <div class="leto-group leto-horizontal-center ">
                     <div class="leto-four-fifths leto-full-tablet-pc">
                         <div class="leto-group leto-horizontal-center leto-mt-none leto-mb">
-                            <div class="leto-group">
-                                <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
+                            <div class="leto-group scroll-h">
+                                <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white leto-mt-xl ">
                                     <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
                                         EXAMPLES:</div>
                                     <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-text-dark-grey leto-horizontal-left leto-click" v-for="(item, i) in examples" v-on:click="currentExample=i">
@@ -148,8 +161,8 @@
                     <br>
                 </div>
                 <div class="leto-group leto-horizontal-center leto-vertical-center">
-                    <div class="leto-wrap leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl leto-vertical-center">
-                        <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl leto-ph-xl leto-vertical-center">
+                    <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt-xl leto-vertical-center">
+                        <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl  leto-vertical-center">
                             <div class="leto-width-full leto-vertical-center">
                                 <pre style="border-radius: 10px"><br>
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >npm i objy
@@ -170,7 +183,7 @@
                 </div>
                 <br>
                 <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl">
-                    <div class="leto-wrap leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
+                    <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt-xl">
                         <div class="leto-full leto-third-tablet-pc leto-mt-xxl">
                             <div class="leto-mt-xl leto-vertical-right">
                                 <div class="leto-text-xl">2. Define object wrappers</div>
@@ -178,7 +191,7 @@
                                 Define, where your objects are stored, how they are processed and observed using an open and extendable mapper ecosystem.
                             </div>
                         </div>
-                        <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl leto-ph-xl">
+                        <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl ">
                             <div class="leto-width-full" v-show="currentPreview==1">
                                 <pre style="border-radius: 10px">
 <div class="leto-width-full">
@@ -199,8 +212,8 @@
             </div>
             <br>
             <div class="leto-group leto-horizontal-center leto-vertical-center">
-                <div class="leto-wrap leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
-                    <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl leto-ph-xl">
+                <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt-xl">
+                    <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl ">
                         <div class="leto-width-full">
                             <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.object({
@@ -225,7 +238,7 @@
             </div>
             <br>
             <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt-xl ">
-                <div class="leto-wrap leto-group leto-width-two-thirds leto-horizontal-center leto-mt-xl">
+                <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt-xl">
                     <div class="leto-full leto-third-tablet-pc leto-mt-xxl">
                         <div class="leto-mt-xl">
                             <div class="leto-text-xl">4. Use the simple interface</div>
@@ -233,15 +246,16 @@
                             Create, Read, Update, Delete. That's all it takes, the rest is handled by OBJY
                         </div>
                     </div>
-                    <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl leto-ph-xl">
+                    <div class="leto-column leto-full leto-two-thirds-tablet-pc leto-mt-xxl ">
                         <div class="leto-width-full">
                             <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.object({name: 'Anakin'})
+<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >let myObj = OBJY.object({name: 'Anakin'})
 
-OBJY.object({name: 'Anakin'})
-    .setProperty('name', 'Luke')
+myObj.setProperty('name', 'Luke')
 
-OBJY.object({...}).remove()
+myObj.type = 'person'
+
+myObj.remove()
 </code>
 </pre>
                         </div>
@@ -250,13 +264,13 @@ OBJY.object({...}).remove()
             </div>
             <br>
             <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt">
-                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-vertical-center leto-mt-xl">
-                    <div class="leto-width-full leto-mt-xxl">
+                <div class="leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-vertical-center leto-mt-xl">
+                    <div class="leto-width-full leto-mt-xxl leto-text-center">
                         <div class="leto-mt-lg leto-group leto-horizontal-center leto-vertical-center">
                             <div class="leto-text-xl">powerful, yet simple features</div>
                         </div>
                         <div class="leto-mt leto-group leto-horizontal-center leto-vertical-center">
-                            Inheritance, User management, Acces-control, Pluggable mappers (MDB, InMem, Redis), Custom actions and more
+                            Inheritance, Persistence, User management, Acces-control, Pluggable mappers (MDB, InMem, Redis), Custom actions and more
                         </div>
                     </div>
                 </div>
@@ -291,7 +305,7 @@ OBJY.object({...}).remove()
                 </div>
             </div-->
         </div>
-        <div class="leto-container-full leto-p-xl ">
+        <div class="leto-container-full leto-p-xl leto-text-center">
             <div class="leto-group leto-horizontal-center">
             </div>
             <div class="leto-text-xs leto-text-lighter-grey leto-p-xxl">OBJY is open source and released under the MIT License. Copyright (c) OBJY collaborators</div>
