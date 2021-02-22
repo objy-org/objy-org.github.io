@@ -83,72 +83,62 @@ OBJY.objects([
 
 ```javascript
 // add one
-OBJY.object({}).add(callback);
+OBJY.object({})
 
 // add multiple
-OBJY.objects([{}],[{}]).add(callback);
+OBJY.objects([{}],[{}])
 ```
 
 ## Get one
 ```javascript
-OBJY.object(id).get(callback);
+// by its reference:
+let myObj = OBJY.object({...});
+console.log(myObj);
+
+// or via the get method
+OBJY.object(id).get(obj => {
+	console.log(obj)
+});
 ```
 
 ## Query
 
 ```javascript
-OBJY.objects({type:'example', 'properties.expired' : false}).get(callback);
+OBJY.objects({type:'example', 'properties.expired' : false}).get(objs => {
+
+});
 ```
 
 ## Update
 
 ```javascript
-// update one
-OBJY.object(id)
+// update via api methods
+OBJY.object({})
    .setPropertyValue('expired', false)
-   .addProperty('open', false).
-   .save(callback)
+   .addProperty('open', false)
 
-// replace one
-OBJY.Object(id).replace(newObject).save(callback);
+// update directly
+var obj = OBJY.object({});
+
+obj.name = 'Hello'
 ```
 
 ## Delete
 
 ```javascript
 // delete one
-OBJY.object(id).delete(callback);
+OBJY.object(id).delete(obj => {});
 ```
 
 
 # Basic information
 
-Every object has some basic attributes that are always present:
+Every object is a JavaScript object wrapped in an OBJY wrapper.
 
 ```javascript
-{
-   ...
-   name: null,
-   type: null
-}
-```
-
-## setName
-
-Sets the object's name
-
-```javascript
-/* takes a name as string*/
-OBJY.object({}).setName("test")
-```
-
-## setType
-
-Sets the object's type
-
-```javascript
-/* takes a type as string*/
-OBJY.object({}).setType("test")
+OBJY.object({
+   key: value
+})
 ```
 
 # Application Contexts
@@ -733,7 +723,7 @@ OBJY.define({
 
 > Default mappers are already initialized! If you'd like to work in memory, just ignore the mappers section
 
-> Mapper types
+## Mapper types
 
 | Type        | Explanation  | 
 | ------------- |-------------| 
@@ -795,7 +785,6 @@ OBJY.define({
 	processor: OBJY_CATALOG.mappers.processors.vm(),
 	observer: OBJY_CATALOG.mappers.observers.interval()
 })
-
 ```
 
 ## Develop custom mappers
@@ -805,9 +794,10 @@ OBJY comes with a mapper api that allows you to create your own mappers for diff
 ## Storage
 
 ```javascript
-// Define it
-var MyMapper = function(OBJY, options) {
-   return Object.assign(new OBJY.StorageTemplate(OBJY, options), {
+OBJY.define({
+	name: 'object',
+	pluralName: 'objects',
+	storage: OBJY.customStorage({
 
       createClient: function(client, success, error) {
 
@@ -845,12 +835,6 @@ var MyMapper = function(OBJY, options) {
 
       }
    })
-}
-
-// Use it
-OBJY.define({
-	...
-	storage: MyMapper()
 })
 ```
 
@@ -858,20 +842,15 @@ OBJY.define({
 ## Processor
 
 ```javascript
-// Define it
-var MyMapper = function(OBJY) {
-   return Object.assign(new OBJY.ProcessorTemplate(OBJY), {
+OBJY.define({
+	name: 'object',
+	pluralName: 'objects',
+	processor: OBJY.customProcessor({
       
       execute: function(dsl, obj, prop, data, callback, client, app, user, options) {
 
       }
    })
-}
-
-// Use it
-OBJY.define({
-	...
-	processor: MyMapper()
 })
 ```
 
@@ -879,9 +858,10 @@ OBJY.define({
 ## observer
 
 ```javascript
-// Define it
-var MyMapper = function(OBJY) {
-   return Object.assign(new OBJY.ObserverTemplate(OBJY), {
+OBJY.define({
+	name: 'object',
+	pluralName: 'objects',
+	observer: customObserver({
       initialize: function(millis) {
          
       },
@@ -890,12 +870,6 @@ var MyMapper = function(OBJY) {
 
       }
    })
-}
-
-// Use it
-OBJY.define({
-	...
-	observer: MyMapper()
 })
 ```
 
