@@ -16,16 +16,14 @@ OBJY.define({
    pluralName: "items"  
 });
 
-OBJY.item({name: "my first item"}).add(obj => {
-   console.log(obj)
+var myObj = OBJY.item({name: "my first item"})
+
+console.log(myObj)
    /*
    	{
    	   name: "my first item"
    	}
    */
-}, err => {
-   console.error(err);
-})
 ```
 
 ## Get started in the Browser
@@ -42,16 +40,14 @@ OBJY.item({name: "my first item"}).add(obj => {
       pluralName: "items"  
    });
    
-   OBJY.item({name: "my first item"}).add(obj => {
-      console.log(obj)
+   var myObj = OBJY.item({name: "my first item"})
+
+   console.log(myObj)
       /*
-      	{
-      	   name: "my first item"
-      	}
+         {
+            name: "my first item"
+         }
       */
-   }, err => {
-      console.error(err);
-   })
 </script>
 </body>
 </html>
@@ -82,16 +78,25 @@ OBJY.define({
 
 OBJY.item({...});
 
+OBJY.items([{...}, {...}]);
+
 OBJY.objects({}).get(objects => {})
 ```
 
-## Handling objects with CRUD
+## Persistence
 
-Objects are handled with crud operations (create, read, update, delete).
+Objects can be persisted using custom or predefined persistence mappers. When working with persistence, the built-in CRUD operations musst be used to commit changes to the persistence.
 
 The following operations are available and can be used with any object wrapper:
 
 ```javascript
+// Define your wrapper and set persistence
+OBJY.define({
+   name: 'item',
+   pluralName: 'items',
+   storage: new OBJY_CATALOG.mappers.storage.mongoDB('mongodb://locahlost')
+})
+
 // Add an object
 OBJY.item({}).add();
 
@@ -109,17 +114,4 @@ OBJY.item({}).addProperty(name, value).update()
 
 // Delete one object by it's _id
 OBJY.item("id").remove()
-```
-
-```javascript
-// Add an object
-OBJY.item({name: "my first item"}).add(obj => {
-
-   // update it:
-   obj.addProperty('color', 'blue');
-   obj.update();
-
-}, err => {
-   console.error(err);
-})
 ```
