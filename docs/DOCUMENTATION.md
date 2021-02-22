@@ -41,12 +41,10 @@ However, there are some predefined attributes, that can be used for certain func
 
 ```javascript
 OBJY.object({
-	/* Basic structure (optional) */
+	/* (optional, only present when filled) */
 	_id: "", // a unique id
 	applications: [], // a list of apps that this object is available in
 	inherits: [], // a list of other object's ids that this object inherits from
-	
-	/* Additions (only available when filled) */
 	permissions: {}, // permissions for access control
 	onCreate: {}, // an object for different action handlers
 	onchange: {}, // an object for different action handlers
@@ -79,17 +77,7 @@ OBJY.objects([
 
 
 
-# CRUD
-
-When it comes to working with objects, the basic operations you need are ***CRUD*** (Create, Read, Update, Delete)
-
-| Operation        | available for  | Explanation           | 
-| ------------- |-------------| -------------| 
-| `add(success, err)`      | singular + plural      | Adds one or more objects | 
-| `get(success, err)`      | singular + plural     | Gets one or more objects | 
-| `update(success, err)`     | singular       | Updates an object | 
-| `delete(success, err)`     | singular      | Deletes an object | 
-
+# Handling objects
 
 ## Add
 
@@ -439,7 +427,7 @@ OBJY.object({}).setProperty("123", 1.8)
 
 ## addProperty
 
-Adds a compley property to an object
+Adds a comple property to an object
 
 > Properties are key/value pairs, stored in an object under `properties`. The value can either be a simple literal (like above) or an object containing a type and value.
 > The second variant is way more powerful, because you will have type checking, you can add property-permissions, handlers and more.
@@ -726,7 +714,6 @@ OBJY.useApp("demo");
 OBJY.object({}).removePrivilege("admin")
 ```
 
-
 # Mappers
 
 Mappers can be used do define where objects inside a particular wrapper are persisted, processed and observed.
@@ -754,6 +741,38 @@ OBJY.define({
 | `processor`   | Processor Mappers define, how object actions are executed. | 
 | `observer`    | Observer Mappers define, how object events are observed and time-based actions triggered. | 
 
+
+## CRUD operations
+
+When it comes to working with objects in persistence, the basic operations you need are ***CRUD*** (Create, Read, Update, Delete)
+
+| Operation        | available for  | Explanation           | 
+| ------------- |-------------| -------------| 
+| `add(success, err)`      | singular + plural      | Adds one or more objects | 
+| `get(success, err)`      | singular + plural     | Gets one or more objects | 
+| `update(success, err)`     | singular       | Updates an object | 
+| `delete(success, err)`     | singular      | Deletes an object | 
+
+
+```javascript
+// Add to persistence
+OBJY.object({...}).add(obj => {})
+
+// Get by id
+OBJY.object(id).get(obj => {})
+
+// Query
+OBJY.objects({query...}).get(objs => {})
+
+// Update (methods can be chained)
+OBJY.object({...})
+	.addProperty('color', 'blue')
+	.setProperty('name', 'Test')
+	.save(obj => {})
+
+// Delete
+OBJY.object({...}).delete(obj => {})
+```
 
 ## Use existing mappers
 
