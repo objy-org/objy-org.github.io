@@ -177,7 +177,7 @@
                 <div class="leto-group leto-horizontal-center leto-vertical-center">
                     <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt leto-vertical-center">
                         <div class="leto-column leto-full leto-mt-xxl  leto-vertical-center">
-                            <div class="leto-text-xl leto-pb-xs">Install</div>
+                            <div class="leto-text-xl leto-pb-xs">1. Install</div>
                             <div class="leto-width-full leto-vertical-center">
                                 <pre style="border-radius: 10px"><br>
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >npm i objy
@@ -207,17 +207,14 @@
                             </div>
                         </div-->
                         <div class="leto-column leto-full leto-mt-xxl ">
-                            <div class="leto-text-xl leto-pb-xs">Define your wrapper</div>
+                            <div class="leto-text-xl leto-pb-xs">2. Define your wrapper</div>
                             <div class="leto-width-full" v-show="currentPreview==1">
                                 <pre style="border-radius: 10px">
 <div class="leto-width-full">
 <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.define({
     name: "object",
-    pluralName: "objects",
-    storage: new MongoMapper('localhost'),
-    processor: new vmMapper(),
-    observer: new intervalMapper()
+    pluralName: "objects"
 })
 </code>
 </pre>
@@ -231,7 +228,7 @@
                 <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt">
                     <div class="leto-column leto-full leto-mt-xxl ">
                         <div class="leto-width-full">
-                            <div class="leto-text-xl leto-pb-xs">Build objects</div>
+                            <div class="leto-text-xl leto-pb-xs">3. Build objects</div>
                             <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.object({
     ...
@@ -265,7 +262,7 @@
                     </div-->
                     <div class="leto-column leto-full leto-mt-xxl ">
                         <div class="leto-width-full">
-                            <div class="leto-text-xl leto-pb-xs">Handle your objects</div>
+                            <div class="leto-text-xl leto-pb-xs">4. Handle your objects</div>
                             <pre style="border-radius: 10px">
 <code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >let myObj = OBJY.object({name: 'Anakin'})
 
