@@ -4,8 +4,6 @@ An object-driven, cross-platform JS programming framework, that uses behaviour-d
 
 ![OBJY LOGO](../assets/img/OBJY-object-code.png "OBJY")
 
-Jump to: [GUIDES](GUIDES)  |  [DOCUMENTATION](DOCUMENTATION)
-
 ## Installing
 
 OBJY can be used in Node and the Browser.
