@@ -1,4 +1,4 @@
-# OBJY
+# Quickstart
 
 An object-driven, cross-platform JS programming framework, that uses behaviour-driven objects for abstract development.
 
