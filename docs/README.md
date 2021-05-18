@@ -69,11 +69,9 @@ OBJY.object({
 // Build an object
 
 OBJY.object({
-   properties: {
-      warnMe: {
-         date: "2020-10-05",
-         action: "email('expiring soon!')"
-      },
+   warnMe: {
+      date: "2020-10-05",
+      action: "email('expiring soon!')"
    },
    onChange: "if(this.number.length == 0) return;"
 })
