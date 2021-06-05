@@ -17,7 +17,7 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Basics", code: `
+         { name: "Basics", icon: 'feat-object.png', code: `
 var myObj = OBJY.object({
    name: "yogurt",
    flavour: "strawberry"

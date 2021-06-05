@@ -39,6 +39,17 @@
         font-size: 40px;
     }
 
+    .feature {
+        display: inline-block;
+        background: #252525;
+        padding:20px;
+        height: 250px;
+        width: 250px;
+        border-radius: 10px;
+        font-size: 20px;
+        margin: 10px;
+    }
+
     @media (max-width: 1440px) {
 
         .leto-full-tablet-pc {
@@ -47,7 +58,7 @@
 
         .scroll-h {
             max-width: 100%;
-            overflow:scroll;
+            overflow: scroll;
         }
 
     }
@@ -95,7 +106,7 @@
                         <div class="leto-text-xxxl leto-text-center leto-text-darker-grey" v-show="!showInstallInstructions">
                             <span class="leto-text-white">A JS framework that uses abstract objects for building use cases.</span>
                         </div>
-                       <!--br>
+                        <!--br>
                         <div class="leto-text-lg leto-text-center leto-text-darker-grey" v-show="!showInstallInstructions">
                            
                             <br> Objects can live in-memory or come from any other data source.
@@ -120,27 +131,27 @@
 </code></pre>
                         </div>
                         <br>
-                        
                     </div>
                 </div>
-                <center class=" leto-mb-xxl">
-                    <img class="" src="assets/img/objy-arch-objects.png" style="max-width:100%;width:900px;border-radius: 10px">
-                </center>
-              
+                <!--center class=" leto-mb-xxl">
+                    <!--img class="" src="assets/img/objy-arch-objects.png" style="max-width:100%;width:900px;border-radius: 10px"->
+                </center-->
                 <div class="leto-group leto-horizontal-center ">
                     <div class="leto-four-fifths leto-full-tablet-pc">
                         <div class="leto-group leto-horizontal-center leto-mt-none leto-mb">
                             <div class="leto-group scroll-h">
                                 <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white leto-mt-xl ">
-                                    <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
-                                        EXAMPLES:</div>
-                                    <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-text-dark-grey leto-horizontal-left leto-click" v-for="(item, i) in examples" v-on:click="currentExample=i">
+                                    <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
+                                        EXAMPLES:</div-->
+                                    <div class="feature" v-for="(item, i) in examples" v-on:click="currentExample=i">
                                         <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentExample==i}"></div>
+                                         <!--img :src="'assets/img/'+item.icon"> 
+                                         <br-->
                                         <div>{{item.name}}</div>
                                     </div>
-                                    <a href="docs/#/DOCUMENTATION" class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-text-dark-grey leto-horizontal-left leto-click" >
+                                    <!--a href="docs/#/DOCUMENTATION" class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-text-dark-grey leto-horizontal-left leto-click">
                                         + more
-                                    </a>
+                                    </a-->
                                 </div>
                             </div>
                             <br>
@@ -151,18 +162,14 @@
                         </div>
                     </div>
                 </div>
-
                 <br>
-
-                  <div class=" leto-text-xl leto-text-center leto-text-darker-grey leto-mt-xxl" v-show="!showInstallInstructions">
-                            * Use abstract objects, that have a behaviour
-                            <br>
-                            * Objects live in-instance or in third-party technologies
-                            <br>
-                            * Leverage inheritance, events, actions and more
-                        </div>
-
-
+                <div class=" leto-text-xl leto-text-center leto-text-darker-grey leto-mt-xxl" v-show="!showInstallInstructions">
+                    * Use abstract objects, that have a behaviour
+                    <br>
+                    * Objects live in-instance or in third-party technologies
+                    <br>
+                    * Leverage inheritance, events, actions and more
+                </div>
                 <!--div class="leto-group leto-horizontal-center leto-mt-xl">
 
                     <div class="leto-group leto-mt-xxl">
