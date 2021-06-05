@@ -27,7 +27,7 @@ myObj.addProperty('color', 'blue')
 
 myObj.remove()
     ` },
-    { name: "Events", icon: 'feat-events.png', code: `
+    { name: "Events", icon: 'feat-object.png', code: `
 /*
  *  Create an object that executes a custom action at a specific time 
  */
@@ -46,7 +46,7 @@ OBJY.object({
    }
 })
     ` },
-            { name: "Inheritance", icon: 'feat-inheritance.png',code: `
+            { name: "Inheritance", icon: 'feat-object.png',code: `
 /*
  *  Objects can inherit from each other.
  */
@@ -85,7 +85,7 @@ OBJY.object({
 })
     ` },
 
-   { name: "External sources", icon: 'feat-mapper.png', code: `
+   { name: "External sources", icon: 'feat-object.png', code: `
 /*
  *  Custom object wrappers can be created. Define how objects are handled internaly
  */
@@ -99,7 +99,7 @@ OBJY.define({
 })
   	` },
 
-{ name: "Custom source", icon: 'feat-origin.png', code: `
+{ name: "Custom source", icon: 'feat-object.png', code: `
 /*
  *  Build custom mappers for storage, observation and processing
  *  Attach third party technologies.
