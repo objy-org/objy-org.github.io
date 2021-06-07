@@ -17,7 +17,7 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Basics", icon: 'feat-object.png', code: `
+         { name: "Object API", icon: 'feat-object.png', code: `
 var myObj = OBJY.object({
    name: "yogurt",
    flavour: "strawberry"
@@ -27,7 +27,7 @@ myObj.addProperty('color', 'blue')
 
 myObj.remove()
     ` },
-    { name: "Events", icon: 'feat-object.png', code: `
+    { name: "Events", icon: 'feat-events.png', code: `
 /*
  *  Create an object that executes a custom action at a specific time 
  */
@@ -46,7 +46,7 @@ OBJY.object({
    }
 })
     ` },
-            { name: "Inheritance", icon: 'feat-object.png',code: `
+            { name: "Inherits", icon: 'feat-inheritance.png',code: `
 /*
  *  Objects can inherit from each other.
  */
@@ -57,35 +57,38 @@ OBJY.object({
    type: "whatever"
 })
 
-OBJY.object({inherits: [123]})
+OBJY.object({
+  inherits: [123]
+})
   	` },
 
-     { name: "Object example", icon: 'feat-object.png', code: `
+
+   
+     { name: "Querying", icon: 'feat-query.png', code: `
 /*
- *  Objects can have multiple, even nested props, triggers, events, ...
+ *  Objects can be queryed per object family and in different contexts like apps, permissions and tenants
  */
 
-OBJY.object({
-   name: "credit card",
-   owner: 'Peter Griffin',
-   expires: {       // <- an event that is observed by objy
-     type: "event",
-     date: "20-20-2020",
-     action: () => { ... }
-   },
-   deleteMe: {      // <- an action that that runs some cusom function
-     type: "action",
-     value: () => { OBJY(this._id).remove() }
-   },
-   onDelete: {    // <- a crud-trigger that runs some custom functionality
-    notify: {
-    action: () => { /* email or something */ }
-    }
-   }
+// Example objects in different app contexts
+OBJY.objects([{
+  applications: ["app1"],
+  name "test"
+}, {
+  applications: ["app2"],
+  name "another"
+}])
+
+// Query them:
+OBJY.useApp('app1') // <- set ana pplication context (optional)
+
+OBJY.objects({
+  name: "test"
+}).get(data => {
+  // returns queries results inside app context "app1"
 })
     ` },
 
-   { name: "External sources", icon: 'feat-object.png', code: `
+   { name: "External sources", icon: 'feat-mapper.png', code: `
 /*
  *  Custom object wrappers can be created. Define how objects are handled internaly
  */
@@ -99,7 +102,7 @@ OBJY.define({
 })
   	` },
 
-{ name: "Custom source", icon: 'feat-object.png', code: `
+{ name: "Custom source", icon: 'feat-origin.png', code: `
 /*
  *  Build custom mappers for storage, observation and processing
  *  Attach third party technologies.
@@ -122,6 +125,35 @@ OBJY.define({
 })
     ` },
 
+ { name: "Access contexts", icon: 'feat-context.png', code: `
+/*
+ *  Accessing objects can be done in the context of tenants, users, permissions and apps
+ */
+
+// Work in a client context
+OBJY.useClient('myCompany')
+
+// Work in an app context
+OBJY.useApp('myapp')
+
+// Work in a user context
+OBJY.useUser({
+  username: "peter",
+  privileges: {
+    app1: ["admin"]
+  }
+})
+
+// Use the API in your current contexts
+OBJY.object({name: "test"}).add(data => {
+  /*
+    {
+      name: "test",
+      applications: ["app1"]
+    }
+  */
+})
+` },
 
 
         ]
