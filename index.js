@@ -173,11 +173,10 @@ OBJY.object({name: "test"}).add(data => {
 
 // Define affectables
 OBJY.affectables = [{
-  _id: 123, // some unique id
-  affects: {
+  affects: { // criteria for selecting objects
     name: "test"
   },
-  apply: {
+  apply: { // Applies the props to the objects matching the criteria above
     onChange: {
       log: {
         value: () => {console.log('a change occured')}
