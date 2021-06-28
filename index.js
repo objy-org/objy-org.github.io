@@ -60,6 +60,15 @@ OBJY.object({
 OBJY.object({
   inherits: [123]
 })
+
+/*  Will become:
+    {
+      _id: "xxxx",
+      inherits: [123],
+      name: "template",
+      type: "whatever"
+    }
+ */
   	` },
 
 
@@ -69,18 +78,10 @@ OBJY.object({
  *  Objects can be queryed per object family and in different contexts like apps, permissions and tenants
  */
 
-// Example objects in different app contexts
-OBJY.objects([{
-  applications: ["app1"],
-  name "test"
-}, {
-  applications: ["app2"],
-  name "another"
-}])
+// Optional: set application context
+OBJY.useApp('app1') // <- set an application context (optional)
 
-// Query them:
-OBJY.useApp('app1') // <- set ana pplication context (optional)
-
+// Query API using 'get' method:
 OBJY.objects({
   name: "test"
 }).get(data => {
@@ -99,6 +100,11 @@ OBJY.define({
   storage: new MongoMapper('...'), // where objects are stored
   processor: new vm2Mapper('...'), // where objects actions are processed
   observer: new intervalMapper('...') // how object events are observed
+})
+
+// Use your object wrapper for objects:
+OBJY.item({
+  name: "hello"
 })
   	` },
 
@@ -122,6 +128,11 @@ OBJY.define({
   observer: OBJY.customObserver({
     ...
   })
+})
+
+// Use your object wrapper for objects:
+OBJY.item({
+  name: "hello there"
 })
     ` },
 
@@ -153,6 +164,39 @@ OBJY.object({name: "test"}).add(data => {
     }
   */
 })
+` },
+
+{ name: "Rules", icon: 'feat-rules.png', code: `
+/*
+ *  Define custom rules that inject custom structure into objects matching some criteria
+ */
+
+// Define affectables
+OBJY.affectables = [{
+  _id: 123, // some unique id
+  affects: {
+    name: "test"
+  },
+  apply: {
+    onChange: {
+      log: {
+        value: () => {console.log('a change occured')}
+      }
+    }
+  }
+}]
+
+/*  All objects with name "test" will automatically have the onChange trigger:
+    {
+      name: "test",
+      onChange: {
+        log: {
+          value: () => {console.log('a change occured')}
+        }
+      }
+    }
+ */
+
 ` },
 
 
