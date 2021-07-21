@@ -537,6 +537,7 @@ OBJY.object({
 If you have reusable functions, that can are meant to be called from an object handler, you'll need to inject them into the object families processor.
 
 ```javascript
+// Define reusable functions as custom processor.
 OBJY.define({
 	name: 'object',
 	pluralName: 'objects',
