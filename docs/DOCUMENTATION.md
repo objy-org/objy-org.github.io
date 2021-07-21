@@ -496,6 +496,69 @@ OBJY.client('anothercompany');
 // ...
 ```
 
+# Functional Programming
+
+At some point, you'll need to implement custom functionalities. Functionalities, like custom code (js functions), are invoked within ***handlers*** (see chapter below).
+
+## Inline code
+
+Example 1: Custom js function
+
+```javascript
+/* log something on object creation */
+OBJY.object({
+	onCreate: {
+		doSomething: {
+			action: () => {
+				console.log('custom function called')
+			}
+		}
+	}
+})
+```
+
+Example 2: Code as string
+
+```javascript
+/* log something on object creation */
+OBJY.object({
+	onCreate: {
+		doSomething: {
+			action: `
+				console.log('custom function called')
+			`
+		}
+	}
+})
+```
+
+## Providing reusable functions
+
+If you have reusable functions, that can are meant to be called from an object handler, you'll need to inject them into the object families processor.
+
+```javascript
+OBJY.define({
+	name: 'object',
+	pluralName: 'objects',
+	processor: OBJY.customProcessor({
+		mySuperFancyFunction: (obj) => {
+			console.log('running my custom function')
+		} 
+	})
+})
+
+/* call the reusable function */
+OBJY.object({
+	onCreate: {
+		doSomething: {
+			action: `
+				mySuperFancyFunction()
+			`
+		}
+	}
+})
+```
+
 
 # Handlers
 
