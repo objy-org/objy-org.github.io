@@ -199,6 +199,13 @@ OBJY.affectables = [{
 ` },
 
 
+        ],
+        applications: [
+          { name: "'Real-life' applications", details: 'OBJY works a lot like real life: Everything is an object that has a behaviour', },
+          { name: "(Cloud) Platforms", details: 'Create custom platforms, using the OBJY-based framework SPOO', link: {label: 'Explore SPOO', url: 'https://spoo.io'} },
+          { name: "Bring together data", details: 'Bring data from different sources togehter and serve them over one api.' },
+          { name: "Enrich dumb data", details: 'Bring life to dumb data by enriching it with OBJY features, like inheritance or behaviour in real time. Without even manipulating the original data' },
+
         ]
     }
 })
