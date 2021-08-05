@@ -178,18 +178,26 @@
                     </div>
                 </div>
                 <br>
-
+                <center><div class="leto-text-xxl leto-m">What to build...</div></center>
+                <br>
                 <div class="leto-group leto-horizontal-center ">
+
                     <div class="leto-four-fifths leto-full-tablet-pc leto-group">
-                        <div class="leto-full leto-full-tablet-pc">
-                             <div class="leto-text-xxl leto-m">What to build...</div>
+
+                        <div class="leto-half leto-full-tablet-pc">
+                            <pre style="border-radius: 10px" class="leto-block">
+<code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="applications[currentApplication].code"></code></pre>
+                        </div>
+                        <div class="leto-half leto-full-tablet-pc">
+                            
+                            
                             <div class="leto-group -scroll-h">
 
                                 <div class="leto-text-white">
                                     <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
                                         EXAMPLES:</div-->
-                                    <div class="feature feature-large" v-for="(item, i) in applications" >
-                                        
+                                    <div class="feature feature-large" v-for="(item, i) in applications" v-on:click="currentApplication=i">
+                                        <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentApplication==i}"></div>
                                         {{item.name}}
                                         <br>
                                         <div class="leto-text-sm">{{item.details}}
