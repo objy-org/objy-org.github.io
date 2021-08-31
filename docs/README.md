@@ -2,7 +2,7 @@
 
 An object-driven, cross-platform JS programming framework, that uses behaviour-driven objects for abstract development.
 
-> Visit the [API Reference](https://objy.io/docs) for the full documentation.
+> Visit the [API Reference](https://objy.io/docs/./#DOCUMENTATION) for the full documentation.
 
 ![OBJY LOGO](../assets/img/OBJY-object-code.png "OBJY")
 
@@ -204,4 +204,4 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 # API Reference
 
-Visit the [API Reference](https://objy.io/docs) for the full documentation.
+Visit the [API Reference](https://objy.io/docs/./#DOCUMENTATION) for the full documentation.
