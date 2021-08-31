@@ -202,7 +202,7 @@ OBJY.affectables = [{
 
         ],
         applications: [
-          { name: "Embedded in applications", details: 'OBJY can come very handy inside of many types of applications. For larger or smaller things', code: `
+         /*{ name: "OBJY framework", details: 'OBJY can come very handy inside of many types of applications. For larger or smaller things', code: `
 OBJY.object({
   name: "Hi there",
   type: "message",
@@ -214,21 +214,18 @@ OBJY.object({
     }
   }
 })
-`},
- { name: "'Real-life' applications", details: 'OBJY works a lot like real life: Everything is an object that has a behaviour', code: `
-OBJY.object({
-  name: "Computer Contract",
-  type: "contract",
-  expire: {
-    type: "date",
-    action: () => {
-      obj.addProperty('expired', true);
-      email('Contract has expired');
-    }
-  }
+`},*/
+ { name: "OBJY Catalog", details: 'A collection of ready-to-use mappers for connecting third-party technologies', code: `
+var OBJY = require('objy');
+var OBJY_CATALOG = require('objy-catalog');
+
+OBJY.define({
+  name: "item",
+  pluralName: "items",
+  storage: new OBJY_CATALOG.mappers.storage.mongoDB(...)
 })
 `},
-          { name: "(Cloud) Platforms", details: 'Create custom platforms, using the OBJY-based framework SPOO', link: {label: 'Explore SPOO', url: 'https://spoo.io'}, code: `
+          { name: "SPOO", details: 'Create custom platforms, using the OBJY-based framework SPOO', link: {label: 'Explore SPOO', url: 'https://spoo.io'}, code: `
 var SPOO = require('spoojs');
 var OBJY = require('objy');
 
@@ -243,49 +240,7 @@ SPOO.REST({
   port: 80
 }).run()
 `},
-          { name: "Bring together data", details: 'Bring data from different sources togehter and serve them over one api.', code: `
-OBJY.define({
-  name: "object",
-  pluralName: "objects",
-  storage: new MongoMapper()
-})
-
-OBJY.define({
-  name: "item",
-  pluralName: "items",
-  storage: new RedisMapper()
-})
-
-OBJY.object({subject: "hello", _id: 123}).add()
-OBJY.item({message: "world", inherits: [123]}).add()
-
-` },
-          { name: "Enrich dumb data", details: 'Bring life to dumb data by enriching it with OBJY features, like inheritance or behaviour in real time. Without even manipulating the original data', code: `
-OBJY.define({
-  name: "object",
-  pluralName: "objects"
-})
-
-OBJY.define({
-  name: "item",
-  pluralName: "items",
-  storage: new FileMapper()
-})
-
-OBJY.object({subject: "hello", _id: 123}).add()
-
-OBJY.item({message: "world", inherits: [123]}).add()
-
-/* Will produce item:
-{
-  inherits: [123],
-  subject: "hello",
-  message: "world"
-}
-*/
-
-` },
-
+     
         ]
     }
 })
