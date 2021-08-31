@@ -1,4 +1,5 @@
 <!-- docs/_sidebar.md -->
 
-* [Quickstart](README.md)
-* [Documentation](DOCUMENTATION.md)
+* [Homepage](https://objy.io)
+* [Quickstart](./README.md)
+* [API Reference](./DOCUMENTATION.md)
