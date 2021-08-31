@@ -42,12 +42,16 @@
     .feature {
         display: inline-grid;
         background: #252525;
-        padding:20px;
-        height: 200px;
-        width: 200px;
+        padding:10px;
+        height: 150px;
+        width: 150px;
         border-radius: 10px;
-        font-size: 20px;
+        font-size: 15px;
         margin: 10px;
+    }
+
+    .feature-hightlight {
+        border: 2px solid #AAAAAA;
     }
 
     .feature-large {
@@ -87,21 +91,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="leto-mh-sm">
+                    <!--div class="leto-mh-sm">
                         <div class="leto-button leto-border-none leto-ml-none" v-on:click="showInstallInstructions = !showInstallInstructions">
                             <span v-if="!showInstallInstructions">Install</span><span v-else>Close</span>
                         </div>
-                    </div>
+                    </div-->
                     <div class="leto-mh-sm">
                         <a href="https://playcode.io/742016" target="_blank" class="leto-button leto-border-none leto-ml-none">
                             Try online
                         </a>
                     </div>
-                    <div class="leto-mh-sm">
+                    <!--div class="leto-mh-sm">
                         <a href="https://objy-org.github.io/docs" target="_blank" class="leto-button leto-border-none leto-ml-none">
                             Docs <span class="fa fa-chevron-right leto-ml-xs"></span>
                         </a>
-                    </div>
+                    </div-->
                     <!--a class="leto-mh-sm">
                         Docs
                     </a-->
@@ -109,16 +113,28 @@
                 <div class="leto-group leto-horizontal-center leto-mt-xxl leto-mb-xxl">
                     <div class=" leto-mt-xxl">
                         <div class="leto-text-xxxl leto-text-center leto-text-darker-grey" v-show="!showInstallInstructions">
-                            <span class="leto-text-white">OBJY: Behaviour-driven JavaScript objects for building <a href="#applications">cool stuff</a></span>
+                            <span class="leto-text-white">A JavaScript framework for behaviour-driven development</span>
                         </div>
                         <br>
                         <center>
+
+                            <div class="leto-button leto-ml-none" v-on:click="showInstallInstructions = !showInstallInstructions">
+                            <span v-if="!showInstallInstructions">Install</span><span v-else>< back</span>
+                            </div>
+
+                            <a href="https://objy-org.github.io/docs" target="_blank" class="leto-button leto-ml-none">
+                            Docs
+                            </a>
+
                                 <a href="https://www.npmjs.com/package/objy" target="_blank" class="leto-button leto-ml-none">
                                 <span class="fab fa-npm"></span>
                             </a>
                             <a href="https://github.com/objy-org/objy" target="_blank" class="leto-button leto-ml-none">
                                 <span class="fab fa-github"></span>
                             </a>
+
+                           
+                           
                         </center>
                         <!--br>
                         <div class="leto-text-lg leto-text-center leto-text-darker-grey" v-show="!showInstallInstructions">
@@ -152,16 +168,16 @@
                 </center-->
                 <div class="leto-group leto-horizontal-center ">
                     <div class="leto-four-fifths leto-full-tablet-pc leto-group">
-                        <div class="leto-half leto-full-tablet-pc">
+                        <div class="leto-full leto-full-tablet-pc">
                             <div class="leto-group -scroll-h">
                                 <div class="leto-text-white">
                                     <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
                                         EXAMPLES:</div-->
-                                    <div class="feature" v-for="(item, i) in examples" v-on:click="currentExample=i">
-                                        <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentExample==i}"></div>
+                                    <div class="feature" v-for="(item, i) in examples" v-on:click="currentExample=i" v-bind:class="{'feature-hightlight': currentExample==i}">
+                                        <br>
                                         {{item.name}}
                                         <br>
-                                         <img :src="'assets/img/'+item.icon"> 
+                                         <img style="max-height:80px" :src="'assets/img/'+item.icon"> 
                                        
                                     </div>
                                     <!--a href="docs/#/DOCUMENTATION" class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-text-dark-grey leto-horizontal-left leto-click">
@@ -169,18 +185,25 @@
                                     </a-->
                                 </div>
                             </div>
-                            <br>
+                           
                         </div>
-                        <div class="leto-half leto-full-tablet-pc">
+                       
+                    </div>
+                </div>
+                
+                <div class="leto-group leto-horizontal-center ">
+                    <div class="leto-four-fifths leto-full-tablet-pc leto-group">
+                       
+                        <div class="leto-full leto-full-tablet-pc">
                             <pre style="border-radius: 10px" class="leto-block">
 <code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="examples[currentExample].code"></code></pre>
                         </div>
                     </div>
                 </div>
-                <br>
+                <!--br>
                 <center><div class="leto-text-xxl leto-m" name="applications" id="applications">What to build...</div></center>
-                <br>
-                <div class="leto-group leto-horizontal-center ">
+                <br-->
+                <div class="leto-group leto-horizontal-center " v-if="false">
 
                     <div class="leto-four-fifths leto-full-tablet-pc leto-group">
 
