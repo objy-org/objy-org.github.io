@@ -1,5 +1,5 @@
 <!-- docs/_sidebar.md -->
 
 * [Quickstart](./README.md)
-* [API Reference](./DOCUMENTATION.md)
+* [Documentation](./DOCUMENTATION.md)
 * [Ecosystem](./ECOSYSTEM.md)
