@@ -4,7 +4,7 @@ Official Documentation of the OBJY framework. Here you will learn about the conc
 
 # Prequesits
 
-When reading this documentation, you should have installed OBJY as shown in the official [README](./README.md).
+When reading this documentation, you should have installed OBJY as shown in the official [Quickstart Guide](./README.md).
 
 # Object Wrappers
 

@@ -215,7 +215,7 @@ OBJY.object({
   }
 })
 `},*/
- { name: "OBJY Catalog", details: 'A collection of ready-to-use mappers for connecting third-party technologies', code: `
+ { name: "OBJY Catalog", details: 'A collection of ready-to-use mappers for connecting third-party technologies', link: {label: 'Github', url: 'https://github.com/objy-org/objy-catalog'}, code: `
 var OBJY = require('objy');
 var OBJY_CATALOG = require('objy-catalog');
 

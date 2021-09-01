@@ -2,11 +2,17 @@
 
 The OBJY project comes with an ecosystem of plugins, tools and products.
 
-# OBJY Catalog
+## OBJY Catalog
 
 A collection of adapters for using the right technologies for specific use cases and building domain specific object families. 
 
-## Getting Started
+### Getting Started
+
+> Install via npm
+
+```
+npm install objy-catalog
+```
 
 OBJY Mappers are written in JavaScript and can be installed along with the OBJY Framework. They are used to define custom Object Families with the fitting technologies underneath.
 
@@ -20,16 +26,7 @@ Processor | Used to execute object actions, event actions and handler actions | 
 Observer | Observes object events and execute their actions. | Cron-based solutions or event schedulers
 
 
-## Installing
-
-> NPM
-
-
-```
-npm install objy-catalog
-```
-
-## Example
+### Example
 
 Let's create an Object Family that uses the following mappers:
 
@@ -52,7 +49,7 @@ OBJY.Object({name: "Hello World"}).add(function(data)
 })
 ```
 
-# SPOO
+## SPOO
 
 SPOO is a JS framework for building custom platforms.
 The following quick examples show you how to spin up a platform and a client with just a few lines of code.
@@ -61,7 +58,7 @@ The following quick examples show you how to spin up a platform and a client wit
 
 > For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***
 
-## Spin up a basic Platform
+### Spin up a basic Platform
 
 ```shell
 npm i spoojs
@@ -90,7 +87,7 @@ SPOO.REST({
 }).run()
 ```
 
-## Set up a Client (JavaScript SDK)
+### Set up a Client (JavaScript SDK)
 
 > Install via npm or script tag:
 
