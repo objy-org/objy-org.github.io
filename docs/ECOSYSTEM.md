@@ -4,6 +4,8 @@ The OBJY project comes with an ecosystem of plugins, tools and products.
 
 ## OBJY Catalog
 
+[Github](https://github.com/objy-org/objy-catalog)
+
 A collection of adapters for using the right technologies for specific use cases and building domain specific object families. 
 
 ### Getting Started
@@ -50,6 +52,8 @@ OBJY.Object({name: "Hello World"}).add(function(data)
 ```
 
 ## SPOO
+
+[SPOO Website](https://spoo.io)  [Github](https://github.com/spootechnologies/spoo)
 
 SPOO is a JS framework for building custom platforms.
 The following quick examples show you how to spin up a platform and a client with just a few lines of code.
