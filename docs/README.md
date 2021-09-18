@@ -2,8 +2,6 @@
 
 An object-driven, cross-platform JS programming framework, that uses behaviour-driven objects for abstract development.
 
-> Visit the [Documentation](https://objy.io/docs/./#DOCUMENTATION) for detailed information.
-
 ![OBJY LOGO](../assets/img/OBJY-object-code.png "OBJY")
 
 ## Installing

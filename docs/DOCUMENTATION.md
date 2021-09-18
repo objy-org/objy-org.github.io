@@ -1,4 +1,4 @@
-# API Reference
+# Documentation
 
 Official Documentation of the OBJY framework. Here you will learn about the concepts of the framework as well as how to use them.
 
