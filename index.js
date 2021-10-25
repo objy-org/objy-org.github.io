@@ -29,10 +29,6 @@ myObj.addProperty('color', 'blue')
 myObj.remove()
     ` },
     { name: "Events", icon: 'feat-events.png', code: `
-/*
- *  Create an object that executes a custom action at a specific time 
- */
-
 OBJY.object({
    name: "yogurt",
    expires: {     // a date-based event
@@ -48,10 +44,6 @@ OBJY.object({
 })
     ` },
             { name: "Inherits", icon: 'feat-inheritance.png',code: `
-/*
- *  Objects can inherit from each other.
- */
-
 OBJY.object({
    _id: 123,
    name: "template",
@@ -75,10 +67,6 @@ OBJY.object({
 
    
      { name: "Querying", icon: 'feat-query.png', code: `
-/*
- *  Objects can be queryed per object family and in different contexts like apps, permissions and tenants
- */
-
 // Optional: set application context
 OBJY.useApp('app1') // <- set an application context (optional)
 
@@ -91,10 +79,6 @@ OBJY.objects({
     ` },
 
    { name: "External sources", icon: 'feat-mapper.png', code: `
-/*
- *  Custom object wrappers can be created. Define how objects are handled internaly
- */
-
 OBJY.define({
   name: "item", // singular name of object wrapper
   pluralName: "items", // plural name of object wrapper for bulk operations
@@ -110,11 +94,6 @@ OBJY.item({
   	` },
 
 { name: "Custom source", icon: 'feat-origin.png', code: `
-/*
- *  Build custom mappers for storage, observation and processing
- *  Attach third party technologies.
- */
-
 OBJY.define({
   name: "item",
   pluralName: "items", 
@@ -138,10 +117,6 @@ OBJY.item({
     ` },
 
  { name: "Access contexts", icon: 'feat-context.png', code: `
-/*
- *  Accessing objects can be done in the context of tenants, users, permissions and apps
- */
-
 // Work in a client context
 OBJY.useClient('myCompany')
 
@@ -168,11 +143,7 @@ OBJY.object({name: "test"}).add(data => {
 ` },
 
 { name: "Rules", icon: 'feat-rules.png', code: `
-/*
- *  Define custom rules that inject custom structure into objects matching some criteria
- */
-
-// Define affectables
+/ Define affectables
 OBJY.affectables = [{
   affects: { // criteria for selecting objects
     name: "test"
