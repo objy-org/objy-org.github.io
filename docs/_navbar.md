@@ -1,3 +1,5 @@
 <!-- docs/_sidebar.md -->
 
-* [OBJY Homepage](https://objy.io)
+* [Quickstart](./README.md)
+* [Documentation](./DOCUMENTATION.md)
+* [Ecosystem](./ECOSYSTEM.md)
