@@ -18,7 +18,7 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Object API", icon: 'feat-object.png', code: `
+         { name: "Objects", icon: 'feat-object.png', code: `
 var myObj = OBJY.object({
    name: "yogurt",
    flavour: "strawberry"
@@ -78,7 +78,7 @@ OBJY.objects({
 })
     ` },
 
-   { name: "External sources", icon: 'feat-mapper.png', code: `
+   { name: "Mappers", icon: 'feat-mapper.png', code: `
 OBJY.define({
   name: "item", // singular name of object wrapper
   pluralName: "items", // plural name of object wrapper for bulk operations
@@ -93,7 +93,7 @@ OBJY.item({
 })
   	` },
 
-{ name: "Custom source", icon: 'feat-origin.png', code: `
+{ name: "Customize", icon: 'feat-origin.png', code: `
 OBJY.define({
   name: "item",
   pluralName: "items", 
@@ -116,7 +116,7 @@ OBJY.item({
 })
     ` },
 
- { name: "Access contexts", icon: 'feat-context.png', code: `
+ { name: "Contexts", icon: 'feat-context.png', code: `
 // Work in a client context
 OBJY.useClient('myCompany')
 
