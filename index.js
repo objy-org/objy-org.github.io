@@ -170,6 +170,23 @@ OBJY.affectables = [{
 
 ` },
 
+ { name: "SPOO", icon: 'feat-context.png', code: `
+// Use OBJY with SPOO to expose your objects as custom platform
+var SPOO = require('spoojs');
+var OBJY = require('objy');
+
+OBJY.define({
+  name: "asset",
+  pluralName: "assets",
+  storage: new MongoMapper()
+})
+
+SPOO.REST({
+  OBJY: OBJY,
+  port: 80
+}).run()
+` },
+
 
         ],
         applications: [

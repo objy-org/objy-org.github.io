@@ -1,0 +1,5 @@
+* [***Quickstart***](README.md)
+* [***Server API***](/platform/Documentation.md)
+* [***Customisation***](/platform/Customisation.md)
+* [***Deploy***](/platform/Deploy.md)
+* [***Client (REST + JS) >***](https://spoo.io/docs/client)
