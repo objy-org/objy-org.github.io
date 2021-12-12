@@ -1,31 +1,126 @@
-# Documentation
+# Quickstart
 
-Official Documentation of the OBJY framework. Here you will learn about the concepts of the framework as well as how to use them.
+An object-driven, cross-platform JS programming framework, that uses behaviour-driven objects for abstract development.
 
-# Prequesits
+## Installing
 
-When reading this documentation, you should have installed OBJY as shown in the official [Quickstart Guide](./README.md).
+OBJY can be used in Node and the Browser.
 
-# Object Wrappers
+**Node**
 
-Before starting with OBJY, you'll need to define one or more Object Wrappers. 
-An Object Wrapper is a configuration, that is valid for all single objects that are part of the particular wrapper.
+```shell
+npm install objy
+```
 
-Object Wrappers define important information, like the constructor for handling objects and the storage, processing and observation backends.
+**Browser**
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js">
+```
+
+Programming on OBJY is done in two simple steps:
+
+1. Define an object wrapper (a bucket of objects) an choose how objects in this wrapper are stored, processed and observed.
+2. Build and handle objects and tell them what to do.
+
+
+## Object Wrappers
+
+```javascript
+
+// Define an object wrapper
+
+OBJY.define({
+	name: "object", // singular constructor name
+	pluralName: "objects" // plural constructor name
+})
+
+// OBJY now has the contructors:
+
+OBJY.object() // as a wrapper for single objects
+OBJY.objects() // as wrapper for multiple objects
+```
+
+## Simple object
+
+```javascript
+
+// Build an object
+
+OBJY.object({
+   name: "Passport",
+   properties: {
+      expires: "2020-10-10",
+      number: "123"
+   }
+})
+```
+
+## Object with behaviour
+
+```javascript
+
+// Build an object
+
+OBJY.object({
+   warnMe: {
+      date: "2020-10-05",
+      action: "email('expiring soon!')"
+   },
+   onChange: "if(this.number.length == 0) return;"
+})
+```
+
+## Persistence
+
+Naturally, OBJY objects life in the JavaScript instance. You can, however use customized or predefined persistence mappers.
+
+Predefined from [OBJY Catalog](...):
+
+```javascript
+OBJY.define({
+	name: "object",
+	pluralName: "objects"
+	storage: new OBJY_CATALOG.mappers.storage.mongoDB('mongodb://...'), 
+})
+```
+
+Custom mapper:
+
+```javascript
+OBJY.define({
+	name: "object",
+	pluralName: "objects"
+	storage: OBJY.customStorage({
+      add: () => {},
+      getById: () => {},
+      ...
+   })
+})
+```
+
+When using persistence, CRUD operations are done with:
 
 
 ```javascript
-OBY.define({
-	name: "object",
-	pluralName: "objects"
-})
+// Add to persistence
+OBJY.object({...}).add(obj => {})
 
-// once defined, objects in this object wrapper can be wrapped with:
+// Get by id
+OBJY.object(id).get(obj => {})
 
-OBJY.object(...)
-OBJY.objects(...)
+// Query
+OBJY.objects({query...}).get(objs => {})
+
+// Update (methods can be chained)
+OBJY.object({...})
+	.addProperty('color', 'blue')
+	.setProperty('name', 'Test')
+	.save(obj => {})
+
+// Delete
+OBJY.object({...}).delete(obj => {})
 ```
-
 
 # Object structure
 

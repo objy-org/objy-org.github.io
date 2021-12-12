@@ -4,9 +4,7 @@
 </script>
 
 * <a href="https://objy.io" rel="noopener" title="Home">Home</a>
-* [Quickstart](./README.md)
 * [Docs](./DOCUMENTATION.md)
-* [SPOO](./SPOO.md)
-* [Mapper Catalog](./MAPPERS.md)
+* [Ecosystem](./ECOSYSTEM.md)
 * [<span class="fab fa-npm"></span>](https://www.npmjs.com/package/objy)
 * [<span class="fab fa-github"></span>](https://github.com/objy-org/objy)
