@@ -1,4 +1,4 @@
-# SPOO
+# SPOO - Build your own platform
 
 [SPOO Website](https://spoo.io)  &bull; [Github](https://github.com/spootechnologies/spoo)
 
