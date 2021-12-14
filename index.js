@@ -18,19 +18,10 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Objects", icon: 'feat-object.png', code: `
+         { name: "Model objects with behaviour", icon: 'feat-object.png', code: `
 var myObj = OBJY.object({
    name: "yogurt",
-   flavour: "strawberry"
-})
-
-myObj.addProperty('color', 'blue')
-
-myObj.remove()
-    ` },
-    { name: "Events", icon: 'feat-events.png', code: `
-OBJY.object({
-   name: "yogurt",
+   flavour: "strawberry",
    expires: {     // a date-based event
      type: "event",
      date: "20-20-2020",
@@ -42,8 +33,12 @@ OBJY.object({
      }
    }
 })
+
+myObj.addProperty('color', 'blue')
+
+myObj.remove()
     ` },
-            { name: "Inherits", icon: 'feat-inheritance.png',code: `
+            { name: "Build relationships", icon: 'feat-inheritance.png',code: `
 OBJY.object({
    _id: 123,
    name: "template",
@@ -66,9 +61,20 @@ OBJY.object({
 
 
    
-     { name: "Querying", icon: 'feat-query.png', code: `
+     { name: "Query objects", icon: 'feat-query.png', code: `
 // Optional: set application context
 OBJY.useApp('app1') // <- set an application context (optional)
+
+// Work in a client context
+OBJY.useClient('myCompany')
+
+// Work in a user context
+OBJY.useUser({
+  username: "peter",
+  privileges: {
+    app1: ["admin"]
+  }
+})
 
 // Query API using 'get' method:
 OBJY.objects({
@@ -78,7 +84,7 @@ OBJY.objects({
 })
     ` },
 
-   { name: "Mappers", icon: 'feat-mapper.png', code: `
+   { name: "Map from and to any data source", icon: 'feat-mapper.png', code: `
 OBJY.define({
   name: "item", // singular name of object wrapper
   pluralName: "items", // plural name of object wrapper for bulk operations
@@ -91,9 +97,8 @@ OBJY.define({
 OBJY.item({
   name: "hello"
 })
-  	` },
 
-{ name: "Customize", icon: 'feat-origin.png', code: `
+// Custom mappers
 OBJY.define({
   name: "item",
   pluralName: "items", 
@@ -109,41 +114,10 @@ OBJY.define({
     ...
   })
 })
+  	` },
 
-// Use your object wrapper for objects:
-OBJY.item({
-  name: "hello there"
-})
-    ` },
-
- { name: "Contexts", icon: 'feat-context.png', code: `
-// Work in a client context
-OBJY.useClient('myCompany')
-
-// Work in an app context
-OBJY.useApp('myapp')
-
-// Work in a user context
-OBJY.useUser({
-  username: "peter",
-  privileges: {
-    app1: ["admin"]
-  }
-})
-
-// Use the API in your current contexts
-OBJY.object({name: "test"}).add(data => {
-  /*
-    {
-      name: "test",
-      applications: ["app1"]
-    }
-  */
-})
-` },
-
-{ name: "Rules", icon: 'feat-rules.png', code: `
-/ Define affectables
+{ name: "Define custom rules", icon: 'feat-rules.png', code: `
+// Define affectables
 OBJY.affectables = [{
   affects: { // criteria for selecting objects
     name: "test"
@@ -170,7 +144,7 @@ OBJY.affectables = [{
 
 ` },
 
- { name: "SPOO", icon: 'feat-context.png', code: `
+ { name: "Expose as platform", icon: 'feat-context.png', code: `
 // Use OBJY with SPOO to expose your objects as custom platform
 var SPOO = require('spoojs');
 var OBJY = require('objy');
