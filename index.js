@@ -9,6 +9,12 @@ var app = new Vue({
 
         }
     },
+    methods: {
+    loadExample: function () {
+      if(this.currentExample == this.examples.length) this.currentExample = -1
+      this.currentExample = this.currentExample+1
+    }
+    },
     data: {
         currentExample: 0,
         currentApplication: 0,
