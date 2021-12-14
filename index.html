@@ -41,11 +41,11 @@
 
     .feature {
         display: inline-grid;
-        background: #252525;
+        background: #151515;
         padding: 10px;
-        height: 150px;
-        width: 150px;
-        border-radius: 10px;
+        height: 10px;
+        width: 10px;
+        border-radius: 100px;
         font-size: 17px;
         margin: 10px;
     }
@@ -176,20 +176,22 @@
                         <div class="leto-full leto-full-tablet-pc" style="font-size:20px;background:#232323;padding:20px">
 
 
-                            <div class="leto-group leto-horizontal-center" v-if="false">
+                            <div class="leto-group leto-horizontal-center">
                                 <div class="leto-fulle leto-full-tablet-pc leto-group">
-                                    <div class="leto-full leto-full-tablet-pc">
-                                        <div class="leto-group -scroll-h">
+                                    <div class="leto-full leto-full-tablet-pc leto-vertical-center">
+                                        <div class="leto-group -scroll-h leto-full leto-horizontal-center">
                                             <div class="leto-text-white">
                                                 <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
                                                     EXAMPLES:</div-->
+                                                
                                                 <div class="feature" v-for="(item, i) in examples" v-on:click="currentExample=i" v-bind:class="{'feature-hightlight': currentExample==i}">
                                                     <!--center v-if="currentExample==i"><i class="fa fa-chevron-up leto-mb-sm"></i></center-->
                                                    
-                                                    <img style="max-height:50px" :src="'assets/img/'+item.icon">
+                                                    <!--<img style="max-height:50px" :src="'assets/img/'+item.icon">
                                                     
-                                                    {{item.name}}
+                                                    {{item.name}}-->
                                                 </div>
+
                                                 <!--a href="docs/#/DOCUMENTATION" class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-text-dark-grey leto-horizontal-left leto-click">
                                                     + more
                                                 </a-->
@@ -200,7 +202,7 @@
                             </div>
 
                             <pre style="border-radius: 10px" class="leto-block">
-                                <div class="leto-text-white" style="float:right;margin-top: 100px;" v-on:click="loadExample()"><span class="fa fa-chevron-right"></span></div>
+                                <!--div class="leto-text-white" style="float:right;margin-top: 100px;" v-on:click="loadExample()"><span class="fa fa-chevron-right"></span></div-->
                                 <code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="examples[currentExample].code"></code></pre>
                         </div>
                     </div>
