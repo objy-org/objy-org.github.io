@@ -24,7 +24,8 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Model objects with behaviour", icon: 'feat-object.png', code: `
+         { name: "Model objects with behaviour", icon: 'feat-object.png', code: `// A simple object with events. OBJY triggers them automatically
+
 var myObj = OBJY.object({
    name: "yogurt",
    flavour: "strawberry",
@@ -44,15 +45,16 @@ myObj.addProperty('color', 'blue')
 
 myObj.remove()
     ` },
-            { name: "Build relationships", icon: 'feat-inheritance.png',code: `
-OBJY.object({
-   _id: 123,
-   name: "template",
-   type: "whatever"
-})
+            { name: "Build relationships", icon: 'feat-inheritance.png',code: `// Objects can inherit from another
 
 OBJY.object({
-  inherits: [123]
+   _id: 123,          //  <----
+   name: "template",  //      |
+   type: "whatever"   //      |
+})                    //      | inherits by id
+                      //      |
+OBJY.object({         //      |
+  inherits: [123]     // ------
 })
 
 /*  Will become:
@@ -67,27 +69,15 @@ OBJY.object({
 
 
    
-     { name: "Query objects", icon: 'feat-query.png', code: `
-// Optional: set application context
-OBJY.useApp('app1') // <- set an application context (optional)
+     { name: "Query objects", icon: 'feat-query.png', code: `// All OBJY objects can be queried and mutated using CRUD methods
 
-// Work in a client context
-OBJY.useClient('myCompany')
-
-// Work in a user context
-OBJY.useUser({
-  username: "peter",
-  privileges: {
-    app1: ["admin"]
-  }
-})
-
-// Query API using 'get' method:
 OBJY.objects({
   name: "test"
 }).get(data => {
-  // returns queries results inside app context "app1"
+  // [{...},{...}]
 })
+
+OBJY.object({name: "test"}).addProperty('color', 'blue');
     ` },
 
    { name: "Map from and to any data source", icon: 'feat-mapper.png', code: `
@@ -122,36 +112,8 @@ OBJY.define({
 })
   	` },
 
-{ name: "Define custom rules", icon: 'feat-rules.png', code: `
-// Define affectables
-OBJY.affectables = [{
-  affects: { // criteria for selecting objects
-    name: "test"
-  },
-  apply: { // Applies the props to the objects matching the criteria above
-    onChange: {
-      log: {
-        value: () => {console.log('a change occured')}
-      }
-    }
-  }
-}]
-
-/*  All objects with name "test" will automatically have the onChange trigger:
-    {
-      name: "test",
-      onChange: {
-        log: {
-          value: () => {console.log('a change occured')}
-        }
-      }
-    }
- */
-
-` },
-
- { name: "Expose as platform", icon: 'feat-context.png', code: `
-// Use OBJY with SPOO to expose your objects as custom platform
+ { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with SPOO to expose your objects as custom platform
+ 
 var SPOO = require('spoojs');
 var OBJY = require('objy');
 
@@ -167,6 +129,20 @@ SPOO.REST({
 }).run()
 ` },
 
+{ name: "More", icon: '', code: `// Build whatever you can imagine
+
+OBJY.object({
+  onCreate: {
+    selfDestruct: {
+      action: () => {
+        obj.remove();
+        console.log('Im gone!')
+      }
+    }
+  }
+})
+
+`},
 
         ],
         applications: [
@@ -208,6 +184,8 @@ SPOO.REST({
   port: 80
 }).run()
 `},
+
+
      
         ]
     }
