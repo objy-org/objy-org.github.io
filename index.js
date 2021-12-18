@@ -159,7 +159,8 @@ OBJY.object({
   }
 })
 `},*/
- { name: "Use in any JS Environment. from Browser to Node", html: '<span class="leto-text-xxl"><span class="fab fa-js"></span> &nbsp; <span class="fab fa-node"></span></span>', details: '', link: {label: 'Install now', url: 'docs/#/./DOCUMENTATION?id=installing'}, code: `
+
+ /*{ name: "Understand",  details: 'Real life objects have characteristics, behaviour and can take actions. OBJY objects can do the same. This allows you to represent real use cases with OBJY.', html: '<span class="leto-text-xxl"><span class="fa fa-car"></span></span>', code: `
 var OBJY = require('objy');
 var OBJY_CATALOG = require('objy-catalog');
 
@@ -169,7 +170,34 @@ OBJY.define({
   storage: new OBJY_CATALOG.mappers.storage.mongoDB(...)
 })
 `},
-          { name: "Build your own platform. From local to cloud.", html: '<span class="leto-text-xxl"><span class="fa fa-cloud"></span></span>', link: {label: 'Explore SPOO', url: 'https://spoo.io'}, code: `
+*/
+ { name: "Use in any JS Environment", html: '<span class="leto-text-xxl"><span class="fab fa-js"></span> &nbsp; <span class="fab fa-node"></span></span>', link: {label: 'Install now', url: 'docs/#/./DOCUMENTATION?id=installing'}, code: `
+var OBJY = require('objy');
+var OBJY_CATALOG = require('objy-catalog');
+
+OBJY.define({
+  name: "item",
+  pluralName: "items",
+  storage: new OBJY_CATALOG.mappers.storage.mongoDB(...)
+})
+`},
+          { name: "Build your own, custom platform", html: '<span class="leto-text-xxl"><span class="fa fa-cloud"></span></span>', link: {label: 'With SPOO', url: 'https://spoo.io'}, code: `
+var SPOO = require('spoojs');
+var OBJY = require('objy');
+
+OBJY.define({
+  name: "asset",
+  pluralName: "assets",
+  storage: new MongoMapper()
+})
+
+SPOO.REST({
+  OBJY: OBJY,
+  port: 80
+}).run()
+`},
+
+ { name: "Learn OBJY", html: '<span class="leto-text-xxl"><span class="fa fa-lightbulb"></span></span>', link: {label: 'Read the docs now', url: 'docs/#/./DOCUMENTATION'}, code: `
 var SPOO = require('spoojs');
 var OBJY = require('objy');
 
