@@ -55,8 +55,13 @@
     }
 
     .feature-large {
-        height: 200px;
-        width: 200px;
+        background: #1c1c1c;
+        padding: 20px;
+        border-radius: 5px;
+        font-size: 17px;
+        margin: 10px;
+        display: inline-grid;
+        width: 250px;
     }
 
     @media (max-width: 1440px) {
@@ -146,7 +151,7 @@
                             Inheritance, permissions, behaviour, listeners, observations, ...
                            
                         </div-->
-                        <div v-show="showInstallInstructions">
+                        <!--div v-show="showInstallInstructions">
                             <center>
                                 <h4>Node</h4>
                             </center>
@@ -159,7 +164,7 @@
                             <pre style="border-radius: 10px">
 <code class="javascript" style="font-size:20px;background:#232323;padding:20px" >&lt;script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js" />
 </code></pre>
-                        </div>
+                        </div-->
                        
                     </div>
                 </div>
@@ -167,6 +172,34 @@
                     <img class="" src="assets/img/objy-arch-objects.png" style="max-width:100%;width:1100px;border-radius: 10px">
                 </center>
                 
+             
+
+                <div class="leto-group leto-horizontal-center leto-mb-xxl">
+                    <div class="leto-four-fifths leto-full-tablet-pc leto-group">
+                        <div class="leto-full leto-full-tablet-pc">
+
+                            <div class="leto-half leto-full-tablet-pc">
+                            <div class="leto-group -scroll-h">
+                                <div class="leto-text-white">
+                                    <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
+                                        EXAMPLES:</div-->
+                                    <div class="feature-large" v-for="(item, i) in applications">
+                                        <span v-if="item.html" class="leto-m" v-html="item.html"></span>
+                                        <b class="leto-text-xl">{{item.name}}</b>
+                                       
+                                        <div class="leto-text-sm leto-mh-xs">{{item.details}}<br>
+                                            <span v-if="item.link">
+                                    
+                                            <a class="leto-text-md" v-bind:href="item.link.url">{{item.link.label}}</a></div>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="leto-group leto-horizontal-center ">
                     <div class="leto-four-fifths leto-full-tablet-pc leto-group">
                         <div class="leto-full leto-full-tablet-pc" style="font-size:20px;background:#232323;padding:20px">
@@ -208,40 +241,7 @@
                 <!--center><div class="leto-text-xxl leto-m" name="applications" id="applications">Ecosystem</div> &nbsp; (<a href="docs/#/./ECOSYSTEM">more</a>)</center>
                 <br-->
                 
-                <div class="leto-group leto-horizontal-center " v-if="false">
-                    <div class="leto-four-fifths leto-full-tablet-pc leto-group">
-                        <div class="leto-full leto-full-tablet-pc" style="font-size:20px;background:#232323;padding:20px">
-
-                            <div class="leto-half leto-full-tablet-pc">
-                            <div class="leto-group -scroll-h">
-                                <div class="leto-text-white">
-                                    <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
-                                        EXAMPLES:</div-->
-                                    <div class="feature feature-large" v-for="(item, i) in applications" v-on:click="currentApplication=i" v-bind:class="{'feature-hightlight': currentApplication==i}">
-                                        <br>
-                                        {{item.name}}
-                                        <br>
-                                        <div class="leto-text-sm">{{item.details}}
-                                            <span v-if="item.link">
-                                                <br><br>
-                                                <a class="leto-text-sm" v-bind:href="item.link.url" target="_blank">{{item.link.label}}</a></div>
-                                        </span>
-                                    </div>
-                                    <!--a href="docs/#/DOCUMENTATION" class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-text-dark-grey leto-horizontal-left leto-click">
-                                        + more
-                                    </a-->
-                                </div>
-                            </div>
-                           
-                        </div>
-
-
-                            <pre style="border-radius: 10px" class="leto-block">
-<code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="applications[currentApplication].code"></code></pre>
-                        </div>
-                        
-                    </div>
-                </div>
+                
                 <div class=" leto-text-xl leto-text-center leto-text-darker-grey leto-mt-xxl" v-show="!showInstallInstructions">
                     * Use abstract objects, that have a behaviour
                     <br>

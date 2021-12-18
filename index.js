@@ -113,7 +113,7 @@ OBJY.define({
   	` },
 
  { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with SPOO to expose your objects as custom platform
- 
+
 var SPOO = require('spoojs');
 var OBJY = require('objy');
 
@@ -159,7 +159,7 @@ OBJY.object({
   }
 })
 `},*/
- { name: "OBJY Catalog", details: 'A collection of ready-to-use mappers for connecting third-party technologies', link: {label: 'Github', url: 'https://github.com/objy-org/objy-catalog'}, code: `
+ { name: "Use in any JS Environment. from Browser to Node", html: '<span class="leto-text-xxl"><span class="fab fa-js"></span> &nbsp; <span class="fab fa-node"></span></span>', details: '', link: {label: 'Install now', url: 'docs/#/./DOCUMENTATION?id=installing'}, code: `
 var OBJY = require('objy');
 var OBJY_CATALOG = require('objy-catalog');
 
@@ -169,7 +169,7 @@ OBJY.define({
   storage: new OBJY_CATALOG.mappers.storage.mongoDB(...)
 })
 `},
-          { name: "SPOO", details: 'Create custom platforms, using the OBJY-based framework SPOO', link: {label: 'Explore SPOO', url: 'https://spoo.io'}, code: `
+          { name: "Build your own platform. From local to cloud.", html: '<span class="leto-text-xxl"><span class="fa fa-cloud"></span></span>', link: {label: 'Explore SPOO', url: 'https://spoo.io'}, code: `
 var SPOO = require('spoojs');
 var OBJY = require('objy');
 
