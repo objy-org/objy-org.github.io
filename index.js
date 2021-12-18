@@ -181,7 +181,7 @@ OBJY.define({
   storage: new OBJY_CATALOG.mappers.storage.mongoDB(...)
 })
 `},
-          { name: "Build your own, custom platform", html: '<span class="leto-text-xxl"><span class="fa fa-cloud"></span></span>', link: {label: 'With SPOO', url: 'https://spoo.io'}, code: `
+          { name: "Build your own cloud platform", html: '<span class="leto-text-xxl"><span class="fa fa-cloud"></span></span>', link: {label: 'With SPOO', url: 'docs/#/./ECOSYSTEM?id=spoo-build-your-own-platform'}, code: `
 var SPOO = require('spoojs');
 var OBJY = require('objy');
 
