@@ -149,6 +149,45 @@
                         </div>
 
                
+
+
+
+                 <div class="leto-group">
+
+                    <div style="background:#232323;padding:20px;margin:20px">
+                        <pre style="border-radius: 10px" class="leto-block">
+                              
+                                <code class="javascript" style="font-size:16px;background:#232323;padding:20px" >// 1. Define an object wrapper
+OBJY.define({
+    name: "object",
+    storage: mongoDB(),
+    observer: sparkObserver(),
+    processor: evalObserver()
+})</code></pre>
+                    </div>
+
+                    <div style="background:#232323;padding:20px;margin:20px">
+                        <pre style="border-radius: 10px" class="leto-block">
+                                <!--div class="leto-text-white" style="float:right;margin-top: 100px;" v-on:click="loadExample()"><span class="fa fa-chevron-right"></span></div-->
+                                <code class="javascript" style="font-size:16px;background:#232323;padding:20px" >// 2. Handle objects with that wrapper
+OBJY.object({
+    name: "yogurt",
+    expires: {
+        date: "12/12/2030",
+        action: () => { console.log('i am expired now') }
+    }
+}).add()
+                                </code></pre>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
                         <!--br>
                         <div class="leto-text-lg leto-text-center leto-text-darker-grey" v-show="!showInstallInstructions">
                            
