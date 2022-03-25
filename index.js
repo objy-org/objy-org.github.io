@@ -80,21 +80,7 @@ OBJY.objects({
 OBJY.object({name: "test"}).addProperty('color', 'blue');
     ` },
 
-   { name: "Map from and to any data source", icon: 'feat-mapper.png', code: `
-OBJY.define({
-  name: "item", // singular name of object wrapper
-  pluralName: "items", // plural name of object wrapper for bulk operations
-  storage: new MongoMapper('...'), // where objects are stored
-  processor: new vm2Mapper('...'), // where objects actions are processed
-  observer: new intervalMapper('...') // how object events are observed
-})
-
-// Use your object wrapper for objects:
-OBJY.item({
-  name: "hello"
-})
-
-// Custom mappers
+   { name: "Map from and to any data source", icon: 'feat-mapper.png', code: `// Custom mappers
 OBJY.define({
   name: "item",
   pluralName: "items", 
@@ -109,6 +95,11 @@ OBJY.define({
   observer: OBJY.customObserver({
     ...
   })
+})
+
+// Use your object wrapper for objects:
+OBJY.item({
+  name: "hello"
 })
   	` },
 

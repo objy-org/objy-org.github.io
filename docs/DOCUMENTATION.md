@@ -75,16 +75,6 @@ OBJY.object({
 
 Naturally, OBJY objects life in the JavaScript instance. You can, however use customized or predefined persistence mappers.
 
-Predefined from [OBJY Catalog](...):
-
-```javascript
-OBJY.define({
-	name: "object",
-	pluralName: "objects"
-	storage: new OBJY_CATALOG.mappers.storage.mongoDB('mongodb://...'), 
-})
-```
-
 Custom mapper:
 
 ```javascript
@@ -921,29 +911,6 @@ OBJY.object({...})
 
 // Delete
 OBJY.object({...}).delete(obj => {})
-```
-
-## Use existing mappers
-
-There is a project called [objy-catalog](https://github.com/objy-org/objy-catalog), which is an open source collection of existing (and proven) mappers.
-
-Just install the npm module and use it:
-
-```shell
-npm i objy-catalog
-```
-
-```javascript
-var OBJY = require('objy');
-var OBJY_CATALOG = require('objy-catalog');
-
-OBJY.define({
-	name: "object",
-	pluralName: "objects",
-	storage: OBJY_CATALOG.mappers.storage.mongo(),
-	processor: OBJY_CATALOG.mappers.processors.vm(),
-	observer: OBJY_CATALOG.mappers.observers.interval()
-})
 ```
 
 ## Develop custom mappers
