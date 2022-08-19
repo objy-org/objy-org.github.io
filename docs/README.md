@@ -196,6 +196,6 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Connect
 
-* [objy.io](https://objy.io) - OBJY's official website
+* [objy.io](https://objy.xyz) - OBJY's official website
 * [GitHub](https://github.com/objy-org) - OBJY on Github
 * [npm](https://www.npmjs.com/package/objy) - OBJY on npm

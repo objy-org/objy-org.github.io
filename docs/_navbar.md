@@ -3,7 +3,7 @@
 	function a() {alert();};
 </script>
 
-* <a href="https://objy.io" rel="noopener" title="Home">Home</a>
+* <a href="https://objy.xyz" rel="noopener" title="Home">Home</a>
 * [Docs](./DOCUMENTATION.md)
 * [Ecosystem](./ECOSYSTEM.md)
 * [<span class="fab fa-npm"></span>](https://www.npmjs.com/package/objy)
