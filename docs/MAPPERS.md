@@ -1,43 +1,58 @@
-# OBJY Catalog
+# Mappers
 
-[Github](https://github.com/objy-org/objy-catalog)
+OBJY comes with a number of additions.
 
-A collection of adapters for using the right technologies for specific use cases and building domain specific object families. 
+## MongoDB Storage Mapper
 
-## Getting Started
+A mapper for using mongodb as storage backend for your objects
 
-> Install via npm
-
-```
-npm install objy-catalog
-```
-
-OBJY Mappers are written in JavaScript and can be installed along with the OBJY Framework. They are used to define custom Object Families with the fitting technologies underneath.
-
-There are three types of mappers: Persistence, Processing and Observation.
-
-
-| Mapper Type | Description | Examples
---- | --- | ---
-|Persistence| Used to store objects and delegate CRUD operations | Database Systems, File Systems or Caches.
-Processor | Used to execute object actions, event actions and handler actions |  Anything that executes JS Code, like eval or the VM Module. Can be proxied with Messaging Systems.
-Observer | Observes object events and execute their actions. | Cron-based solutions or event schedulers
-
-
-## Example
-
-Let's create an Object Family that uses the following mappers:
+***Installing***
 
 ```
-const CATALOG = require('objy-catalog');
+npm install objy-mapper-mongodb
+```
+
+***Usage***
+
+```
+const MongoMapper = require('objy-mapper-mongodb');
 
 // Define an object family
 OBJY.define({
    name : "Object",
    pluralName: "Objects",
-   persistence: new CATALOG.mappers.storage.mongo(),
-   observer: new CATALOG.mappers.observers.interval(),
-   processor: new CATALOG.mappers.processors.eval()
+   storage: new MongoMapper().connect('mongodb://localhost'),
+})
+
+// Use the object family's constructor
+OBJY.Object({name: "Hello World"}).add(function(data)
+{
+   console.log(data);
+})
+```
+
+## GridFS Storage Mapper
+
+A mapper for using gridfs as storage backend for your file objects.
+
+> This is especially for storing objects as files
+
+***Installing***
+
+```
+npm install objy-mapper-gridfs
+```
+
+***Usage***
+
+```
+const GridFSMapper = require('objy-mapper-gridfs');
+
+// Define an object family
+OBJY.define({
+   name : "Object",
+   pluralName: "Objects",
+   storage: new GridFSMapper().connect('mongodb://localhost'),
 })
 
 // Use the object family's constructor
