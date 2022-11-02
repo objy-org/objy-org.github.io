@@ -8,8 +8,6 @@
 SPOO is a JS framework for building custom platforms.
 The following quick examples show you how to spin up a platform and a client with just a few lines of code.
 
-![Platform](https://spoo.io/assets/img/platform.png)
-
 > For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***
 
 ## Spin up a basic Platform
