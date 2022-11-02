@@ -1,6 +1,9 @@
-# SPOO
+# SPOO - Build your own platform
 
-[SPOO Website](https://spoo.io)  &bull; [Github](https://github.com/spootechnologies/spoo)
+<img src="/docs/./shuttlecarrier.png" data-origin="shuttlecarrier.png" alt="sg" style="
+    width: 240px;
+">
+
 
 SPOO is a JS framework for building custom platforms.
 The following quick examples show you how to spin up a platform and a client with just a few lines of code.
