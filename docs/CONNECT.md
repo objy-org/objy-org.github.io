@@ -5,10 +5,12 @@
 ">
 
 
-OBJY Connect is a project for connecting OBJY instances. It consists of a server and a client framework.
-The following quick examples show you how to spin up a platform and a client with just a few lines of code.
+OBJY Connect is a project for connecting OBJY instances. It consists of two parts:
 
-> For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future.
+* Server: OBJY Connect
+* Client: OBJY Connect Mapper
+
+> For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future. The following quick examples show you how to spin up a platform and a client with just a few lines of code.
 
 ## Spin up a basic Platform
 
@@ -46,11 +48,11 @@ CONNECT.REST({
 > Install via npm or script tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@spootechnologies/spooclient@0.0.13/index.js">
+<script src="https://cdn.jsdelivr.net/npm/objy-connect-mapper/index.js">
 ```
 or
 ```shell
-npm i @spootechnologies/spooclient
+npm i objy-connect-mapper
 ```
 
 ```javascript
