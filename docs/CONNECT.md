@@ -1,14 +1,9 @@
 # Connect OBJY instances running in different places. Server or Browser.
 
-<img src="/docs/./shuttlecarrier.png" data-origin="shuttlecarrier.png" alt="sg" style="
-    width: 200px;
-">
-
-
 OBJY Connect is a project for connecting OBJY instances. It consists of two parts:
 
-* Server: OBJY Connect
-* Client: OBJY Connect Mapper
+* Server: OBJY Expose
+* Client: OBJY Connect
 
 > For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future. The following quick examples show you how to spin up a platform and a client with just a few lines of code.
 
@@ -17,11 +12,11 @@ OBJY Connect is a project for connecting OBJY instances. It consists of two part
 > Install via npm or script tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/objy-connect-mapper/index.js">
+<script src="https://cdn.jsdelivr.net/npm/objy-connect/index.js">
 ```
 or
 ```shell
-npm i objy-connect-mapper
+npm i objy-connect
 ```
 
 ```javascript
@@ -52,7 +47,7 @@ npm i objy objy-connect
 
 ```javascript
 // 1. import connect and objy
-const CONNECT = require('objy-connect');
+const EXPOSE = require('objy-expose');
 const OBJY = require('objy');
 
 // 2. define some "object wrappers"
@@ -68,19 +63,19 @@ OBJY.define({
 })
 
 // 3. run the platform via REST
-CONNECT.REST({
+EXPOSE.REST({
   port:80,
   OBJY,
-  metaMapper: new CONNECT.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
+  metaMapper: new EXPOSE.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
 }).run()
 ```
 
 ## REST Interface
 
-The REST Interface is the default interface in CONNECT. It spins up an express server, that has all the required CONNECT routes ready.
+The REST Interface is the default interface in EXPOSE. It spins up an express server, that has all the required EXPOSE routes ready.
 
 ```javascript
-CONNECT.REST({
+EXPOSE.REST({
   port: 80, // The port to run on
   redisCon: "localhost", // The redis connection (for session storage)
 }).run()
@@ -143,7 +138,7 @@ OBJY.define({
 This feature is enabled by default and can be changed with:
 
 ```javascript
-CONNECT.allowUserRegistrations = true | false
+EXPOSE.allowUserRegistrations = true | false
 ```
 TO BE DOCUMENTED... (coming soon)
 
@@ -154,9 +149,9 @@ The Meta Mapper is a mapper to a MongoDB instance, that holds some basic informa
 
 
 ```javascript
-CONNECT.REST({
+EXPOSE.REST({
   ...
-  metaMapper: new CONNECT.metaMappers.mongoMapper().connect("mongodb://localhost"),
+  metaMapper: new EXPOSE.metaMappers.mongoMapper().connect("mongodb://localhost"),
   ...
 }).run()
 ````
@@ -170,7 +165,7 @@ CONNECT.REST({
 
 
 
-For interacting with CONNECT, there is a **REST API** and a **JavaScript SDK**.
+For interacting with EXPOSE, there is a **REST API** and a **JavaScript SDK**.
 
 All API Methods can be accessed in the scope of a workspace and the application, that you are working with.
 

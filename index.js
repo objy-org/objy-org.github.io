@@ -103,7 +103,7 @@ OBJY.item({
 })
   	` },
 
- { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with OBJY EXPOSE to expose your objects as custom platform
+ { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with OBJY CONNECT to expose your objects as custom platform
 
 var OBJY = require('objy');
 var CONNECT = require('objy-connect');
