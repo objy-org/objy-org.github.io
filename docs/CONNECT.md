@@ -12,7 +12,39 @@ OBJY Connect is a project for connecting OBJY instances. It consists of two part
 
 > For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future. The following quick examples show you how to spin up a platform and a client with just a few lines of code.
 
-## Spin up a basic Platform
+# Client
+
+> Install via npm or script tag:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/objy-connect-mapper/index.js">
+```
+or
+```shell
+npm i objy-connect-mapper
+```
+
+```javascript
+let remote = new CONNECT(OBJY)
+
+OBJY.define({
+  name: "object",
+  pluralName: "objects",
+  storage: remote
+})
+
+// Login
+remote.connect({client: "myclient", url: "https://mydomain.com/api", username: "user", password: "***"}, () => {
+  OBJY.objects({}).get(data => {
+    console.log('data:', data)
+  }, err => {
+    console.log('err:', err)
+  })
+})
+```
+
+# Server
+
 
 ```shell
 npm i objy objy-connect
@@ -43,68 +75,15 @@ CONNECT.REST({
 }).run()
 ```
 
-## Set up a Client (JavaScript SDK)
-
-> Install via npm or script tag:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/objy-connect-mapper/index.js">
-```
-or
-```shell
-npm i objy-connect-mapper
-```
-
-```javascript
-// 1. Initialize the client
-const spoo = new SPOO_Client('mytenant');
-
-// 2. Authenticate a user
-spoo.io().auth("user", "pass", function(data, err){
-  if(!err) console.log('you are in!');
-})
-
-// Add an object
-spoo.io().object({
-  name: "Mercedes",
-  type: "car",
-  properties: {
-    owner : {
-      type: "shortText",
-      value: "Peter Griffin"
-    }
-  }
-}).add(function(data, err)
-{
-  if(err) return console.error(err);
-  console.log(data); // {...object...}
-})
-
-// Modify an object
-spoo.io().object("objectid...").addProperty({
-  color: {
-    type: "shortText",
-    value: "red"
-  }
-}).save(function(data, err)
-{
-  if(err) return console.error(err);
-  console.log(data); // {...updated object...}
-})
-```
-
-
-# API
-
 ## REST Interface
 
-The REST Interface is the default interface in SPOO. It spins up an express server, that has all the required SPOO routes ready.
+The REST Interface is the default interface in CONNECT. It spins up an express server, that has all the required CONNECT routes ready.
 
 ```javascript
-SPOO.REST({
+CONNECT.REST({
   port: 80, // The port to run on
   redisCon: "localhost", // The redis connection (for session storage)
-})
+}).run()
 ````
 
 This will splin up the API at `/api`:
@@ -122,7 +101,7 @@ HOST/api
 ..
 
 
-# Workspaces
+## Workspaces
 
 For ***multitenancy***, any SPOO Platform can have multiple workspaces. Each workspace is an isolated space for each tenant.
 
@@ -132,7 +111,7 @@ The workspace registration feature is enabled by default, but can be changed wit
 SPOO.allowClientRegistrations = true | false
 ```
 
-## Create a workspace
+### Create a workspace
 
 Creating a workspace is done in two steps:
 
@@ -147,12 +126,12 @@ POST HOST/api/client {registrationKey: "KEY", clientname: "YOUR WORKSPACE NAME"}
 ```
 
 
-# User accounts
+## User accounts
 
 User accounts are defined using an object wrapper with the `authable` flag set to `true`
 
 ```javascript
-SPOO.define({
+OBJY.define({
    name: "user",
    pluralName: "users",
    authable: true
@@ -164,34 +143,34 @@ SPOO.define({
 This feature is enabled by default and can be changed with:
 
 ```javascript
-SPOO.allowUserRegistrations = true | false
+CONNECT.allowUserRegistrations = true | false
 ```
 TO BE DOCUMENTED... (coming soon)
 
 
-# Metadata
+## Metadata
 
 The Meta Mapper is a mapper to a MongoDB instance, that holds some basic information for the platform itself. It is used for things like storing workspace information or temporary registrations keys.
 
 
 ```javascript
-SPOO.REST({
+CONNECT.REST({
   ...
-  metaMapper: new SPOO.metaMappers.mongoMapper().connect("mongodb://localhost"),
+  metaMapper: new CONNECT.metaMappers.mongoMapper().connect("mongodb://localhost"),
   ...
 }).run()
 ````
 
-# Messaging system
+## Messaging system
 
 ...
 
 
+## REST API
 
-# SPOO Client API Usage
 
 
-For interacting with SPOO, there is a **REST API** and a **JavaScript SDK**.
+For interacting with CONNECT, there is a **REST API** and a **JavaScript SDK**.
 
 All API Methods can be accessed in the scope of a workspace and the application, that you are working with.
 
@@ -202,40 +181,13 @@ WORKSPACE | The Workspace Name (Tenant Identifier)
 APP | The App name, in which context operations will be made
 
 
-## REST API
-
 
 ```shell
 curl -X GET "URL.com/api/client/<WORKSPACE>/app/<APP>"
 ```
 
 
-## JavaScript SDK
-
-Get it from npm or via spoo.io
-
-
-```html
-<script src="URL.com/code/spoo-cloud.min.js"></script>
-```
-
-or
-
-```javascript
-npm install spoocloud-js
-```
-
-
-```javascript
-// Initialize
-spoo = new SPOO_Client("WORKSPACE").App("APP");
-
-// Usage
-spoo.io().//some api function
-```
-
-
-# Authentication
+## Authentication
 
 All API Methods are only accessible by authenticated users. Authentication is handled with JWT (JSON Web Tokens). 
 There are two kinds of tokens:
@@ -245,7 +197,7 @@ Token | Purpose
 accessToken | This is issued in return to a user's credentials and can then be used to access a ressource. An access token is valid for 20 minutes.
 refreshToken | Once an access token has expired, you can use the refresh token to request a new access token
 
-## Login (Get Tokens)
+### Login (Get Tokens)
 
 > Authenticate a user
 
@@ -257,15 +209,6 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/auth"
     "permanent": true // stay signed in
   }
 
-```
-```javascript
-spoo.io().auth(
-  "peter", // username
-  "mysupersecretpass", // password
-   function(data, err) {  // callback
-  
-  },true // "stay signed in"
-)
 ```
 
 
@@ -304,20 +247,6 @@ As a result, three things will be returned:
 
 **Using the access token:**
 
-  
-
-***JavaScript SDK***
-
-<aside class="info">
-If you are using the JavaScript SDK, access token and refresh token will automatically be persisted locally. So that every call being made (after authentication) will have the access token attached to it.
-If you set the fourth parameter (stay signed in) to true, refreshing access tokens using your refresh tokens will be done automatically for you.
-</aside>
-
-***REST API***
-
-<aside class="info">
-For authenticated calls against the REST API, the access token can either be passed within the authorization header:  
-
 
 `"Authorization" : "Bearer 325nfdf89fn3-.235h8nd..."`
 
@@ -327,7 +256,7 @@ or as query parameter:
 </aside>
 
 
-## Relogin (refresh an access token)
+### Relogin (refresh an access token)
 
 > Request a new access token
 
@@ -338,15 +267,8 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/token"
   }
 
 ```
-```javascript
-spoo.io().token(
-  "325nfdf89fn3-.235h8nd...", // refresh token
-    function(data, err) { // callback
-})
-```
 
 > Refreshing a token returns the same information as in authentication
-
 
 Refresh tokens are issued along with access tokens when a user authenticates.
 
@@ -356,7 +278,7 @@ They can be used to request a new access token, once an old token has expired (a
 Refresh tokens can only be used once! Whenever you use it to get a new access token, you'll also get a new refresh token.
 </aside>
 
-## Logout (reject an access token)
+### Logout (reject an access token)
 
 > Reject an access token
 
@@ -366,11 +288,6 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/token/reject"
     "accessToken" : "325nfdf89fn3-.235h8nd..."
   }
 
-```
-```javascript
-spoo.io().logout(
-    function(data, err) { // callback
-})
 ```
 
 > Respone message
@@ -383,7 +300,7 @@ spoo.io().logout(
 
 After rejecting an access token, this token can no longer be used. Also, the corresponsing refresh token will be revoked.
 
-# Applications
+## Applications
 
 
 You can have multiple applications connected to your client. An application is basically represented by an ***Application ID***
@@ -400,28 +317,12 @@ curl -X POST "URL.com/api/client/WORKSPACE/application"
   }
 
 ```
-```javascript
-new Client("WORKSPACE").Application({
-  "name" : "myapp",
-  "displayName" : "My Fancy App"
-}).add(function(data, err)
-{
-})
-```
-
 
 **Get Applications**
 
 
 ```shell
 curl -X GET "URL.com/api/client/WORKSPACE/applications"
-```
-
-
-```javascript
-new Client("WORKSPACE").Applications().get(function(data, err)
-{
-})
 ```
 
 > Returns
@@ -442,8 +343,7 @@ new Client("WORKSPACE").Applications().get(function(data, err)
 To get a list of all connected applications in your client, use thow follwoing syntax:
 
 
-# Objects
-
+## Objects
 
 
 Objects are the foundation of your applications. They represent entities, hold information, methods, listeners and events.
@@ -490,16 +390,8 @@ spoo.io/.../object
 spoo.io/.../objects
 ```
 
-```javascript
-spoo.io().Object(...)
-spoo.io().Objects(...)
 
-spoo.io().User(...)
-spoo.io().Users(...)
-```
-
-
-## Add an object
+### Add an object
 
 ```shell
 # Works for any object wrapper, like /object, /template, /anything
@@ -507,11 +399,6 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/app/<YOUR APP>/object"
   -D {
     "name" : "my first object"
   }
-```
-```javascript
-// Works for any constructor, like: Object(), Template(), Anything()
-spoo.io().Object({name:"my first object"}).add(function(data, err) {
-})
 ```
 
 > Returns
@@ -533,7 +420,7 @@ spoo.io().Object({name:"my first object"}).add(function(data, err) {
 The data you pass here, will be used to initialize the object structure. Attributes that are not provided be you, will be initialized empty (null, {} or []).
 
 
-## Add multiple objects
+### Add multiple objects
 
 > Example
 
@@ -550,18 +437,7 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/app/<YOUR APP>/objects"
   ]
 
 ```
-```javascript
-// Works for any constructor, like: Object(), Template(), Anything()
-spoo.io().Objects([
-    {
-      "name" : "my first object"
-    },
-    {
-      "name" : "my second object"
-    }
-  ]).add(function(data, err) {
-})
-```
+
 
 > Response
 
@@ -595,7 +471,7 @@ spoo.io().Objects([
 ```
 
 
-## Delete an object
+### Delete an object
 
 > Example
 
@@ -604,11 +480,7 @@ spoo.io().Objects([
 curl -X DELETE "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747bfa8e"
 
 ```
-```javascript
-// Works for: Object(), Template(), EventLog(), File(), User()
-spoo.io().Object("5a818c47d3ere54a747bfa8e").delete(function(data, err) {
-})
-```
+
 
 > Response
 
@@ -626,10 +498,9 @@ spoo.io().Object("5a818c47d3ere54a747bfa8e").delete(function(data, err) {
 ```
 
 
-## Update an Object
+### Update an Object
 
 The following methods are used to alter an object at runtime. Every Operation returns the whole updated object.
-´
 
 
 > Example
@@ -651,21 +522,7 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
 ]
 
 ```
-```javascript
-// Works for: Object(), Template(), File(), User()
-spoo.io().Object("5a818c47d3ere54a747bfa8e")
-  .setName("my name")
-  .setType("my type")
-  .addApplication("demoapp")
-  .removeApplication("otherapp")
-  .addInherit("4iu9332423.423423")
-  .removeInherit("3535343463463463.423423")
-  .setPermission("admin", { value: "*"})
-  .removePermission("plain_user")
-  .setOnCreate("sendEmail", {value: "email('from', 'to', 'hi', 'there')"})
-  .save(function(data, err) {
-})
-```
+
 
 > Response
 
@@ -720,7 +577,7 @@ Method | Description
 
 
 
-## Properties
+### Properties
 
 Properties are what make an object alive. They are embedded into the "properties" section of any object.
 
@@ -759,7 +616,7 @@ action | An action that can be called. This holds a SPOO DSL Snippet
 event | An event that will be observed by SPOO. Learn more below
 
 
-### Add/remove/set Property
+#### Add/remove/set Property
 
 
 > Example
@@ -774,18 +631,8 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
 ]
 
 ```
-```javascript
-// Works for: Object(), Template(), User()
-spoo.io().Object("5a818c47d3ere54a747bfa8e")
-  .addProperty("my prop", { type: "shortText", value: "hi there"})
-  .removeProperty("someOtherProp")
-  .setPropertyValue("my prop", "hello world")
-  .save(function(data, err) {
-})
-```
 
-
-### Listeners and permissions
+#### Listeners and permissions
 
 Properties can have Event Listeners, like onCreate, onChange and onDelete. These listeners can execute some DSL function, you define.
 
@@ -804,16 +651,7 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
 ]
 
 ```
-```javascript
-// Works for: Object(), Template(), User()
-spoo.io().Object("5a818c47d3ere54a747bfa8e")
-  .setPropertyPermission("my prop", {"admin" : { "value" : "*"}})
-  .removePropertyPermission("my prop", "plain_user")
-  .setPropertyConditions("smallerThan('xyz')")
-  .setPropertyOnChange("email('from', 'to' , 'hi', 'i was changed')")
-  .save(function(data, err) {
-})
-```
+
 
 **Nested Properties**
 
@@ -829,14 +667,7 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
   { "setPropertyValue" : ["myBag.firstItem", "hello world"] }
 ]
 ```
-```javascript
-// Works for: Object(), Template(), User()
-spoo.io().Object("5a818c47d3ere54a747bfa8e")
-  .addProperty({"myBag.firstItem": { type: "shortText", value: "hi there"}})
-  .setPropertyValue("myBag.firstItem", "hello world")
-  .save(function(data, err) {
-})
-```
+
 
 > Response
 
@@ -869,9 +700,9 @@ spoo.io().Object("5a818c47d3ere54a747bfa8e")
 }
 ```
 
-## Special Properties
+### Special Properties
 
-### Actions
+#### Actions
 
 
 Actions are properties, that are able to execute some function.
@@ -904,12 +735,6 @@ curl -X POST "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a74
 
 
 ```
-```javascript
-// Works for: Object(), Template(), EventLog(), User()
-spoo.io().Object("5a818c47d3ere54a747bfa8e").Property("myAction").call(function(data, err)
-{
-})
-```
 
 > Response
 
@@ -921,7 +746,7 @@ spoo.io().Object("5a818c47d3ere54a747bfa8e").Property("myAction").call(function(
 
 
 
-### Events
+#### Events
 
 
 Events are special kinds of properties. They will be observed by SPOO based on a fix date or an interval. On due, SPOO automatically triggers the action, that is defined in the event.
@@ -969,20 +794,6 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
 ]
 
 ```
-```javascript
-// Works for: Object(), Template(), User()
-spoo.io().Object("5a818c47d3ere54a747bfa8e")
-  .addProperty({"my first event": { type: "event", date: "2018-02-21T14:14:41+00:00", action : "email('from', 'to', 'hi', 'i just happened')"}}})
-  
-  .setEventDate("my first event", "2019-02-21T14:14:41+00:00") // fix date
-  // or
-  .setEventInterval("my second event", "P30D") // recurring
-
-  .setEventAction("my first event", "email('from', 'to', 'hi', 'i just happened, jay!')")
-  .save(function(data, err) {
-})
-```
-
 
 
 > Response
@@ -1049,7 +860,7 @@ Method | Description
 
 
 
-# Querying
+## Querying
 
 
 Querying lets you find objects by some criteria you define.
@@ -1067,7 +878,7 @@ For property queries, use dot-notation to access single properties, e.g. `proper
 
 
 
-## Simple Queries
+### Simple Queries
 
 ```shell
 # Works for /objects, /templates, /eventlogs, /files, /users
@@ -1075,12 +886,7 @@ curl -X POST "URL.com/api/client/myCompany/app/demoapp/objects?name=my object&ty
 
 
 ```
-```javascript
-// Works for: Objects(), Templates(), EventLogs(), Users()
-spoo.io().Objects({name : "my object", "type" : "/fir/", "properties.myProp" : "/val/"}).get(function(data, err)
-{
-})
-```
+
 
 > Response
 
@@ -1110,18 +916,13 @@ name | my object | Query for exact name
 type | /fir/ | Query for types that have "fir" in it.
 properties.myProp | /val/ | Query for property "myProp" with "val" in it
 
-## Complex Queries
+### Complex Queries
 
 ```shell
 # Works for /objects, /templates, /eventlogs, /files, /users
 curl -X POST "URL.com/api/client/myCompany/app/demoapp/objects?$query=$or: [{name : "my object"}, {name : "not my object"} ]}"
 ```
-```javascript
-// Works for: Objects(), Templates(), EventLogs(), Users()
-spoo.io().Objects({$query : { $or: [{name : "my object"}, {name : "not my object"} ]} }).get(function(data, err)
-{
-})
-```
+
 
 > Response
 
@@ -1151,7 +952,7 @@ Key | Value | Description
 --------- | --------| --------
 $query | {$or: [{name : "my object"}, {name : "not my object"} ]} | Perform an OR query
 
-## Important Differences
+### Important Differences
 
 
 ```shell
@@ -1169,30 +970,6 @@ curl -X POST "URL.com/api/client/myCompany/app/demoapp/objects?properties.myProp
 # complex nested query
 curl -X POST "URL.com/api/client/myCompany/app/demoapp/objects?$query={'properties.myProp.properties.firstProp.value' : 'my value'}"
 
-```
-
-```javascript
-// Works for: Objects(), Templates(), EventLogs(), Users()
-
-// simple query
-spoo.io().Objects({"properties.myProp" : "my value"}).get(function(data, err)
-{
-})
-
-// complex query
-spoo.io().Objects({$query = {"properties.myProp.value" : "my value"}}).get(function(data, err)
-{
-})
-
-// simple nested query
-spoo.io().Objects({"properties.myProp.firstItem" : "my value"}).get(function(data, err)
-{
-})
-
-// complex nested query
-spoo.io().Objects({$query = {"properties.myProp.properties.firstItem.value" : "my value"}}).get(function(data, err)
-{
-})
 ```
 
 <aside class="warning">
@@ -1226,8 +1003,7 @@ Complex Query | Description
 
 
 
-
-# Files
+## Files
 
 
 Files are objects, that hold some file data.
@@ -1247,28 +1023,12 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/file"
 }
 ```
 
-```javascript
-var formData = new FormData(); 
-var fileInput = document.getElementById('upload');
-var file = fileInput.files[0];
-formData.append("uploadfile", file);
-            
-spoo.io().File({data: formData, name : "my file"}).add(function(data, err)
-{
 
-})
-```
-
-
-## Get File
+### Get File
 
 ```shell
 # Works for /object, /template, /user
 curl -X GET "URL.com/api/client/myCompany/app/demoapp/file/248her1928hrr3/data?accessToken=35282hf8nf"
-```
-
-```javascript
-spoo.io().File("248her1928hrr3").path()
 ```
 
 To get the file itself, the API offers a way to retrieve the path to the file.
@@ -1278,7 +1038,7 @@ Important: When you are using the REST API, make sure to attach your access toke
 
 
 
-# Permissions
+## Permissions
 
 
 Access Control lets you manage what a user can do with an object. For it to work, you need two things, that are mapped together:
@@ -1341,7 +1101,7 @@ Inside permissions, you can map user privileges, or use a wildcard "<b>*</b>" to
 
 
 
-## Permission Codes
+### Permission Codes
 
 These Codes can be combined to build permissions.
 
@@ -1399,385 +1159,11 @@ Method | Description
 
 
 
-## SPOO Admin
+### SPOO Admin
 
 There is a special kind of privilege, called `spooAdmin`. This is a flag that is attached to a user object and can either be `true` or `false`.
 
 
 A SPOO Admin is a super user and can perform any operation, regardless of permissions.  
 
-Whe you set up your client, your initial user will be a SPOO Admin.
-
-
-
-
-# Tutorials
-
-## Overview
-
-In order to learn how to develop with SPOO, we are providing some tutorials.
-
-- Tutorial 1: Build a ToDo App
-
-If you want to try the steps yourself, you can use ***Postman*** for the REST API, 
-or ***Plunkr*** for the JavaScript SDK.
-
-
-
-
-## ToDo App
-
-Let's learn how to build a ToDo App
-
-What you'll need to do this:
-
-- A SPOO Account  
-
-
-
-What we are going to do:
-
-- Login with our credentials
-- Create a ToDo list template
-- Add ToDo list objects
-- Add items to the list
-- Tick off some items
-
-Let's roll!
-
-
-## Step 1: Login
-
-> Step 1: Login
-
-```shell
-curl "URL.com/api/client/WORKSPACE/auth"
-  -D {
-    "username" : "peter",
-    "password" : "mysupersecretpass"
-  }
-
-```
-```javascript
-var spoo = new Client("WORKSPACE");
-
-spoo.io().auth(
-  "peter", // username
-  "mysupersecretpass", // password
-  true, // "stay signed in"
-  function(data, err) { // callback
-  
-})
-```
-
-> Authentication will return:
-
-```json
-{
-  "user": {
-    "uId" : "u58.afnfkafm", // the user ID
-    "cId" : "90jr902355-2.525", // a session ID
-    "client" : "myCompany", // client identifier
-    "username" : "peter.griffin", //username
-    "privileges": {   // privileges (user roles)
-      "demoapp" : [   // divided into applications
-        {
-          "name" : "admin"
-        }
-      ]
-    },
-    "spooAdmin" : false // if the user is a superuser
-  },
-  "token":
-  {
-    "accessToken" : "95u83 iomfg adf290....",
-    "refreshToken" : "93jfna8fh29n9f...."
-  }
-}
-
-```
-
-We are going to login using our username and password.
-
-If you are using the REST API make sure to remember the accessToken!
-
-
-## Step 2: Create a ToDo List Template
-
-> Step 2: Add Template
-
-```shell
-# Set application context to "todoApp" which will automatically create the application
-curl "URL.com/api/client/WORKSPACE/app/todoApp/template"
-  -H "Authorisazion  Bearer 95u83 iomfg adf290...."
-  -D {
-  "name" : "ToDo List Template",
-  "type" : "todo_list",
-  "properties": 
-  {
-    "items": {
-      "type" : "bag",
-      "properties" : {}
-    }
-  }
-}
-
-```
-```javascript
-// Set application context to "todoApp" which will automatically create the application
-var spoo = new Client("WORKSPACE").App("todoApp");
-
-spoo.io().Template({
-  name : "ToDo List Template",
-  type : "todo_list",
-  properties: 
-  {
-    "items": {
-      type : "bag",
-      properties : {}
-    }
-  }
-}).add(function(data, err){
-
-})
-```
-
-> Returns:
-
-```json
-{
-    "role": "template",
-    "type": "todo_list",
-    "applications": [
-        "todoApp"
-    ],
-    "inherits": [],
-    "_id": "5a8eeef4e1e1282f7d3121ed",
-    "name": "ToDo List Template",
-    "properties": 
-    {
-        "items": {
-          "type": "bag",
-          "properties": {}
-       }
-    },
-    "permissions": {},
-    "privileges": {}
-}
-```
-
-
-A ToDo List should have:
-
-- An "Items" Property (of type ***bag***), which holds our ToDo items.
-
-
-In order to work in an application context, we'll just initialize you API/SDK with "todoApp" as application identifier. Wo with creation of our first template, the application will be added automatically.
-
-
-
-
-## Step 3: Add a ToDo List Object from our Template
-
-> Step 3: Add ToDo List Object
-
-```shell
-curl "URL.com/api/client/WORKSPACE/app/todoApp/object"
-  -H "Authorisazion  Bearer 95u83 iomfg adf290...."
-  -D {
-    "inherits" : ["5a8eeef4e1e1282f7d3121ed"] 
-    // We just need to initialize this with the template id
-    // Otherwise the object is empty
-  }
-
-```
-```javascript
-spoo.io().Object({
-  inherits : ["5a8eeef4e1e1282f7d3121ed"]
-  // We just need to initialize this with the template id
-  // Otherwise the object is empty
-}).add(function(data, err){
-
-})
-```
-
-> Returns:
-
-```json
-{
-    "role": "object",
-    "type": "todo_list",
-    "applications": [
-        "todoApp"
-    ],
-    "inherits": [
-        "5a8eeef4e1e1282f7d3121ed"
-    ],
-    "_id": "5a8eefd1e1e1282f7d3121ee",
-    "name": null,
-    "onCreate": null,
-    "onDelete": null,
-    "properties": 
-    {
-        "items": {
-          "type": "bag",
-          "properties": {},
-          "template": "5a8eeef4e1e1282f7d3121ed"
-       }
-    },
-    "permissions": {},
-    "privileges": {}
-}
-```
-
-When we create a new ToDo list object, we want it to extend our ToDo List template.
-So all we have to do, is create an empty object with nothing but the `inherits` attribute. In there we're putting the id of the template.   
-
-
-Remember that inherits is an array!
-
-  
-
-As a result, we'll get our freshly created ToDo List object with the necessary information inherited from the template.
-
-
-
-## Step 4: Add Items to the List
-
-> Step 3: Add Items to the List
-
-```shell
-curl "URL.com/api/client/WORKSPACE/app/todoApp/object/5a8eefd1e1e1282f7d3121ee"
-  -H "Authorisazion  Bearer 95u83 iomfg adf290...."
-  -D [
-    {"addProperty" : {"items.tidyUp": { "type" : "boolean", "value" : false}}},
-    {"addProperty" : {{"items.goShopping": { "type" : "boolean", "value" : false}}},
-  ]
-
-```
-```javascript
-spoo.io().Object("5a8eefd1e1e1282f7d3121ee").addProperty({
-    "items.tidyUp": {
-    type : "boolean",
-    value : false
-  }}).addProperty(
-  {
-    "items.goShopping": {
-    type : "boolean",
-    value : false
-}}).save(function(data, err){
-
-})
-```
-
-> Returns:
-
-```json
-{
-    "role": "object",
-    "type": "todo_list",
-    "applications": [
-        "todoApp"
-    ],
-    "inherits": [
-        "5a8eeef4e1e1282f7d3121ed"
-    ],
-    "_id": "5a8eefd1e1e1282f7d3121ee",
-    "name": null,
-    "onCreate": null,
-    "onDelete": null,
-    "properties": 
-    {
-        "items": {
-          "type": "bag",
-          "properties": 
-          {
-            "tidyUp": {
-              "type" : "boolean",
-              "value" : false
-           }
-          },
-          {
-            "goShopping": {
-              "type" : "boolean",
-              "value" : false
-           }
-          },
-          "template": "5a8eeef4e1e1282f7d3121ed"
-         }
-    },
-    "permissions": {},
-    "privileges": {}
-}
-```
-
-
-Let's add two items to the list. These items are properties that will be hooked into the "items" bag.
-
-Each item is of type "boolean" so that we can tick them off.
-
-
-
-## Step 5: Tick off an Item
-
-> Step 5: Tick off an Item
-
-```shell
-curl "URL.com/api/client/WORKSPACE/app/todoApp/object/5a8eefd1e1e1282f7d3121ee"
-  -H "Authorisazion  Bearer 95u83 iomfg adf290...."
-  -D [
-    {"setPropertyValue" : ["items.tidyUp", true]}
-  ]
-
-```
-```javascript
-spoo.io().Object("5a8eefd1e1e1282f7d3121ee").setPropertyValue(
-    "items.tidyUp", false
-    ).save(function(data, err){
-
-})
-```
-
-> Returns:
-
-```json
-{
-    "role": "object",
-    "type": "todo_list",
-    "applications": [
-        "todoApp"
-    ],
-    "inherits": [
-        "5a8eeef4e1e1282f7d3121ed"
-    ],
-    "_id": "5a8eefd1e1e1282f7d3121ee",
-    "name": null,
-    "onCreate": null,
-    "onDelete": null,
-    "properties": 
-    {
-        "items": {
-          "type": "bag",
-          "properties": 
-          {
-            "tidyUp": {
-              "type" : "boolean",
-              "value" : true
-           }
-          },
-          {
-            "goShopping": {
-              "type" : "boolean",
-              "value" : false
-           }
-          },
-          "template": "5a8eeef4e1e1282f7d3121ed"
-         }
-    },
-    "permissions": {},
-    "privileges": {}
-}
-```
-
-
-Now, we'll tick off item "tidyUp". So we set that property's value to true.
+When you set up your client, your initial user will be a SPOO Admin.
