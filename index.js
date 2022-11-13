@@ -103,10 +103,10 @@ OBJY.item({
 })
   	` },
 
- { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with SPOO to expose your objects as custom platform
+ { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with OBJY EXPOSE to expose your objects as custom platform
 
-var SPOO = require('spoojs');
 var OBJY = require('objy');
+var OBJY_EXPOSE = require('objy-expose');
 
 OBJY.define({
   name: "asset",
@@ -114,8 +114,8 @@ OBJY.define({
   storage: new MongoMapper()
 })
 
-SPOO.REST({
-  OBJY: OBJY,
+OBJY_EXPOSE.REST({
+  OBJY,
   port: 80
 }).run()
 ` },

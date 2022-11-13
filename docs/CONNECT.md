@@ -1,4 +1,4 @@
-# SPOO - Build your own platform
+# Expose your OBJY - build your own platform
 
 <img src="/docs/./shuttlecarrier.png" data-origin="shuttlecarrier.png" alt="sg" style="
     width: 240px;
