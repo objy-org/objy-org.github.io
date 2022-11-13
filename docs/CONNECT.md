@@ -1,24 +1,24 @@
-# Expose your OBJY - build your own platform
+# Connect OBJY instances running in different places. Server or Browser.
 
 <img src="/docs/./shuttlecarrier.png" data-origin="shuttlecarrier.png" alt="sg" style="
-    width: 240px;
+    width: 200px;
 ">
 
 
-SPOO is a JS framework for building custom platforms.
+OBJY Connect is a project for connecting OBJY instances. It consists of a server and a client framework.
 The following quick examples show you how to spin up a platform and a client with just a few lines of code.
 
-> For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***
+> For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future.
 
 ## Spin up a basic Platform
 
 ```shell
-npm i spoojs objy
+npm i objy objy-connect
 ```
 
 ```javascript
-// 1. import spoo and objy
-const SPOO = require('spoojs');
+// 1. import connect and objy
+const CONNECT = require('objy-connect');
 const OBJY = require('objy');
 
 // 2. define some "object wrappers"
@@ -34,10 +34,10 @@ OBJY.define({
 })
 
 // 3. run the platform via REST
-SPOO.REST({
+CONNECT.REST({
   port:80,
   OBJY,
-  metaMapper: new SPOO.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
+  metaMapper: new CONNECT.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
 }).run()
 ```
 
