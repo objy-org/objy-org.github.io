@@ -50,17 +50,11 @@ OBJY.object({
 })                    //      | inherits by id
                       //      |
 OBJY.object({         //      |
-  inherits: [123]     // ------
+  inherits: [123],    // ------
+  _id: "xxxx",
+  name: "template",
+  type: "whatever"
 })
-
-/*  Will become:
-    {
-      _id: "xxxx",
-      inherits: [123],
-      name: "template",
-      type: "whatever"
-    }
- */
   	` },
 
 
