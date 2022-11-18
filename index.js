@@ -103,10 +103,10 @@ OBJY.item({
 })
   	` },
 
- { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with OBJY CONNECT to expose your objects as custom platform
+ { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with OBJY EXPOSE to expose your objects as custom platform
 
 var OBJY = require('objy');
-var CONNECT = require('objy-connect');
+var EXPOSE = require('objy-expose');
 
 OBJY.define({
   name: "asset",
@@ -114,7 +114,7 @@ OBJY.define({
   storage: new MongoMapper()
 })
 
-CONNECT.REST({
+EXPOSE.REST({
   OBJY,
   port: 80
 }).run()
