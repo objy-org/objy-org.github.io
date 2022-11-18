@@ -40,10 +40,6 @@ var myObj = OBJY.object({
      }
    }
 })
-
-myObj.addProperty('color', 'blue')
-
-myObj.remove()
     ` },
             { name: "Build relationships", icon: 'feat-inheritance.png',code: `// Objects can inherit from another
 
