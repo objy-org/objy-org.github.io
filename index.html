@@ -178,38 +178,17 @@
 
                 <div class="leto-group leto-horizontal-center ">
                     <div class="leto-four-fifths leto-full-tablet-pc leto-group">
+                        <div v-for="(item, i) in examples" v-if="i==0">
+
                         <div class="leto-full leto-full-tablet-pc" style="font-size:20px;background:#232323;padding:20px">
-
-                            
-                            <div class="leto-group leto-horizontal-center">
-                                <div class="leto-fulle leto-full-tablet-pc leto-group">
-                                    <div class="leto-full leto-full-tablet-pc leto-vertical-center">
-                                        <div class="leto-group -scroll-h leto-full leto-horizontal-center">
-                                            <div class="leto-text-white">
-                                                <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">
-                                                    EXAMPLES:</div-->
-                                                
-                                                <div class="feature" v-for="(item, i) in examples" v-on:click="currentExample=i" v-bind:class="{'feature-hightlight': currentExample==i}">
-                                                    <!--center v-if="currentExample==i"><i class="fa fa-chevron-up leto-mb-sm"></i></center-->
-                                                   
-                                                    <!--<img style="max-height:50px" :src="'assets/img/'+item.icon">
-                                                    
-                                                    {{item.name}}-->
-                                                </div>
-
-                                                <!--a href="docs/#/DOCUMENTATION" class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-text-dark-grey leto-horizontal-left leto-click">
-                                                    + more
-                                                </a-->
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <pre style="border-radius: 10px" class="leto-block">
                                 <!--div class="leto-text-white" style="float:right;margin-top: 100px;" v-on:click="loadExample()"><span class="fa fa-chevron-right"></span></div-->
-                                <code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="examples[currentExample].code"></code></pre>
+                                <code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="item.code"></code></pre>
                         </div>
+
+                        </div>
+
                     </div>
                 </div>
                 <br>
