@@ -96,34 +96,28 @@
                     <div class="leto-mr-lg">
                         <b><img src="logo.png" style="height:40px"></b>
                     </div>
-                    <div class="leto-left leto-mb-sm">
-                        <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
-                            <!--div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click">RUNS WITH:</div-->
-                            <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
-                                <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
-                                <div>{{item}}</div>
-                            </div>
-                        </div>
+                    <div class="leto-full leto-mb-sm">
+                        <center>
+
+                            <a v-for="(item, i) in examples" class="leto-button leto-ml-none leto-border-none" v-on:click="currentExample = i">
+                                {{item.name}}
+                            </a>
+                    </center>
+                    </div>
+                    <div>
+
+                        <a href="/docs#/./DOCUMENTATION" class="leto-button leto-ml-none leto-border-none">
+                                Docs
+                            </a>
+                           
+
                     </div>
                     <!--div class="leto-mh-sm">
                         <div class="leto-button leto-border-none leto-ml-none" v-on:click="showInstallInstructions = !showInstallInstructions">
                             <span v-if="!showInstallInstructions">Install</span><span v-else>Close</span>
                         </div>
                     </div-->
-                    <div class="leto-mh-sm">
-                            <a href="/docs#/./DOCUMENTATION" class="leto-button leto-ml-none leto-border-none">
-                                Docs
-                            </a>
-                            <a href="/docs#/./MAPPERS" class="leto-button leto-ml-none leto-border-none">
-                                Mappers
-                            </a>
-                            <a href="/docs#/./CONNECT" class="leto-button leto-ml-none leto-border-none">
-                                Connect
-                            </a>
-                            <a href="https://github.com/objy-org/objy" target="_blank" class="leto-button leto-ml-none leto-border-none">
-                                <span class="fab fa-github"></span>
-                            </a>
-                    </div>
+                    
                     <!--div class="leto-mh-sm">
                         <a href="https://objy-org.github.io/docs" target="_blank" class="leto-button leto-border-none leto-ml-none">
                             Docs <span class="fa fa-chevron-right leto-ml-xs"></span>
@@ -134,13 +128,13 @@
                     </a-->
                 </div>
                            
-<div class="leto-group leto-horizontal-center leto-mt-xl leto-mb-xxl">
+                <div class="leto-group leto-horizontal-center leto-mt-xl leto-mb-xxl">
                     <div class=" ">
                        
                              <center class=" leto-mb leto-group leto-vertical-center">
                
                     <div class="leto-text-xl leto-text-left leto-text-lighter-grey leto-width-full-tablet" v-show="!showInstallInstructions">
-                            <img src="objy.png" style="width: 80px;display:inline-block">- Abstract JS objects for building real use cases
+                            Abstract, powerful objects for building real use cases
 
                         </div>
                 </center>
@@ -149,7 +143,8 @@
                     </div>
                 </div>
                
-                
+ 
+
                 <div class="leto-group leto-horizontal-center leto-mb-xxl" v-if="false">
                     <div class="leto-full leto-group">
                         <div class="leto-full leto-full-tablet-pc">
@@ -178,15 +173,12 @@
 
                 <div class="leto-group leto-horizontal-center ">
                     <div class="leto-four-fifths leto-full-tablet-pc leto-group">
-                        <div v-for="(item, i) in examples" v-if="i==0">
-
+                     
                         <div class="leto-full leto-full-tablet-pc" style="font-size:20px;background:#232323;padding:20px">
 
                             <pre style="border-radius: 10px" class="leto-block">
                                 <!--div class="leto-text-white" style="float:right;margin-top: 100px;" v-on:click="loadExample()"><span class="fa fa-chevron-right"></span></div-->
-                                <code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="item.code"></code></pre>
-                        </div>
-
+                                <code class="javascript" style="font-size:20px;background:#232323;padding:20px" v-html="examples[currentExample].code"></code></pre>
                         </div>
 
                     </div>

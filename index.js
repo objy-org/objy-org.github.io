@@ -24,7 +24,7 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Model objects with behaviour", icon: 'feat-object.png', code: `// A simple object with events. OBJY triggers them automatically
+         { name: "Objects", icon: 'feat-object.png', code: `// A simple object with events. OBJY triggers them automatically
 
 var myObj = OBJY.object({
    name: "yogurt",
@@ -41,7 +41,7 @@ var myObj = OBJY.object({
    }
 })
     ` },
-            { name: "Build relationships", icon: 'feat-inheritance.png',code: `// Objects can inherit from another
+            { name: "Relationships", icon: 'feat-inheritance.png',code: `// Objects can inherit from another
 
 OBJY.object({
    _id: 123,          //  <----
@@ -59,7 +59,7 @@ OBJY.object({         //      |
 
 
    
-     { name: "Query objects", icon: 'feat-query.png', code: `// All OBJY objects can be queried and mutated using CRUD methods
+     { name: "Query", icon: 'feat-query.png', code: `// All OBJY objects can be queried and mutated using CRUD methods
 
 OBJY.objects({
   name: "test"
@@ -70,7 +70,7 @@ OBJY.objects({
 OBJY.object({name: "test"}).addProperty('color', 'blue');
     ` },
 
-   { name: "Map from and to any data source", icon: 'feat-mapper.png', code: `// Custom mappers
+   { name: "Mappers", icon: 'feat-mapper.png', code: `// Custom mappers
 OBJY.define({
   name: "item",
   pluralName: "items", 
@@ -93,7 +93,7 @@ OBJY.item({
 })
   	` },
 
- { name: "Expose as platform", icon: 'feat-context.png', code: `// Use OBJY with OBJY EXPOSE to expose your objects as custom platform
+ { name: "Connect", icon: 'feat-context.png', code: `// Use OBJY with OBJY EXPOSE to expose your objects as custom platform
 
 var OBJY = require('objy');
 var EXPOSE = require('objy-expose');
