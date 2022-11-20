@@ -24,9 +24,7 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Objects", icon: 'feat-object.png', code: `// A simple object with events. OBJY triggers them automatically
-
-var myObj = OBJY.object({
+         { name: "Objects", header: 'OBJY - Abstract, powerful objects for building real use cases', icon: 'feat-object.png', code: `var myObj = OBJY.object({
    name: "yogurt",
    flavour: "strawberry",
    expires: {     // a date-based event
@@ -41,9 +39,7 @@ var myObj = OBJY.object({
    }
 })
     ` },
-            { name: "Relationships", icon: 'feat-inheritance.png',code: `// Objects can inherit from another
-
-OBJY.object({
+            { name: "Relationships", header: 'Inherits for reusing object structures', icon: 'feat-inheritance.png',code: `OBJY.object({
    _id: 123,          //  <----
    name: "template",  //      |
    type: "whatever"   //      |
@@ -59,9 +55,7 @@ OBJY.object({         //      |
 
 
    
-     { name: "Query", icon: 'feat-query.png', code: `// All OBJY objects can be queried and mutated using CRUD methods
-
-OBJY.objects({
+     { name: "Query", icon: 'feat-query.png', header: 'Find objects by many criteria', code: `OBJY.objects({
   name: "test"
 }).get(data => {
   // [{...},{...}]
@@ -70,8 +64,7 @@ OBJY.objects({
 OBJY.object({name: "test"}).addProperty('color', 'blue');
     ` },
 
-   { name: "Mappers", icon: 'feat-mapper.png', code: `// Custom mappers
-OBJY.define({
+   { name: "Mappers", header: 'Objects can live anywhere. Just map them. Build custom mappers or use existing ones', icon: 'feat-mapper.png', code: `OBJY.define({
   name: "item",
   pluralName: "items", 
   storage: OBJY.customStorage({
@@ -93,9 +86,7 @@ OBJY.item({
 })
   	` },
 
- { name: "Connect", icon: 'feat-context.png', code: `// Use OBJY with OBJY EXPOSE to expose your objects as custom platform
-
-var OBJY = require('objy');
+ { name: "Connect", header: 'Expose your OBJY environment, connect from somewere else', icon: 'feat-context.png', code: `var OBJY = require('objy');
 var EXPOSE = require('objy-expose');
 
 OBJY.define({
@@ -110,9 +101,7 @@ EXPOSE.REST({
 }).run()
 ` },
 
-{ name: "More", icon: '', code: `// Build whatever you can imagine
-
-OBJY.object({
+{ name: "More", header: 'Build whatever you like', icon: '', code: `OBJY.object({
   onCreate: {
     selfDestruct: {
       action: () => {
