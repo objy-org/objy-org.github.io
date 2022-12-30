@@ -94,9 +94,12 @@
             <div class="leto-card leto-bg-black leto-width-full leto-text-white leto-border-none leto-pb-none leto-roundness-md">
                 <div class="leto-group leto-vertical-center scroll-h" v-if="true">
                     <div class="leto-mr-lg">
-                        <b><img src="logo.png" style="height:40px"></b>
+                        <b><img src="logo.png" style="height:40px"></b> 
+                        <a href="/docs#/./DOCUMENTATION" class="leto-button-sm leto-ml-none">
+                                Docs &nbsp;<span class="fa fa-chevron-right"></span>
+                            </a>
                     </div>
-                    <div class="leto-full leto-mb-sm">
+                    <div class="leto-full leto-mb-xxs">
                         <center>
 
                             <a v-for="(item, i) in examples" v-bind:href="'#'+item.name" class="leto-button leto-ml-none leto-border-none" v-on:click="currentExample = i">
@@ -104,14 +107,7 @@
                             </a>
                     </center>
                     </div>
-                    <div>
-
-                        <a href="/docs#/./DOCUMENTATION" class="leto-button leto-ml-none leto-border-none">
-                                Docs
-                            </a>
-                           
-
-                    </div>
+                   
                     <!--div class="leto-mh-sm">
                         <div class="leto-button leto-border-none leto-ml-none" v-on:click="showInstallInstructions = !showInstallInstructions">
                             <span v-if="!showInstallInstructions">Install</span><span v-else>Close</span>
