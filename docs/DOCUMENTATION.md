@@ -981,7 +981,7 @@ OBJY.define({
 ```
 
 
-## observer
+## Observer
 
 ```javascript
 OBJY.define({
@@ -999,5 +999,71 @@ OBJY.define({
 })
 ```
 
+# Connect OBJY instances
+
+OBJY Connect is a project for connecting OBJY instances, running in different places.
+
+> For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future. The following quick examples show you how to spin up a platform and a client with just a few lines of code.
 
 
+## Server
+
+```shell
+npm i objy objy-expose
+```
+
+```javascript
+// 1. import objy and objy-expose
+const OBJY = require('objy');
+const EXPOSE = require('objy-expose');
+
+// 2. define some "object wrappers"
+OBJY.define({
+  name: "user",
+  pluralName: "users",
+  authable: true
+})
+
+OBJY.define({
+  name: "object",
+  pluralName: "objects"
+})
+
+// 3. run the platform via REST
+EXPOSE.REST({
+  port:80,
+  OBJY,
+  metaMapper: new EXPOSE.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
+}).run()
+```
+
+## Client
+
+> Runs in Browser or Node
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/objy-connect/index.js">
+```
+or
+```shell
+npm i objy-connect
+```
+
+```javascript
+let remote = new CONNECT(OBJY)
+
+OBJY.define({
+  name: "object",
+  pluralName: "objects",
+  storage: remote
+})
+
+// Login
+remote.connect({client: "myclient", url: "https://mydomain.com/api", username: "user", password: "***"}, () => {
+  OBJY.objects({}).get(data => {
+    console.log('data:', data)
+  }, err => {
+    console.log('err:', err)
+  })
+})
+```
