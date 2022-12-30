@@ -39,7 +39,28 @@ var app = new Vue({
    }
 })
     ` },
-            { name: "Relationships", header: 'Inherits for reusing object structures', icon: 'feat-inheritance.png',code: `OBJY.object({
+    { name: "Custom Data Sources", header: 'Objects can live anywhere. Just map them. Build custom mappers or use existing ones', icon: 'feat-mapper.png', code: `OBJY.define({
+  name: "item",
+  pluralName: "items", 
+  storage: OBJY.customStorage({
+    getById: () => {},
+    add: () => {},
+    remove: () => {}
+  }),
+  processor: OBJY.customProcessor({
+    ...
+  }),
+  observer: OBJY.customObserver({
+    ...
+  })
+})
+
+// Use your object wrapper for objects:
+OBJY.item({
+  name: "hello"
+})
+    ` },
+            { name: "Inherits", header: 'Inherits for reusing object structures', icon: 'feat-inheritance.png',code: `OBJY.object({
    _id: 123,          //  <----
    name: "template",  //      |
    type: "whatever"   //      |
@@ -64,29 +85,7 @@ OBJY.object({         //      |
 OBJY.object({name: "test"}).addProperty('color', 'blue');
     ` },
 
-   { name: "Mappers", header: 'Objects can live anywhere. Just map them. Build custom mappers or use existing ones', icon: 'feat-mapper.png', code: `OBJY.define({
-  name: "item",
-  pluralName: "items", 
-  storage: OBJY.customStorage({
-    getById: () => {},
-    add: () => {},
-    remove: () => {}
-  }),
-  processor: OBJY.customProcessor({
-    ...
-  }),
-  observer: OBJY.customObserver({
-    ...
-  })
-})
-
-// Use your object wrapper for objects:
-OBJY.item({
-  name: "hello"
-})
-  	` },
-
- { name: "Connect", header: 'Expose your OBJY environment, connect from somewere else', icon: 'feat-context.png', code: `var OBJY = require('objy');
+ { name: "Remote or local", header: 'Expose your OBJY environment, connect from somewere else', icon: 'feat-context.png', code: `var OBJY = require('objy');
 var EXPOSE = require('objy-expose');
 
 OBJY.define({
