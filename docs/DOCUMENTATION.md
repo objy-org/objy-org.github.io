@@ -999,9 +999,9 @@ OBJY.define({
 })
 ```
 
-# Connect OBJY instances
+# SPOO
 
-OBJY Connect is a project for connecting OBJY instances, running in different places.
+SPOO is a project for exposing any OBJY environment as a RESTful platform.
 
 > For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future. The following quick examples show you how to spin up a platform and a client with just a few lines of code.
 
@@ -1009,13 +1009,13 @@ OBJY Connect is a project for connecting OBJY instances, running in different pl
 ## Server
 
 ```shell
-npm i objy objy-expose
+npm i objy spoo
 ```
 
 ```javascript
-// 1. import objy and objy-expose
+// 1. import objy and spoo
 const OBJY = require('objy');
-const EXPOSE = require('objy-expose');
+const SPOO = require('spoojs');
 
 // 2. define some "object wrappers"
 OBJY.define({
@@ -1030,10 +1030,10 @@ OBJY.define({
 })
 
 // 3. run the platform via REST
-EXPOSE.REST({
+SPOO.REST({
   port:80,
   OBJY,
-  metaMapper: new EXPOSE.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
+  metaMapper: new SPOO.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
 }).run()
 ```
 

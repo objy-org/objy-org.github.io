@@ -85,8 +85,8 @@ OBJY.object({         //      |
 OBJY.object({name: "test"}).addProperty('color', 'blue');
     ` },
 
- { name: "Remote or local", header: 'Expose your OBJY environment, connect from somewere else', icon: 'feat-context.png', code: `var OBJY = require('objy');
-var EXPOSE = require('objy-expose');
+ { name: "Build a Platform", header: 'Expose your OBJY environment, connect from somewere else', icon: 'feat-context.png', code: `var OBJY = require('objy');
+var SPOO = require('spoo');
 
 OBJY.define({
   name: "asset",
@@ -94,7 +94,7 @@ OBJY.define({
   storage: new MongoMapper()
 })
 
-EXPOSE.REST({
+SPOO.REST({
   OBJY,
   port: 80
 }).run()
