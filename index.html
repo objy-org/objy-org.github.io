@@ -99,7 +99,7 @@
                                 Docs &nbsp;<span class="fa fa-chevron-right"></span>
                             </a>
                     </div>
-                    <div class="leto-full leto-mb-xxs">
+                    <!--div class="leto-full leto-mb-xxs">
                         <center>
 
                             <a v-for="(item, i) in examples" v-bind:href="'#'+item.name" class="leto-button leto-ml-none leto-border-none" v-on:click="currentExample = i">
@@ -107,7 +107,7 @@
                             </a>
                             
                     </center>
-                    </div>
+                    </div-->
                     <div>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
                     </div>
@@ -128,10 +128,17 @@
                     </a-->
                 </div>
                     
+                      <center>
 
-        <div v-for="(item, i) in examples" v-bind:id="item.name" v-bind:name="item.name">
+                        <h3 class="leto-mt-xxl">OBJY - Abstract, powerful objects for building real use cases</h3>
+                         <img class="" src="assets/img/objy-arch-objects-slim.png" class="leto-width-full-tablet" style="max-width:100%;width:600px;border-radius: 10px">
 
-                <div class="leto-group leto-horizontal-center leto-mt-xxl ">
+                </center>
+                
+
+        <div v-for="(item, i) in examples" v-bind:id="item.name" v-bind:name="item.name" v-if="i == 0">
+
+                <div class="leto-group leto-horizontal-center leto-mt-none ">
                    
                              <center class=" leto-mb leto-group leto-vertical-center">
                
@@ -161,15 +168,8 @@
 
 
                 <br>
-                
-                <!--center><div class="leto-text-xxl leto-m" name="applications" id="applications">Ecosystem</div> &nbsp; (<a href="docs/#/./ECOSYSTEM">more</a>)</center>
-                <br-->
-                
-                <center>
-                         <img class="" src="assets/img/objy-arch-objects-slim.png" class="leto-width-full-tablet" style="max-width:100%;width:600px;border-radius: 10px">
-
-                </center>
-                
+               
+              
                 <div class=" leto-text-xl leto-text-center leto-text-darker-grey leto-mt-xxl" v-show="!showInstallInstructions">
                     * Use abstract objects, that have a behaviour
                     <br>
@@ -177,173 +177,7 @@
                     <br>
                     * Buikt-in inheritance, events, actions and more
                 </div>
-                <!--div class="leto-group leto-horizontal-center leto-mt-xl">
-
-                    <div class="leto-group leto-mt-xxl">
-                          <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
-                                <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-for="item in langs" v-on:click="currentLang=item">
-                                    <div class="leto-bubble-xxs" v-bind:class="{'leto-bg-white': currentLang==item}"></div>
-                                    <div>{{item}}</div>
-                                </div>
-                        </div>
-                    </div>
-
-                    <br>
-
-                </div-->
-                <!--div class="leto-group leto-horizontal-center leto-mt-xxl">
-                    <div class="leto-group leto-mt-xxl">
-                        <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white leto-text-xl">
-                            Quick start
-                        </div>
-                    </div>
-                    <br>
-                </div>
-                <div class="leto-group leto-horizontal-center leto-vertical-center">
-                    <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt leto-vertical-center">
-                        <div class="leto-column leto-full leto-mt-xxl  leto-vertical-center">
-                            <div class="leto-text-xl leto-pb-xs">1. Install</div>
-                            <div class="leto-width-full leto-vertical-center">
-                                <pre style="border-radius: 10px"><br>
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >npm i objy
-</code>
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px;overflow: hidden;" >&lt;script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js" />
-</code>
-</pre>
-                            </div>
-                        </div>
-                        <!--div class="leto-full leto-third-tablet-pc leto-mt-xxl leto-vertical-center">
-                            <div class="leto-mt-xl leto-vertical-center">
-                                <div class="leto-text-xl">1. Install</div>
-                                <br>
-                                Get OBJY for your javascript environment. Use it in Node or in the browser.
-                            </div>
-                        </div->
-                    </div>
-                </div>
-                <br>
-                <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt">
-                    <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt">
-                        <!--div class="leto-full leto-third-tablet-pc leto-mt-xxl">
-                            <div class="leto-mt-xl leto-vertical-right">
-                                <div class="leto-text-xl">2. Define object wrappers</div>
-                                <br>
-                                Define, where your objects are stored, how they are processed and observed using an open and extendable mapper ecosystem.
-                            </div>
-                        </div->
-                        <div class="leto-column leto-full leto-mt-xxl ">
-                            <div class="leto-text-xl leto-pb-xs">2. Define your wrapper</div>
-                            <div class="leto-width-full" v-show="currentPreview==1">
-                                <pre style="border-radius: 10px">
-<div class="leto-width-full">
-<pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.define({
-    name: "object",
-    pluralName: "objects"
-})
-</code>
-</pre>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="leto-group leto-horizontal-center leto-vertical-center">
-                <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt">
-                    <div class="leto-column leto-full leto-mt-xxl ">
-                        <div class="leto-width-full">
-                            <div class="leto-text-xl leto-pb-xs">3. Build objects</div>
-                            <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >OBJY.object({
-    ...
-    expires: {
-       date: "2020-10-10",
-       action: "this.remove()"
-    }
-})
-</code>
-</pre>
-                        </div>
-                    </div>
-                    <!--div class="leto-full leto-third-tablet-pc leto-mt-xxl">
-                        <div class="leto-mt-xl">
-                            <div class="leto-text-xl">3. Build objects that live</div>
-                            <br>
-                            Represent anything with dynamic objects. Define behaviours to make them alive. OBJY will do the rest.
-                        </div>
-                    </div->
-                </div>
-            </div>
-            <br>
-            <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt ">
-                <div class="leto-wrap leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-mt">
-                    <!--div class="leto-full leto-third-tablet-pc leto-mt-xxl">
-                        <div class="leto-mt-xl">
-                            <div class="leto-text-xl">4. Use the simple interface</div>
-                            <br>
-                            Create, Read, Update, Delete. That's all it takes, the rest is handled by OBJY
-                        </div>
-                    </div->
-                    <div class="leto-column leto-full leto-mt-xxl ">
-                        <div class="leto-width-full">
-                            <div class="leto-text-xl leto-pb-xs">4. Handle your objects</div>
-                            <pre style="border-radius: 10px">
-<code class="javascript" v-show="currentLang=='JS'" style="font-size:20px;background:#232323;padding:20px" >let myObj = OBJY.object({name: 'Anakin'})
-
-myObj.setProperty('name', 'Luke')
-
-myObj.type = 'person'
-
-myObj.remove()
-</code>
-</pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="leto-group leto-horizontal-center leto-vertical-center leto-mt">
-                <div class="leto-group leto-width-two-thirds leto-full-tablet-pc leto-horizontal-center leto-vertical-center leto-mt-xl">
-                    <div class="leto-width-full leto-mt-xxl leto-text-center">
-                        <div class="leto-mt-lg leto-group leto-horizontal-center leto-vertical-center">
-                            <div class="leto-text-xl">powerful, yet simple features</div>
-                        </div>
-                        <div class="leto-mt leto-group leto-horizontal-center leto-vertical-center">
-                            Inheritance, Persistence, User management, Acces-control, Pluggable mappers (MDB, InMem, Redis), Custom actions and more
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="leto-container-full leto-p-xl ">
-                <div class="leto-group leto-horizontal-center">
-                    <a href="https://www.npmjs.com/package/objy" target="_blank" class="leto-button leto-ml-none">
-                        <span class="fab fa-npm"></span>
-                    </a>
-                    <a href="https://github.com/objy-org/objy" target="_blank" class="leto-button leto-ml-none">
-                        <span class="fab fa-github"></span>
-                    </a>
-                    <a href="https://objy-org.github.io/docs" target="_blank" class="leto-button leto-ml-none">
-                        Docs <span class="fa fa-chevron-right leto-ml-xs"></span>
-                    </a>
-                </div>
-            </div>
-            <!--div class="leto-group leto-horizontal-center leto-vertical-center ">
-                <div class="leto-group leto-width-two-thirds leto-horizontal-center leto-vertical-center leto-mt-xl">
-                    <div class="leto-width-full leto-mt-xl">
-                        <div class="leto-mt-lg leto-group leto-horizontal-center leto-vertical-center">
-                            <div class="leto-text-xl">Runs on...</div>
-                        </div>
-                        <div class="leto-mt leto-group leto-horizontal-center leto-vertical-center">
-                            <div class="leto-group leto-vertical-center leto-horizontal-left leto-text-white">
-                                <div class="leto-group leto-mt-sm leto-mr leto-vertical-center leto-horizontal-left leto-click" v-on:click="currentLang=item">
-                                    Node, Browsers
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div-->
+               
             </div>
             <div class="leto-container-full leto-p-xl leto-text-center">
                 <div class="leto-group leto-horizontal-center">

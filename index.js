@@ -24,13 +24,13 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Objects", header: 'OBJY - Abstract, powerful objects for building real use cases', icon: 'feat-object.png', code: `var myObj = OBJY.object({
-   name: "yogurt",
-   flavour: "strawberry",
+         { name: "Objects", header: '', icon: 'feat-object.png', code: `OBJY.object({
+   name: "box",
+   color: "green",
    expires: {     // a date-based event
      type: "event",
-     date: "20-20-2020",
-     action: () => { ... }
+     date: "08-08-2021",
+     action: () => { self.delete() }
    },
    onChange: {    // a trigger based event
      notify: {
@@ -73,33 +73,6 @@ OBJY.object({         //      |
   type: "whatever"
 })
   	` },
-
-
-   
-     { name: "Query", icon: 'feat-query.png', header: 'Find objects by many criteria', code: `OBJY.objects({
-  name: "test"
-}).get(data => {
-  // [{...},{...}]
-})
-
-OBJY.object({name: "test"}).addProperty('color', 'blue');
-    ` },
-
- { name: "Build a Platform", header: 'Expose your OBJY environment, connect from somewere else', icon: 'feat-context.png', code: `var OBJY = require('objy');
-var SPOO = require('spoo');
-
-OBJY.define({
-  name: "asset",
-  pluralName: "assets",
-  storage: new MongoMapper()
-})
-
-SPOO.REST({
-  OBJY,
-  port: 80
-}).run()
-` },
-
 { name: "More", header: 'Build whatever you like', icon: '', code: `OBJY.object({
   onCreate: {
     selfDestruct: {
