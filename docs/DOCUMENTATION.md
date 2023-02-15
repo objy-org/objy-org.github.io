@@ -999,25 +999,25 @@ OBJY.define({
 })
 ```
 
-# SPOO
+# Featured Mappers
+
+## SPOO
 
 SPOO is a project for exposing any OBJY environment as a RESTful platform.
 
 > For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future. The following quick examples show you how to spin up a platform and a client with just a few lines of code.
 
 
-## Server
+***Server***
 
 ```shell
-npm i objy spoo
+npm i objy spoojs
 ```
 
 ```javascript
-// 1. import objy and spoo
 const OBJY = require('objy');
 const SPOO = require('spoojs');
 
-// 2. define some "object wrappers"
 OBJY.define({
   name: "user",
   pluralName: "users",
@@ -1029,15 +1029,12 @@ OBJY.define({
   pluralName: "objects"
 })
 
-// 3. run the platform via REST
 SPOO.REST({
-  port:80,
   OBJY,
-  metaMapper: new SPOO.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
 }).run()
 ```
 
-## Client
+***Client***
 
 > Runs in Browser or Node
 

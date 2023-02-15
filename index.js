@@ -24,7 +24,12 @@ var app = new Vue({
         langs: [ /*'JS', 'CLI'*/ ],
         previewItems: [{ name: 'Objects', index: 1 }, { name: 'Behaviours', index: 2 }, { name: 'CRUD API', index: 3 }, { name: 'Extendable', index: 4 }],
         examples: [
-         { name: "Objects", header: '', icon: 'feat-object.png', code: `OBJY.object({
+         { name: "Objects", header: '', icon: 'feat-object.png', code: `OBJY.define({
+   name: "object",
+   storage: new MongoMapper(...)
+});
+
+OBJY.object({
    name: "box",
    color: "green",
    expires: {     // a date-based event
