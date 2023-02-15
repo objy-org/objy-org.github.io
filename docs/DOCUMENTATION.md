@@ -872,52 +872,11 @@ OBJY.define({
 
 > Default mappers are already initialized! If you'd like to work in memory, just ignore the mappers section
 
-## Mapper types
-
-| Type        | Explanation  | 
-| ------------- |-------------| 
-| `storage`     | Storage mappers can be plugged in to define where and how objects in an object family are persistent. | 
-| `processor`   | Processor Mappers define, how object actions are executed. | 
-| `observer`    | Observer Mappers define, how object events are observed and time-based actions triggered. | 
-
-
-## CRUD operations
-
-When it comes to working with objects in persistence, the basic operations you need are ***CRUD*** (Create, Read, Update, Delete)
-
-| Operation        | available for  | Explanation           | 
-| ------------- |-------------| -------------| 
-| `add(success, err)`      | singular + plural      | Adds one or more objects | 
-| `get(success, err)`      | singular + plural     | Gets one or more objects | 
-| `update(success, err)`     | singular       | Updates an object | 
-| `delete(success, err)`     | singular      | Deletes an object | 
-
-
-```javascript
-// Add to persistence
-OBJY.object({...}).add(obj => {})
-
-// Get by id
-OBJY.object(id).get(obj => {})
-
-// Query
-OBJY.objects({query...}).get(objs => {})
-
-// Update (methods can be chained)
-OBJY.object({...})
-	.addProperty('color', 'blue')
-	.setProperty('name', 'Test')
-	.save(obj => {})
-
-// Delete
-OBJY.object({...}).delete(obj => {})
-```
-
 ## Develop custom mappers
 
 OBJY comes with a mapper api that allows you to create your own mappers for different third-party systems, like databases, file systems, processing frameworks, ...
 
-## Storage
+### Storage
 
 ```javascript
 OBJY.define({
@@ -965,7 +924,7 @@ OBJY.define({
 ```
 
 
-## Processor
+### Processor
 
 ```javascript
 OBJY.define({
@@ -981,7 +940,7 @@ OBJY.define({
 ```
 
 
-## Observer
+### Observer
 
 ```javascript
 OBJY.define({
@@ -999,9 +958,13 @@ OBJY.define({
 })
 ```
 
-# Featured Mappers
+## Featured Mappers
 
-## SPOO
+### MongoDB
+
+
+
+### SPOO
 
 SPOO is a project for exposing any OBJY environment as a RESTful platform.
 
