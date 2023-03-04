@@ -20,15 +20,15 @@ npm install objy
 
 Programming on OBJY is done in two simple steps:
 
-1. Define an object wrapper (a bucket of objects) an choose how objects in this wrapper are stored, processed and observed.
+1. Define an object family (a bucket of objects) an choose how objects in this family are stored, processed and observed.
 2. Build and handle objects and tell them what to do.
 
 
-## Object Wrappers
+## Object Families
 
 ```javascript
 
-// Define an object wrapper
+// Define an object family
 
 OBJY.define({
 	name: "object", // singular constructor name
@@ -37,8 +37,8 @@ OBJY.define({
 
 // OBJY now has the contructors:
 
-OBJY.object() // as a wrapper for single objects
-OBJY.objects() // as wrapper for multiple objects
+OBJY.object() // as a family for single objects
+OBJY.objects() // as family for multiple objects
 ```
 
 ## Simple object
@@ -49,10 +49,8 @@ OBJY.objects() // as wrapper for multiple objects
 
 OBJY.object({
    name: "Passport",
-   properties: {
-      expires: "2020-10-10",
-      number: "123"
-   }
+   expires: "2020-10-10",
+   number: "123"
 })
 ```
 
@@ -89,28 +87,6 @@ OBJY.define({
 })
 ```
 
-When using persistence, CRUD operations are done with:
-
-
-```javascript
-// Add to persistence
-OBJY.object({...}).add(obj => {})
-
-// Get by id
-OBJY.object(id).get(obj => {})
-
-// Query
-OBJY.objects({query...}).get(objs => {})
-
-// Update (methods can be chained)
-OBJY.object({...})
-	.addProperty('color', 'blue')
-	.setProperty('name', 'Test')
-	.save(obj => {})
-
-// Delete
-OBJY.object({...}).delete(obj => {})
-```
 
 # Object structure
 
@@ -118,27 +94,12 @@ Every object, despite what object family it belongs to, is represented as JS obj
 
 ```javascript
 OBJY.object({
+	_id: "", // always there
 	key: value
 })
 ```
 
-However, there are some predefined attributes, that can be used for certain functionality:
-
-```javascript
-OBJY.object({
-	/* (optional, only present when filled) */
-	_id: "", // a unique id
-	applications: [], // a list of apps that this object is available in
-	inherits: [], // a list of other object's ids that this object inherits from
-	permissions: {}, // permissions for access control
-	onCreate: {}, // an object for different action handlers
-	onchange: {}, // an object for different action handlers
-	onDelete: {}, // an object for different action handlers
-})
-```
-
-
-Each Object Family introduces two constructors that are used as a wrappers for objects that are part of the family: a singular and a plural constructor.
+Each Object Family introduces two constructors that are used as a familys for objects that are part of the family: a singular and a plural constructor.
 
 * ***singular constructors*** are for handling single objects
 * ***plural constructors*** are for handling multiple objects
@@ -168,10 +129,10 @@ OBJY.objects([
 
 ```javascript
 // add one
-OBJY.object({})
+OBJY.object({}).add()
 
 // add multiple
-OBJY.objects([{}],[{}])
+OBJY.objects([{}],[{}]).add()
 ```
 
 ## Get one
@@ -189,7 +150,7 @@ OBJY.object(id).get(obj => {
 ## Query
 
 ```javascript
-OBJY.objects({type:'example', 'properties.expired' : false}).get(objs => {
+OBJY.objects({type:'example', 'expired' : false}).get(objs => {
 
 });
 ```
@@ -212,61 +173,9 @@ obj.name = 'Hello'
 
 ```javascript
 // delete one
-OBJY.object(id).delete(obj => {});
+OBJY.object({}).delete(obj => {});
 ```
 
-
-# Basic information
-
-Every object is a JavaScript object wrapped in an OBJY wrapper.
-
-```javascript
-OBJY.object({
-   key: value
-})
-```
-
-# Application Contexts
-
-Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
-
-```javascript
-{
-	_id: 123,
-	applications: ["appOne", "appTwo"],
-	...
-}
-```
-
-An application context can be set using `OBJY.app(appName)`.
-
-> When you are in an app context, everything you do is restricted to that context. E.g. when you add an object, it will be assigned to that app or when your query for objects, you will only get results that are assigned to the current app.
-
-
-
-```javascript
-// Set the application context
-OBJY.app("demo");
-```
-
-
-## addApplication
-
-Adds an application that this object is available in
-
-```javascript
-/* takes an app identifier as string*/
-OBJY.object({}).addApplication("demo")
-```
-
-## removeApplication
-
-Removes an assigned application
-
-```javascript
-/* takes an app identifier as string*/
-OBJY.object({}).removeApplication("demo")
-```
 
 # Inheritance
 
@@ -347,19 +256,16 @@ OBJY.affectables = [{
 
 # Dynamic Properties
 
-Each object can have custom, dynamic properties, that bring an object to life. They are mounted to the `properties` attribute on an object and are structured with the name as key and an object containing the property type and value: `{propName: {type: "", value: ""}}`.
+Each object can have custom, dynamic properties, that bring an object to life. 
 
 ```javascript
 {
 	_id: "123",
 	name: "test",
 	type: "test",
-	properties: {
-		// your properties will be here!
-		age: {
-			type: "number",
-			value: 5
-		}
+	age: {
+		type: "number",
+		value: 5
 	}
 }
 ```
@@ -504,8 +410,6 @@ OBJY.object({}).setProperty("123", 1.8)
 
 Adds a comple property to an object
 
-> Properties are key/value pairs, stored in an object under `properties`. The value can either be a simple literal (like above) or an object containing a type and value.
-> The second variant is way more powerful, because you will have type checking, you can add property-permissions, handlers and more.
 
 ```javascript
 /* takes a name as string and content as object*/
@@ -525,8 +429,6 @@ OBJY.object({}).addProperty("myBag.subProp", {
 })
 ```
 
-
----
 
 Add a simple property to an object (without type definition)
 
@@ -562,6 +464,47 @@ Removes a property from an object
 OBJY.object({}).removeProperty("123", 1.8)
 ```
 
+# Application Contexts
+
+Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
+
+```javascript
+{
+	_id: 123,
+	applications: ["appOne", "appTwo"],
+	...
+}
+```
+
+An application context can be set using `OBJY.app(appName)`.
+
+> When you are in an app context, everything you do is restricted to that context. E.g. when you add an object, it will be assigned to that app or when your query for objects, you will only get results that are assigned to the current app.
+
+
+
+```javascript
+// Set the application context
+OBJY.app("demo");
+```
+
+
+## addApplication
+
+Adds an application that this object is available in
+
+```javascript
+/* takes an app identifier as string*/
+OBJY.object({}).addApplication("demo")
+```
+
+## removeApplication
+
+Removes an assigned application
+
+```javascript
+/* takes an app identifier as string*/
+OBJY.object({}).removeApplication("demo")
+```
 
 # Client Context
 
@@ -574,11 +517,9 @@ You can set and change a client context with `OBJY.client('name')`
 ```javascript
 OBJY.client('mycompany');
 // mycompany context available from here
-// ...
 
 OBJY.client('anothercompany');
 // anothercompany context available now
-// ...
 ```
 
 # Functional Programming
@@ -712,7 +653,6 @@ Removes an onDelete handler
 /* takes the handler name  */
 OBJY.object({}).removeOnDelete("validate")
 ```
-
 
 
 # Permissions
@@ -855,7 +795,7 @@ OBJY.object({}).removePrivilege("admin")
 
 # Mappers
 
-Mappers can be used do define where objects inside a particular wrapper are persisted, processed and observed.
+Mappers can be used do define where objects inside a particular family are persisted, processed and observed.
 
 
 ```javascript
@@ -963,8 +903,7 @@ OBJY.define({
 ### MongoDB
 
 
-
-### SPOO
+### SPOO (RESTful OBJY)
 
 SPOO is a project for exposing any OBJY environment as a RESTful platform.
 
@@ -997,9 +936,9 @@ SPOO.REST({
 }).run()
 ```
 
-***Client***
+### OBJY Connect
 
-> Runs in Browser or Node
+Connect to a SPOO instance
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/objy-connect/index.js">
