@@ -271,77 +271,28 @@ Bags are nested properties and can even contain other bags. Instead of the value
 }
 ```
 
-### setProperty
-
-Replaces the content of a property
+### Operations
 
 ```javascript
-/* takes the property name and new content*/
 OBJY.object({}).setProperty("123", {
    type: "number",
    value: 1.8
 })
 
-// If you are working with literals as value
-
 OBJY.object({}).setProperty("123", 1.8)
-```
-
-### addProperty
-
-Adds a comple property to an object
-
-
-```javascript
-/* takes a name as string and content as object*/
 
 OBJY.object({}).addProperty("123", {
    type: "number",
    value: 2.5
 })
-```
 
-> If you are adding a sub property to a bag, access is done using `dot notation`:
-
-```javascript
 OBJY.object({}).addProperty("myBag.subProp", {
    type: "number",
    value: 2.5
 })
-```
 
-
-Add a simple property to an object (without type definition)
-
-```javascript
-/* takes a name as string and content as literal*/
-
-OBJY.object({}).addProperty("123", 2.5)
-```
-
-> If you are adding a sub property to a bag, access is done using `dot notation`:
-
-```javascript
-OBJY.object({}).addProperty("myBag.subProp", 2.5)
-```
-
-
-### setPropertyValue
-
-Changes the value of a property. 
-
-```javascript
-/* takes the property name and new value*/
 OBJY.object({}).setPropertyValue("123", 1.8)
-```
 
-
-### removeProperty
-
-Removes a property from an object
-
-```javascript
-/* takes the property name  */
 OBJY.object({}).removeProperty("123", 1.8)
 ```
 
@@ -358,21 +309,11 @@ Each object can be assigned to applications. When an application context is set,
 }
 ```
 
-### addApplication
-
-Adds an application that this object is available in
+### Operations
 
 ```javascript
-/* takes an app identifier as string*/
 OBJY.object({}).addApplication("demo")
-```
 
-### removeApplication
-
-Removes an assigned application
-
-```javascript
-/* takes an app identifier as string*/
 OBJY.object({}).removeApplication("demo")
 ```
 
@@ -416,21 +357,12 @@ OBJY.object({
 })
 ```
 
-### addInherit
+### Operations
 
-Adds another object to inherit from
 
 ```javascript
-/* takes an object id as string*/
 OBJY.object({}).addInherit("123")
-```
 
-### removeInherit
-
-Removes an inherit-relationship
-
-```javascript
-/* takes an object id as string*/
 OBJY.object({}).removeInherit("123")
 ```
 
@@ -467,66 +399,29 @@ OBJY.object({
 })
 ```
 
-### setOnCreate
+### Operations
 
-Adds/Sets an onCreate handler
 
 ```javascript
-/* takes the handler name and content as object */
 OBJY.object({}).setOnCreate("validate", {
    value: "action code...",
    trigger: "before" // defines wether the handler triggeres before or after the main operation
 }})
-```
 
-### removeOnCreate
-
-Removes an onCreate handler
-
-```javascript
-/* takes the handler name  */
 OBJY.object({}).removeOnCreate("validate")
-```
 
-### setOnChange
-
-Adds/Sets an on change handler
-
-```javascript
-/* takes the handler name and content as object */
 OBJY.object({}).setOnChange("validate", {
    value: "action code...",
    trigger: "before" // defines wether the handler triggeres before or after the main operation
 }})
-```
 
-### removeOnChange
-
-Removes an on change handler
-
-```javascript
-/* takes the handler name  */
 OBJY.object({}).removeOnChange("validate")
-```
 
-### setOnDelete
-
-Adds/Sets an onDelete handler
-
-```javascript
-/* takes the handler name and content as object */
 OBJY.object({}).setOnDelete("validate", {
    value: "action code...",
    trigger: "before" // defines wether the handler triggeres before or after the main operation
 }})
-```
 
-### removeOnDelete
-
-Removes an onDelete handler
-
-```javascript
-/* takes the handler name  */
 OBJY.object({}).removeOnDelete("validate")
 ```
 
@@ -563,21 +458,12 @@ Available permission codes:
 * `d` Delete
 
 
-### setPermission
-
-Sets a permission
+### Operations
 
 ```javascript
 /* takes the handler name  */
 OBJY.object({}).setPermission("name", {value: "*"})
-```
 
-### removePermission
-
-Removes a permission
-
-```javascript
-/* takes the handler name  */
 OBJY.object({}).removePermission("name")
 ```
 
@@ -610,39 +496,15 @@ OBJY.define({
 ```
 
 
-### setUsername
-
-Sets the username. The username will be used for authentication
+### Operations
 
 ```javascript
-/* takes a username as string*/
 OBJY.object({}).setUsername("peter")
-```
 
-
-### setEmail
-
-Sets the email. The email will be used for authentication
-
-```javascript
-/* takes an email as string*/
 OBJY.object({}).setEmail("peter@griffin.com")
-```
 
-### addPrivilege
+// Privileges can only be used when working in an app context
 
-> Can only be used when working in an app context
-
-Adds a privilege (role name).
-
-```javascript
-/* takes a privilege name as string*/
-OBJY.object({}).addPrivilege("admin")
-```
-
-> ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
-
-```javascript
 OBJY.useApp("demo"):
 
 OBJY.object({}).addPrivilege("admin")
@@ -655,22 +517,13 @@ OBJY.object({}).addPrivilege("admin")
  	}
  }
  */
-```
 
-### removePrivilege
-
-> Can only be used when working in an app context
-
-Removes a privilege (role name).
-
-```javascript
 OBJY.useApp("demo");
 
-/* takes a privilege name as string*/
 OBJY.object({}).removePrivilege("admin")
 ```
 
-
+> ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
 
 
 # Handling objects
