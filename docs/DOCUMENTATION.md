@@ -51,41 +51,23 @@ OBJY.define({
 	pluralName: 'objects',
 	storage: OBJY.customStorage({
 
-      createClient: function(client, success, error) {
+      createClient: function(client, success, error) { },
 
-      },
+      getDBByMultitenancy: function(client) { },
 
-      getDBByMultitenancy: function(client) {
+      listClients: function(success, error) { },
 
-      },
+      getById: function(id, success, error, app, client) { },
 
-      listClients: function(success, error) {
-         
-      },
+      getByCriteria: function(criteria, success, error, app, client, flags) { },
 
-      getById: function(id, success, error, app, client) {
+      count: function(criteria, success, error, app, client, flags) { },
 
-      },
+      update: function(spooElement, success, error, app, client) {  },
 
-      getByCriteria: function(criteria, success, error, app, client, flags) {
+      add: function(spooElement, success, error, app, client) { },
 
-      },
-
-      count: function(criteria, success, error, app, client, flags) {
-
-      },
-
-      update: function(spooElement, success, error, app, client) {
-
-      },
-
-      add: function(spooElement, success, error, app, client) {
-
-      },
-
-      remove: function(spooElement, success, error, app, client) {
-
-      }
+      remove: function(spooElement, success, error, app, client) { }
    })
 })
 ```
@@ -98,10 +80,7 @@ OBJY.define({
 	name: 'object',
 	pluralName: 'objects',
 	processor: OBJY.customProcessor({
-      
-      execute: function(dsl, obj, prop, data, callback, client, app, user, options) {
-
-      }
+      execute: function(dsl, obj, prop, data, callback, client, app, user, options) { }
    })
 })
 ```
@@ -114,13 +93,9 @@ OBJY.define({
 	name: 'object',
 	pluralName: 'objects',
 	observer: customObserver({
-      initialize: function(millis) {
-         
-      },
+      initialize: function(millis) { },
 
-      run: function(date) {
-
-      }
+      run: function(date) {  }
    })
 })
 ```
