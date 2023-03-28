@@ -1,15 +1,13 @@
 # OBJY - Abstract, powerful JavaScript objects
 
-An object-driven programming framework, that uses behaviour-driven objects for building use cases. 
-
-
 ![OBJY LOGO](https://objy.xyz/assets/img/objy-arch-objects-slim.png "OBJY")
 
 OBJY Objects:
 
-* are plain JavaScript objects
-* have dynamic origins
-* have behaviour
+* are plain **JavaScript objects**
+* have **dynamic storage**
+* have **behaviour**
+* have **inheritance**
 * and more...
 
 
