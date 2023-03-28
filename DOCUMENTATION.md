@@ -54,85 +54,6 @@ myObj.remove();
 ```
 
 
-## Date or interval-based events:
-
-Events can either have a date or an interval. OBJY takes care of running the associated action.
-
-```javascript
-OBJY.object({
-   ...
-   expiration_date: {
-      date: "12/31/2022",
-      action: () => {
-         obj.setProperty('expired', true).update();
-      }
-   },
-   maintenance: {
-      interval: "1PY",
-      action: () => {
-         console.log('annually maintenence');
-      }
-   }
-})
-```
-
-## Handlers
-
-Use onCreate, onChange or onDelete to capture these events and OBJY runs a custom action.
-
-```javascript
-OBJY.object({
-   ...
-   onDelete: {
-      quit: {
-         action: () => {
-            console.log('Im now gone...')
-         }}
-   }
-})
-```
-
-## Inheritance
-
-```javascript
-// first object
-OBJY.object({
-   _id: 123,
-   type: "yogurt"
-})
-// second object that inherits from first object
-// inherit from one or more other objects using their id
-OBJY.object({
-   ... 
-   inherits: [123], 
-   // type: "yogurt" and all other props are present here
-})
-``` 
-
-
-## Custom Mappers
-
-```javascript
-OBJY.define({
-   ...
-   // Attach your own storage (can be anything that supports crud)
-   storage: OBJY.customStorage({
-      add: () => {},
-      getById: () => {},
-      ...
-   }),
-   // Customize, how actions are executed
-   processor: OBJY.customProcessor({
-      execute: (action) => {}, 
-      ...
-   }),
-   // Observe events yourself
-   observer: OBJY.customObserver({
-      run: () => {}
-   })
-})
-```
-
 # Installing
 
 ***Node***
@@ -150,9 +71,6 @@ npm install objy
 # Object Families
 
 Object families are groups of objects, that have the same origin.
-
-## In-Memory
-
 In it's simplest form, objects live in memory.
 
 ```javascript
