@@ -11,7 +11,7 @@ OBJY Objects:
 * and more...
 
 
-## Quick example
+# Quick example
 
 Programming on OBJY is done in two simple steps:
 
@@ -206,7 +206,7 @@ Properties can have any of the following types:
 * `event` a time-based event that is observed in the background
 * `bag` nested properties
 
-### shortText
+**shortText**
 
 ```javascript
 {
@@ -217,7 +217,7 @@ Properties can have any of the following types:
 }
 ```
 
-### longText
+**longText**
 
 ```javascript
 {
@@ -228,7 +228,7 @@ Properties can have any of the following types:
 }
 ```
 
-### number
+**number**
 
 ```javascript
 {
@@ -239,7 +239,7 @@ Properties can have any of the following types:
 }
 ```
 
-### boolean
+**boolean**
 
 ```javascript
 {
@@ -250,7 +250,7 @@ Properties can have any of the following types:
 }
 ```
 
-### action
+**action**
 
 ```javascript
 {
@@ -262,7 +262,7 @@ Properties can have any of the following types:
 ```
 
 
-### date
+**date**
 
 ```javascript
 {
@@ -273,7 +273,7 @@ Properties can have any of the following types:
 }
 ```
 
-### event
+**event**
 
 Date properties can either have a strict `date` or an `interval`
 
@@ -292,7 +292,7 @@ Date properties can either have a strict `date` or an `interval`
 }
 ```
 
-### bag
+**bag**
 
 Bags are nested properties and can even contain other bags. Instead of the value attrubte, they have `properties`
 
@@ -315,7 +315,7 @@ Bags are nested properties and can even contain other bags. Instead of the value
 }
 ```
 
-### Operations
+**Operations**
 
 ```javascript
 OBJY.object({}).setProperty("123", {
@@ -353,7 +353,7 @@ Each object can be assigned to applications. When an application context is set,
 }
 ```
 
-### Operations
+**Operations**
 
 ```javascript
 OBJY.object({}).addApplication("demo")
@@ -401,7 +401,7 @@ OBJY.object({
 })
 ```
 
-### Operations
+**Operations**
 
 
 ```javascript
@@ -443,7 +443,7 @@ OBJY.object({
 })
 ```
 
-### Operations
+**Operations**
 
 
 ```javascript
@@ -502,7 +502,7 @@ Available permission codes:
 * `d` Delete
 
 
-### Operations
+**Operations**
 
 ```javascript
 /* takes the handler name  */
@@ -540,7 +540,7 @@ OBJY.define({
 ```
 
 
-### Operations
+**Operations**
 
 ```javascript
 OBJY.object({}).setUsername("peter")
