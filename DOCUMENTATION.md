@@ -144,7 +144,7 @@ OBJY.define({
 })
 ```
 
-# Object structure
+# Objects
 
 Every object, despite what object family it belongs to, is represented as JS object. It can have any structure.
 
@@ -177,6 +177,56 @@ OBJY.objects([
 ])
 ```
 
+## Add
+
+```javascript
+// add one
+OBJY.object({}).add()
+
+// add multiple
+OBJY.objects([{}],[{}]).add()
+```
+
+## Get one
+```javascript
+// by its reference:
+let myObj = OBJY.object({...});
+console.log(myObj);
+
+// or via the get method
+OBJY.object(id).get(obj => {
+	console.log(obj)
+});
+```
+
+## Query
+
+```javascript
+OBJY.objects({type:'example', 'expired' : false}).get(objs => {
+
+});
+```
+
+## Update
+
+```javascript
+// update via api methods
+OBJY.object({})
+   .setPropertyValue('expired', false)
+   .addProperty('open', false)
+
+// update directly
+var obj = OBJY.object({});
+
+obj.name = 'Hello'
+```
+
+## Delete
+
+```javascript
+// delete one
+OBJY.object({}).delete(obj => {});
+```
 
 
 ## Properties
@@ -570,58 +620,6 @@ OBJY.object({}).removePrivilege("admin")
 > ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
 
 
-# Handling objects
-
-## Add
-
-```javascript
-// add one
-OBJY.object({}).add()
-
-// add multiple
-OBJY.objects([{}],[{}]).add()
-```
-
-## Get one
-```javascript
-// by its reference:
-let myObj = OBJY.object({...});
-console.log(myObj);
-
-// or via the get method
-OBJY.object(id).get(obj => {
-	console.log(obj)
-});
-```
-
-## Query
-
-```javascript
-OBJY.objects({type:'example', 'expired' : false}).get(objs => {
-
-});
-```
-
-## Update
-
-```javascript
-// update via api methods
-OBJY.object({})
-   .setPropertyValue('expired', false)
-   .addProperty('open', false)
-
-// update directly
-var obj = OBJY.object({});
-
-obj.name = 'Hello'
-```
-
-## Delete
-
-```javascript
-// delete one
-OBJY.object({}).delete(obj => {});
-```
 
 
 # Contexts
@@ -674,39 +672,6 @@ User contexts are useful when working with access control (permissions). When se
 OBJY.useUser({username: "...", privileges: {...}})
 ```
 
-# Functional Programming
-
-At some point, you'll need to implement custom functionalities. Functionalities, like custom code (js functions), are invoked within ***handlers*** (see chapter below).
-
-Example 1: Custom js function
-
-```javascript
-/* log something on object creation */
-OBJY.object({
-	onCreate: {
-		doSomething: {
-			action: () => {
-				console.log('custom function called')
-			}
-		}
-	}
-})
-```
-
-Example 2: Code as string
-
-```javascript
-/* log something on object creation */
-OBJY.object({
-	onCreate: {
-		doSomething: {
-			action: `
-				console.log('custom function called')
-			`
-		}
-	}
-})
-```
 
 # Affectables
 
