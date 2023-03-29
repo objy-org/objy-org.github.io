@@ -1,2 +1,4 @@
 <!-- docs/_sidebar.md -->
-* [Docs](/DOCUMENTATION.md)
+* [Home](/DOCUMENTATION.md)
+* [Examples](/EXAMPLES.md)
+

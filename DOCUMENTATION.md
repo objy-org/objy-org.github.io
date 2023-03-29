@@ -25,7 +25,8 @@ OBJY.define({
    name: "object", // singular constructor name
    pluralName: "objects" // plural constructor name
 })
-
+```
+```javascript
 // 2. Use objects
 var myObj = OBJY.object({
    expired: false,
@@ -691,6 +692,8 @@ OBJY.affectables = [{
 
 > This feature is currently experimental
 
+<!--
+
 # Featured Mappers
 
 ## MongoDB
@@ -759,3 +762,5 @@ remote.connect({client: "myclient", url: "https://mydomain.com/api", username: "
   })
 })
 ```
+
+-->
