@@ -2,22 +2,7 @@
 
 ![OBJY LOGO](https://objy.xyz/assets/img/objy-arch-objects-slim.png "OBJY")
 
-OBJY Objects:
-
-* are plain **JavaScript objects**
-* have **dynamic storage**
-* have **behaviour**
-* have **inheritance**
-* and more...
-
-
 # Quick example
-
-Programming on OBJY is done in two simple steps:
-
-1. Define an object family (a bucket of objects)
-2. Build and handle objects and tell them what to do.
-
 
 ```javascript
 // 1. Define Object Family
