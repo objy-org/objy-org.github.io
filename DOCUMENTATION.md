@@ -1,43 +1,6 @@
-# OBJY - Abstract, powerful JavaScript objects
+# OBJY - Abstract JavaScript Objects
 
-![OBJY LOGO](https://objy.xyz/assets/img/objy-arch-objects-slim.png "OBJY")
-
-# Quick example
-
-```javascript
-// 1. Define Object Family
-OBJY.define({
-   name: "object", // singular constructor name
-   pluralName: "objects" // plural constructor name
-})
-```
-```javascript
-// 2. Use objects
-var myObj = OBJY.object({
-   expired: false,
-   expiration_date: {
-      date: "12/31/2022",
-      action: () => {
-         obj.setProperty('expired', true).update();
-      }
-   },
-   maintenance: {
-      interval: "1PY",
-      action: () => {
-         console.log('annually maintenence');
-      }
-   }
-}).add();
-
-// Update an object (onChange handlers will trigger)
-myObj.name = "Hello World";
-
-// or use the built-in methods:
-myObj.addProperty('color', 'blue');
-
-// Delete an object (onDelete handlers will trigger)
-myObj.remove();
-```
+![OBJY LOGO](https://objy.xyz/assets/img/OBJY-object-code.png "OBJY")
 
 
 # Installing
