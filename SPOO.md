@@ -1,4 +1,4 @@
-# SPOO (Build a Platform)
+# SPOO - Build a Platform 
 
 ![SPOO](https://objy.xyz/assets/img/shuttlecarrier.png "OBJY")
 

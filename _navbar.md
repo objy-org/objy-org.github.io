@@ -1,4 +1,5 @@
 <!-- docs/_sidebar.md -->
 * [Home](/DOCUMENTATION.md)
-* [Examples](/EXAMPLES.md)
+<!--* [Examples](/EXAMPLES.md)-->
+* [Platform](/SPOO.md)
 
