@@ -2,9 +2,9 @@
 
 <img src="https://objy.xyz/assets/img/shuttlecarrier.png" data-origin="https://objy.xyz/assets/img/shuttlecarrier.png" alt="SPOO" title="OBJY" style="width: 40%;">
 
-SPOO is a framework for building custom platforms. It comes with everythyng needed for running a platform, like 
+SPOO is a framework for building custom platforms. It comes with everythyng needed for running a platform, like  <b>Abstract Object Programming Model, Authorizations, Messaging, User Handling, Multi Tenancy</b> and more.
 
-<b>Abstract Object Programming Model, Authorizations, Messaging, User Handling, Multi Tenancy</b> and more
+<img src="/assets/img/spoo-client-server.png" data-origin="https://objy.xyz/assets/img/shuttlecarrier.png" alt="SPOO" title="OBJY" style="width: 100%;">
 
 # <b>SERVER</b>
 
