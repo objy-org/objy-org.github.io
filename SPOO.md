@@ -1,4 +1,4 @@
-# SPOO - Build a Platform 
+# Build your own Platform 
 
 <img src="https://objy.xyz/assets/img/shuttlecarrier.png" data-origin="https://objy.xyz/assets/img/shuttlecarrier.png" alt="SPOO" title="OBJY" style="width: 40%;">
 
