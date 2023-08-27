@@ -4,16 +4,7 @@
 
 SPOO is a framework for building custom platforms. It comes with everythyng needed for running a platform, like  <b>Abstract Object Programming Model, Authorizations, Messaging, User Handling, Multi Tenancy</b> and more.
 
-<img src="/assets/img/spoo-client-server.png" data-origin="https://objy.xyz/assets/img/shuttlecarrier.png" alt="SPOO" title="OBJY" style="width: 100%;">
-
 # <b>SERVER</b>
-
-Welcome to the SPOO Documentation. Here you'll find the docs for the SPOO framework as well as for the JS Client SDK and REST API.
-The following quick examples show you how to spin up a platform and a client with just a few lines of code.
-
-![Platform](https://spoo.io/assets/img/platform.png)
-
-> For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***
 
 ## Install
 
@@ -92,104 +83,9 @@ SPOO.REST({
 }).run()
 ```
 
-# <b>FUNDAMENTALS</b>
+## Workspace and user creation
 
-## Abstract objects
-
-> SPOO uses OBJY for it's abstract, object-driven programming model. Specific endpoints are mapped to predefined object methods, like add, update, query, get and remove. Logic can be implemented using these objects.
-
-
-```javascript
-const SPOO = require('spoojs');
-const OBJY = require('objy');
-
-OBJY.define({
-  name: "template", // the singular name for single object access
-  pluralName: "templates", // the plural name for access to multiple objects
-
-  // optional params:
-  authable: false, // Sets wether objects of an object family can authenticate (login) against the platform
-  templateFamily: "templates", // Defines, where inherited objects are retrieved from. Defaults to object family itself.
-});
-
-SPOO.REST({ OBJY, ...}).run()
-````
-
-## Custom Mappers
-
-Every Object Wrapper can have custom plugged-in technologies for `persistence`, `processing` and `observing`
-
-```javascript
-const SPOO = require('spoojs');
-const OBJY = require('objy');
-
-OBJY.define({
-  ...
-  storage: new mongo("..."),
-  processor: new vm(""),
-  observer: new interval() 
-});
-
-SPOO.REST({ OBJY, ...}).run()
-````
-
-## REST Interface
-
-The REST Interface is the default interface in SPOO. It spins up an express server, that has all the required SPOO routes ready.
-
-```javascript
-const SPOO = require('spoojs');
-const OBJY = require('objy');
-
-SPOO.REST({
-  port: 80, // The port to run on
-  redisCon: "localhost", // The redis connection (for session storage)
-  metaMapper: new SPOO.metaMappers.mongoMapper().connect("mongodb://localhost"),
-})
-````
-
-This will splin up the API at `domain.com/api`:
-
-
-## Workspaces
-
-For ***multitenancy***, any SPOO platform can have multiple workspaces. Each workspace is an isolated space for each tenant.
-
-The workspace registration feature is enabled by default, but can be changed with:
-
-```javascript
-SPOO.allowClientRegistrations = true | false
-```
-
-Creating a workspace is done in two steps:
-
-1. Get a registration key via email
-```curl
-POST HOST/api/client/register {email: "YOUR EMAIL"}
-```
-
-2. Register a workspace with tat key
-```curl
-POST HOST/api/client {registrationKey: "KEY", clientname: "YOUR WORKSPACE NAME"}
-```
-
-## Applications
-
-All data (objects) of a tenant are scoped with applications.
-
-...
-
-## User accounts
-
-User accounts are defined using an object wrapper with the `authable` flag set to `true`
-
-```javascript
-SPOO.define({
-   name: "user",
-   pluralName: "users",
-   authable: true
-})
-```
+Once your platform is set up, you'll need a workspace and a user to coninue with the client. See [REGISTRATION](#REGISTRATION) for more.
 
 # <b>CLIENT</b>
 
@@ -240,6 +136,37 @@ OBJY.define({
 })
 ```
 
+## Registration
+
+### Workspaces
+
+Workspaces (tenants) are created using a registration key, that is issued via email.
+
+1. Get a registration key via email
+
+```shell
+curl -X POST "URL.com/api/client/register"
+  -D {
+    "email" : "your.email@domain.com"
+  }
+
+```
+
+2. Register a workspace with tat key
+
+```shell
+curl -X POST "URL.com/api/client"
+  -D {
+    "registrationKey" : "KEY_FROM_EMAIL",
+    "clientname": "YOUR_WORKSPACE_NAME"
+  }
+
+```
+
+
+### Users
+
+tbd...
 
 ## Authentication
 
