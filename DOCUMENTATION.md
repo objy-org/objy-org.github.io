@@ -640,6 +640,152 @@ OBJY.affectables = [{
 
 > This feature is currently experimental
 
+# Platform
+
+> Build your own Platform
+
+-> [PLATFORM DOCS](PLATFORM) <-
+
+OBJY Platform is a framework for building custom platforms. It comes with everythyng needed for running a platform, like  <b>Abstract Object Programming Model, Authorizations, Messaging, User Handling, Multi Tenancy</b> and more.
+
+Install
+
+```shell
+npm i objy objy-platform
+```
+
+> For running a basic platform you will need Node.js, Redis and MongoDB. This will change in the future.
+
+```javascript
+// 1. import objy and objy-platform
+const OBJY = require('objy');
+const PLATFORM = require('objy-platform');
+
+// 2. define some "object wrappers"
+OBJY.define({
+  name: "user",
+  pluralName: "users",
+  authable: true
+})
+
+OBJY.define({
+  name: "object",
+  pluralName: "objects"
+})
+
+// 3. run the platform via REST
+PLATFORM.REST({
+  port:80,
+  OBJY,
+  metaMapper: new PLATFORM.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
+}).run()
+```
+
+
+
+# Mappers
+
+## MongoDB Storage Mapper
+
+A mapper for using mongodb as storage backend for your objects
+
+***Installing***
+
+```
+npm install objy-mapper-mongodb
+```
+
+***Usage***
+
+```javascript
+const MongoMapper = require('objy-mapper-mongodb');
+
+// Define an object family
+OBJY.define({
+   name : "Object",
+   pluralName: "Objects",
+   storage: new MongoMapper().connect('mongodb://localhost'),
+})
+
+// Use the object family's constructor
+OBJY.Object({name: "Hello World"}).add(function(data){
+   console.log(data);
+})
+```
+
+## GridFS Storage Mapper
+
+A mapper for using gridfs as storage backend for your file objects.
+
+> This is especially for storing objects as files
+
+***Installing***
+
+```
+npm install objy-mapper-gridfs
+```
+
+***Usage***
+
+```javascript
+const GridFSMapper = require('objy-mapper-gridfs');
+
+// Define an object family
+OBJY.define({
+   name : "Object",
+   pluralName: "Objects",
+   storage: new GridFSMapper().connect('mongodb://localhost'),
+})
+
+// Use the object family's constructor
+OBJY.Object({name: "Hello World"}).add(function(data){
+   console.log(data);
+})
+```
+
+## OBJY Platform Connect
+
+
+***Install***
+
+```
+npm install objy-connect
+```
+
+or on the Browser
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/objy-connect/index.js"></script>
+```
+
+***Usage***
+
+```javascript
+/*
+   On Node, you need to require these:
+   let OBJY = require('objy');
+   let CONNECT = require('objy-connect');
+
+   On the Browser, the CONNECT object is available automatically
+*/
+
+let remote = new CONNECT(OBJY)
+remote.connect({client: "myclient", url: "https://mydomain.com/api"});
+
+OBJY.define({
+  name: "object",
+  pluralName: "objects",
+  storage: remote
+})
+
+// Use the object family's constructor
+OBJY.object({name: "Hello World"}).add(function(data) {
+   console.log(data);
+})
+```
+
+
 <!--
 
 # Featured Mappers

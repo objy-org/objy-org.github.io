@@ -1,140 +1,4 @@
-# Build your own Platform 
-
-<img src="https://objy.xyz/assets/img/shuttlecarrier.png" data-origin="https://objy.xyz/assets/img/shuttlecarrier.png" alt="SPOO" title="OBJY" style="width: 40%;">
-
-SPOO is a framework for building custom platforms. It comes with everythyng needed for running a platform, like  <b>Abstract Object Programming Model, Authorizations, Messaging, User Handling, Multi Tenancy</b> and more.
-
-# <b>SERVER</b>
-
-## Install
-
-```shell
-npm i spoojs objy
-```
-
-
-## Spin up a basic platform
-
-> For running a basic platform you will need Node.js, Redis and MongoDB. This will change in the future.
-
-```javascript
-// 1. import spoo
-const SPOO = require('spoojs');
-const OBJY = require('objy');
-
-// 2. define some "object wrappers"
-OBJY.define({
-  name: "user",
-  pluralName: "users",
-  authable: true
-})
-
-OBJY.define({
-  name: "object",
-  pluralName: "objects"
-})
-
-// 3. run the platform via REST
-SPOO.REST({
-  port:80,
-  OBJY,
-  metaMapper: new SPOO.metaMappers.mongoMapper().connect("mongodb://localhost") // The matamapper is for basic config
-}).run()
-```
-
-## Parameters
-
-Parameters help customizing a SPOO-based platform. Some are reqiured, some are optional. Optional ones have default values as shown below.
-
-```javascript
-SPOO.REST({
-  // REQUIRED
-  OBJY, // OBJY instance
-  metaMapper: new SomeMapper() // The matamapper is for basic config
-  messageMapper: new MessageMapper, // Mapper that handles messaging
-  redisCon: { // Redis connection
-      host: '',
-      port: '',
-      password: '',
-      username: '',
-  },
-  // or redisCon: 'redis://url.com:port'
-
-
-  // OPTIONAL
-  port: 80, // Port to listen on
-  publicPlatform: false, // When true, ALL read requests don'T require authentication
-  maxUserSessions: 100, // Max concurrent sessions per user
-  userPasswordResetMessage: { // Email params when a user resets a password
-      from: 'mail@domain.com',
-      subject: '',
-      body: '',
-  },
-  clientRegistrationMessage: { // Email params when a client is registered
-      from: 'mail@domain.com',
-      subject: '',
-      body: '',
-  },
-  userRegistrationMessage: { // Email params when a user is registered
-      from: 'mail@domain.com',
-      subject: '',
-      body: '',
-  }
-}).run()
-```
-
-## Workspace and user creation
-
-Once your platform is set up, you'll need a workspace and a user to coninue with the client. See [REGISTRATION](#REGISTRATION) for more.
-
-# <b>CLIENT</b>
-
-For interacting with SPOO, there is a **REST API** and a **JavaScript SDK**.
-
-All API Methods can be accessed in the scope of a workspace and the application, that you are working with.
-
-
-Parameter | Description 
---------- | ------- 
-WORKSPACE | The Workspace Name (Tenant Identifier)
-APP | The App name, in which context operations will be made
-
-
-## REST API
-
-
-```shell
-curl -X GET "URL.com/api/client/<WORKSPACE>/app/<APP>"
-```
-
-
-## JavaScript SDK
-
-Get it from npm or via spoo.io
-
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/objy-connect/index.js"></script>
-```
-
-or
-
-```javascript
-npm install objy objy-client
-```
-
-
-```javascript
-let spoo = new CONNECT(OBJY)
-spoo.connect({client: "myclient", url: "https://mydomain.com/api"});
-
-OBJY.define({
-  name: "object",
-  pluralName: "objects",
-  storage: spoo
-})
-```
+# OBJY PLATFORM REST API
 
 ## Registration
 
@@ -191,13 +55,6 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/auth"
   }
 
 ```
-```javascript
-// Login
-spoo.login({username: "user", password: "***"}, () => {
-  
-})
-```
-
 
 In order to request your tokens, a user has to authenticate using the username and password.
 As a result, three things will be returned:
@@ -234,16 +91,6 @@ As a result, three things will be returned:
 
 **Using the access token:**
 
-  
-
-***JavaScript SDK***
-
-<aside class="info">
-If you are using the JavaScript SDK, access token and refresh token will automatically be persisted locally. So that every call being made (after authentication) will have the access token attached to it.
-If you set the fourth parameter (stay signed in) to true, refreshing access tokens using your refresh tokens will be done automatically for you.
-</aside>
-
-***REST API***
 
 <aside class="info">
 For authenticated calls against the REST API, the access token can either be passed within the authorization header:  
@@ -268,9 +115,6 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/token"
   }
 
 ```
-```javascript
-// Happens automatically, when permanent flag was set true in login
-```
 
 > Refreshing a token returns the same information as in authentication
 
@@ -293,9 +137,6 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/token/reject"
     "accessToken" : "325nfdf89fn3-.235h8nd..."
   }
 
-```
-```javascript
-tbd
 ```
 
 > Respone message
@@ -323,9 +164,6 @@ curl -X POST "URL.com/api/client/WORKSPACE/application"
   }
 
 ```
-```javascript
-tbd
-```
 
 
 **Get Applications**
@@ -335,9 +173,6 @@ tbd
 curl -X GET "URL.com/api/client/WORKSPACE/applications"
 ```
 
-```javascript
-tbd
-```
 
 > Returns
 
@@ -404,11 +239,6 @@ spoo.io/.../object
 spoo.io/.../objects
 ```
 
-```javascript
-OBJY.object(...)
-OBJY.objects(...)
-```
-
 
 ### Add an object
 
@@ -418,11 +248,6 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/app/<YOUR APP>/object"
   -D {
     "name" : "my first object"
   }
-```
-```javascript
-// Works for any constructor, like: Object(), Template(), Anything()
-OBJY.object({name:"my first object"}).add(function(data, err) {
-})
 ```
 
 > Returns
@@ -461,18 +286,7 @@ curl -X POST "URL.com/api/client/<YOUR CLIENT>/app/<YOUR APP>/objects"
   ]
 
 ```
-```javascript
-// Works for any constructor, like: Object(), Template(), Anything()
-OBJY.objects([
-    {
-      "name" : "my first object"
-    },
-    {
-      "name" : "my second object"
-    }
-  ]).add(function(data, err) {
-})
-```
+
 
 > Response
 
@@ -515,11 +329,7 @@ OBJY.objects([
 curl -X DELETE "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747bfa8e"
 
 ```
-```javascript
-// Works for: Object(), Template(), EventLog(), File(), User()
-OBJY.object("5a818c47d3ere54a747bfa8e").delete(function(data, err) {
-})
-```
+
 
 > Response
 
@@ -540,7 +350,6 @@ OBJY.object("5a818c47d3ere54a747bfa8e").delete(function(data, err) {
 ### Update an Object
 
 The following methods are used to alter an object at runtime. Every Operation returns the whole updated object.
-´
 
 
 > Example
@@ -562,21 +371,7 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
 ]
 
 ```
-```javascript
-// Works for: Object(), Template(), File(), User()
-OBJY.object({_id: "5a818c47d3ere54a747bfa8e"})
-  .setName("my name")
-  .setType("my type")
-  .addApplication("demoapp")
-  .removeApplication("otherapp")
-  .addInherit("4iu9332423.423423")
-  .removeInherit("3535343463463463.423423")
-  .setPermission("admin", { value: "*"})
-  .removePermission("plain_user")
-  .setOnCreate("sendEmail", {value: "email('from', 'to', 'hi', 'there')"})
-  .save(function(data, err) {
-})
-```
+
 
 > Response
 
@@ -685,15 +480,7 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
 ]
 
 ```
-```javascript
-// Works for: Object(), Template(), User()
-OBJY.object({_id: "5a818c47d3ere54a747bfa8e"})
-  .addProperty("my prop", { type: "shortText", value: "hi there"})
-  .removeProperty("someOtherProp")
-  .setPropertyValue("my prop", "hello world")
-  .save(function(data, err) {
-})
-```
+
 
 
 #### Listeners and permissions
@@ -715,16 +502,6 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
 ]
 
 ```
-```javascript
-// Works for: Object(), Template(), User()
-OBJY.object({_id: "5a818c47d3ere54a747bfa8e"})
-  .setPropertyPermission("my prop", {"admin" : { "value" : "*"}})
-  .removePropertyPermission("my prop", "plain_user")
-  .setPropertyConditions("smallerThan('xyz')")
-  .setPropertyOnChange("email('from', 'to' , 'hi', 'i was changed')")
-  .save(function(data, err) {
-})
-```
 
 **Nested Properties**
 
@@ -739,14 +516,6 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
   { "addProperty" : {"myBag.firstItem": { type: "shortText", value: "hi there"}} },
   { "setPropertyValue" : ["myBag.firstItem", "hello world"] }
 ]
-```
-```javascript
-// Works for: Object(), Template(), User()
-OBJY.object({_id: "5a818c47d3ere54a747bfa8e"})
-  .addProperty({"myBag.firstItem": { type: "shortText", value: "hi there"}})
-  .setPropertyValue("myBag.firstItem", "hello world")
-  .save(function(data, err) {
-})
 ```
 
 > Response
@@ -815,9 +584,7 @@ curl -X POST "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a74
 
 
 ```
-```javascript
-tbd
-```
+
 
 > Response
 
@@ -877,20 +644,6 @@ curl -X PUT "URL.com/api/client/myCompany/app/demoapp/object/5a818c47d3ere54a747
 ]
 
 ```
-```javascript
-// Works for: Object(), Template(), User()
-OBJY.object({_id: "5a818c47d3ere54a747bfa8e"})
-  .addProperty({"my first event": { type: "event", date: "2018-02-21T14:14:41+00:00", action : "email('from', 'to', 'hi', 'i just happened')"}})
-  
-  .setEventDate("my first event", "2019-02-21T14:14:41+00:00") // fix date
-  // or
-  .setEventInterval("my second event", "P30D") // recurring
-
-  .setEventAction("my first event", "email('from', 'to', 'hi', 'i just happened, jay!')")
-  .save(function(data, err) {
-})
-```
-
 
 
 > Response
@@ -962,12 +715,7 @@ Querying lets you find objects by some criteria you define.
 # Works for /objects, /templates, /eventlogs, /files, /users
 curl -X POST "URL.com/api/client/myCompany/app/demoapp/objects?$query=$or: [{name : "my object"}, {name : "not my object"} ]}"
 ```
-```javascript
-// Works for: Objects(), Templates(), EventLogs(), Users()
-OBJY.objects({$query : { $or: [{name : "my object"}, {name : "not my object"} ]} }).get(function(data, err)
-{
-})
-```
+
 
 > Response
 
