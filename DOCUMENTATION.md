@@ -1,6 +1,6 @@
 # OBJY - Abstract JavaScript Objects
 
-![OBJY LOGO](https://objy.xyz/assets/img/objy-arch-objects.png "OBJY")
+![OBJY LOGO](assets/img/OBJY-object-code.png "OBJY")
 
 
 # Installing
