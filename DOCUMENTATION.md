@@ -17,92 +17,17 @@ npm install objy
 <script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js">
 ```
 
-# Object Families
-
-Object families are groups of objects, that have the same origin.
-In it's simplest form, objects live in memory.
-
-```javascript
-// Define an object family
-
-OBJY.define({
-	name: "object", // singular constructor name
-	pluralName: "objects" // plural constructor name
-})
-
-// OBJY now has the contructors:
-OBJY.object() // as a family for single objects
-OBJY.objects() // as family for multiple objects
-```
-
-
-## Storage
-
-```javascript
-OBJY.define({
-	name: 'object',
-	pluralName: 'objects',
-	storage: OBJY.customStorage({
-
-      createClient: function(client, success, error) { },
-
-      getDBByMultitenancy: function(client) { },
-
-      listClients: function(success, error) { },
-
-      getById: function(id, success, error, app, client) { },
-
-      getByCriteria: function(criteria, success, error, app, client, flags) { },
-
-      count: function(criteria, success, error, app, client, flags) { },
-
-      update: function(spooElement, success, error, app, client) {  },
-
-      add: function(spooElement, success, error, app, client) { },
-
-      remove: function(spooElement, success, error, app, client) { }
-   })
-})
-```
-
-
-## Processor
-
-```javascript
-OBJY.define({
-	name: 'object',
-	pluralName: 'objects',
-	processor: OBJY.customProcessor({
-      execute: function(dsl, obj, prop, data, callback, client, app, user, options) { }
-   })
-})
-```
-
-
-## Observer
-
-```javascript
-OBJY.define({
-	name: 'object',
-	pluralName: 'objects',
-	observer: customObserver({
-      initialize: function(millis) { },
-
-      run: function(date) {  }
-   })
-})
-```
-
 # Objects
 
-Every object, despite what object family it belongs to, is represented as JS object. It can have any structure.
+Objects can be defined with object families. These are "buckets" of objects, tat share a common nature, like storage for example. Object families can be defined like this:
 
 ```javascript
-OBJY.object({
-	_id: "", // always there
-	key: value
+OBJY.define({
+	name: "object",
+	pluralName: "objects"
 })
-```
+````
+
 
 Each Object Family introduces two constructors that are used as a familys for objects that are part of the family: a singular and a plural constructor.
 
@@ -569,7 +494,81 @@ OBJY.object({}).removePrivilege("admin")
 > ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
 
 
+# Customize Objects
 
+Object families are groups of objects, that have the same origin.
+In it's simplest form, objects live in memory.
+
+```javascript
+// Define an object family
+
+OBJY.define({
+	name: "object", // singular constructor name
+	pluralName: "objects" // plural constructor name
+})
+
+// OBJY now has the contructors:
+OBJY.object() // as a family for single objects
+OBJY.objects() // as family for multiple objects
+```
+
+
+## Storage
+
+```javascript
+OBJY.define({
+	name: 'object',
+	pluralName: 'objects',
+	storage: OBJY.customStorage({
+
+      createClient: function(client, success, error) { },
+
+      getDBByMultitenancy: function(client) { },
+
+      listClients: function(success, error) { },
+
+      getById: function(id, success, error, app, client) { },
+
+      getByCriteria: function(criteria, success, error, app, client, flags) { },
+
+      count: function(criteria, success, error, app, client, flags) { },
+
+      update: function(spooElement, success, error, app, client) {  },
+
+      add: function(spooElement, success, error, app, client) { },
+
+      remove: function(spooElement, success, error, app, client) { }
+   })
+})
+```
+
+
+## Processor
+
+```javascript
+OBJY.define({
+	name: 'object',
+	pluralName: 'objects',
+	processor: OBJY.customProcessor({
+      execute: function(dsl, obj, prop, data, callback, client, app, user, options) { }
+   })
+})
+```
+
+
+## Observer
+
+```javascript
+OBJY.define({
+	name: 'object',
+	pluralName: 'objects',
+	observer: customObserver({
+      initialize: function(millis) { },
+
+      run: function(date) {  }
+   })
+})
+```
 
 # Contexts
 
