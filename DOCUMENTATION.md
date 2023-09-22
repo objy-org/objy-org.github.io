@@ -29,11 +29,6 @@ OBJY.define({
 ````
 
 
-Each Object Family introduces two constructors that are used as a familys for objects that are part of the family: a singular and a plural constructor.
-
-* ***singular constructors*** are for handling single objects
-* ***plural constructors*** are for handling multiple objects
-
 ```javascript
 //single constructor
 OBJY.object({
