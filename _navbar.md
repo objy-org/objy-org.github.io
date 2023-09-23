@@ -1,5 +1,5 @@
 <!-- docs/_sidebar.md -->
-* [OBJY](/DOCUMENTATION.md)
+* [Abstract Objects](/DOCUMENTATION.md)
 <!--* [Examples](/EXAMPLES.md)-->
-* [SPOO](/SPOO.md)
-
+* [Customize](/CUSTOMIZE.md)
+* [Build a Platform](/PLATFORM.md)
