@@ -74,6 +74,53 @@ PLATFORM.REST({
 }).run()
 ```
 
+# JS Client
+
+OBJY Platform can be consumed on the client side using OBJY itself. Use the officiall storage mapper and define your platform object families on the client side.
+
+Install:
+
+```shell
+npm i objy objy-connect
+```
+or
+```html
+<script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js" />
+<script src="https://cdn.jsdelivr.net/npm/objy-connect/index.js" />
+```
+
+
+```javascript
+// Import in ES6:
+// import CONNECT from "objy-connect";
+
+// Reuquire on CommonJS:
+// var CONNECT = require('objy-connect')
+
+let remote = new CONNECT(OBJY);
+remote.connect({client: "myclient", url: "https://mydomain.com/api"})
+
+OBJY.define({
+  name: "object",
+  pluralName: "objects",
+  storage: new CONNECT(OBJY).connect({client: "myclient", url: "https://mydomain.com/api"}),
+  templateFamily: null // important
+});
+
+// Login
+remote.login({username: "user", password: "***"}, () => {
+  OBJY.objects({}).get(data => {
+    console.log('data:', data)
+  }, err => {
+    console.log('err:', err)
+  })
+})
+```
+
+# REST
+
+OBJY Platform exposes REST endpoints, that offer all OBJY methods via API.
+
 # Registration
 
 ## Workspaces
