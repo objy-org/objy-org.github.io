@@ -490,56 +490,6 @@ OBJY.object({}).removePrivilege("admin")
 
 
 
-# Contexts
-
-## Application Context
-
-Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
-
-```javascript
-{
-	_id: 123,
-	applications: ["appOne", "appTwo"],
-	...
-}
-```
-
-An application context can be set using `OBJY.app(appName)`.
-
-> When you are in an app context, everything you do is restricted to that context. E.g. when you add an object, it will be assigned to that app or when your query for objects, you will only get results that are assigned to the current app.
-
-
-
-```javascript
-// Set the application context
-OBJY.app("demo");
-```
-
-
-## Client Context
-
-OBJY by default is multi-tenancy capable.
-
-The objects of each tenant (or `client`) will be treated seperately.
-
-You can set and change a client context with `OBJY.client('name')`
-
-```javascript
-OBJY.client('mycompany');
-// mycompany context available from here
-
-OBJY.client('anothercompany');
-// anothercompany context available now
-```
-
-## User Context
-
-User contexts are useful when working with access control (permissions). When setting a user context, all following operations are done as that user. Permissions are applied.
-
-```javascript
-OBJY.useUser({username: "...", privileges: {...}})
-```
-
 # Customize Objects
 
 Object families are groups of objects, that have the same origin.
@@ -646,78 +596,56 @@ OBJY.Object({name: "Hello World"}).add(function(data){
 })
 ```
 
-## GridFS Storage Mapper
 
-A mapper for using gridfs as storage backend for your file objects.
+# Contexts
 
-> This is especially for storing objects as files
+## Application Context
 
-***Installing***
-
-```
-npm install objy-mapper-gridfs
-```
-
-***Usage***
+Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
 
 ```javascript
-const GridFSMapper = require('objy-mapper-gridfs');
-
-// Define an object family
-OBJY.define({
-   name : "Object",
-   pluralName: "Objects",
-   storage: new GridFSMapper().connect('mongodb://localhost'),
-})
-
-// Use the object family's constructor
-OBJY.Object({name: "Hello World"}).add(function(data){
-   console.log(data);
-})
+{
+	_id: 123,
+	applications: ["appOne", "appTwo"],
+	...
+}
 ```
 
-## OBJY Platform Connect
+An application context can be set using `OBJY.app(appName)`.
+
+> When you are in an app context, everything you do is restricted to that context. E.g. when you add an object, it will be assigned to that app or when your query for objects, you will only get results that are assigned to the current app.
 
 
-***Install***
-
-```
-npm install objy-connect
-```
-
-or on the Browser
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/objy-connect/index.js"></script>
-```
-
-***Usage***
 
 ```javascript
-/*
-   On Node, you need to require these:
-   let OBJY = require('objy');
-   let CONNECT = require('objy-connect');
-
-   On the Browser, the CONNECT object is available automatically
-*/
-
-let remote = new CONNECT(OBJY)
-remote.connect({client: "myclient", url: "https://mydomain.com/api"});
-
-OBJY.define({
-  name: "object",
-  pluralName: "objects",
-  storage: remote
-})
-
-// Use the object family's constructor
-OBJY.object({name: "Hello World"}).add(function(data) {
-   console.log(data);
-})
+// Set the application context
+OBJY.app("demo");
 ```
 
+
+## Client Context
+
+OBJY by default is multi-tenancy capable.
+
+The objects of each tenant (or `client`) will be treated seperately.
+
+You can set and change a client context with `OBJY.client('name')`
+
+```javascript
+OBJY.client('mycompany');
+// mycompany context available from here
+
+OBJY.client('anothercompany');
+// anothercompany context available now
+```
+
+## User Context
+
+User contexts are useful when working with access control (permissions). When setting a user context, all following operations are done as that user. Permissions are applied.
+
+```javascript
+OBJY.useUser({username: "...", privileges: {...}})
+```
 
 
 # Affectables
