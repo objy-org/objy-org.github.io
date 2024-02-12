@@ -1,6 +1,10 @@
-# Abstract JavaScript Objects
+<h1>OBJY - Build anything with <u>Abstract Objects</u></h1>
 
-![OBJY LOGO](assets/img/OBJY-object-code.png "OBJY")
+
+<img src="/assets/img/OBJY-object-code.png" data-origin="assets/img/OBJY-object-code.png" alt="OBJY LOGO" title="OBJY" style="
+    margin-bottom: 25%;
+    margin-top: 25%;
+">
 
 
 # Installing
@@ -44,57 +48,6 @@ OBJY.objects([
 		name: "obj two"
 	}
 ])
-```
-
-## Add
-
-```javascript
-// add one
-OBJY.object({}).add()
-
-// add multiple
-OBJY.objects([{}],[{}]).add()
-```
-
-## Get one
-```javascript
-// by its reference:
-let myObj = OBJY.object({...});
-console.log(myObj);
-
-// or via the get method
-OBJY.object(id).get(obj => {
-	console.log(obj)
-});
-```
-
-## Query
-
-```javascript
-OBJY.objects({type:'example', 'expired' : false}).get(objs => {
-
-});
-```
-
-## Update
-
-```javascript
-// update via api methods
-OBJY.object({})
-   .setPropertyValue('expired', false)
-   .addProperty('open', false)
-
-// update directly
-var obj = OBJY.object({});
-
-obj.name = 'Hello'
-```
-
-## Delete
-
-```javascript
-// delete one
-OBJY.object({}).delete(obj => {});
 ```
 
 
@@ -488,6 +441,59 @@ OBJY.object({}).removePrivilege("admin")
 
 > ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
 
+
+# Operations
+
+## Add
+
+```javascript
+// add one
+OBJY.object({}).add()
+
+// add multiple
+OBJY.objects([{}],[{}]).add()
+```
+
+## Get one
+```javascript
+// by its reference:
+let myObj = OBJY.object({...});
+console.log(myObj);
+
+// or via the get method
+OBJY.object(id).get(obj => {
+	console.log(obj)
+});
+```
+
+## Query
+
+```javascript
+OBJY.objects({type:'example', 'expired' : false}).get(objs => {
+
+});
+```
+
+## Update
+
+```javascript
+// update via api methods
+OBJY.object({})
+   .setPropertyValue('expired', false)
+   .addProperty('open', false)
+
+// update directly
+var obj = OBJY.object({});
+
+obj.name = 'Hello'
+```
+
+## Delete
+
+```javascript
+// delete one
+OBJY.object({}).delete(obj => {});
+```
 
 
 # Customize Objects

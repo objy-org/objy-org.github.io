@@ -1,4 +1,4 @@
 <!-- docs/_sidebar.md -->
-* [Abstract Objects](/DOCUMENTATION.md)
+* [Home](/DOCUMENTATION.md)
 <!--* [Examples](/EXAMPLES.md)-->
-* [Build a Platform](/PLATFORM.md)
+* [OBJY Platform](/PLATFORM.md)
