@@ -373,25 +373,6 @@ OBJY.object({}).removePermission("name")
 ```
 
 
-# Affectables
-
-Affectables are rules that can simply be applied to objects with a matching criteria.
-
-```javascript
-OBJY.affectables = [{
-	_id: 123,
-	affects: { // define a query (match the objects that you want to use the rules on)
-		type: 'car'
-	}, 
-	applies: { // this part will be logically added to any object matching the criteria, when performing an operation on an object
-
-	}
-}]
-```
-
-> This feature is currently experimental
-
-
 # Multitenancy
 
 OBJY by default is multi-tenancy capable.
@@ -438,6 +419,25 @@ An application context can be set using `OBJY.app(appName)`.
 // Set the application context
 OBJY.app("demo");
 ```
+
+
+# Affectables
+
+Affectables are rules that can simply be applied to objects with a matching criteria.
+
+```javascript
+OBJY.affectables = [{
+	_id: 123,
+	affects: { // define a query (match the objects that you want to use the rules on)
+		type: 'car'
+	}, 
+	applies: { // this part will be logically added to any object matching the criteria, when performing an operation on an object
+
+	}
+}]
+```
+
+> This feature is currently experimental
 
 
 
