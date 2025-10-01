@@ -1,53 +1,117 @@
-<h1>OBJY - Build anything with <u>Abstract Objects</u></h1>
+<h1><i>Powerful JavaScript Objects</i></h1>
+OBJY brings life to JS objects by adding features, like <b>inheritance, automated actions, permissions, custom storage</b> and more.
 
 
 <img src="/assets/img/OBJY-object-code.png" data-origin="assets/img/OBJY-object-code.png" alt="OBJY LOGO" title="OBJY" style="
-    margin-bottom: 25%;
-    margin-top: 25%;
+    margin-bottom: 5%;
+    margin-top: 5%;
 ">
 
 
-# Installing
+# Quickstart Example
 
-***Node***
+```javascript
+// Define an object family called "item" and "items" for plural
+OBJY.define({ name: "item", pluralName: "items" })
+
+// Use the newly created "item" to create an object
+OBJY.item({
+	name: "Credit Card",
+	number: {
+		type: "number",
+		value: "123456789"
+	}
+	onCreate: {
+		myCustomLog: {
+			action: () => { console.log('Credit Card created') }
+		}
+	}
+}).add(o => {})
+````
+
+# 1. Installing
+
 
 ```shell
 npm install objy
 ```
-
+<!--
 ***Browser***
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js">
 ```
+-->
 
-# Objects
 
-Objects can be defined with object families. These are "buckets" of objects, tat share a common nature, like storage for example. Object families can be defined like this:
+# 2. Define Objects
+
+Objects can be defined with object families. These are "buckets" of objects, that share a common nature, like storage for example. 
+
 
 ```javascript
 OBJY.define({
-	name: "object",
-	pluralName: "objects"
+	// Minimal config:
+	name: "item",
+	pluralName: "items",
+
+	// More custom options:
+	...
 })
 ````
 
+# 3. Use Objects
+
+> All object operations can be used with either callbacks or async/await
 
 ```javascript
-//single constructor
-OBJY.object({
-	name: "hello world"
+// Callback
+OBJY.object({}).add(data => {})
+
+// async/await
+let myObject = await OBJY.object({}).add()
+```
+
+## Add
+
+```javascript
+// add one
+OBJY.object({name:"card"}).add(o => {
+
 })
 
-// plural constructor
-OBJY.objects([
-	{
-		name: "obj one"
-	},
-	{
-		name: "obj two"
-	}
-])
+// add multiple
+OBJY.objects([{name:"card"}],[{name:"token"}]).add(objs => {
+
+})
+```
+
+## Get one
+```javascript
+OBJY.object("id").get(o => {})
+```
+
+## Query
+
+```javascript
+let objs = await OBJY.object({type:'example', 'expired' : false).get()
+// [{},{}]
+```
+
+## Update
+
+```javascript
+OBJY.object("id").get(o => {
+	o.setPropertyValue('expired', false).addProperty('open', false).save()
+})
+```
+
+## Remove
+
+```javascript
+OBJY.object("id").get(o => {
+	o.remove()
+})
 ```
 
 
@@ -442,58 +506,75 @@ OBJY.object({}).removePrivilege("admin")
 > ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
 
 
-# Operations
 
-## Add
+## Affectables
 
-```javascript
-// add one
-OBJY.object({}).add()
-
-// add multiple
-OBJY.objects([{}],[{}]).add()
-```
-
-## Get one
-```javascript
-// by its reference:
-let myObj = OBJY.object({...});
-console.log(myObj);
-
-// or via the get method
-OBJY.object(id).get(obj => {
-	console.log(obj)
-});
-```
-
-## Query
+Affectables are rules that can simply be applied to objects with a matching criteria.
 
 ```javascript
-OBJY.objects({type:'example', 'expired' : false}).get(objs => {
+OBJY.affectables = [{
+	_id: 123,
+	affects: { // define a query (match the objects that you want to use the rules on)
+		type: 'car'
+	}, 
+	applies: { // this part will be logically added to any object matching the criteria, when performing an operation on an object
 
-});
+	}
+}]
 ```
 
-## Update
+> This feature is currently experimental
+
+
+# Access Context
+
+## Multitenancy
+
+OBJY by default is multi-tenancy capable.
+
+The objects of each tenant (or `client`) will be treated seperately.
+
+You can set and change a client context with `OBJY.client('name')`
 
 ```javascript
-// update via api methods
-OBJY.object({})
-   .setPropertyValue('expired', false)
-   .addProperty('open', false)
+OBJY.client('mycompany');
+// mycompany context available from here
 
-// update directly
-var obj = OBJY.object({});
-
-obj.name = 'Hello'
+OBJY.client('anothercompany');
+// anothercompany context available now
 ```
 
-## Delete
+## Working with Users
+
+User contexts are useful when working with access control (permissions). When setting a user context, all following operations are done as that user. Permissions are applied.
 
 ```javascript
-// delete one
-OBJY.object({}).delete(obj => {});
+OBJY.useUser({username: "...", privileges: {...}})
 ```
+
+## Working with Applications
+
+Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
+
+```javascript
+{
+	_id: 123,
+	applications: ["appOne", "appTwo"],
+	...
+}
+```
+
+An application context can be set using `OBJY.app(appName)`.
+
+> When you are in an app context, everything you do is restricted to that context. E.g. when you add an object, it will be assigned to that app or when your query for objects, you will only get results that are assigned to the current app.
+
+
+
+```javascript
+// Set the application context
+OBJY.app("demo");
+```
+
 
 
 # Customize Objects
@@ -574,9 +655,7 @@ OBJY.define({
 
 # Mappers
 
-## MongoDB Storage Mapper
-
-A mapper for using mongodb as storage backend for your objects
+> MongoDB Storage Mapper for using mongodb as storage backend for your objects
 
 ***Installing***
 
@@ -601,148 +680,3 @@ OBJY.Object({name: "Hello World"}).add(function(data){
    console.log(data);
 })
 ```
-
-
-# Contexts
-
-## Application Context
-
-Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
-
-```javascript
-{
-	_id: 123,
-	applications: ["appOne", "appTwo"],
-	...
-}
-```
-
-An application context can be set using `OBJY.app(appName)`.
-
-> When you are in an app context, everything you do is restricted to that context. E.g. when you add an object, it will be assigned to that app or when your query for objects, you will only get results that are assigned to the current app.
-
-
-
-```javascript
-// Set the application context
-OBJY.app("demo");
-```
-
-
-## Client Context
-
-OBJY by default is multi-tenancy capable.
-
-The objects of each tenant (or `client`) will be treated seperately.
-
-You can set and change a client context with `OBJY.client('name')`
-
-```javascript
-OBJY.client('mycompany');
-// mycompany context available from here
-
-OBJY.client('anothercompany');
-// anothercompany context available now
-```
-
-## User Context
-
-User contexts are useful when working with access control (permissions). When setting a user context, all following operations are done as that user. Permissions are applied.
-
-```javascript
-OBJY.useUser({username: "...", privileges: {...}})
-```
-
-
-# Affectables
-
-Affectables are rules that can simply be applied to objects with a matching criteria.
-
-```javascript
-OBJY.affectables = [{
-	_id: 123,
-	affects: { // define a query (match the objects that you want to use the rules on)
-		type: 'car'
-	}, 
-	applies: { // this part will be logically added to any object matching the criteria, when performing an operation on an object
-
-	}
-}]
-```
-
-> This feature is currently experimental
-
-
-
-<!--
-
-# Featured Mappers
-
-## MongoDB
-
-
-## SPOO (OBJY Server)
-
-SPOO is a project for exposing any OBJY environment as a RESTful platform.
-
-> For running a basic platform you will need ***Node.js***, ***Redis*** and ***MongoDB***. This will change in the future. The following quick examples show you how to spin up a platform and a client with just a few lines of code.
-
-
-***Server***
-
-```shell
-npm i objy spoojs
-```
-
-```javascript
-const OBJY = require('objy');
-const SPOO = require('spoojs');
-
-OBJY.define({
-  name: "user",
-  pluralName: "users",
-  authable: true
-})
-
-OBJY.define({
-  name: "object",
-  pluralName: "objects"
-})
-
-SPOO.REST({
-  OBJY,
-}).run()
-```
-
-## OBJY Connect
-
-Connect to a SPOO instance
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/objy-connect/index.js">
-```
-or
-```shell
-npm i objy-connect
-```
-
-```javascript
-let remote = new CONNECT(OBJY)
-
-OBJY.define({
-  name: "object",
-  pluralName: "objects",
-  storage: remote
-})
-
-// Login
-remote.connect({client: "myclient", url: "https://mydomain.com/api", username: "user", password: "***"}, () => {
-  OBJY.objects({}).get(data => {
-    console.log('data:', data)
-  }, err => {
-    console.log('err:', err)
-  })
-})
-```
-
--->
