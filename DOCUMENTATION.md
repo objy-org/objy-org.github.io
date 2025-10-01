@@ -222,27 +222,6 @@ OBJY.object({}).setPropertyValue("123", 1.8)
 OBJY.object({}).removeProperty("123", 1.8)
 ```
 
-
-## Application
-
-Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
-
-```javascript
-{
-	_id: 123,
-	applications: ["appOne", "appTwo"],
-	...
-}
-```
-
-> Operations
-
-```javascript
-OBJY.object({}).addApplication("demo")
-
-OBJY.object({}).removeApplication("demo")
-```
-
 ## Inheritance
 
 Objects can inherit attributes from other objects. This is useful for creating templates or reusing patterns.
@@ -355,67 +334,6 @@ OBJY.object({}).removeOnDelete("validate")
 # Permissions
 
 
-
-## Users
-
-On the other side of a permission, objects can be used as users that can access other objects. To make certain objects authable, set the `authable` flag wehen defining the object family:
-
-```javascript
-OBJY.define({
-	name: "user",
-	pluralName: "users",
-	authable: true // Set this to true
-})
-
-// objects from families with the authable flag = true have the following additional attributes:
-{
-	...
-	username: "peter",
-	password: "***",
-	email: "peter@whatever.org",
-	privileges: { // Here are the user roles defined
-		demo: [ // Permissions are app-specific
-			{
-				name: "admin"
-			}
-		]
-	} 
-}
-```
-
-
-> Operations
-
-```javascript
-OBJY.object({}).setUsername("peter")
-
-OBJY.object({}).setEmail("peter@griffin.com")
-
-// Privileges can only be used when working in an app context
-
-OBJY.useApp("demo"):
-
-OBJY.object({}).addPrivilege("admin")
-
-/*
- {
- 	...
- 	privileges: {
- 		demo: [{name: admin}]
- 	}
- }
- */
-
-OBJY.useApp("demo");
-
-OBJY.object({}).removePrivilege("admin")
-```
-
-> ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
-
-
-## Authorisation
-
 Each object can have permissions (optional) for access control. Permissions are mounted under the `permissions` attribute and are structured with the role name as key and an object with a value for permission codes: `{admin: {value: "*"}}`
 
 ```javascript
@@ -474,9 +392,7 @@ OBJY.affectables = [{
 > This feature is currently experimental
 
 
-# Access Context
-
-## Multitenancy
+# Multitenancy
 
 OBJY by default is multi-tenancy capable.
 
@@ -492,7 +408,7 @@ OBJY.client('anothercompany');
 // anothercompany context available now
 ```
 
-## Working with Users
+# Users
 
 User contexts are useful when working with access control (permissions). When setting a user context, all following operations are done as that user. Permissions are applied.
 
@@ -500,7 +416,7 @@ User contexts are useful when working with access control (permissions). When se
 OBJY.useUser({username: "...", privileges: {...}})
 ```
 
-## Working with Applications
+# Applications
 
 Each object can be assigned to applications. When an application context is set, only objects that are assigned to the application are relevant.
 
