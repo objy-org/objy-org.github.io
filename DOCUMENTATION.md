@@ -1,5 +1,5 @@
 <h1><i>Powerful JavaScript Objects</i></h1>
-OBJY brings life to JS objects by adding features, like <b>inheritance, automated actions, permissions, custom storage</b> and more.
+OBJY brings life to JS objects by adding features, like <b>inheritance, automated actions, permissions, custom storage</b> and more. This makes it super easy to digitalize real-life use cases.
 
 
 <img src="/assets/img/OBJY-object-code.png" data-origin="assets/img/OBJY-object-code.png" alt="OBJY LOGO" title="OBJY" style="
@@ -48,7 +48,6 @@ npm install objy
 
 Objects can be defined with object families. These are "buckets" of objects, that share a common nature, like storage for example. 
 
-
 ```javascript
 OBJY.define({
 	// Minimal config:
@@ -72,7 +71,9 @@ OBJY.object({}).add(data => {})
 let myObject = await OBJY.object({}).add()
 ```
 
-## Add
+## CRUD
+
+> 
 
 ```javascript
 // add one
