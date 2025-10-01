@@ -352,49 +352,11 @@ OBJY.object({}).removeOnDelete("validate")
 ```
 
 
-
-## Permissions
-
-Each object can have permissions (optional) for access control. Permissions are mounted under the `permissions` attribute and are structured with the role name as key and an object with a value for permission codes: `{admin: {value: "*"}}`
-
-```javascript
-{
-	name: "my object",
-	permissions: {
-		PRIVILEGE: {
-			value: "PERMISSIONS"
-		},
-		
-		// Example
-		maintainer: {
-			value: "cru"
-		}
-	}
-}
-```
-
-> Permission codes are single-character shortcuts that stand for a certain operation type. Permission Codes can be combined, like "cr" or "crud".
-
-Available permission codes:
-
-* `*` Do everything
-* `c` Create
-* `r` Read
-* `u` Update
-* `d` Delete
+# Permissions
 
 
-> Operations
 
-```javascript
-/* takes the handler name  */
-OBJY.object({}).setPermission("name", {value: "*"})
-
-OBJY.object({}).removePermission("name")
-```
-
-
-## Authable objects (e.g. users)
+## Users
 
 On the other side of a permission, objects can be used as users that can access other objects. To make certain objects authable, set the `authable` flag wehen defining the object family:
 
@@ -452,8 +414,48 @@ OBJY.object({}).removePrivilege("admin")
 > ***Privileges are app-based!*** An authable object can have different privileges for different apps. If you add a privilege in an app context, OBJY will put in in the right place:
 
 
+## Authorisation
 
-## Affectables
+Each object can have permissions (optional) for access control. Permissions are mounted under the `permissions` attribute and are structured with the role name as key and an object with a value for permission codes: `{admin: {value: "*"}}`
+
+```javascript
+{
+	name: "my object",
+	permissions: {
+		PRIVILEGE: {
+			value: "PERMISSIONS"
+		},
+		
+		// Example
+		maintainer: {
+			value: "cru"
+		}
+	}
+}
+```
+
+> Permission codes are single-character shortcuts that stand for a certain operation type. Permission Codes can be combined, like "cr" or "crud".
+
+Available permission codes:
+
+* `*` Do everything
+* `c` Create
+* `r` Read
+* `u` Update
+* `d` Delete
+
+
+> Operations
+
+```javascript
+/* takes the handler name  */
+OBJY.object({}).setPermission("name", {value: "*"})
+
+OBJY.object({}).removePermission("name")
+```
+
+
+# Affectables
 
 Affectables are rules that can simply be applied to objects with a matching criteria.
 
