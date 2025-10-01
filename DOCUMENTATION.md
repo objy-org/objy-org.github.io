@@ -1,5 +1,5 @@
 <h1><i>Powerful JavaScript Objects</i></h1>
-OBJY brings life to JS objects by adding features, like <b>inheritance, automated actions, permissions, custom storage</b> and more. This makes it super easy to digitalize real-life use cases.
+OBJY brings JS objects to life by adding features, like <b>inheritance, automated actions, permissions, custom storage</b> and more. This makes it super easy to digitalize real-life use cases.
 
 
 <img src="/assets/img/OBJY-object-code.png" data-origin="assets/img/OBJY-object-code.png" alt="OBJY LOGO" title="OBJY" style="
@@ -73,7 +73,7 @@ let myObject = await OBJY.object({}).add()
 
 ## CRUD
 
-> 
+> Add
 
 ```javascript
 // add one
@@ -87,19 +87,19 @@ OBJY.objects([{name:"card"}],[{name:"token"}]).add(objs => {
 })
 ```
 
-## Get one
+> Get one
 ```javascript
 OBJY.object("id").get(o => {})
 ```
 
-## Query
+> Query
 
 ```javascript
 let objs = await OBJY.object({type:'example', 'expired' : false).get()
 // [{},{}]
 ```
 
-## Update
+> Update
 
 ```javascript
 OBJY.object("id").get(o => {
@@ -107,7 +107,7 @@ OBJY.object("id").get(o => {
 })
 ```
 
-## Remove
+> Remove
 
 ```javascript
 OBJY.object("id").get(o => {
@@ -118,21 +118,21 @@ OBJY.object("id").get(o => {
 
 ## Properties
 
-Each object can have custom, dynamic properties, that bring an object to life. 
+Each object can have custom, dynamic properties, that bring an object to life. Properties can be a simple key-value nature or typed.
+
+### Simple Properties
 
 ```javascript
 {
-	_id: "123",
-	name: "test",
-	type: "test",
-	age: {
-		type: "number",
-		value: 5
-	}
+	name: "Creditcard",
+	number: "123"
 }
+
 ```
 
-Properties can have any of the following types:
+### Typed Properties
+
+Or they can be typed. Typed properties will automatically be type-checked by OBJ. Properties can have any of the following types
 
 * `shortText` a string with up to 255 chars
 * `longText` a string with up more than 255 chars
@@ -143,79 +143,33 @@ Properties can have any of the following types:
 * `event` a time-based event that is observed in the background
 * `bag` nested properties
 
-**shortText**
 
 ```javascript
 {
 	shortDescription: {
 		type: "shortText,
 		value: "This is a text"
-	}
-}
-```
-
-**longText**
-
-```javascript
-{
+	},
 	longDescription: {
 		type: "longText,
 		value: "This is a longer text..."
-	}
-}
-```
-
-**number**
-
-```javascript
-{
+	},
 	age: {
 		type: "number,
 		value: 5
-	}
-}
-```
-
-**boolean**
-
-```javascript
-{
+	},
 	really: {
 		type: "boolean,
 		value: true
-	}
-}
-```
-
-**action**
-
-```javascript
-{
+	},
 	really: {
 		type: "action,
 		value: "some action"
-	}
-}
-```
-
-
-**date**
-
-```javascript
-{
+	},
 	really: {
 		type: "date,
 		value: "2020-02-02" // ISO8601 String
-	}
-}
-```
-
-**event**
-
-Date properties can either have a strict `date` or an `interval`
-
-```javascript
-{
+	},
 	onThisDate: {
 		type: "date,
 		date: "2020-02-02"
@@ -225,16 +179,7 @@ Date properties can either have a strict `date` or an `interval`
 		type: "date,
 		interval: 60000
 		action: "some action..." // will be triggered every time the interval repeats
-	}
-}
-```
-
-**bag**
-
-Bags are nested properties and can even contain other bags. Instead of the value attrubte, they have `properties`
-
-```javascript
-{
+	},
 	address: {
 		type: "bag,
 		properties: {
@@ -252,7 +197,7 @@ Bags are nested properties and can even contain other bags. Instead of the value
 }
 ```
 
-**Operations**
+### Methods
 
 ```javascript
 OBJY.object({}).setProperty("123", {
@@ -290,7 +235,7 @@ Each object can be assigned to applications. When an application context is set,
 }
 ```
 
-**Operations**
+> Operations
 
 ```javascript
 OBJY.object({}).addApplication("demo")
@@ -338,7 +283,7 @@ OBJY.object({
 })
 ```
 
-**Operations**
+> Operations
 
 
 ```javascript
@@ -380,7 +325,7 @@ OBJY.object({
 })
 ```
 
-**Operations**
+> Operations
 
 
 ```javascript
@@ -439,7 +384,7 @@ Available permission codes:
 * `d` Delete
 
 
-**Operations**
+> Operations
 
 ```javascript
 /* takes the handler name  */
@@ -477,7 +422,7 @@ OBJY.define({
 ```
 
 
-**Operations**
+> Operations
 
 ```javascript
 OBJY.object({}).setUsername("peter")
