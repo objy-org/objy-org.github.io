@@ -1,11 +1,14 @@
 <h1><i>Powerful JavaScript Objects</i></h1>
 OBJY brings JS objects to life by adding features, like <b>inheritance, automated actions, permissions, custom storage</b> and more. This makes it super easy to digitalize real-life use cases.
 
+Jump to:&nbsp; [OBJY Platform](/PLATFORM.md) &nbsp; [Github](https://github.com/objy-org/objy)
 
 <img src="/assets/img/OBJY-object-code.png" data-origin="assets/img/OBJY-object-code.png" alt="OBJY LOGO" title="OBJY" style="
     margin-bottom: 5%;
     margin-top: 5%;
 ">
+
+
 
 
 # Quickstart Example
@@ -70,8 +73,6 @@ OBJY.object({}).add(data => {})
 // async/await
 let myObject = await OBJY.object({}).add()
 ```
-
-## CRUD
 
 > Add
 
