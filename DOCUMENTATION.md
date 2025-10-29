@@ -332,7 +332,7 @@ OBJY.object({}).removeOnDelete("validate")
 ```
 
 
-# Permissions
+## Permissions
 
 
 Each object can have permissions (optional) for access control. Permissions are mounted under the `permissions` attribute and are structured with the role name as key and an object with a value for permission codes: `{admin: {value: "*"}}`
