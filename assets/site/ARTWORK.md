@@ -1,20 +1,16 @@
 # OBJY website artwork
 
-## Hero
+## Original branding and header
 
-Generated in built-in image-generation mode. Site asset: `assets/site/everything-is-an-object.png`.
+The original assets are restored unchanged from the repository before the redesign (`e62ff79`):
 
-Six everyday objects express “everything is an object.” The PNG's alpha channel is preserved. Its file path and alternative text are managed in `content/home.md`.
+| Current asset | Original path |
+| --- | --- |
+| `assets/site/logo.png` | `logo.png` |
+| `assets/site/favicon.png` | `logo-sm.png` |
+| `assets/site/header-objects.png` | `assets/img/OBJY-object-code.png` |
 
-### Generation prompt
-
-Use case: illustration-story
-Asset type: hero artwork for OBJY, an object-driven database website. Artwork only.
-Primary request: "Everything is an object" expressed as a collection of six very different, clearly recognizable everyday things: a bicycle, a leafy potted plant, a human profile/bust, a closed book with a bookmark, a key on a ring, and a simple alarm clock. Each is an individual object of equal visual importance. Arrange them in a loose, balanced 3 by 2 collection with generous breathing room; not a scene, not a house, not a world or diorama. The objects must be easy to identify at small sizes.
-Style: sophisticated flat 2D editorial illustration, crisp silhouettes, confident simple shapes, restrained screen-print texture, a contemporary design magazine rather than a children's illustration. No 3D, clay, miniatures, glossy plastic, fuzzy surfaces or photorealism.
-Composition: landscape canvas, individual objects separated by empty space, no overlap, no central object, no boxes, frames, connecting lines, arrows or technical diagrams. All shapes wholly inside the canvas. Genuine transparent alpha background for a charcoal #212121 website.
-Palette: warm off-white, muted coral #d49599, sage green, a little subdued ochre and lavender. Details must contrast clearly on a charcoal website.
-No text, labels, logos, letters, numbers, code, database cylinders, wireframe cubes, glowing halos, background rectangle or watermark. This should say that any kind of thing can be an object, without depicting computer architecture.
+The header image is the original cube-and-code illustration, retained as artwork rather than a current API example. Its path and alternative description are editable in `content/home.md`.
 
 ## Section illustrations
 

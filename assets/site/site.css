@@ -14,8 +14,8 @@ h1:focus,h2:focus,#main:focus{outline:none}
 h1,h2,h3,p,figure{margin:0}
 .site-header{position:sticky;top:0;z-index:30;height:var(--header-height);display:flex;align-items:center;justify-content:space-between;padding:0 30px 0 25px;background:#202020;border-bottom:1px solid var(--line)}
 .header-brand{display:flex;align-items:center;gap:20px}
-.wordmark{font-size:23px;font-weight:600;letter-spacing:1.6px;text-decoration:none;line-height:1}
-.wordmark span{color:var(--accent)}
+.wordmark{display:inline-flex;align-items:center;gap:11px;font-size:23px;font-weight:600;letter-spacing:1.6px;text-decoration:none;line-height:1}
+.wordmark img{display:block;width:38px;height:38px}
 .header-links{display:flex;align-items:center;gap:30px;font-size:12px}
 .header-links a{text-decoration:none;color:var(--muted)}
 .header-links a:hover{color:var(--text)}
@@ -35,12 +35,13 @@ body>main>.sidebar-toggle,.sidebar:not(.page-sidebar){display:none}
 .sections-root,.document-page{max-width:1140px;margin:0 auto;min-width:0}
 .section-copy,.markdown-body{min-width:0}
 .page-section{padding:36px 0;scroll-margin-top:8px}
+.page-section h1,.page-section h2{scroll-margin-top:42px}
 .page-section .section-copy{max-width:780px}
 .section-hero{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:22px;min-height:650px;padding:65px 0 70px}
 .section-hero h1{font-size:clamp(38px,3.55vw,56px);font-weight:400;letter-spacing:-1.9px;line-height:1.15;max-width:600px}
 .section-hero h1 strong{font-weight:600;display:block}
 .section-copy .eyebrow{color:var(--accent);font-size:17px;font-weight:600;margin:0 0 22px;line-height:1.5}
-.hero-art{width:100%;min-width:0;aspect-ratio:3/2;display:grid;align-items:center}
+.hero-art{width:100%;min-width:0;aspect-ratio:754/424;display:grid;align-items:center}
 .hero-art img{display:block;width:100%;height:auto}
 .section-hero .section-copy p:not(.eyebrow){max-width:470px;margin-top:26px;line-height:1.85;font-size:14px}
 .section-hero .hero-action{margin-top:30px!important}
@@ -58,9 +59,9 @@ body>main>.sidebar-toggle,.sidebar:not(.page-sidebar){display:none}
 .section-copy blockquote{margin:20px 0;padding-left:20px;border-left:2px solid var(--accent)}
 .section-illustrated{display:grid;grid-template-columns:1.05fr 1fr;gap:44px;align-items:center;border-top:1px solid var(--line);padding:75px 0}
 .section-illustrated .section-copy{max-width:none}
-.section-illustrated h2{font-size:31px;line-height:1.3;margin-bottom:22px}
-.section-illustrated h3{font-size:15px;letter-spacing:0;line-height:1.6;margin:26px 0 7px}
-.section-illustrated .section-copy p{font-size:13px;line-height:1.9;margin-top:8px}
+.section-illustrated h2{font-size:clamp(30px,3vw,42px);line-height:1.2;letter-spacing:-1.2px;margin-bottom:22px;max-width:480px}
+.section-illustrated .section-copy p{font-size:14px;line-height:1.9;margin-top:16px}
+.section-illustrated .section-copy .eyebrow{font-size:11px;line-height:1.5;letter-spacing:1.4px;text-transform:uppercase;margin:0 0 14px}
 .section-art{width:100%;min-width:0}
 .section-art svg,.section-art img{display:block;width:100%;height:auto}
 .sections-root>.page-section:last-child{padding-bottom:100px}
@@ -102,6 +103,7 @@ pre{position:relative;max-width:100%;overflow:auto;background:#292929;border-rad
   .site-header{padding:0 22px}
   .header-brand{gap:18px}
   .wordmark{font-size:20px}
+  .wordmark img{width:30px;height:30px}
   .header-links{gap:18px;font-size:11px}
   .header-links .product-link,.header-links .source-link{display:none}
   .section-menu-toggle{display:flex;align-items:center;gap:8px;background:none;border:0;padding:12px 0;color:var(--muted);font-size:11px}
@@ -123,7 +125,7 @@ pre{position:relative;max-width:100%;overflow:auto;background:#292929;border-rad
   .page-section h2{font-size:24px}
   .section-copy p{font-size:14px}
   .section-illustrated{padding:40px 0;gap:28px}
-  .section-illustrated h2{font-size:26px}
+  .section-illustrated h2{font-size:32px}
   .section-illustrated .section-copy p{font-size:14px}
   .sections-root>.page-section:last-child{padding:35px 0 65px}
   .document-page{padding:25px 0 60px}
