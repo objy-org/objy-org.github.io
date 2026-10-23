@@ -1,6 +1,6 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# Think in objects. **Build anything.** :id=top
+# Everything starts **with an object.** :id=top
 
 > In-memory object database
 
@@ -26,7 +26,7 @@ Read and write individual objects. Run aggregates across collections. In-memory 
 
 ![Hot fields, compact columns, and compressed fields share an in-memory working set; a local write-ahead log and S3 journals and snapshots provide persistence.](assets/site/storage-internals.svg)
 
-## One node. A whole cluster. Your call. :id=run-and-deploy
+## From One node to a whole cluster. :id=run-and-deploy
 
 > Run & deploy
 
