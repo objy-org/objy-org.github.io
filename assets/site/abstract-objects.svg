@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 450" fill="none">
+  <rect x="34" y="35" width="355" height="350" rx="16" fill="#272626" stroke="#625351"/>
+  <path d="M34 115h355" stroke="#625351"/>
+  <g transform="translate(62 55)" stroke="#dfa59a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="13" cy="35" r="11"/><circle cx="54" cy="35" r="11"/>
+    <path d="m13 35 15-23 12 23H13l17-18h17l7 18M24 12h10M44 7h8l-5 10"/>
+  </g>
+  <g font-family="Montserrat, Arial, sans-serif">
+    <text x="150" y="84" fill="#f2f0eb" font-size="23" data-copy="object-diagram.title">Bicycle</text>
+    <text x="63" y="154" fill="#aaa6a1" font-size="17" data-copy="object-diagram.identity-label">Identity</text>
+    <text x="220" y="154" fill="#f2f0eb" font-size="18" data-copy="object-diagram.identity-value">bike-001</text>
+    <path d="M63 179h295" stroke="#41403e"/>
+    <text x="63" y="213" fill="#aaa6a1" font-size="17" data-copy="object-diagram.first-property">Color</text>
+    <circle cx="228" cy="207" r="5" fill="#dfa59a"/>
+    <text x="245" y="213" fill="#f2f0eb" font-size="18" data-copy="object-diagram.first-value">Coral</text>
+    <text x="63" y="253" fill="#aaa6a1" font-size="17" data-copy="object-diagram.second-property">Available</text>
+    <text x="220" y="253" fill="#c1ccae" font-size="18" data-copy="object-diagram.second-value">Yes</text>
+    <path d="M63 280h295" stroke="#41403e"/>
+    <text x="63" y="323" fill="#aaa6a1" font-size="17" data-copy="object-diagram.reference-label">Owner</text>
+    <path d="M220 318h195q20 0 20-20v-90h37" stroke="#b7afcb" stroke-width="1.6"/>
+    <path d="m466 202 7 6-7 6" stroke="#b7afcb" stroke-width="1.6"/>
+    <rect x="474" y="153" width="130" height="110" rx="12" fill="#29272c" stroke="#777083"/>
+    <circle cx="539" cy="187" r="12" stroke="#c7bfdc" stroke-width="2"/>
+    <path d="M516 224c0-27 46-27 46 0" stroke="#c7bfdc" stroke-width="2"/>
+    <text x="539" y="292" fill="#c7bfdc" font-size="18" text-anchor="middle" data-copy="object-diagram.reference-target">Another object</text>
+    <path d="M211 385v24" stroke="#8f9784" stroke-width="1.5" stroke-dasharray="3 4"/>
+    <text x="211" y="434" fill="#c1ccae" font-size="17" text-anchor="middle" data-copy="object-diagram.hooks">Optional hooks &amp; behavior</text>
+  </g>
+</svg>

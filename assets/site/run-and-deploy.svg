@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 460" fill="none">
+  <defs>
+    <g id="server-node">
+      <rect width="108" height="57" rx="8" fill="#2d2d2a" stroke="currentColor"/>
+      <circle cx="17" cy="19" r="3" fill="currentColor"/><path d="M30 19h56M17 37h69" stroke="currentColor" stroke-width="1.4"/>
+    </g>
+  </defs>
+  <g font-family="Montserrat, Arial, sans-serif" text-anchor="middle">
+    <text x="91" y="117" fill="#ddd4c4" font-size="20" data-copy="deploy-diagram.single">One node</text>
+    <g color="#bbad91" transform="translate(37 147)"><use href="#server-node"/></g>
+    <path d="M160 175h61m-8-7 8 7-8 7" stroke="#96918a" stroke-width="1.5"/>
+    <rect x="240" y="39" width="375" height="312" rx="16" stroke="#615754"/>
+    <text x="428" y="77" fill="#e2c0b8" font-size="20" data-copy="deploy-diagram.cluster">A cluster</text>
+    <text x="333" y="118" fill="#dfa59a" font-size="17" data-copy="deploy-diagram.shard-a">Shard A</text>
+    <text x="518" y="118" fill="#b6c7d0" font-size="17" data-copy="deploy-diagram.shard-b">Shard B</text>
+    <g color="#ca968c" transform="translate(279 140)"><use href="#server-node"/></g>
+    <g color="#ca968c" transform="translate(279 247)"><use href="#server-node"/></g>
+    <g color="#92aebb" transform="translate(464 140)"><use href="#server-node"/></g>
+    <g color="#92aebb" transform="translate(464 247)"><use href="#server-node"/></g>
+    <g stroke="#9e9790" stroke-width="1.4"><path d="M325 204v35m-5-6 5 6 5-6M341 239v-35m-5 6 5-6 5 6M510 204v35m-5-6 5 6 5-6M526 239v-35m-5 6 5-6 5 6"/></g>
+    <text x="428" y="330" fill="#b6b2ab" font-size="15" data-copy="deploy-diagram.replicas">Two replicas per shard</text>
+    <text x="320" y="401" fill="#e0d6c5" font-size="20" data-copy="deploy-diagram.capacity">Shards distribute. Replicas copy.</text>
+    <text x="320" y="439" fill="#b6b2ab" font-size="16" data-copy="deploy-diagram.locations">Local · Containers · VMs · Cloud</text>
+  </g>
+</svg>

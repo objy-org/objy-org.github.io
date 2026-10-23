@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage explains the database through a concrete package example and uses a warm illustration of everyday things. There is no build step.
+A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage introduces “everything is an object,” then explains abstract objects, storage internals, and deployment with one illustration per section. There is no build step.
 
 ## Editing
 
@@ -8,10 +8,11 @@ See [the staff editing guide](content/EDITING.md).
 
 | File | Content |
 | --- | --- |
-| `content/home.md` | Hero headline and illustration, database introduction, feature explanations, links |
+| `content/home.md` | Hero, section explanations, image paths and alternative text, links |
 | `_sidebar.md` | Section menu labels, destinations, and ordering |
-| `content/labels.md` | Header links, navigation labels, browser metadata |
-| `DOCUMENTATION.md` and existing documentation files | Existing technical documentation |
+| `content/labels.md` | Header links, navigation labels, browser metadata, diagram labels |
+| `DATABASE.md` | Current database overview, shown in the documentation reader |
+| `DOCUMENTATION.md` and existing documentation files | Legacy framework documentation |
 
 Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headings. A new `##` heading creates a section; add a link in `_sidebar.md` to include it in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
@@ -21,7 +22,7 @@ Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headi
 
 Docsify renders the Markdown, manages the sidebar, and handles routes. The theme arranges its rendered HTML into the hero and sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
-The first standalone image in the hero's Markdown becomes its illustration. `assets/site/objects-world.png` is the generated, transparent hero artwork; its alternative text and file path are editable in `content/home.md`. The image presents real-world things without technical connectors or database diagrams. Layout and artwork design remain developer concerns.
+The first standalone image in each section's Markdown becomes its illustration. `assets/site/everything-is-an-object.png` is the generated, transparent hero artwork. The three explanatory SVG diagrams are loaded and inlined so their text can be supplied by `content/labels.md`. Image paths and alternative text are editable in `content/home.md`. Other image files use ordinary image elements. Layout and artwork design remain developer concerns.
 
 Only trusted repository Markdown is rendered. Add sanitization before accepting untrusted page submissions.
 
@@ -37,13 +38,19 @@ Open `http://127.0.0.1:8000/`. HTTP is required for Docsify to load Markdown. Fo
 
 ## Routes
 
-Sections use standard Docsify URLs such as `/#/?id=objects`. Earlier plain links such as `/#objects` are translated automatically. The removed `the-idea` and `start-building` entry URLs redirect to the hero and objy.db introduction respectively.
+Sections use standard Docsify URLs such as `/#/?id=abstract-objects`. Earlier plain links such as `/#objects` are translated automatically. Earlier feature URLs map to the corresponding new section: object features to `abstract-objects`, storage to `storage-internals`, and getting started to `run-and-deploy`.
 
-Other Markdown routes, including `/#/PLATFORM`, still render in the same shell. Links beginning with `docs/` open the existing documentation reader directly. Those documentation files remain separate from the new database-focused landing page.
+Other Markdown routes, including `/#/PLATFORM`, still render in the same shell. Links beginning with `docs/` open the documentation reader directly, starting with `DATABASE.md`. Existing framework documents remain available through their original paths.
+
+## Content sources
+
+The database descriptions were checked against the sibling `spread-db` repository (`eb221e0`), particularly `README.md`, `API.md`, and the storage implementation. The `objy-db-installer` README and `objydb-terraform` describe deployment and planned resize/restore workflows. These are implementation references, not runtime dependencies of the website.
+
+Compression is in memory; the local write-ahead log and S3 journals/snapshots provide persistence. Replication is asynchronous. Topology changes are planned maintenance. Optional object behavior extensions are distinguished from the database core. Recheck those distinctions when updating product claims.
 
 ## Third-party assets
 
 - Docsify 5.0.0, npm package entry `dist/docsify.min.js`, MIT license in `assets/vendor/docsify.LICENSE`.
 - Montserrat Regular and SemiBold from Google Fonts, SIL Open Font License in `assets/site/montserrat-LICENSE.txt`.
 
-The hero artwork was generated with the built-in image-generation tool for this site. Its source prompt and file details are recorded in `assets/site/ARTWORK.md`.
+Artwork details and the hero generation prompt are recorded in `assets/site/ARTWORK.md`.

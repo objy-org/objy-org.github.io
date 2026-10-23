@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" fill="none">
+  <g font-family="Montserrat, Arial, sans-serif" text-anchor="middle">
+    <rect x="20" y="28" width="600" height="263" rx="16" fill="#252624" stroke="#69705e"/>
+    <text x="320" y="67" fill="#c1ccae" font-size="20" data-copy="storage-diagram.memory">IN MEMORY</text>
+    <rect x="43" y="95" width="170" height="146" rx="10" fill="#2d3028"/>
+    <g stroke="#adbba0" stroke-width="3" stroke-linecap="round"><path d="M70 119h69M70 138h109M70 157h87M70 176h102"/></g>
+    <text x="128" y="219" fill="#d5ddcb" font-size="17" data-copy="storage-diagram.hot">Hot fields</text>
+    <rect x="235" y="95" width="170" height="146" rx="10" fill="#302b2a"/>
+    <g fill="#d49e93"><rect x="263" y="114" width="23" height="70" rx="3"/><rect x="309" y="114" width="23" height="70" rx="3"/><rect x="355" y="114" width="23" height="70" rx="3"/></g>
+    <g stroke="#302b2a" stroke-width="4"><path d="M260 134h121M260 157h121"/></g>
+    <text x="320" y="219" fill="#e1b6ad" font-size="17" data-copy="storage-diagram.columns">Compact columns</text>
+    <rect x="427" y="95" width="170" height="146" rx="10" fill="#2c2931"/>
+    <g stroke="#b0a6c2" stroke-width="4" stroke-linecap="round"><path d="M458 135h108M458 145h108M458 155h108M458 165h108"/></g>
+    <path d="m483 115 8 8 8-8m-8-5v12M524 183l8-8 8 8m-8 5v-12" stroke="#b0a6c2" stroke-width="1.7"/>
+    <text x="512" y="219" fill="#cdc5dc" font-size="17" data-copy="storage-diagram.compressed">Compressed fields</text>
+    <text x="320" y="271" fill="#b6b2ab" font-size="15" data-copy="storage-diagram.reads">Read back complete objects</text>
+    <path d="M320 291v30M314 315l6 6 6-6" stroke="#8b8781" stroke-width="1.5"/>
+    <rect x="196" y="329" width="248" height="39" rx="7" stroke="#6c665d"/>
+    <text x="320" y="355" fill="#c7bca9" font-size="16" data-copy="storage-diagram.wal">Optional local write-ahead log</text>
+    <path d="M320 369v23M314 386l6 6 6-6" stroke="#8b8781" stroke-width="1.5"/>
+    <rect x="85" y="401" width="470" height="55" rx="10" fill="#2a2926" stroke="#6c665d"/>
+    <text x="320" y="425" fill="#e0d6c5" font-size="18" data-copy="storage-diagram.persistence">S3-compatible storage</text>
+    <text x="320" y="446" fill="#b6b2ab" font-size="14" data-copy="storage-diagram.backups">Journals &amp; snapshots</text>
+  </g>
+</svg>

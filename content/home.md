@@ -1,53 +1,71 @@
-<!-- Edit the words and image using Markdown. Keep each :id=... so menu links continue to work. -->
+<!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# A database built around **your world.** :id=top
+# Everything is **an object.** :id=top
 
 > objy.db
 
-An object-driven database for the things your application is built around. Give people, places, products, and processes their own data, behavior, and context.
+A person, a product, a place, an idea. objy.db is an in-memory database for the objects that make up your application. Give them shape, connect them, and build anything.
 
-[Discover the object-driven idea](/?id=objy-db)
+[Explore the database](/?id=abstract-objects)
 
-![A small house, a tree, a person, a parcel, and a handheld device, brought together into one miniature world.](assets/site/objects-world.png)
+![A bicycle, a plant, a person, a book, a key, and a clock: different things, all objects.](assets/site/everything-is-an-object.png)
 
-## What makes a database object-driven? :id=objy-db
+## Abstract objects :id=abstract-objects
 
-An object represents one meaningful thing in your application. It brings together **what that thing is, what it does, and where it belongs**.
+An object is a way to describe anything. It has an identity and properties; what those properties mean is up to you. The same simple model can represent a bicycle, its owner, or a whole rental service.
 
-Think of a package. It has a destination and a delivery status. It can share a structure with other packages, respond when its status changes, and belong to a particular workspace. In objy.db, those ideas live together in the object.
+### Shape without a fixed schema
 
-## Give every thing its own shape. :id=objects
+Store text, numbers, lists, and nested information. Objects in the same collection can have different shapes and evolve with your application.
 
-Start with the data that describes it. A package has a weight and a destination; a person has a name and contact details. Use simple values, typed properties, or nested information to give each object the shape it needs.
+### Connected, reusable, extensible
 
-Your application decides what an object represents.
+References connect objects to other objects. Hooks can validate, transform, or respond to object operations. Optional behavior extensions add inheritance and lifecycle actions when you need them.
 
-## Define once. Build on it. :id=inheritance
+### One model, many possibilities
 
-Objects can inherit properties and behavior from other objects. Define a common package once, then use it as the starting point for a parcel, a return, or a special delivery.
+Group objects into collections, query their properties, and control access with permissions. Start with a single thing and build up to a whole system.
 
-Share what is common. Add what makes each object different.
+![An object has a unique identity, flexible properties, a reference to another object, and optional hooks.](assets/site/abstract-objects.svg)
 
-## Let your data do something. :id=behavior
+## Storage internals :id=storage-internals
 
-An object can respond when it is created, changed, or deleted. It can also act at a particular time or on a repeating schedule.
+Objects stay simple on the outside. Inside, objy.db combines in-memory access, compression, and column storage to make better use of memory and avoid unnecessary work.
 
-A package could run a confirmation action when its status changes to delivered. The behavior stays with the thing it describes.
+### In-memory speed
 
-## Put everything in its context. :id=context
+Active objects and indexes live in RAM, so local hot reads do not need a disk lookup. Bulk operations process groups of objects together.
 
-The same kinds of objects can serve different organizations and applications. Keep their data separate and define who can create, read, change, or delete an object.
+### Compression where it helps
 
-A shared object model, with a place and permissions for each object.
+Compress less-used fields in memory while keeping indexed fields and columns ready to query. Reads reconstruct the complete object when needed.
 
-## Choose where objects live. :id=storage
+### Columns for focused queries
 
-Your object model stays familiar as your storage changes. Start with objects in memory, use a MongoDB mapper, or connect your own storage adapter.
+Selected fields use compact column storage. Sums, averages, and grouped queries can work with those values instead of loading every full object.
 
-## Start with objects. Build anything. :id=build-anything
+### Persistence beyond memory
 
-Packages, people, and delivery processes can become a logistics application. Rooms, devices, and actions can become a smart building. The details change; the object-driven idea stays the same.
+Journals and snapshots go to S3-compatible storage. An optional local write-ahead log lets writes be acknowledged after a disk flush, rather than memory acceptance alone.
 
-**objy.db is the first product from OBJY: build anything using abstract objects.**
+![Hot fields, compact columns, and compressed fields share an in-memory working set; a local write-ahead log and S3 journals and snapshots provide persistence.](assets/site/storage-internals.svg)
 
-[Explore the documentation](docs/)
+## Run & deploy :id=run-and-deploy
+
+From a local process to a sharded, replicated cluster. Run objy.db on infrastructure you choose, and size the deployment around your workload.
+
+### Your infrastructure
+
+Run with Node.js or Docker: on your laptop, on virtual machines, in your own data center, or in the cloud. S3-compatible persistence keeps storage portable across providers.
+
+### Built to cluster
+
+Shards distribute objects across nodes. Replicas keep additional copies of each shard. Any public node can accept a request and route it to the node that owns the object.
+
+### Grow deliberately
+
+Start with one node, then plan more shards, replicas, or memory as your needs grow. Replicas synchronize asynchronously; topology changes use a planned resize and restore process.
+
+[Read the database documentation](docs/)
+
+![A single node grows into a cluster with two shards, each with two replicas, running locally, in containers, on virtual machines, or in the cloud.](assets/site/run-and-deploy.svg)

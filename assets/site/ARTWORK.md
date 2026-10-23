@@ -1,17 +1,27 @@
-# OBJY hero artwork
+# OBJY website artwork
 
-Generated with the built-in image-generation tool.
+## Hero
 
-Site asset: `assets/site/objects-world.png`
+Generated in built-in image-generation mode. Site asset: `assets/site/everything-is-an-object.png`.
 
-The image is a 1536 × 1024 PNG with an alpha channel. Its file path and alternative text are managed in the homepage Markdown.
+Six everyday objects express “everything is an object.” The PNG's alpha channel is preserved. Its file path and alternative text are managed in `content/home.md`.
 
-## Generation prompt
+### Generation prompt
 
-Use case: stylized-concept
-Asset type: illustration for the hero of OBJY's object-centric database website. This is artwork only, not a webpage mockup.
-Primary request: An approachable, sophisticated editorial still life showing everyday things that software can model as objects, arranged into one small coherent world. A small warm ivory house with a dusty coral roof, a sculptural sage-green tree, a simple human figurine, a small parcel, and a rounded little handheld device. Only these five objects, distinct, thoughtfully composed, with ample negative space.
-Style: tactile matte clay and paper sculpture, soft dimensional forms, restrained premium editorial art, subtle surface grain. Three-quarter view with natural perspective, not an isometric technical diagram. A calm arrangement, not a busy city or toy set.
-Composition: a compact asymmetrical group centered in a landscape image, complete silhouettes, soft grounding shadows, no enclosing frame. Intended for the right half of a dark website hero. Transparent background with genuine alpha; no colored background rectangle.
-Palette: warm ivory, muted dusty coral #d49599, sage, a little soft ochre. Soft studio illumination and gentle shadows. Quiet and welcoming.
-No text, lettering, labels, logos, code, diagrams, connecting lines, wireframe cubes, database cylinders, screens full of UI, grids, glowing neon or arrows. Communicate the tangible world, not computer architecture.
+Use case: illustration-story
+Asset type: hero artwork for OBJY, an object-driven database website. Artwork only.
+Primary request: "Everything is an object" expressed as a collection of six very different, clearly recognizable everyday things: a bicycle, a leafy potted plant, a human profile/bust, a closed book with a bookmark, a key on a ring, and a simple alarm clock. Each is an individual object of equal visual importance. Arrange them in a loose, balanced 3 by 2 collection with generous breathing room; not a scene, not a house, not a world or diorama. The objects must be easy to identify at small sizes.
+Style: sophisticated flat 2D editorial illustration, crisp silhouettes, confident simple shapes, restrained screen-print texture, a contemporary design magazine rather than a children's illustration. No 3D, clay, miniatures, glossy plastic, fuzzy surfaces or photorealism.
+Composition: landscape canvas, individual objects separated by empty space, no overlap, no central object, no boxes, frames, connecting lines, arrows or technical diagrams. All shapes wholly inside the canvas. Genuine transparent alpha background for a charcoal #212121 website.
+Palette: warm off-white, muted coral #d49599, sage green, a little subdued ochre and lavender. Details must contrast clearly on a charcoal website.
+No text, labels, logos, letters, numbers, code, database cylinders, wireframe cubes, glowing halos, background rectangle or watermark. This should say that any kind of thing can be an object, without depicting computer architecture.
+
+## Section illustrations
+
+Three native SVG illustrations use a consistent dark, coral, sage, and lavender palette:
+
+- `assets/site/abstract-objects.svg`: identity, flexible properties, a reference, and optional hooks.
+- `assets/site/storage-internals.svg`: hot fields, columns, and compressed fields in RAM, plus optional local WAL and S3 persistence.
+- `assets/site/run-and-deploy.svg`: one node and a cluster with two shards and two replicas per shard.
+
+These diagrams were authored as vector assets so their labels remain editable through the Markdown tables in `content/labels.md`. Their default labels also make each SVG understandable when viewed on its own. Paths and alternative descriptions live in `content/home.md`.

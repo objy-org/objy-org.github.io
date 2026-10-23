@@ -4,33 +4,33 @@ The website runs on Docsify. Routine content changes only require Markdown, with
 
 | What to change | File |
 | --- | --- |
-| Headline, product introduction, features, links | [home.md](home.md) |
+| Headline, section explanations, image paths, links | [home.md](home.md) |
 | Left menu labels, links, and order | [_sidebar.md](../_sidebar.md) |
-| Header links, navigation labels, page title and description | [labels.md](labels.md) |
-| Existing technical documentation | [DOCUMENTATION.md](../DOCUMENTATION.md) |
+| Header links, navigation labels, page title, description, and diagram labels | [labels.md](labels.md) |
+| Database documentation | [DATABASE.md](../DATABASE.md) |
 
 ## Change the page copy
 
 Edit the words in `home.md`. Keep the heading's `:id=...` suffix so menu links keep working:
 
 ```markdown
-## Objects :id=objects
+## Abstract objects :id=abstract-objects
 
 Give anything a shape with flexible properties.
 ```
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Use `##` for page sections and `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The homepage presents objy.db and its object-centric database features.
+Keep each section focused on one idea and use concrete examples. The homepage presents abstract objects, storage internals, and running and deploying objy.db.
 
 ## Change links or the menu
 
 ```markdown
 [Documentation](docs/)
-[Objects](/?id=objects)
+[Abstract objects](/?id=abstract-objects)
 ```
 
-The words inside `[]` are the label. The destination goes inside `()`. `/?id=objects` jumps to the heading with `:id=objects`.
+The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
 
 In `_sidebar.md`, change labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
@@ -56,19 +56,19 @@ The new section uses the same simple layout automatically.
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The layout, font, colors, and illustration design are managed separately by a developer.
+The Object diagram, Storage diagram, and Deploy diagram tables control the words inside the three section illustrations. Keep these labels short so they fit. Their shapes, colors, and layout are managed separately by a developer.
 
-## Change the header image
+## Change section images
 
-The image at the end of the opening section in `home.md` becomes the header illustration. Change its file path to use a different image. The words inside `![]` describe the image for people using screen readers. Keep it as a standalone Markdown image.
+Each section has a standalone image in `home.md`. The first such image in a section appears beside the text on a wide screen and below it on a small screen. The opening section uses a collection of everyday objects; the three following sections use explanatory diagrams.
 
-## Add an image
+Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 
 ```markdown
 ![Describe the image](assets/img/your-image.png)
 ```
 
-The file must exist in the repository, or use a full image URL. Images automatically fit the page width.
+The file must exist in the repository, or use a full image URL. Images automatically fit the available width. Additional images in the same section stay within its text.
 
 ## Review and publish
 

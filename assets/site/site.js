@@ -3,6 +3,12 @@
   'use strict';
 
   let labels;
+  let illustrations = {};
+  const illustrationFiles = [
+    'assets/site/abstract-objects.svg',
+    'assets/site/storage-internals.svg',
+    'assets/site/run-and-deploy.svg'
+  ];
 
   function plainMarkdown(markdown) {
     const template = document.createElement('template');
@@ -74,18 +80,28 @@
       section.querySelector('.section-copy').prepend(eyebrow);
       quote.remove();
     }
-    if (heading.id === 'top') {
-      // The first standalone Markdown image becomes the hero illustration.
-      const image = body.querySelector(':scope > p > img:only-child');
-      if (image) {
-        const paragraph = image.parentElement;
-        const figure = document.createElement('figure');
-        figure.className = 'hero-art';
-        image.fetchPriority = 'high';
+    // A standalone Markdown image becomes the section's explanatory artwork.
+    const image = body.querySelector(':scope > p > img:only-child');
+    if (image) {
+      const paragraph = image.parentElement;
+      const figure = document.createElement('figure');
+      const isHero = heading.id === 'top';
+      figure.className = isHero ? 'hero-art' : 'section-art';
+      const source = image.getAttribute('src').replace(/^\.?\//, '');
+      if (Object.hasOwn(illustrations, source)) {
+        figure.setAttribute('role', 'img');
+        figure.setAttribute('aria-label', image.alt);
+        figure.innerHTML = illustrations[source];
+        figure.querySelector('svg').setAttribute('aria-hidden', 'true');
+      } else {
+        image.fetchPriority = isHero ? 'high' : 'auto';
         figure.append(image);
-        paragraph.remove();
-        section.append(figure);
       }
+      paragraph.remove();
+      section.append(figure);
+      if (!isHero) section.classList.add('section-illustrated');
+    }
+    if (heading.id === 'top') {
       body.querySelectorAll(':scope > p').forEach(paragraph => {
         if (paragraph.children.length === 1 && paragraph.firstElementChild.tagName === 'A' && paragraph.textContent.trim() === paragraph.firstElementChild.textContent.trim()) {
           paragraph.classList.add('hero-action');
@@ -106,7 +122,7 @@
         ids.add(node.id);
         current = document.createElement('section');
         current.dataset.section = node.id;
-        current.className = `page-section section-${node.id === 'top' ? 'hero' : node.id === 'objy-db' ? 'product' : 'text'}`;
+        current.className = `page-section section-${node.id === 'top' ? 'hero' : 'text'}`;
         current.innerHTML = '<div class="section-copy"><div class="markdown-body"></div></div>';
         sections.push(current);
       }
@@ -235,13 +251,14 @@
     let contentReady;
     let loadError;
     const loadContent = () => contentReady ||= Promise.all([
-      'content/labels.md'
+      'content/labels.md', ...illustrationFiles
     ].map(async file => {
       const response = await fetch(file);
       if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);
       return response.text();
-    })).then(async ([labelMarkdown]) => {
+    })).then(async ([labelMarkdown, ...artwork]) => {
       labels = readLabels(labelMarkdown);
+      illustrations = Object.fromEntries(illustrationFiles.map((file, i) => [file, artwork[i]]));
       await document.fonts.ready;
     });
 
@@ -286,7 +303,12 @@
     history.replaceState(null, '', `${location.pathname}${location.search}#/?id=${encodeURIComponent(location.hash.slice(1))}`);
   }
 
-  const previousSections = { 'the-idea': 'top', 'start-building': 'objy-db' };
+  const previousSections = {
+    'the-idea': 'abstract-objects', 'objy-db': 'abstract-objects',
+    objects: 'abstract-objects', inheritance: 'abstract-objects', behavior: 'abstract-objects',
+    context: 'abstract-objects', storage: 'storage-internals',
+    'start-building': 'run-and-deploy', 'build-anything': 'abstract-objects'
+  };
   const previousId = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
   if (Object.hasOwn(previousSections, previousId)) {
     history.replaceState(null, '', `${location.pathname}${location.search}#/?id=${previousSections[previousId]}`);
