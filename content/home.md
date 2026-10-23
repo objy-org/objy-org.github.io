@@ -1,42 +1,36 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# Everything is **an object.** :id=top
+# Think in objects. **Build anything.** :id=top
 
-> objy.db
+> In-memory object database
 
-A person, a product, a place, an idea. Model your world with objy.db, an in-memory database built around objects.
+Store, connect, and query the things your application is made of. An in-memory database with flexible objects, compact storage, and clustering built in.
 
 [Explore objy.db](/?id=abstract-objects)
 
 ![The original OBJY illustration: an object shown as a cube alongside code describing its properties and behavior.](assets/site/header-objects.png)
 
-## Your world. In objects. :id=abstract-objects
+## Everything is an object. :id=abstract-objects
 
 > Abstract objects
 
-A customer. A bike. A whole business. Give each object an identity, properties, and connections. No fixed schema to work around.
-
-Query them together. Add hooks when you need behavior. Build from there.
+People, products, places, processes. Give anything an identity, properties, and connections. Let your data model evolve with your ideas.
 
 ![An object has a unique identity, flexible properties, a reference to another object, and optional hooks.](assets/site/abstract-objects.svg)
 
-## Speed without the bulk. :id=storage-internals
+## Run your app. Understand your data. :id=storage-internals
 
 > Storage internals
 
-Keep active data in memory. Compress the fields you use less. Query compact columns without reading every object.
-
-Back it with S3-compatible journals and snapshots, plus an optional local write-ahead log.
+Read and write individual objects. Run aggregates across collections. In-memory access, compression, and compact columns power both kinds of work.
 
 ![Hot fields, compact columns, and compressed fields share an in-memory working set; a local write-ahead log and S3 journals and snapshots provide persistence.](assets/site/storage-internals.svg)
 
-## Start small. Go anywhere. :id=run-and-deploy
+## One node. A whole cluster. Your call. :id=run-and-deploy
 
 > Run & deploy
 
-From a local process to a cluster on your own infrastructure. Run with Node.js or Docker: on your laptop, on your servers, or in the cloud.
-
-Shards distribute objects. Replicas keep extra copies. Plan the capacity you need.
+Start locally. Deploy on your infrastructure. Distribute objects across shards and add replicas as your needs grow.
 
 [Read the docs](DATABASE.md)
 

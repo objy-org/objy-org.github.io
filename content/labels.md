@@ -6,8 +6,8 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 
 | Location | Text |
 | --- | --- |
-| Page title | objy.db — Everything is an object |
-| Page description | An in-memory database for abstract objects, with compression, compact columns, sharding, and replication. Build anything using objects. |
+| Page title | objy.db — Think in objects. Build anything. |
+| Page description | An in-memory object database with flexible objects, compact storage, and clustering built in. Think in objects. Build anything. |
 
 ## Navigation
 
