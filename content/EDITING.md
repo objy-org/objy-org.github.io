@@ -6,7 +6,7 @@ The website runs on Docsify. Routine content changes only require Markdown, with
 | --- | --- |
 | Headline, product introduction, features, links | [home.md](home.md) |
 | Left menu labels, links, and order | [_sidebar.md](../_sidebar.md) |
-| Other navigation labels, illustration labels, page title and description | [labels.md](labels.md) |
+| Header links, navigation labels, page title and description | [labels.md](labels.md) |
 | Existing technical documentation | [DOCUMENTATION.md](../DOCUMENTATION.md) |
 
 ## Change the page copy
@@ -21,7 +21,7 @@ Give anything a shape with flexible properties.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Use `##` for page sections and `###` for smaller headings within a section.
 
-Keep the copy short: a heading and one or two sentences per feature. The homepage presents objy.db and its object-centric database features.
+Keep each section focused on one idea and use concrete examples. The homepage presents objy.db and its object-centric database features.
 
 ## Change links or the menu
 
@@ -54,9 +54,13 @@ The new section uses the same simple layout automatically.
 
 ## Change labels
 
-In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. Keep illustration labels short so they fit.
+In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The layout, font, colors, and object illustration are managed separately by a developer.
+The layout, font, colors, and illustration design are managed separately by a developer.
+
+## Change the header image
+
+The image at the end of the opening section in `home.md` becomes the header illustration. Change its file path to use a different image. The words inside `![]` describe the image for people using screen readers. Keep it as a standalone Markdown image.
 
 ## Add an image
 

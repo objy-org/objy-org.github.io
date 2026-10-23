@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a restrained dark theme based on the original objy.xyz website. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage uses one illustration of everyday things represented as objects around objy.db, a plain left menu, and short feature descriptions. There is no build step.
+A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage explains the database through a concrete package example and uses a warm illustration of everyday things. There is no build step.
 
 ## Editing
 
@@ -8,9 +8,9 @@ See [the staff editing guide](content/EDITING.md).
 
 | File | Content |
 | --- | --- |
-| `content/home.md` | Hero headline, objy.db introduction, feature headings and text, links |
+| `content/home.md` | Hero headline and illustration, database introduction, feature explanations, links |
 | `_sidebar.md` | Section menu labels, destinations, and ordering |
-| `content/labels.md` | Navigation labels, illustration labels and description, browser metadata |
+| `content/labels.md` | Header links, navigation labels, browser metadata |
 | `DOCUMENTATION.md` and existing documentation files | Existing technical documentation |
 
 Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headings. A new `##` heading creates a section; add a link in `_sidebar.md` to include it in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
@@ -21,7 +21,7 @@ Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headi
 
 Docsify renders the Markdown, manages the sidebar, and handles routes. The theme arranges its rendered HTML into the hero and sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
-`assets/site/object-universe.svg` contains the object illustration. All its labels and its accessible description come from Markdown. The old decorative panels, interactive examples, and framework installation call to action have been removed from the landing page.
+The first standalone image in the hero's Markdown becomes its illustration. `assets/site/objects-world.png` is the generated, transparent hero artwork; its alternative text and file path are editable in `content/home.md`. The image presents real-world things without technical connectors or database diagrams. Layout and artwork design remain developer concerns.
 
 Only trusted repository Markdown is rendered. Add sanitization before accepting untrusted page submissions.
 
@@ -46,4 +46,4 @@ Other Markdown routes, including `/#/PLATFORM`, still render in the same shell. 
 - Docsify 5.0.0, npm package entry `dist/docsify.min.js`, MIT license in `assets/vendor/docsify.LICENSE`.
 - Montserrat Regular and SemiBold from Google Fonts, SIL Open Font License in `assets/site/montserrat-LICENSE.txt`.
 
-The object SVG is part of this site.
+The hero artwork was generated with the built-in image-generation tool for this site. Its source prompt and file details are recorded in `assets/site/ARTWORK.md`.

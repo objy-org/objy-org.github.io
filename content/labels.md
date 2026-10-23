@@ -6,30 +6,22 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 
 | Location | Text |
 | --- | --- |
-| Page title | OBJY — Build anything using abstract objects |
-| Page description | Build anything using abstract objects. Meet objy.db, our first product: objects with data, inheritance, and behavior. |
+| Page title | objy.db — A database built around your world |
+| Page description | Meet objy.db, the object-driven database. Model the things your application is built around with their own data, behavior, and context. |
 
 ## Navigation
 
 | Location | Text |
 | --- | --- |
 | Home label | OBJY home |
+| Main navigation label | Main navigation |
 | Section navigation label | On this page |
+| Sidebar heading | Explore objy.db |
 | Mobile menu | Menu |
 | Skip link | Skip to content |
+| Product link | [objy.db](#/?id=top) |
 | Documentation link | [Documentation](docs/) |
 | Source link | [GitHub](https://github.com/objy-org/objy) |
-
-## Hero artwork
-
-| Location | Text |
-| --- | --- |
-| Description | A device, a document, a place, and a process are represented as objects connected to objy.db. |
-| Object label | objy.db |
-| Device label | A device |
-| Document label | A document |
-| Place label | A place |
-| Process label | A process |
 
 ## Controls
 

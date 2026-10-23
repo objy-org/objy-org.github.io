@@ -3,7 +3,6 @@
   'use strict';
 
   let labels;
-  let heroArtwork;
 
   function plainMarkdown(markdown) {
     const template = document.createElement('template');
@@ -76,7 +75,22 @@
       quote.remove();
     }
     if (heading.id === 'top') {
-      section.insertAdjacentHTML('beforeend', `<figure class="hero-art" role="img" data-copy-aria="hero-artwork.description">${heroArtwork}</figure>`);
+      // The first standalone Markdown image becomes the hero illustration.
+      const image = body.querySelector(':scope > p > img:only-child');
+      if (image) {
+        const paragraph = image.parentElement;
+        const figure = document.createElement('figure');
+        figure.className = 'hero-art';
+        image.fetchPriority = 'high';
+        figure.append(image);
+        paragraph.remove();
+        section.append(figure);
+      }
+      body.querySelectorAll(':scope > p').forEach(paragraph => {
+        if (paragraph.children.length === 1 && paragraph.firstElementChild.tagName === 'A' && paragraph.textContent.trim() === paragraph.firstElementChild.textContent.trim()) {
+          paragraph.classList.add('hero-action');
+        }
+      });
     }
   }
 
@@ -158,7 +172,7 @@
       }
     }, { signal });
     links.forEach(link => link.addEventListener('click', () => {
-      if (window.matchMedia('(max-width: 700px)').matches) {
+      if (window.matchMedia('(max-width: 760px)').matches) {
         const target = document.getElementById(anchorId(link));
         closeMenu();
         target?.setAttribute('tabindex', '-1');
@@ -221,14 +235,13 @@
     let contentReady;
     let loadError;
     const loadContent = () => contentReady ||= Promise.all([
-      'content/labels.md', 'assets/site/object-universe.svg'
+      'content/labels.md'
     ].map(async file => {
       const response = await fetch(file);
       if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);
       return response.text();
-    })).then(async ([labelMarkdown, artwork]) => {
+    })).then(async ([labelMarkdown]) => {
       labels = readLabels(labelMarkdown);
-      heroArtwork = artwork.replace('<svg ', '<svg aria-hidden="true" ');
       await document.fonts.ready;
     });
 

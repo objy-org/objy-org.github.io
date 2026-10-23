@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#212121">
-  <title>OBJY — Build anything using abstract objects</title>
-  <meta name="description" content="Build anything using abstract objects. Meet objy.db, our first product: objects with data, inheritance, and behavior.">
-  <meta property="og:title" content="OBJY — Build anything using abstract objects">
-  <meta property="og:description" content="Build anything using abstract objects. Meet objy.db, our first product: objects with data, inheritance, and behavior.">
+  <title>objy.db — A database built around your world</title>
+  <meta name="description" content="Meet objy.db, the object-driven database. Model the things your application is built around with their own data, behavior, and context.">
+  <meta property="og:title" content="objy.db — A database built around your world">
+  <meta property="og:description" content="Meet objy.db, the object-driven database. Model the things your application is built around with their own data, behavior, and context.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/site/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/site/montserrat-regular.ttf" as="font" type="font/ttf" crossorigin>
@@ -17,22 +17,24 @@
 </head>
 <body>
   <a data-copy="navigation.skip-link" class="skip-link" href="#/?id=main">Skip to content</a>
-  <div id="app"><div class="loading-message" role="status">Loading OBJY…</div></div>
+  <header class="site-header">
+    <div class="header-brand">
+      <button class="section-menu-toggle" aria-expanded="false" aria-controls="section-navigation"><span data-copy="navigation.mobile-menu">Menu</span><span class="menu-indicator" aria-hidden="true">+</span></button>
+      <a class="wordmark" href="#/?id=top" data-copy-aria="navigation.home-label" aria-label="OBJY home">OBJY<span aria-hidden="true">.</span></a>
+    </div>
+    <nav class="header-links" data-copy-aria="navigation.main-navigation-label" aria-label="Main navigation">
+      <a class="product-link" data-copy-link="navigation.product-link" href="#/?id=top">objy.db</a>
+      <a data-copy-link="navigation.documentation-link" href="docs/">Documentation</a>
+      <a class="source-link" data-copy-link="navigation.source-link" href="https://github.com/objy-org/objy">GitHub</a>
+    </nav>
+  </header>
+  <div id="app"><div class="loading-message" role="status">Loading objy.db…</div></div>
   <template id="sidebar-shell">
     <div class="sidebar-inner">
-      <div class="sidebar-top">
-        <a class="wordmark" href="#/?id=top" data-copy-aria="navigation.home-label" aria-label="OBJY home">OBJY</a>
-        <button class="section-menu-toggle" aria-expanded="false" aria-controls="section-navigation"><span data-copy="navigation.mobile-menu"></span><span class="menu-indicator" aria-hidden="true">+</span></button>
-      </div>
-      <div id="section-navigation">
-        <div id="sidebar-links-slot"></div>
-        <nav class="resource-links" aria-label="Resources">
-          <a data-copy-link="navigation.documentation-link" href="docs/">Documentation</a>
-          <a data-copy-link="navigation.source-link" href="https://github.com/objy-org/objy">GitHub</a>
-        </nav>
-      </div>
+      <p class="sidebar-heading" data-copy="navigation.sidebar-heading"></p>
+      <div id="section-navigation"><div id="sidebar-links-slot"></div></div>
     </div>
   </template>
-  <noscript><div class="loading-message">OBJY helps you build anything using abstract objects. Read the <a href="content/home.md">page content in Markdown</a> or the <a href="DOCUMENTATION.md">documentation</a>. Enable JavaScript for the website.</div></noscript>
+  <noscript><div class="loading-message">objy.db brings data, behavior, and context together in objects. Read the <a href="content/home.md">page content in Markdown</a> or the <a href="DOCUMENTATION.md">documentation</a>. Enable JavaScript for the website.</div></noscript>
 </body>
 </html>
