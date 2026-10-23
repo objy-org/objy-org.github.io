@@ -1,91 +1,62 @@
 # Editing the OBJY website
 
-The website runs on Docsify. You can update its content by editing Markdown files. Routine edits do not require HTML, CSS, JavaScript, or a build command.
+The website runs on Docsify. Routine content changes only require Markdown, with no build command.
 
-## Choose the right file
-
-| What you want to change | File to edit |
+| What to change | File |
 | --- | --- |
-| Main headline, product description, feature text, bullet points, buttons | [home.md](home.md) |
+| Headline, product introduction, features, links | [home.md](home.md) |
 | Left menu labels, links, and order | [_sidebar.md](../_sidebar.md) |
-| Header links, footer, menu text, diagram labels and captions | [labels.md](labels.md) |
-| Names and values in the interactive examples | [examples.md](examples.md) |
+| Other navigation labels, illustration labels, page title and description | [labels.md](labels.md) |
 | Existing technical documentation | [DOCUMENTATION.md](../DOCUMENTATION.md) |
 
 ## Change the page copy
 
-Open `home.md` and edit the heading, paragraph, or list you want to change:
+Edit the words in `home.md`. Keep the heading's `:id=...` suffix so menu links keep working:
 
 ```markdown
-## Your world. Your object model. :id=objects
+## Objects :id=objects
 
-> 01 / GIVE IT SHAPE
-
-Describe the things that matter to your application.
-
-- Flexible properties
-- Optional types
-- Nested structures
+Give anything a shape with flexible properties.
 ```
 
-Keep the `#`, `##`, or `###` at the beginning of a heading. Keep its `:id=...` suffix unchanged so existing links continue to work. The quoted line beginning with `>` becomes the small label above the section heading. You can change its words too.
+Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Use `##` for page sections and `###` for smaller headings within a section.
 
-Use `**bold words**` for emphasis and `*italic words*` for italics. Text wraps automatically. Keep the main `#` headline first; use `##` for the main sections and `###` for smaller headings inside them.
+Keep the copy short: a heading and one or two sentences per feature. The homepage presents objy.db and its object-centric database features.
 
-## Change buttons and links
+## Change links or the menu
 
 ```markdown
-[Read the documentation](docs/)
-
-[Explore objects](/?id=objects)
+[Documentation](docs/)
+[Objects](/?id=objects)
 ```
 
-The words inside `[]` are the visible label. The destination goes inside `()`. `/?id=objects` jumps to the heading with `:id=objects`. A full address such as `https://example.com` opens another website.
+The words inside `[]` are the label. The destination goes inside `()`. `/?id=objects` jumps to the heading with `:id=objects`.
 
-A paragraph containing only links becomes a row of buttons and text links. The first link receives the main button style. Put a link within a sentence if it should remain part of the paragraph.
-
-## Change the left menu
-
-Edit `_sidebar.md`. Each line is an ordinary Markdown link:
-
-```markdown
-- [Objects](/?id=objects)
-- [Inheritance](/?id=inheritance)
-```
-
-Change the words in `[]` to rename an entry. Move lines to change their order. The destination must match a heading ID in `home.md`.
+In `_sidebar.md`, change labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
 ## Add a section
 
-Add a new second-level heading and its content to `home.md`:
+Add a heading with a unique ID made of lowercase letters and hyphens:
 
 ```markdown
-## Made for your ideas. :id=use-cases
+## Your new section :id=new-section
 
-> WHAT YOU CAN BUILD
-
-Write your content here.
+A short description.
 ```
 
-Choose a unique ID made of lowercase letters and hyphens. Add its menu entry to `_sidebar.md`:
+Then add its menu entry to `_sidebar.md`:
 
 ```markdown
-- [Use cases](/?id=use-cases)
+- [Your new section](/?id=new-section)
 ```
 
-To reorder the page itself, move a section's heading and all its content together. Keep the main hero first. New sections use the text layout automatically. A developer is needed for a new custom illustration or a change to the design.
+The new section uses the same simple layout automatically.
 
-## Change diagrams and interactive examples
+## Change labels
 
-In `labels.md`, find the relevant section and edit the right-hand column. Keep its section headings and the left-hand column unchanged: they identify where each label appears. Keep short labels concise so they fit their illustrations.
+In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. Keep illustration labels short so they fit.
 
-In `examples.md`:
-
-- A `##` heading is an example button label.
-- Its `###` heading is the object's name.
-- The table rows are its properties and values.
-
-You can add or remove property rows. Copy an entire example block to add another example button. Keep at least one example. Escape a literal pipe inside a table cell as `\|` so it does not create an extra column. These examples are illustrations, not a live database.
+The layout, font, colors, and object illustration are managed separately by a developer.
 
 ## Add an image
 
@@ -93,10 +64,10 @@ You can add or remove property rows. Copy an entire example block to add another
 ![Describe the image](assets/img/your-image.png)
 ```
 
-The image file must exist in the repository, or you can use a full image URL. The website automatically fits it to the available space.
+The file must exist in the repository, or use a full image URL. Images automatically fit the page width.
 
 ## Review and publish
 
-Save your Markdown changes and review the website on desktop and mobile. Check the links. Your Markdown editor's preview shows the words and structure; the website preview shows the final design.
+Save your Markdown changes, review the website on desktop and mobile, and check the links. Your Markdown editor shows the content; the website preview shows its final appearance.
 
-The redesign is currently on `codex/objy-brand-website`. Edits on that branch do not publish to the live website automatically. Submit your Markdown changes through the repository's review and publishing process. A developer can handle previews and releases.
+The redesign is on `codex/objy-brand-website`. That branch does not automatically publish to the live site. Use the repository's review and publishing process; a developer can handle previews and releases.

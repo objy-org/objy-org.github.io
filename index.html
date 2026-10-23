@@ -3,46 +3,36 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#171c18">
-  <title>OBJY — Build anything with abstract objects</title>
-  <meta name="description" content="Build anything using abstract objects. Meet objy.db, the first OBJY product: flexible data, reusable structures, and behavior in one object model.">
-  <meta property="og:title" content="OBJY — Build anything with abstract objects">
-  <meta property="og:description" content="One simple idea. Endless possibilities. Meet objy.db, the object database from OBJY.">
+  <meta name="theme-color" content="#212121">
+  <title>OBJY — Build anything using abstract objects</title>
+  <meta name="description" content="Build anything using abstract objects. Meet objy.db, our first product: objects with data, inheritance, and behavior.">
+  <meta property="og:title" content="OBJY — Build anything using abstract objects">
+  <meta property="og:description" content="Build anything using abstract objects. Meet objy.db, our first product: objects with data, inheritance, and behavior.">
   <meta property="og:type" content="website">
   <link rel="icon" href="assets/site/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/site/manrope-variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/site/montserrat-regular.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="assets/site/site.css">
   <script src="assets/site/site.js" defer></script>
   <script src="assets/vendor/docsify.min.js" defer></script>
 </head>
 <body>
   <a data-copy="navigation.skip-link" class="skip-link" href="#/?id=main">Skip to content</a>
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="wordmark" href="#/?id=top" data-copy-aria="navigation.home-label" aria-label="OBJY home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m16 2 13 7.5v15L16 32 3 24.5v-15Z M3 9.5 16 17l13-7.5 M16 17v15"/></svg>objy<span class="brand-dot">.</span></a>
-      <nav class="header-nav" data-copy-aria="navigation.main-navigation-label" aria-label="Main navigation">
-        <a data-copy-link="navigation.product-link" href="#/?id=objy-db" class="product-link"><span class="status-dot"></span>objy.db</a>
-        <a data-copy-link="navigation.documentation-link" data-link-arrow="↗" href="docs/">Documentation <span aria-hidden="true">↗</span></a>
-        <a data-copy-link="navigation.source-link" data-link-arrow="↗" class="github-link" href="https://github.com/objy-org/objy">GitHub <span aria-hidden="true">↗</span></a>
-      </nav>
-    </div>
-  </header>
   <div id="app"><div class="loading-message" role="status">Loading OBJY…</div></div>
   <template id="sidebar-shell">
     <div class="sidebar-inner">
-      <button class="section-menu-toggle" aria-expanded="false" aria-controls="section-navigation"><span data-copy="navigation.mobile-menu"></span><span class="menu-indicator" aria-hidden="true">+</span></button>
+      <div class="sidebar-top">
+        <a class="wordmark" href="#/?id=top" data-copy-aria="navigation.home-label" aria-label="OBJY home">OBJY</a>
+        <button class="section-menu-toggle" aria-expanded="false" aria-controls="section-navigation"><span data-copy="navigation.mobile-menu"></span><span class="menu-indicator" aria-hidden="true">+</span></button>
+      </div>
       <div id="section-navigation">
-        <p data-copy="navigation.sidebar-heading" class="sidebar-label"></p>
         <div id="sidebar-links-slot"></div>
-        <a data-copy-link="navigation.sidebar-link" data-link-arrow="↗" class="sidebar-docs"></a>
+        <nav class="resource-links" aria-label="Resources">
+          <a data-copy-link="navigation.documentation-link" href="docs/">Documentation</a>
+          <a data-copy-link="navigation.source-link" href="https://github.com/objy-org/objy">GitHub</a>
+        </nav>
       </div>
     </div>
   </template>
-  <noscript><div class="noscript-message">OBJY helps you build anything using abstract objects. Read the <a href="content/home.md">page content in Markdown</a> or the <a href="DOCUMENTATION.md">documentation</a>. Enable JavaScript for the website.</div></noscript>
-  <footer class="site-footer">
-    <a class="wordmark" href="#/?id=top" data-copy-aria="navigation.back-to-top-label" aria-label="OBJY, back to top">objy<span class="brand-dot">.</span></a>
-    <p data-copy="footer.tagline">Small building blocks. Unbounded possibilities.</p>
-    <a data-copy-link="footer.link" data-link-arrow="↗" href="https://github.com/objy-org">Made in the open <span aria-hidden="true">↗</span></a>
-  </footer>
+  <noscript><div class="loading-message">OBJY helps you build anything using abstract objects. Read the <a href="content/home.md">page content in Markdown</a> or the <a href="DOCUMENTATION.md">documentation</a>. Enable JavaScript for the website.</div></noscript>
 </body>
 </html>

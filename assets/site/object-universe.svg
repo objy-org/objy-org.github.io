@@ -1,31 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="600" viewBox="0 0 640 600" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" fill="none">
   <defs>
-    <pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#667361" opacity=".28"/></pattern>
-    <g id="wire-cube" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"><path d="m0-38 66 38v76L0 114-66 76V0Z M-66 0 0 38 66 0 M0 38v76"/><path d="M0-38v76L-66 76M0 38l66 38" stroke-dasharray="4 5" opacity=".35"/></g>
+    <g id="object" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M0 22h78v78H0zM0 22 22 0h78L78 22m0 78 22-22V0"/>
+    </g>
   </defs>
-  <path fill="url(#dots)" d="M0 0h640v600H0z"/>
-  <g stroke="#495344" stroke-width="1">
-    <path d="m10 359 310 179 310-179M10 409l310 179 310-179M10 309l310 179 310-179" opacity=".35"/>
-    <path d="m116 237 0 32 84 49M459 310l62-36V157M460 424l72 42M199 390l-84 48" stroke-dasharray="5 6"/>
+  <!-- Many different things, connected through the same object model. -->
+  <g stroke="#8c7d7f" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="3 6">
+    <path d="m168 103 135 95M548 103l-100 95M168 328l135-67M548 328l-100-67"/>
   </g>
-  <g style="color:#7e8b74" transform="translate(116 156)"><use href="#wire-cube"/></g>
-  <g style="color:#a6bb93" transform="translate(521 102) scale(.62)"><use href="#wire-cube"/></g>
-  <g style="color:#88977c" transform="translate(532 460) scale(.72)"><use href="#wire-cube"/></g>
-  <g stroke="#dcf8b6" stroke-width="1.2" stroke-linejoin="round">
-    <path d="m330 210 130 75-130 75-130-75Z" fill="#d4f89b"/>
-    <path d="m200 285 130 75v150l-130-75Z" fill="#8eaf6c"/>
-    <path d="m460 285-130 75v150l130-75Z" fill="#badc8c"/>
+  <g color="#aab8ae" transform="translate(68 45)">
+    <use href="#object"/>
+    <g stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <rect x="28" y="39" width="22" height="40" rx="4"/>
+      <path d="M34 48h10M34 54h10"/>
+      <circle cx="39" cy="69" r="3"/>
+    </g>
   </g>
-  <path d="m228 325 73 42m-73-24 50 29m-50-11 73 42" stroke="#405a35" stroke-width="3" opacity=".6"/>
-  <g transform="matrix(.866 -.5 0 1 359 420)" fill="#293c24" font-family="monospace" font-size="57" letter-spacing="-8"><text>{ }</text></g>
-  <g transform="matrix(.866 .5 -.866 .5 330 244)" stroke="#5e7d45" stroke-width="2"><rect x="-28" y="-28" width="56" height="56" rx="3"/><path d="M-10-10h20v20h-20zM-10-38v10M10-38v10M-10 28v10M10 28v10M-38-10h10M-38 10h10M28-10h10M28 10h10"/></g>
-  <circle cx="113" cy="438" r="24" fill="#20271e" stroke="#75866a"/>
-  <path d="M102 438h22m-11-11v22" stroke="#c8e7a4" stroke-width="1.5"/>
-  <g font-family="monospace" font-size="11" letter-spacing="1.5" fill="#aeb9a7">
-    <text x="34" y="48" data-copy="hero-artwork.figure-number"></text><text x="34" y="65" font-size="9" fill="#798672" data-copy="hero-artwork.figure-caption"></text>
-    <text x="76" y="117" data-copy="hero-artwork.left-object"></text><text x="474" y="55" data-copy="hero-artwork.upper-right-object"></text>
-    <text x="482" y="565" data-copy="hero-artwork.lower-right-object"></text><text x="40" y="489" data-copy="hero-artwork.lower-left-object"></text>
+  <g color="#b5b0c7" transform="translate(548 45)">
+    <use href="#object"/>
+    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M26 38h19l9 9v34H26zM45 38v10h9M33 57h14M33 65h14M33 73h9"/>
+    </g>
   </g>
-  <g transform="translate(246 139)"><rect width="170" height="30" rx="15" fill="#242d20" stroke="#46563a"/><circle cx="17" cy="15" r="3" fill="#d4f89b"/><text x="30" y="19" font-family="monospace" font-size="11" fill="#d4f89b" data-copy="hero-artwork.center-badge"></text></g>
-  <g fill="#d4f89b"><circle cx="116" cy="269" r="3"/><circle cx="521" cy="274" r="3"/><circle cx="459" cy="310" r="3"/></g>
+  <g color="#c5b596" transform="translate(68 270)">
+    <use href="#object"/>
+    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m21 59 18-16 18 16M26 55v24h26V55M35 79V65h9v14"/>
+    </g>
+  </g>
+  <g color="#a3b4c1" transform="translate(548 270)">
+    <use href="#object"/>
+    <g stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="24" cy="47" r="5"/><circle cx="54" cy="74" r="5"/>
+      <path d="M29 47h16q9 0 9 9v13M35 74H24V59m-4 5 4-5 4 5"/>
+    </g>
+  </g>
+  <g stroke="#d49599" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M303 177h110v108H303zM303 177l35-35h110l-35 35m0 108 35-35V142"/>
+  </g>
+  <g fill="#d8d8d8" font-family="Montserrat, Arial, sans-serif" font-size="20" text-anchor="middle">
+    <text x="358" y="238" font-size="23" data-copy="hero-artwork.object-label"></text>
+    <text x="118" y="178" data-copy="hero-artwork.device-label"></text>
+    <text x="598" y="178" data-copy="hero-artwork.document-label"></text>
+    <text x="118" y="404" data-copy="hero-artwork.place-label"></text>
+    <text x="598" y="404" data-copy="hero-artwork.process-label"></text>
+  </g>
 </svg>

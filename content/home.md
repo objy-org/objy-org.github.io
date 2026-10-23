@@ -1,105 +1,39 @@
-<!-- Edit this page using ordinary Markdown. Keep :id=... at the end of headings so existing links continue to work. The quote below each section heading is its small introductory label. -->
+<!-- Edit the words freely. Keep each :id=... so menu links continue to work. -->
 
-# Build anything. With **abstract objects.** :id=top
+# Build anything using **abstract objects.** :id=top
 
-> ONE SIMPLE IDEA. ENDLESS POSSIBILITIES.
-
-A thing. A process. An entire world. Start with objects that hold data, carry behavior, and build on each other. What they become is up to you.
-
-[Explore objy.db](/?id=objy-db) [Discover the idea ↓](/?id=the-idea)
-
-## Everything starts with an object. :id=the-idea
-
-> THE OBJY WAY
-
-The world is made of things, and the things they do.
-
-OBJY is a way to build around that idea. Describe what something is, give it behavior, and combine it with other objects. From a single sensor to a whole system, the building blocks stay familiar.
-
-**One abstraction. Whatever you imagine.**
+A device, a place, a document, a process. Describe each as an object, then bring them together to build something bigger.
 
 ## objy.db :id=objy-db
 
-> OUR FIRST PRODUCT
+The object-centric database at the heart of OBJY. An object holds more than data: it can inherit structure, carry behavior, and belong to its own context.
 
-### A database. With a life of its own.
+Start with the things your application needs. Give them properties and actions. Let the same object model take you from one thing to a whole system.
 
-Your data has a shape, a context, and things to do. objy.db brings them together through abstract objects — with flexible properties, inheritance, actions, and a choice of storage.
+[Documentation](docs/) · [GitHub](https://github.com/objy-org/objy)
 
-The first expression of the OBJY idea. A foundation for whatever comes next.
+## Objects :id=objects
 
-[Start building](/?id=start-building) [Read the documentation ↗](docs/)
+Model things as they are. A sensor has a reading. A document has a status. A room has a location. Flexible properties let each object describe what makes it unique.
 
-## Your world. Your object model. :id=objects
+## Inheritance :id=inheritance
 
-> 01 / GIVE IT SHAPE
+Define what things have in common, once. Give every sensor the same starting properties and behavior, then let each one add its own details.
 
-A device, a document, a digital twin. Describe the things that matter to your application with properties that fit them.
+## Behavior :id=behavior
 
-Keep it simple with key–value pairs, add typed properties, or nest related data in bags. Object families give things with a shared purpose a common home.
+Objects can do things, too. Respond when data changes, run an action on a schedule, or take the next step in a process. Behavior lives with the object it belongs to.
 
-- Flexible properties
-- Optional types
-- Nested structures
+## Context & access :id=context
 
-## A little structure. A lot of possibility. :id=inheritance
+The same kinds of objects can serve different people and applications. Keep workspaces separate and decide who can see or change each object.
 
-> 02 / BUILD ON WHAT WORKS
+## Storage :id=storage
 
-Some things have a lot in common. Define those parts once, then let other objects inherit them.
+Your objects keep the same model wherever they live. Start in memory, use MongoDB, or connect your own storage adapter.
 
-Use objects as templates for shared properties and behavior. Each new object can add what makes it different, without starting from scratch.
+## From objects to anything. :id=build-anything
 
-- Reusable templates
-- Shared attributes
-- Individual expression
+Rooms, sensors, and actions become a smart building. Documents, people, and steps become a workflow. Different applications, built from the same idea.
 
-## Data that does something. :id=behavior
-
-> 03 / BRING IT TO LIFE
-
-An object can do more than describe a state. It can respond when that state changes.
-
-Attach actions to creation, changes, and deletion. Add time-based events for a particular date or a repeating interval. Keep behavior close to the thing it belongs to.
-
-- Lifecycle handlers
-- Scheduled events
-- Custom actions
-
-## The right objects. In the right hands. :id=context
-
-> 04 / A PLACE FOR EVERYTHING
-
-The same building blocks can serve different people, applications, and organizations.
-
-Separate objects by tenant, scope them to an application, and use roles to control who can create, read, update, or delete. Give every object its own context.
-
-- Tenant contexts
-- Application scopes
-- Object permissions
-
-## One way to think. More places to live. :id=storage
-
-> 05 / KEEP YOUR POSSIBILITIES OPEN
-
-Your object model shouldn't depend on where your data lives.
-
-Start with objects in memory, connect a MongoDB storage mapper, or write an adapter for your own backend. Customize how objects are stored, how actions run, and how events are observed.
-
-- Pluggable storage
-- Custom processors
-- Custom observers
-
-## What will you build? :id=start-building
-
-> FROM ABSTRACT TO ACTUAL
-
-Start with one object. Make it yours. Then see where it takes you.
-
-objy.db builds on the OBJY JavaScript package, currently published as `objy`.
-
-```sh
-npm install objy
-```
-
-[Open the documentation](docs/) [Explore the source ↗](https://github.com/objy-org/objy)
+**Start with one object. What it becomes is up to you.**

@@ -1,52 +1,49 @@
 # OBJY website
 
-This is a **Docsify 5 website with a custom OBJY theme**. Docsify loads the Markdown, renders the page, loads the sidebar, and handles links and routes. There is no build step or separate Markdown renderer to maintain. The repository remains suitable for GitHub Pages.
+A Docsify 5 site with a restrained dark theme based on the original objy.xyz website. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage uses one illustration of everyday things represented as objects around objy.db, a plain left menu, and short feature descriptions. There is no build step.
 
-## Content editing
+## Editing
 
-Start with [the editing guide](content/EDITING.md). Staff can update the content using Markdown:
+See [the staff editing guide](content/EDITING.md).
 
 | File | Content |
 | --- | --- |
-| `content/home.md` | Hero, product introduction, feature headings and text, bullet points, calls to action |
-| `_sidebar.md` | Left menu labels, destinations, and ordering |
-| `content/labels.md` | Header/footer links, diagram captions and labels, accessible descriptions, browser page title and description |
-| `content/examples.md` | Interactive example buttons, object names, and property tables |
-| `DOCUMENTATION.md` and the existing documentation files | Technical documentation |
+| `content/home.md` | Hero headline, objy.db introduction, feature headings and text, links |
+| `_sidebar.md` | Section menu labels, destinations, and ordering |
+| `content/labels.md` | Navigation labels, illustration labels and description, browser metadata |
+| `DOCUMENTATION.md` and existing documentation files | Existing technical documentation |
 
-The homepage uses ordinary Markdown headings and Docsify's `:id=...` heading anchors. An introductory blockquote immediately after a heading is styled as a small section label. No custom section-marker format is required. A new second-level heading creates a new section; add its link to `_sidebar.md` to include it in the menu. Preserve existing IDs when editing headings.
+Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headings. A new `##` heading creates a section; add a link in `_sidebar.md` to include it in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
-## Theme implementation
+## Implementation
 
-`index.html` loads `assets/site/site.css`, the Docsify configuration/theme plugin in `assets/site/site.js`, and the pinned Docsify distribution in `assets/vendor/docsify.min.js`.
+`index.html` loads the custom theme in `assets/site/site.css`, configuration and layout hooks in `assets/site/site.js`, and the pinned Docsify distribution in `assets/vendor/docsify.min.js`.
 
-The theme uses Docsify's `beforeEach`, `afterEach`, and `doneEach` hooks. It arranges **already-rendered Docsify HTML** into the hero and feature layout and places Docsify's own sidebar next to the content. The known section IDs select the existing illustrations; other sections use a text layout. The plugin binds labels from Markdown tables and reads illustrative object examples using the parser bundled with Docsify.
+Docsify renders the Markdown, manages the sidebar, and handles routes. The theme arranges its rendered HTML into the hero and sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
-The geometry of the hero lives in `assets/site/object-universe.svg`; its text comes from Markdown. The logo, layout, colors, and custom illustration designs remain theme concerns. The label tables' second-level headings and first columns are stable identifiers; editors change the right-hand values. The examples illustrate concepts and do not execute database operations.
+`assets/site/object-universe.svg` contains the object illustration. All its labels and its accessible description come from Markdown. The old decorative panels, interactive examples, and framework installation call to action have been removed from the landing page.
 
-Only trusted repository Markdown is rendered. Do not accept untrusted submissions as page content without adding sanitization.
+Only trusted repository Markdown is rendered. Add sanitization before accepting untrusted page submissions.
 
-Browser page metadata updates from `content/labels.md`. Clients that do not execute JavaScript use the fallback tags in `index.html`; a developer should sync those tags when static social-preview metadata changes. Loading/error messages and no-JavaScript fallback text also remain in the HTML/theme.
+Browser metadata updates from `content/labels.md`; clients that do not execute JavaScript use the fallback tags in `index.html`. Sync those tags when social-preview metadata changes. Loading/no-JavaScript messages and the OBJY wordmark also remain in the shell.
 
 ## Local preview
-
-From this repository:
 
 ```sh
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000/`. Serve over HTTP so Docsify can load the Markdown. The landing page's engine, font, artwork, and styles are local files; no package installation is needed.
+Open `http://127.0.0.1:8000/`. HTTP is required for Docsify to load Markdown. Fonts, artwork, and the homepage engine are all local, with no package installation required.
 
-## Routes and documentation
+## Routes
 
-A homepage section uses a standard Docsify URL such as `/#/?id=objects`. The theme also translates earlier plain anchors such as `/#objects` to that format. Links to other Markdown files, including existing routes such as `/#/PLATFORM`, are rendered by Docsify in the same shell. Links starting with `docs/` open the existing documentation site directly.
+Sections use standard Docsify URLs such as `/#/?id=objects`. Earlier plain links such as `/#objects` are translated automatically. The removed `the-idea` and `start-building` entry URLs redirect to the hero and objy.db introduction respectively.
 
-The existing `docs/` reader remains available and loads this repository's `DOCUMENTATION.md`. The product is called `objy.db`; the documented npm package remains `objy`.
+Other Markdown routes, including `/#/PLATFORM`, still render in the same shell. Links beginning with `docs/` open the existing documentation reader directly. Those documentation files remain separate from the new database-focused landing page.
 
 ## Third-party assets
 
-- Docsify 5.0.0, from the npm package's **`dist/docsify.min.js`** entry; MIT license in `assets/vendor/docsify.LICENSE`. The package's legacy `lib/` directory is not the v5 distribution.
-- Manrope variable font from Google Fonts; SIL Open Font License in `assets/site/manrope-LICENSE.txt`.
+- Docsify 5.0.0, npm package entry `dist/docsify.min.js`, MIT license in `assets/vendor/docsify.LICENSE`.
+- Montserrat Regular and SemiBold from Google Fonts, SIL Open Font License in `assets/site/montserrat-LICENSE.txt`.
 
-The custom SVG illustrations are part of this site.
+The object SVG is part of this site.
