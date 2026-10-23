@@ -1,5 +1,8 @@
-<!-- docs/_sidebar.md -->
-
-* [Quickstart](./README.md)
-* [Documentation](./DOCUMENTATION.md)
-* [Ecosystem](./ECOSYSTEM.md)
+- [The idea](/?id=the-idea)
+- [Meet objy.db](/?id=objy-db)
+- [Objects](/?id=objects)
+- [Inheritance](/?id=inheritance)
+- [Behavior](/?id=behavior)
+- [Context & access](/?id=context)
+- [Storage](/?id=storage)
+- [Start building](/?id=start-building)

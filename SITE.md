@@ -1,29 +1,32 @@
 # OBJY website
 
-The landing page introduces OBJY as the brand and objy.db as its first product. It is a static, buildless site suitable for the existing GitHub Pages setup. The existing technical documentation remains under `docs/`.
+This is a **Docsify 5 website with a custom OBJY theme**. Docsify loads the Markdown, renders the page, loads the sidebar, and handles links and routes. There is no build step or separate Markdown renderer to maintain. The repository remains suitable for GitHub Pages.
 
-## Edit the page
+## Content editing
 
-Edit `content/home.md` for the hero, product introduction, feature sections, and calls to action. Each section begins with a small metadata comment:
+Start with [the editing guide](content/EDITING.md). Staff can update the content using Markdown:
 
-```markdown
-<!-- section: objects; nav: Objects; eyebrow: 01 / GIVE IT SHAPE; visual: objects -->
+| File | Content |
+| --- | --- |
+| `content/home.md` | Hero, product introduction, feature headings and text, bullet points, calls to action |
+| `_sidebar.md` | Left menu labels, destinations, and ordering |
+| `content/labels.md` | Header/footer links, diagram captions and labels, accessible descriptions, browser page title and description |
+| `content/examples.md` | Interactive example buttons, object names, and property tables |
+| `DOCUMENTATION.md` and the existing documentation files | Technical documentation |
 
-## Your world.<br>Your object model.
+The homepage uses ordinary Markdown headings and Docsify's `:id=...` heading anchors. An introductory blockquote immediately after a heading is styled as a small section label. No custom section-marker format is required. A new second-level heading creates a new section; add its link to `_sidebar.md` to include it in the menu. Preserve existing IDs when editing headings.
 
-Write ordinary Markdown here.
-```
+## Theme implementation
 
-- `section` is the unique anchor used for links. Keep it stable when changing a heading.
-- `nav` is the label automatically added to the left menu.
-- `eyebrow` is the small line above the heading.
-- `visual` selects a diagram from `assets/site/site.js`. Omit it for a text-only section.
-- The first section is the hero. Remaining sections appear in order in both the page and navigation.
-- A paragraph containing only links becomes a row of calls to action.
+`index.html` loads `assets/site/site.css`, the Docsify configuration/theme plugin in `assets/site/site.js`, and the pinned Docsify distribution in `assets/vendor/docsify.min.js`.
 
-Styling lives in `assets/site/site.css`. Diagrams and the illustrative object selector live in `assets/site/site.js`; the hero artwork is `assets/site/object-universe.svg`. Example values in the diagrams illustrate concepts, not an executable database session. Site copy and diagrams are based on the capabilities described in `DOCUMENTATION.md`.
+The theme uses Docsify's `beforeEach`, `afterEach`, and `doneEach` hooks. It arranges **already-rendered Docsify HTML** into the hero and feature layout and places Docsify's own sidebar next to the content. The known section IDs select the existing illustrations; other sections use a text layout. The plugin binds labels from Markdown tables and reads illustrative object examples using the parser bundled with Docsify.
 
-Only trusted repository Markdown is rendered. Do not use this renderer for untrusted user input without adding HTML sanitization.
+The geometry of the hero lives in `assets/site/object-universe.svg`; its text comes from Markdown. The logo, layout, colors, and custom illustration designs remain theme concerns. The label tables' second-level headings and first columns are stable identifiers; editors change the right-hand values. The examples illustrate concepts and do not execute database operations.
+
+Only trusted repository Markdown is rendered. Do not accept untrusted submissions as page content without adding sanitization.
+
+Browser page metadata updates from `content/labels.md`. Clients that do not execute JavaScript use the fallback tags in `index.html`; a developer should sync those tags when static social-preview metadata changes. Loading/error messages and no-JavaScript fallback text also remain in the HTML/theme.
 
 ## Local preview
 
@@ -33,17 +36,17 @@ From this repository:
 python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-Open `http://127.0.0.1:8000`. Serve the files over HTTP; opening `index.html` directly cannot fetch the Markdown file. No package installation or build step is required. The landing page's parser, font, styles, and diagrams are all served locally.
+Open `http://127.0.0.1:8000/`. Serve over HTTP so Docsify can load the Markdown. The landing page's engine, font, artwork, and styles are local files; no package installation is needed.
 
-## Documentation and existing links
+## Routes and documentation
 
-The `docs/` site continues to use Docsify. Its default page loads this repository's `DOCUMENTATION.md`. Root Docsify hash routes such as `/#/PLATFORM` are redirected into the documentation reader, whose base path points to the original root Markdown files.
+A homepage section uses a standard Docsify URL such as `/#/?id=objects`. The theme also translates earlier plain anchors such as `/#objects` to that format. Links to other Markdown files, including existing routes such as `/#/PLATFORM`, are rendered by Docsify in the same shell. Links starting with `docs/` open the existing documentation site directly.
 
-The product name is `objy.db`; the documented npm package remains `objy`. Update the install text when that package name changes.
+The existing `docs/` reader remains available and loads this repository's `DOCUMENTATION.md`. The product is called `objy.db`; the documented npm package remains `objy`.
 
 ## Third-party assets
 
-- Marked 15.0.12, vendored from the published npm package; MIT license in `assets/vendor/marked.LICENSE.md`.
-- Manrope variable font, from the Google Fonts repository; SIL Open Font License in `assets/site/manrope-LICENSE.txt`.
+- Docsify 5.0.0, from the npm package's **`dist/docsify.min.js`** entry; MIT license in `assets/vendor/docsify.LICENSE`. The package's legacy `lib/` directory is not the v5 distribution.
+- Manrope variable font from Google Fonts; SIL Open Font License in `assets/site/manrope-LICENSE.txt`.
 
 The custom SVG illustrations are part of this site.
