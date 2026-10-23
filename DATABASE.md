@@ -2,7 +2,7 @@
 
 objy.db is an in-memory, sharded, replicated database for dynamic objects. Objects can have different shapes, live in collections, and link to other objects through references.
 
-[Back to the website](../ ":ignore :target=_self")
+[Back to the website](/?id=top)
 
 ## Abstract objects
 
@@ -81,5 +81,3 @@ The database exposes an HTTP API. Object routes use this shape:
 ```
 
 The database also ships a JavaScript client at `/client.js` for browser imports and `objydb/client` for Node.js applications. Its admin console exposes object browsing, metadata, indexes, and cluster status.
-
-This overview follows the current OBJY DB implementation. The repository's older framework documentation remains available at [Legacy object framework documentation](DOCUMENTATION.md).

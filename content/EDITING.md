@@ -26,7 +26,7 @@ Keep each section focused on one idea and use concrete examples. The homepage pr
 ## Change links or the menu
 
 ```markdown
-[Documentation](docs/)
+[Documentation](DATABASE.md)
 [Abstract objects](/?id=abstract-objects)
 ```
 
@@ -65,7 +65,7 @@ Each section has a standalone image in `home.md`. The first such image in a sect
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 
 ```markdown
-![Describe the image](assets/img/your-image.png)
+![Describe the image](assets/site/your-image.png)
 ```
 
 The file must exist in the repository, or use a full image URL. Images automatically fit the available width. Additional images in the same section stay within its text.

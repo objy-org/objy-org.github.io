@@ -66,6 +66,6 @@ Shards distribute objects across nodes. Replicas keep additional copies of each 
 
 Start with one node, then plan more shards, replicas, or memory as your needs grow. Replicas synchronize asynchronously; topology changes use a planned resize and restore process.
 
-[Read the database documentation](docs/)
+[Read the database documentation](DATABASE.md)
 
 ![A single node grows into a cluster with two shards, each with two replicas, running locally, in containers, on virtual machines, or in the cloud.](assets/site/run-and-deploy.svg)

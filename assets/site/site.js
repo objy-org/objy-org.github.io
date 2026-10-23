@@ -298,22 +298,6 @@
     });
   }
 
-  // Preserve section links from earlier versions of the landing page.
-  if (/^#[^/?]/.test(location.hash)) {
-    history.replaceState(null, '', `${location.pathname}${location.search}#/?id=${encodeURIComponent(location.hash.slice(1))}`);
-  }
-
-  const previousSections = {
-    'the-idea': 'abstract-objects', 'objy-db': 'abstract-objects',
-    objects: 'abstract-objects', inheritance: 'abstract-objects', behavior: 'abstract-objects',
-    context: 'abstract-objects', storage: 'storage-internals',
-    'start-building': 'run-and-deploy', 'build-anything': 'abstract-objects'
-  };
-  const previousId = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
-  if (Object.hasOwn(previousSections, previousId)) {
-    history.replaceState(null, '', `${location.pathname}${location.search}#/?id=${previousSections[previousId]}`);
-  }
-
   window.$docsify = {
     el: '#app',
     homepage: 'content/home.md',
@@ -325,7 +309,6 @@
     keyBindings: false,
     auto2top: false,
     externalLinkTarget: '_self',
-    noCompileLinks: ['^docs/'],
     executeScript: false,
     notFoundPage: false,
     plugins: [objyTheme]

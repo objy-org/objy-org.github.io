@@ -1,201 +1,53 @@
-# Quickstart
+# OBJY website
 
-An object-driven, cross-platform JS programming framework, that uses behaviour-driven objects for abstract development.
+A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage introduces “everything is an object,” then explains abstract objects, storage internals, and deployment with one illustration per section. There is no build step.
 
-![OBJY LOGO](../assets/img/OBJY-object-code.png "OBJY")
+## Editing
 
-## Installing
+See [the staff editing guide](content/EDITING.md).
 
-OBJY can be used in Node and the Browser.
+| File | Content |
+| --- | --- |
+| `content/home.md` | Hero, section explanations, image paths and alternative text, links |
+| `_sidebar.md` | Section menu labels, destinations, and ordering |
+| `content/labels.md` | Header links, navigation labels, browser metadata, diagram labels |
+| `DATABASE.md` | Database documentation |
 
-### Node
+Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headings. A new `##` heading creates a section; add a link in `_sidebar.md` to include it in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
-```shell
-npm install objy
+## Implementation
+
+`index.html` loads the custom theme in `assets/site/site.css`, configuration and layout hooks in `assets/site/site.js`, and the pinned Docsify distribution in `assets/vendor/docsify.min.js`.
+
+Docsify renders the Markdown, manages the sidebar, and handles routes. The theme arranges its rendered HTML into the hero and sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
+
+The first standalone image in each section's Markdown becomes its illustration. `assets/site/everything-is-an-object.png` is the generated, transparent hero artwork. The three explanatory SVG diagrams are loaded and inlined so their text can be supplied by `content/labels.md`. Image paths and alternative text are editable in `content/home.md`. Other image files use ordinary image elements. Layout and artwork design remain developer concerns.
+
+Only trusted repository Markdown is rendered. Add sanitization before accepting untrusted page submissions.
+
+Browser metadata updates from `content/labels.md`; clients that do not execute JavaScript use the fallback tags in `index.html`. Sync those tags when social-preview metadata changes. Loading/no-JavaScript messages and the OBJY wordmark also remain in the shell.
+
+## Local preview
+
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
-### Browser
+Open `http://127.0.0.1:8000/`. HTTP is required for Docsify to load Markdown. Fonts, artwork, and the homepage engine are all local, with no package installation required.
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/objy/dist/browser.js">
-```
+## Routes
 
+Sections use standard Docsify URLs such as `/#/?id=abstract-objects`. Database documentation opens at `/#/DATABASE` and uses the same layout, fonts, and locally bundled Docsify engine as the homepage.
 
+## Content sources
 
-## Programming with OBJY
+The database descriptions were checked against the sibling `spread-db` repository (`eb221e0`), particularly `README.md`, `API.md`, and the storage implementation. The `objy-db-installer` README and `objydb-terraform` describe deployment and planned resize/restore workflows. These are implementation references, not runtime dependencies of the website.
 
-Programming on OBJY is done in two simple steps:
+Compression is in memory; the local write-ahead log and S3 journals/snapshots provide persistence. Replication is asynchronous. Topology changes are planned maintenance. Optional object behavior extensions are distinguished from the database core. Recheck those distinctions when updating product claims.
 
-1. Define an object wrapper (a bucket of objects) an choose how objects in this wrapper are stored, processed and observed.
-2. Build and handle objects and tell them what to do.
+## Third-party assets
 
+- Docsify 5.0.0, npm package entry `dist/docsify.min.js`, MIT license in `assets/vendor/docsify.LICENSE`.
+- Montserrat Regular and SemiBold from Google Fonts, SIL Open Font License in `assets/site/montserrat-LICENSE.txt`.
 
-### Object Wrappers
-
-```javascript
-
-// Define an object wrapper
-
-OBJY.define({
-	name: "object", // singular constructor name
-	pluralName: "objects" // plural constructor name
-})
-
-// OBJY now has the contructors:
-
-OBJY.object() // as a wrapper for single objects
-OBJY.objects() // as wrapper for multiple objects
-```
-
-### Simple object
-
-```javascript
-
-// Build an object
-
-OBJY.object({
-   name: "Passport",
-   properties: {
-      expires: "2020-10-10",
-      number: "123"
-   }
-})
-```
-
-### Object with behaviour
-
-```javascript
-
-// Build an object
-
-OBJY.object({
-   warnMe: {
-      date: "2020-10-05",
-      action: "email('expiring soon!')"
-   },
-   onChange: "if(this.number.length == 0) return;"
-})
-```
-
-### Add
-
-```javascript
-// add one
-OBJY.object({...})
-
-// add multiple
-OBJY.objects([{...}, {...}])
-```
-
-### Get one
-```javascript
-// by its reference:
-let myObj = OBJY.object({...});
-console.log(myObj);
-
-// or via the get method
-OBJY.object(id).get(obj => {
-	console.log(obj)
-});
-```
-
-### Query
-
-```javascript
-OBJY.objects({type:'example', 'properties.expired' : false}).get(objs => {
-	console.log(objs) // [{},{}]
-});
-```
-
-### Update
-
-```javascript
-
-var myObj = OBJY.object({
-	name: "my object"
-});
-
-// Update directly
-myObj.type = 'test';
-
-// or use built-in methods
-
-myObj.setProperty('name', 'our object')
-   .addProperty('open', false).
-```
-
-### Delete
-
-```javascript
-// delete one
-OBJY.object({
-	...
-}).delete(callback);
-```
-
-
-## Persistence
-
-Naturally, OBJY objects life in the JavaScript instance. You can, however use customized or predefined persistence mappers.
-
-Predefined from [OBJY Catalog](...):
-
-```javascript
-OBJY.define({
-	name: "object",
-	pluralName: "objects"
-	storage: new OBJY_CATALOG.mappers.storage.mongoDB('mongodb://...'), 
-})
-```
-
-Custom mapper:
-
-```javascript
-OBJY.define({
-	name: "object",
-	pluralName: "objects"
-	storage: OBJY.customStorage({
-      add: () => {},
-      getById: () => {},
-      ...
-   })
-})
-```
-
-When using persistence, CRUD operations are done with:
-
-
-```javascript
-// Add to persistence
-OBJY.object({...}).add(obj => {})
-
-// Get by id
-OBJY.object(id).get(obj => {})
-
-// Query
-OBJY.objects({query...}).get(objs => {})
-
-// Update (methods can be chained)
-OBJY.object({...})
-	.addProperty('color', 'blue')
-	.setProperty('name', 'Test')
-	.save(obj => {})
-
-// Delete
-OBJY.object({...}).delete(obj => {})
-```
-
-
-## Authors
-
-* **Marco Boelling** - *Initial author* - [Twitter](https://twitter.com/marcoboelling)
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/objy-org/objy/blob/master/LICENSE.md) file for details.
-
-## Connect
-
-* [objy.io](https://objy.xyz) - OBJY's official website
-* [GitHub](https://github.com/objy-org) - OBJY on Github
-* [npm](https://www.npmjs.com/package/objy) - OBJY on npm
+Artwork details and the hero generation prompt are recorded in `assets/site/ARTWORK.md`.

@@ -20,7 +20,7 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Mobile menu | Menu |
 | Skip link | Skip to content |
 | Product link | [objy.db](#/?id=top) |
-| Documentation link | [Documentation](docs/) |
+| Documentation link | [Documentation](#/DATABASE) |
 | Source link | [GitHub](https://github.com/objy-org) |
 
 ## Controls
