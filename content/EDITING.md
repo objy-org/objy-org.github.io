@@ -21,7 +21,7 @@ Give anything a shape with flexible properties.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. The first three `##` headings after the hero create the feature columns. Every later `##` heading creates a full-width section below that row. Use `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The feature row presents JSON with extras, Simple API, and “Runs everywhere, horizontally scalable”, in that order. Storage internals follows as a separate section.
+Keep each section focused on one idea and use concrete examples. The feature row presents Simple API, JSON with extras, and “Runs everywhere, scalable”, in that order. On wide screens, curved arrows between the illustrations point toward the JSON object in the center; they disappear when the columns stack. Storage internals follows as a separate section.
 
 ## Change links or the menu
 

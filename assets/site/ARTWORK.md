@@ -21,6 +21,8 @@ The three feature illustrations share a 520 × 320 canvas and the site's coral, 
 - `assets/site/simple-api.svg`: four large capability tiles in a two-by-two layout—Query, Vector, CRUD, and Aggregate—with prominent labels and icons around a small shared API connection.
 - `assets/site/run-and-deploy.svg`: a browser window, a single server, and three connected servers; small arrows lead from one deployment size to the next.
 
+The feature row places the API on the left, JSON in the center, and deployment on the right. A decorative SVG overlay places short curved arrows in the gaps, pointing toward the JSON object. The `data-connection-left` and `data-connection-right` coordinates identify visible artwork edges so the arrows stay clear of the drawings. Arrows follow the layout as it resizes and are hidden when the columns stack. Replacement images without coordinates use their outer edges.
+
 The full-width section restores `assets/site/storage-internals.svg` from `3f1a306`: a 660 × 570 illustration with a complete JSON object on the front plane and hot fields, compact columns, and compressed fields on a rear plane. Its larger presentation keeps both the JSON example and all three tiers readable.
 
 The JSON examples and storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The API diagram table controls its operation labels. The deployment illustration uses only JSON braces and has no text labels. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.
