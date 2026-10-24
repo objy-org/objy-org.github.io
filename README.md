@@ -21,7 +21,7 @@ Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headi
 
 Docsify renders the Markdown, manages the sidebar, and handles routes. The theme arranges its rendered HTML into the hero and sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
-The first standalone image in each section's Markdown becomes its illustration. `assets/site/header-objects.png` is the original OBJY header artwork. The original logo and icon are restored as `assets/site/logo.png` and `assets/site/favicon.png`. The three explanatory SVG diagrams are loaded and inlined so their text can be supplied by `content/labels.md`. Image paths and alternative text are editable in `content/home.md`. Other image files use ordinary image elements. Layout and artwork design remain developer concerns.
+The first standalone image in each section's Markdown becomes its illustration. `assets/site/header-objects.svg` shows objects on a memory chip above the centered hero text. The original logo and icon are restored as `assets/site/logo.png` and `assets/site/favicon.png`. The hero and three section SVGs are loaded and inlined; section diagram text is supplied by `content/labels.md`. Image paths and alternative text are editable in `content/home.md`. Other image files use ordinary image elements. Layout and artwork design remain developer concerns.
 
 Only trusted repository Markdown is rendered. Add sanitization before accepting untrusted page submissions.
 

@@ -8,7 +8,7 @@ Store, connect, and query the things your application is made of. An in-memory d
 
 [Explore objy.db](/?id=abstract-objects)
 
-![The original OBJY illustration: an object shown as a cube alongside code describing its properties and behavior.](assets/site/header-objects.png)
+![Three abstract objects sit together on a memory chip, representing an in-memory object database.](assets/site/header-objects.svg)
 
 ## Everything is an object. :id=abstract-objects
 
@@ -24,7 +24,7 @@ People, products, places, processes. Give anything an identity, properties, and 
 
 Read and write individual objects. Run aggregates across collections. In-memory access, compression, and compact columns power both kinds of work.
 
-![The application sees one JSON object. Inside objy.db, its identity and name stay hot, price is stored in a compact column, and notes are compressed in memory. Reads return the complete object.](assets/site/storage-internals.svg)
+![A complete JSON object sits in front of three visible internal storage tiers: hot fields, compact columns, and compressed fields, all in memory.](assets/site/storage-internals.svg)
 
 ## From One node to a whole cluster. :id=run-and-deploy
 

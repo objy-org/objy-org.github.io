@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="140 85 440 260" fill="none">
+  <g stroke-linejoin="round" stroke-linecap="round">
+    <!-- One memory chip carries a small set of objects. -->
+    <ellipse cx="360" cy="304" rx="174" ry="25" fill="#171717" opacity=".45"/>
+    <g stroke="#77726a" stroke-width="3">
+      <path d="m208 201-18-9m48-6-18-9m48-6-18-9m48-6-18-9"/>
+      <path d="m422 156 18-9m12 24 18-9m12 24 18-9m12 24 18-9"/>
+      <path d="m208 247-18 9m48 6-18 9m48 6-18 9m48 6-18 9"/>
+      <path d="m422 292 18 9m12-24 18 9m12-24 18 9m12-24 18 9"/>
+    </g>
+    <path d="m180 218 180 90v15l-180-90Z" fill="#292b27" stroke="#72796a" stroke-width="1.5"/>
+    <path d="m360 308 180-90v15l-180 90Z" fill="#252821" stroke="#72796a" stroke-width="1.5"/>
+    <path d="m180 218 180-90 180 90-180 90Z" fill="#2b3028" stroke="#8a957e" stroke-width="1.5"/>
+    <path d="m204 218 156-78 156 78-156 78Z" stroke="#647158" stroke-width="1"/>
+    <g stroke="#9daf89" stroke-width="1.5" opacity=".7">
+      <path d="m280 200 80 40 80-40M360 240v39"/>
+      <circle cx="280" cy="200" r="3" fill="#bccba8"/>
+      <circle cx="440" cy="200" r="3" fill="#bccba8"/>
+      <circle cx="360" cy="279" r="3" fill="#bccba8"/>
+    </g>
+
+    <!-- Back objects. -->
+    <path d="m242 135 38 19v51l-38-19Z" fill="#393340" stroke="#ad9ac6" stroke-width="1.8"/>
+    <path d="m280 154 38-19v51l-38 19Z" fill="#302a38" stroke="#ad9ac6" stroke-width="1.8"/>
+    <path d="m242 135 38-19 38 19-38 19Z" fill="#50455d" stroke="#c3b1da" stroke-width="1.8"/>
+    <path d="m402 135 38 19v51l-38-19Z" fill="#384132" stroke="#aabd94" stroke-width="1.8"/>
+    <path d="m440 154 38-19v51l-38 19Z" fill="#2f3829" stroke="#aabd94" stroke-width="1.8"/>
+    <path d="m402 135 38-19 38 19-38 19Z" fill="#4b5941" stroke="#c0d0ab" stroke-width="1.8"/>
+
+    <!-- Foreground object. -->
+    <path d="m310 183 50 25v62l-50-25Z" fill="#513d36" stroke="#d49d8f" stroke-width="2"/>
+    <path d="m360 208 50-25v62l-50 25Z" fill="#3d2f2a" stroke="#d49d8f" stroke-width="2"/>
+    <path d="m310 183 50-25 50 25-50 25Z" fill="#705147" stroke="#ecc0b4" stroke-width="2"/>
+    <path d="m323 190 37 18 37-18" stroke="#edc3b7" stroke-width="1" opacity=".45"/>
+  </g>
+</svg>

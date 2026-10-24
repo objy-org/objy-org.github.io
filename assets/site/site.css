@@ -37,14 +37,15 @@ body>main>.sidebar-toggle,.sidebar:not(.page-sidebar){display:none}
 .page-section{padding:36px 0;scroll-margin-top:8px}
 .page-section h1,.page-section h2{scroll-margin-top:var(--section-anchor-offset,56px)}
 .page-section .section-copy{max-width:780px}
-.section-hero{display:grid;grid-template-columns:1.05fr 1fr;align-items:center;gap:56px;min-height:760px;padding:104px 0 112px}
-.section-hero h1{font-size:clamp(40px,3.7vw,60px);font-weight:400;letter-spacing:-1.9px;line-height:1.15;max-width:600px}
+.section-hero{display:flex;flex-direction:column;align-items:center;gap:36px;padding:56px 0 100px;text-align:center}
+.section-hero .section-copy{width:100%;max-width:960px}
+.section-hero h1{font-size:clamp(40px,3.7vw,60px);font-weight:400;letter-spacing:-1.9px;line-height:1.15;max-width:960px;margin:0 auto}
 .section-hero h1 strong{font-weight:600;display:block}
 .section-copy .eyebrow{color:var(--accent);font-size:19px;font-weight:600;margin:0 0 28px;line-height:1.5}
-.hero-art{width:100%;min-width:0;aspect-ratio:754/424;display:grid;align-items:center}
-.hero-art img{display:block;width:100%;height:auto}
-.section-hero .section-copy p:not(.eyebrow){max-width:560px;margin-top:32px;line-height:1.85;font-size:18px}
-.section-hero .hero-action{margin-top:38px!important}
+.hero-art{width:100%;max-width:520px;min-width:0;margin:0 auto}
+.hero-art img,.hero-art svg{display:block;width:100%;height:auto}
+.section-hero .section-copy p:not(.eyebrow){max-width:650px;margin:28px auto 0;line-height:1.85;font-size:18px}
+.section-hero .hero-action{margin-top:32px!important}
 .hero-action a{font-size:16px;color:var(--text)!important;text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:6px}
 .hero-action a::after{content:' ↓';color:var(--accent);padding-left:12px}
 .page-section h2{font-weight:600;font-size:27px;line-height:1.4;letter-spacing:-.6px;margin-bottom:19px}
@@ -91,15 +92,9 @@ pre{position:relative;max-width:100%;overflow:auto;background:#292929;border-rad
   :root{--sidebar-width:204px}
   .sidebar-inner{padding-left:22px;padding-right:14px}
   .page-layout{padding:0 26px 0 calc(var(--sidebar-width) + 26px)}
-  .section-hero{grid-template-columns:1.15fr 1fr;gap:28px;min-height:700px;padding:88px 0}
-  .section-hero h1{font-size:42px;letter-spacing:-1.4px}
+  .section-hero{gap:32px;padding:48px 0 88px}
+  .section-hero h1{font-size:clamp(40px,5.5vw,56px);letter-spacing:-1.4px}
   .section-hero .section-copy p:not(.eyebrow){font-size:17px}
-}
-@media(min-width:761px) and (max-width:930px){
-  .section-hero{grid-template-columns:1fr;padding:80px 0 72px;gap:32px}
-  .section-hero .section-copy{max-width:550px}
-  .hero-art{width:85%;max-width:480px;margin:16px auto 0}
-  .section-hero h1{font-size:43px}
 }
 @media(max-width:760px){
   :root{--header-height:64px}
@@ -120,11 +115,11 @@ pre{position:relative;max-width:100%;overflow:auto;background:#292929;border-rad
   #section-links ul{display:grid;grid-template-columns:1fr;gap:2px}
   #section-links li{margin:0}
   #section-links a{font-size:18px;padding:11px 0}
-  .section-hero{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:64px 0;gap:44px}
+  .section-hero{padding:40px 0 72px;gap:28px}
   .section-hero h1{font-size:clamp(37px,9.2vw,56px);letter-spacing:-1.5px;max-width:600px}
   .section-copy .eyebrow{font-size:16px;margin-bottom:24px}
-  .section-hero .section-copy p:not(.eyebrow){font-size:17px;margin-top:28px;max-width:540px}
-  .hero-art{width:100%;max-width:560px;margin:0 auto}
+  .section-hero .section-copy p:not(.eyebrow){font-size:17px;margin:24px auto 0;max-width:540px}
+  .hero-art{max-width:440px}
   .page-section{padding:48px 0}
   .page-section h2{font-size:24px}
   .section-copy p{font-size:17px}

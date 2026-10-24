@@ -5,6 +5,7 @@
   let labels;
   let illustrations = {};
   const illustrationFiles = [
+    'assets/site/header-objects.svg',
     'assets/site/abstract-objects.svg',
     'assets/site/storage-internals.svg',
     'assets/site/run-and-deploy.svg'
@@ -98,7 +99,8 @@
         figure.append(image);
       }
       paragraph.remove();
-      section.append(figure);
+      if (isHero) section.prepend(figure);
+      else section.append(figure);
       if (!isHero) section.classList.add('section-illustrated');
     }
     if (heading.id === 'top') {
@@ -171,10 +173,10 @@
     if (!nav || !menu) return;
     const links = [...nav.querySelectorAll('a')];
     const contentTop = section => Math.min(...[...section.children].map(element => element.getBoundingClientRect().top));
-    // Keep the whole illustration visible when it is taller than its neighboring copy.
+    // Keep artwork visible when it is above or taller than its neighboring copy.
     const measureAnchors = () => {
-      for (const section of sections.filter(section => section.classList.contains('section-illustrated'))) {
-        const heading = section.querySelector('h2');
+      for (const section of sections.filter(section => section.matches('.section-illustrated, .section-hero'))) {
+        const heading = section.querySelector('h1, h2');
         const offset = Math.max(56, heading.getBoundingClientRect().top - contentTop(section) + 8);
         section.style.setProperty('--section-anchor-offset', `${offset}px`);
       }

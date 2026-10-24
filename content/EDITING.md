@@ -56,11 +56,11 @@ The new section uses the same simple layout automatically.
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Object diagram, Storage diagram, and Deploy diagram tables control the words inside the three section illustrations. Keep these labels short so they fit. The storage diagram also has editable JSON lines and matching field names; update both together when changing its example. Their shapes, colors, and layout are managed separately by a developer.
+The Object diagram, Storage diagram, and Deploy diagram tables control the words inside the three section illustrations. Keep these labels short so they fit. The storage diagram also has editable JSON lines for its example object. Their shapes, colors, and layout are managed separately by a developer.
 
 ## Change section images
 
-Each section has a standalone image in `home.md`. On wide screens, the sections alternate between text on the left and an image on the left. On smaller screens, the text comes first and the image follows. This happens automatically when you add or reorder illustrated sections. The opening section uses the original OBJY object illustration; the three following sections use explanatory diagrams.
+Each section has a standalone image in `home.md`. On wide screens, the sections alternate between text on the left and an image on the left. On smaller screens, the text comes first and the image follows. This happens automatically when you add or reorder illustrated sections. The opening section centers an illustration of objects on a memory chip above its text. The three following sections use explanatory diagrams.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

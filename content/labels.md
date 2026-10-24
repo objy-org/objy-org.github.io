@@ -60,12 +60,8 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Inside | Inside objy.db |
 | Memory | IN MEMORY |
 | Hot | Hot fields |
-| Hot fields | `_id, name` |
 | Columns | Compact columns |
-| Column field | `price` |
-| Column value | `199` |
 | Compressed | Compressed fields |
-| Compressed field | `notes` |
 | Reads | One object in. One object out. |
 
 ## Deploy diagram
