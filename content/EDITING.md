@@ -60,7 +60,7 @@ The Object diagram, Storage diagram, and Deploy diagram tables control the words
 
 ## Change section images
 
-Each section has a standalone image in `home.md`. The first such image in a section appears beside the text on a wide screen and below it on a small screen. The opening section uses the original OBJY object illustration; the three following sections use explanatory diagrams.
+Each section has a standalone image in `home.md`. On wide screens, the sections alternate between text on the left and an image on the left. On smaller screens, the text comes first and the image follows. This happens automatically when you add or reorder illustrated sections. The opening section uses the original OBJY object illustration; the three following sections use explanatory diagrams.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 
