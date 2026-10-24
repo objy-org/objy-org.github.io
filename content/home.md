@@ -23,11 +23,11 @@ Model anything with flexible JSON objects, unique identities, and live reference
 ![A JSON object with an identity, color, availability, and an owner reference to a person in the people collection.](assets/site/abstract-objects.svg)
 
 
-## Runs everywhere :id=runs-everywhere
+## Simple API :id=simple-api
 
-Run objy.db on servers, in browsers, or in the cloud. Your objects, wherever you build.
+Create, read, update, and delete objects through one simple API. Query, aggregate, and find similar objects with vector search.
 
-![A server, a browser window containing a JSON object, and a cloud represent the places objy.db can run.](assets/site/runs-everywhere.svg)
+![One object API connects to four operations: CRUD, querying, aggregation, and vector search.](assets/site/simple-api.svg)
 
 
 ## Scalable and performant :id=run-and-deploy

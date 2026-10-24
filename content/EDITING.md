@@ -21,7 +21,7 @@ Give anything a shape with flexible properties.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. The section with `:id=build-with-objects` is the full-width introduction beneath the hero. The next three `##` headings create the feature columns. Every later `##` heading creates a full-width section below that row. Use `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The feature row presents JSON with extras, Runs everywhere, and Scalable and performant, in that order. Storage internals follows as a separate section.
+Keep each section focused on one idea and use concrete examples. The feature row presents JSON with extras, Simple API, and Scalable and performant, in that order. Storage internals follows as a separate section.
 
 ## Change links or the menu
 
@@ -56,7 +56,7 @@ Keep the `build-with-objects` introduction after the hero, followed by the three
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Object diagram table controls the JSON fields and reference in the objects illustration. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls the labels and JSON example in the larger 3D storage illustration. The scalability and runtime illustrations have no editable labels. Their shapes, colors, and layout are managed separately by a developer.
+The Object diagram table controls the JSON fields and reference in the objects illustration. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls the labels and JSON example in the larger 3D storage illustration. The API diagram table controls the short operation labels in the Simple API illustration. The scalability illustration has no editable labels. Their shapes, colors, and layout are managed separately by a developer.
 
 ## Change section images
 

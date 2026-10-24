@@ -8,7 +8,7 @@
     'assets/site/header-objects.svg',
     'assets/site/applications-objects.svg',
     'assets/site/abstract-objects.svg',
-    'assets/site/runs-everywhere.svg',
+    'assets/site/simple-api.svg',
     'assets/site/storage-internals.svg',
     'assets/site/run-and-deploy.svg'
   ];

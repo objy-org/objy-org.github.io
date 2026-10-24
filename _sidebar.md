@@ -1,5 +1,5 @@
 - [Build with objects](/?id=build-with-objects)
 - [JSON with extras](/?id=abstract-objects)
-- [Runs everywhere](/?id=runs-everywhere)
+- [Simple API](/?id=simple-api)
 - [Scalable and performant](/?id=run-and-deploy)
 - [Storage internals](/?id=storage-internals)

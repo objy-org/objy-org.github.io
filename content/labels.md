@@ -60,3 +60,13 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Columns | Compact columns |
 | Compressed | Compressed fields |
 | Reads | One object in. One object out. |
+
+## API diagram
+
+| Location | Text |
+| --- | --- |
+| Interface | API |
+| Crud | CRUD |
+| Query | Query |
+| Aggregate | Aggregate |
+| Vector | Vector |
