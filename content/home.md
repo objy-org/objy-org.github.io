@@ -12,26 +12,18 @@ Store, connect, and query the things your application is made of. An in-memory d
 
 ## JSON objects :id=abstract-objects
 
-> Abstract objects
+Model anything with flexible JSON objects, unique identities, and live references.
 
-People, products, places, processes. Give anything an identity, properties, and connections. Let your data model evolve with your ideas.
-
-![An object has a unique identity, flexible properties, a reference to another object, and optional hooks.](assets/site/abstract-objects.svg)
+![A small JSON object with an identity and a color property.](assets/site/abstract-objects.svg)
 
 ## Scalable :id=run-and-deploy
 
-> Run & deploy
+Start with one node. Grow into a resilient cluster on your infrastructure.
 
-Start locally. Deploy on your infrastructure. Distribute objects across shards and add replicas as your needs grow.
-
-[Read the docs](DATABASE.md)
-
-![A single node grows into a cluster with two shards, each with two replicas, running locally, in containers, on virtual machines, or in the cloud.](assets/site/run-and-deploy.svg)
+![One node expands into three connected nodes.](assets/site/run-and-deploy.svg)
 
 ## Fast, efficient storage :id=storage-internals
 
-> Storage internals
+In-memory speed, compact columns, and compression. Built for objects and analytics.
 
-Read and write individual objects. Run aggregates across collections. In-memory access, compression, and compact columns power both kinds of work.
-
-![A complete JSON object sits in front of three visible internal storage tiers: hot fields, compact columns, and compressed fields, all in memory.](assets/site/storage-internals.svg)
+![Three compact data layers on a memory chip, with a lightning bolt representing fast access.](assets/site/storage-internals.svg)

@@ -56,7 +56,7 @@ The new column joins the feature grid automatically. There are three columns per
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Object diagram, Storage diagram, and Deploy diagram tables control the words inside the three section illustrations. Keep these labels short so they fit. The storage diagram also has editable JSON lines for its example object. Their shapes, colors, and layout are managed separately by a developer.
+The Object diagram table controls the two JSON lines in the objects illustration. Keep these lines short so they fit and preserve the JSON punctuation. The scalability and storage illustrations contain no text. Their shapes, colors, and layout are managed separately by a developer.
 
 ## Change section images
 

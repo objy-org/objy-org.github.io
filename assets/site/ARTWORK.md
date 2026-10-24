@@ -15,10 +15,10 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Section illustrations
 
-Three native SVG illustrations use a consistent dark, coral, sage, and lavender palette:
+Three simple native SVG illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
 
-- `assets/site/abstract-objects.svg`: identity, flexible properties, a reference, and optional hooks.
-- `assets/site/storage-internals.svg`: two overlapping 3D planes: the intact JSON object sits in front of its storage internals, offset down and left. The rear plane shows only three broad storage tiers: hot fields, compact columns, and compressed fields. All three labels sit in the exposed right side, clear of the foreground object. Reads return the complete object.
-- `assets/site/run-and-deploy.svg`: one node and a cluster with two shards and two replicas per shard.
+- `assets/site/abstract-objects.svg`: one small JSON object with an identity and one property.
+- `assets/site/run-and-deploy.svg`: a single node grows into three connected nodes, without topology labels.
+- `assets/site/storage-internals.svg`: compact data layers on a memory chip, with a lightning bolt for fast access.
 
-These diagrams were authored as vector assets so their labels remain editable through the Markdown tables in `content/labels.md`. Their default labels also make each SVG understandable when viewed on its own. Paths and alternative descriptions live in `content/home.md`.
+The JSON example is editable in the Object diagram table in `content/labels.md`. The other two illustrations contain no text. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.
