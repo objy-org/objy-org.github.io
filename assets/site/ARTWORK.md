@@ -25,4 +25,6 @@ The feature row places the API on the left, JSON in the center, and deployment o
 
 The full-width section restores `assets/site/storage-internals.svg` from `3f1a306`: a 660 × 570 illustration with a complete JSON object on the front plane and hot fields, compact columns, and compressed fields on a rear plane. Its larger presentation keeps both the JSON example and all three tiers readable.
 
+`assets/site/object-capabilities.svg` follows in the “Objects that do more” section. A new field floats into a JSON object, a curved reference leads to a separate user object, and a shield represents read/write access. The 720 × 560 illustration uses the same coral, sage, and lavender palette. Its labels and JSON fragments live in the Capabilities diagram table in `content/labels.md`. The section places its image on the left on desktop and after the copy on smaller screens.
+
 The JSON examples and storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The API diagram table controls its operation labels. The deployment illustration uses only JSON braces and has no text labels. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.

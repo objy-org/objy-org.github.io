@@ -23,6 +23,8 @@ Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual.
 
 Keep each section focused on one idea and use concrete examples. The feature row presents Simple API, JSON with extras, and “Runs everywhere, scalable”, in that order. On wide screens, curved arrows between the illustrations point toward the JSON object in the center; they disappear when the columns stack. Storage internals follows as a separate section.
 
+The “Objects that do more” section follows Storage internals. Its introduction and three bullet points explain dynamic properties, references, and user permissions. Edit these in `home.md`; keep `:id=object-capabilities` for the menu link. Its illustration sits on the left on desktop to alternate with the storage section.
+
 ## Change links or the menu
 
 ```markdown
@@ -59,6 +61,8 @@ Keep the three feature sections together immediately after the hero. Append new 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
 The Application diagram table controls the Apps, AI agents, and APIs labels in the hero illustration. The Object diagram table controls the JSON fields and reference in the objects illustration. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls the labels and JSON example in the larger 3D storage illustration. The API diagram table controls the short operation labels in the Simple API illustration. The scalability illustration has no editable labels. Their shapes, colors, and layout are managed separately by a developer.
+
+The Capabilities diagram table controls the labels and JSON fragments in the “Objects that do more” illustration. Keep these short so they fit the floating cards.
 
 ## Change section images
 

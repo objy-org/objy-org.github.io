@@ -34,6 +34,16 @@ Each object is split internally into smart blocks for fast access and efficient 
 
 ![A complete JSON object sits in front of three visible internal storage tiers: hot fields, compact columns, and compressed fields, all in memory.](assets/site/storage-internals.svg)
 
+## Objects that do more. :id=object-capabilities
+
+Give every object its own shape, connections, and rules.
+
+- **Dynamic properties:** Add or change fields freely. Mix values, arrays, and nested objects without a fixed schema.
+- **Real-time references:** Connect objects across collections and resolve their latest values when you read.
+- **Users and permissions:** Users are objects, too. Built-in authentication and collection permissions control who can read or make changes.
+
+![A JSON object gains a new property, links to a user object, and connects to read and write permissions.](assets/site/object-capabilities.svg)
+
 ## Deploy on your terms. :id=deployment
 
 From local development to distributed clusters, choose how your applications connect to their objects.

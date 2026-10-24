@@ -9,6 +9,7 @@
     'assets/site/abstract-objects.svg',
     'assets/site/simple-api.svg',
     'assets/site/storage-internals.svg',
+    'assets/site/object-capabilities.svg',
     'assets/site/run-and-deploy.svg'
   ];
 
