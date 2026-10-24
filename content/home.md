@@ -1,6 +1,6 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# Build apps and agents around objects. :id=top
+# Build applications around fast objects. **In memory. Scalable.** :id=top
 
 objy.db is an in-memory object database with a simple API. Build locally, deploy anywhere.
 

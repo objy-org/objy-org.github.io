@@ -6,7 +6,7 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 
 | Location | Text |
 | --- | --- |
-| Page title | objy.db — Build apps and agents around objects. |
+| Page title | objy.db — Build applications around fast objects. In memory. Scalable. |
 | Page description | objy.db is an in-memory object database with a simple API. Build locally, deploy anywhere. |
 
 ## Navigation
