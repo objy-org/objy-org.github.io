@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 440" fill="none">
+  <defs>
+    <marker id="apps-flow-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="m2 1 6 4-6 4" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>
+  <!-- Application interfaces read and update the same connected objects. -->
+  <g stroke-linecap="round" stroke-width="1.8" marker-start="url(#apps-flow-arrow)" marker-end="url(#apps-flow-arrow)">
+    <path d="M264 105c26-15 44-17 67-12" stroke="#d1a18e"/>
+    <path d="M262 184c34 3 19 43 52 43" stroke="#a7bb92"/>
+    <path d="M452 226c24 0-10 58 16 68" stroke="#a7bb92"/>
+    <path d="M441 365c10 4 15-1 27-10" stroke="#b5a1cc"/>
+  </g>
+  <path d="M384 126v39m0 105v41" stroke="#8b877c" stroke-width="1.3" stroke-dasharray="3 8" stroke-linecap="round" opacity=".6"/>
+
+  <g stroke-linejoin="round">
+    <!-- A compact dashboard with navigation and two object views. -->
+    <path d="m30 66 9-8h220l-9 8Z" fill="#3c302a" stroke="#a67e6e" stroke-width="1.3"/>
+    <path d="m250 66 9-8v154l-9 8Z" fill="#2b2522" stroke="#a67e6e" stroke-width="1.3"/>
+    <rect x="30" y="66" width="220" height="154" rx="3" fill="#272523" stroke="#d1a18f" stroke-width="1.6"/>
+    <path d="M30 93h220M77 93v127" stroke="#765f54" stroke-width="1.1"/>
+    <g fill="#bf9a88"><circle cx="43" cy="80" r="2.4"/><circle cx="53" cy="80" r="2.4"/><circle cx="63" cy="80" r="2.4"/></g>
+    <path d="M88 80h100" stroke="#816757" stroke-width="1.2"/>
+    <rect x="39" y="109" width="27" height="6" rx="2" fill="#9f7a67" fill-opacity=".6"/>
+    <path d="M40 131h24m-24 17h18m-18 17h22" stroke="#947764" stroke-width="2.5" opacity=".45"/>
+    <rect x="91" y="109" width="63" height="69" rx="3" fill="#35402e" stroke="#96ac82" stroke-width="1.2"/>
+    <rect x="165" y="109" width="63" height="69" rx="3" fill="#393140" stroke="#a38bbd" stroke-width="1.2"/>
+    <circle cx="122" cy="133" r="10" fill="#a6bd90" fill-opacity=".5"/>
+    <path d="M109 158h27" stroke="#a6bd90" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+    <rect x="186" y="123" width="21" height="21" rx="3" fill="#b49cca" fill-opacity=".5"/>
+    <path d="M183 158h27" stroke="#b49cca" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+    <path d="M92 195h75m12 0h48" stroke="#947764" stroke-width="2.5" stroke-linecap="round" opacity=".45"/>
+
+    <!-- A second application presents the same data in a different interface. -->
+    <path d="m482 246 9-8h207l-9 8Z" fill="#373040" stroke="#9681ad" stroke-width="1.3"/>
+    <path d="m689 246 9-8v150l-9 8Z" fill="#27232c" stroke="#9681ad" stroke-width="1.3"/>
+    <rect x="482" y="246" width="207" height="150" rx="3" fill="#27242b" stroke="#b9a4d0" stroke-width="1.6"/>
+    <path d="M482 273h207" stroke="#6d5e7b" stroke-width="1.1"/>
+    <g fill="#a18bb6"><circle cx="495" cy="260" r="2.4"/><circle cx="505" cy="260" r="2.4"/><circle cx="515" cy="260" r="2.4"/></g>
+    <path d="M540 260h92" stroke="#796889" stroke-width="1.2"/>
+    <circle cx="514" cy="303" r="13" fill="#a7bb92" fill-opacity=".45" stroke="#b8cba3" stroke-width="1"/>
+    <path d="M540 298h65m-65 11h104" stroke="#b5a2c8" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+    <rect x="500" y="333" width="170" height="45" rx="3" fill="#35302c" stroke="#b78f7c" stroke-width="1.1"/>
+    <rect x="510" y="345" width="22" height="21" rx="3" fill="#c99b85" fill-opacity=".45"/>
+    <path d="M545 349h74m-74 11h49" stroke="#c5a390" stroke-width="2.5" stroke-linecap="round" opacity=".55"/>
+  </g>
+
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" text-anchor="middle">
+    <text x="382" y="112" fill="#edbdab" font-size="53">{ }</text>
+    <text x="382" y="246" fill="#c8d9b3" font-size="65">{ }</text>
+    <text x="382" y="381" fill="#cbb4e0" font-size="48">{ }</text>
+  </g>
+</svg>

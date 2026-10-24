@@ -19,7 +19,7 @@ Edit the words in `home.md`. Keep the heading's `:id=...` suffix so menu links k
 Give anything a shape with flexible properties.
 ```
 
-Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. The first three `##` headings create the feature columns beneath the hero. Every later `##` heading creates a full-width section below that row. Use `###` for smaller headings within a section.
+Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. The section with `:id=build-with-objects` is the full-width introduction beneath the hero. The next three `##` headings create the feature columns. Every later `##` heading creates a full-width section below that row. Use `###` for smaller headings within a section.
 
 Keep each section focused on one idea and use concrete examples. The feature row presents JSON with extras, Runs everywhere, and Scalable and performant, in that order. Storage internals follows as a separate section.
 
@@ -50,7 +50,7 @@ Then add its menu entry to `_sidebar.md`:
 - [Your new section](/?id=new-section)
 ```
 
-Keep the first three `##` sections together for the feature row. Append new `##` sections after those to add full-width content below it. On narrower screens, the columns and each section’s text and image stack vertically.
+Keep the `build-with-objects` introduction after the hero, followed by the three feature sections together. Append new `##` sections after those to add full-width content below it. On narrower screens, the columns and each section’s text and image stack vertically.
 
 ## Change labels
 
@@ -60,7 +60,7 @@ The Object diagram table controls the JSON fields and reference in the objects i
 
 ## Change section images
 
-Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. The storage section below uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers an illustration of empty JSON objects and arrays floating among arrows above its text.
+Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. The introduction above and storage section below use text beside larger images. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers an illustration of empty JSON objects and arrays floating among arrows above its text.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

@@ -1,3 +1,4 @@
+- [Build with objects](/?id=build-with-objects)
 - [JSON with extras](/?id=abstract-objects)
 - [Runs everywhere](/?id=runs-everywhere)
 - [Scalable and performant](/?id=run-and-deploy)

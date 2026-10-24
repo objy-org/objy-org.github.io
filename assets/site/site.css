@@ -72,6 +72,10 @@ body>main>.sidebar-toggle,.sidebar:not(.page-sidebar){display:none}
 .detail-section h2{font-size:clamp(34px,3vw,44px);line-height:1.2;letter-spacing:-1px;margin-bottom:32px}
 .detail-section .section-copy p{font-size:18px;line-height:1.9;margin-top:24px}
 .detail-section .section-art{max-width:680px;align-self:center}
+.intro-section{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+.intro-section .section-art{grid-column:1;grid-row:1}
+.intro-section .section-copy{grid-column:2;grid-row:1}
+
 
 .markdown-body,.document-page{overflow-wrap:anywhere}
 .document-page{padding:60px 0 100px}
@@ -92,6 +96,7 @@ pre{position:relative;max-width:100%;overflow:auto;background:#292929;border-rad
   .detail-section{grid-template-columns:1fr;gap:52px;padding:88px 0 112px}
   .detail-section .section-copy{max-width:650px}
   .detail-section .section-art{max-width:660px}
+  .intro-section .section-copy,.intro-section .section-art{grid-column:auto;grid-row:auto}
 
   .feature-grid{grid-template-columns:1fr;row-gap:112px;padding:100px 0 128px}
   .feature-grid>.page-section{grid-template-rows:auto auto;grid-row:auto;gap:52px}

@@ -6,9 +6,15 @@
 
 Build anything using powerful objects served by an in-memory database.
 
-[Explore objy.db](/?id=abstract-objects)
+[Explore objy.db](/?id=build-with-objects)
 
 ![Floating empty JSON objects and arrays connected by flowing arrows.](assets/site/header-objects.svg)
+
+## Build applications around objects. :id=build-with-objects
+
+Model the people, products, and processes your app works with as objects. Connect them with references, then build interfaces that read, update, and share the same data.
+
+![Two application windows exchange data with three empty JSON objects through two-way arrows.](assets/site/applications-objects.svg)
 
 ## JSON with extras :id=abstract-objects
 

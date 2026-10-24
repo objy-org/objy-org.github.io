@@ -15,6 +15,8 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Section illustrations
 
+`assets/site/applications-objects.svg` uses a 720 × 440 canvas for two application windows exchanging data with three empty JSON objects. Its arrows run both ways, and its only characters are JSON braces. The image sits beside the introduction immediately after the hero.
+
 The three feature illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
 
 - `assets/site/abstract-objects.svg`: a JSON object with an identity, color, availability, and an owner reference using the database’s actual reference format.

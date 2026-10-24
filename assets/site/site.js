@@ -6,6 +6,7 @@
   let illustrations = {};
   const illustrationFiles = [
     'assets/site/header-objects.svg',
+    'assets/site/applications-objects.svg',
     'assets/site/abstract-objects.svg',
     'assets/site/runs-everywhere.svg',
     'assets/site/storage-internals.svg',
@@ -134,12 +135,15 @@
     if (sections[0]?.dataset.section !== 'top') throw new Error('home.md: keep the # headline with :id=top first.');
     sections.forEach(decorateSection);
     const [hero, ...content] = sections;
-    // The first three H2 sections form the feature row; later sections get room for detail.
-    const features = content.slice(0, 3);
-    const details = content.slice(3);
+    // The object story leads into the three feature columns and later detail sections.
+    const intro = content.find(section => section.dataset.section === 'build-with-objects');
+    intro?.classList.add('detail-section', 'intro-section');
+    const remaining = content.filter(section => section !== intro);
+    const features = remaining.slice(0, 3);
+    const details = remaining.slice(3);
     details.forEach(section => section.classList.add('detail-section'));
     const featureGrid = features.length ? `<div class="feature-grid">${features.map(section => section.outerHTML).join('')}</div>` : '';
-    return `<div class="page-layout"><div id="sidebar-slot"></div><div class="sections-root">${hero.outerHTML}${featureGrid}${details.map(section => section.outerHTML).join('')}</div></div>`;
+    return `<div class="page-layout"><div id="sidebar-slot"></div><div class="sections-root">${hero.outerHTML}${intro?.outerHTML || ''}${featureGrid}${details.map(section => section.outerHTML).join('')}</div></div>`;
   }
 
   function mountSidebar() {
