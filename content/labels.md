@@ -51,12 +51,13 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 
 | Location | Text |
 | --- | --- |
-| Outside | Your application |
+| Outside | The object you work with |
 | Format | JSON |
 | Json identity | `"_id": "bike-001",` |
 | Json name | `"name": "City bike",` |
 | Json price | `"price": 199,` |
 | Json notes | `"notes": "Everyday rides"` |
+| Cutaway | The same object, opened up |
 | Inside | Inside objy.db |
 | Memory | IN MEMORY |
 | Hot | Hot fields |
