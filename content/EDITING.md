@@ -56,11 +56,11 @@ The new column joins the feature grid automatically. There are three columns per
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Object diagram table controls the two JSON lines in the objects illustration. Keep these lines short so they fit and preserve the JSON punctuation. The scalability and storage illustrations contain no text. Their shapes, colors, and layout are managed separately by a developer.
+The Object diagram table controls the JSON fields and reference in the objects illustration. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls its four short labels. The scalability illustration contains no text. Their shapes, colors, and layout are managed separately by a developer.
 
 ## Change section images
 
-Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. Narrower screens stack the columns vertically in Markdown order. The opening hero centers an illustration of objects on a memory chip above its text.
+Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. Narrower screens stack the columns vertically in Markdown order. The opening hero centers an illustration of JSON objects flowing around RAM modules above its text.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

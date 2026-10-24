@@ -37,4 +37,18 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Location | Text |
 | --- | --- |
 | Identity | `"_id": "bike-001",` |
-| Property | `"color": "coral"` |
+| Property | `"color": "coral",` |
+| Available | `"available": true,` |
+| Reference | `"owner": {` |
+| Reference type | `"type": "reference",` |
+| Reference collection | `"collection": "people",` |
+| Reference value | `"value": "person-001"` |
+
+## Storage diagram
+
+| Location | Text |
+| --- | --- |
+| Format | JSON |
+| Hot | Hot fields |
+| Columns | Columns |
+| Compressed | Compressed |

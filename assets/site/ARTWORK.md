@@ -11,14 +11,14 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Header illustration
 
-`assets/site/header-objects.svg` shows three simple object cubes on a memory chip. It contains no text or code and sits above the centered headline. Its path and alternative description are editable in `content/home.md`.
+`assets/site/header-objects.svg` shows JSON braces flowing around two floating RAM modules. Its only characters are JSON braces, and it sits above the centered headline. Its path and alternative description are editable in `content/home.md`.
 
 ## Section illustrations
 
 Three simple native SVG illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
 
-- `assets/site/abstract-objects.svg`: one small JSON object with an identity and one property.
-- `assets/site/run-and-deploy.svg`: a single node grows into three connected nodes, without topology labels.
-- `assets/site/storage-internals.svg`: compact data layers on a memory chip, with a lightning bolt for fast access.
+- `assets/site/abstract-objects.svg`: a JSON object with an identity, color, availability, and an owner reference using the database’s actual reference format.
+- `assets/site/run-and-deploy.svg`: three server cabinets connected in a cluster, without topology labels.
+- `assets/site/storage-internals.svg`: a JSON face pulled forward to reveal three internal tiers, labeled Hot fields, Columns, and Compressed.
 
-The JSON example is editable in the Object diagram table in `content/labels.md`. The other two illustrations contain no text. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.
+The JSON example and short storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The cluster illustration contains no text. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.

@@ -42,7 +42,7 @@ body>main>.sidebar-toggle,.sidebar:not(.page-sidebar){display:none}
 .section-hero h1{font-size:clamp(40px,3.7vw,60px);font-weight:400;letter-spacing:-1.9px;line-height:1.15;max-width:960px;margin:0 auto}
 .section-hero h1 strong{font-weight:600;display:block}
 .section-copy .eyebrow{color:var(--accent);font-size:19px;font-weight:600;margin:0 0 28px;line-height:1.5}
-.hero-art{width:100%;max-width:520px;min-width:0;margin:0 auto}
+.hero-art{width:100%;max-width:720px;min-width:0;margin:0 auto}
 .hero-art img,.hero-art svg{display:block;width:100%;height:auto}
 .section-hero .section-copy p:not(.eyebrow){max-width:650px;margin:28px auto 0;line-height:1.85;font-size:18px}
 .section-hero .hero-action{margin-top:32px!important}

@@ -1,20 +1,24 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 320" fill="none">
-  <g stroke-linejoin="round" stroke-linecap="round">
-    <!-- Compact layers share a single memory chip. -->
-    <g stroke="#7d8173" stroke-width="2">
-      <path d="m140 185-14-7m64-18-14-7m64-18-14-7m54 7 14-7m36 32 14-7m36 32 14-7"/>
-      <path d="m140 235-14 7m64 18-14 7m64 18-14 7m54-7 14 7m36-32 14 7m36-32 14 7"/>
+  <g stroke-linejoin="round">
+    <!-- The JSON face is pulled forward to reveal the same object's interior. -->
+    <rect x="190" y="30" width="294" height="226" rx="4" fill="#242626" stroke="#666b62" stroke-width="1.4"/>
+    <path d="m36 104 154-74m74 74L484 30M36 292l154-36m74 36 220-36" stroke="#77746b" stroke-width="1.2" stroke-dasharray="4 7" opacity=".7"/>
+    <g font-family="Montserrat, Arial, sans-serif" font-size="18">
+      <path d="m286 61 8-6h178l-8 6v44H286Z" fill="#313b2b" stroke="#91a47d" stroke-width="1.3"/>
+      <path d="M286 61h178l8-6m-8 6v44l8-6V55" stroke="#aabf96" stroke-width="1.3"/>
+      <text x="303" y="90" fill="#cedabb" data-copy="storage-diagram.hot">Hot fields</text>
+      <path d="m286 127 8-6h178l-8 6v44H286Z" fill="#45332d" stroke="#bc8e7e" stroke-width="1.3"/>
+      <path d="M286 127h178l8-6m-8 6v44l8-6v-44" stroke="#d4a190" stroke-width="1.3"/>
+      <text x="303" y="156" fill="#e4bcac" data-copy="storage-diagram.columns">Columns</text>
+      <path d="m286 193 8-6h178l-8 6v44H286Z" fill="#373040" stroke="#a18dbb" stroke-width="1.3"/>
+      <path d="M286 193h178l8-6m-8 6v44l8-6v-44" stroke="#b5a1cd" stroke-width="1.3"/>
+      <text x="303" y="222" fill="#d1bfdf" data-copy="storage-diagram.compressed">Compressed</text>
     </g>
-    <path d="m90 210 170 85v12L90 222Z" fill="#292c26" stroke="#6d7563" stroke-width="1.3"/>
-    <path d="m260 295 170-85v12l-170 85Z" fill="#23261f" stroke="#6d7563" stroke-width="1.3"/>
-    <path d="m90 210 170-85 170 85-170 85Z" fill="#2a2e25" stroke="#89957c" stroke-width="1.3"/>
-
-    <path d="m156 174 104 52 104-52v10l-104 52-104-52Z" fill="#3d3449" stroke="#9b88b5" stroke-width="1.5"/>
-    <path d="m156 174 104-52 104 52-104 52Z" fill="#494052" stroke="#b8a6ce" stroke-width="1.5"/>
-    <path d="m156 148 104 52 104-52v10l-104 52-104-52Z" fill="#4b3730" stroke="#be8f7e" stroke-width="1.5"/>
-    <path d="m156 148 104-52 104 52-104 52Z" fill="#60463b" stroke="#d6a696" stroke-width="1.5"/>
-    <path d="m156 122 104 52 104-52v10l-104 52-104-52Z" fill="#3e4a33" stroke="#9bb186" stroke-width="1.5"/>
-    <path d="m156 122 104-52 104 52-104 52Z" fill="#4c5a40" stroke="#becda9" stroke-width="1.5"/>
-    <path d="m432 73-32 46h22l-12 36 42-53h-23l11-29Z" fill="#dfa59a"/>
+    <path d="m36 104 10-8h228l-10 8Z" fill="#38302c" stroke="#8d766b" stroke-width="1.3"/>
+    <path d="m264 104 10-8v188l-10 8Z" fill="#2b2724" stroke="#8d766b" stroke-width="1.3"/>
+    <rect x="36" y="104" width="228" height="188" rx="2" fill="#292624" stroke="#c69b8c" stroke-width="1.5"/>
+    <text x="58" y="135" fill="#baa598" font-family="Montserrat, Arial, sans-serif" font-size="15" letter-spacing="1.4" data-copy="storage-diagram.format">JSON</text>
+    <g fill="#e7c6b8" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="52"><text x="64" y="230">{</text><text x="204" y="230">}</text></g>
+    <g fill="#b7a69b"><circle cx="128" cy="214" r="3"/><circle cx="150" cy="214" r="3"/><circle cx="172" cy="214" r="3"/></g>
   </g>
 </svg>
