@@ -32,6 +32,14 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Copy fallback | Select & copy |
 | Copy label | Copy code |
 
+## Application diagram
+
+| Location | Text |
+| --- | --- |
+| Apps | Apps |
+| Agents | AI agents |
+| Apis | APIs |
+
 ## Object diagram
 
 | Location | Text |

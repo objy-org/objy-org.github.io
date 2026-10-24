@@ -10,7 +10,7 @@
 
 Model the people, products, and processes your app works with as objects. Connect them with references, then build interfaces that read, update, and share the same data.
 
-![Two application windows exchange data with three empty JSON objects through two-way arrows.](assets/site/applications-objects.svg)
+![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
 ## JSON with extras :id=abstract-objects
 

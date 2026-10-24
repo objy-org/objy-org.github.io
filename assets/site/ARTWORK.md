@@ -15,7 +15,7 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Section illustrations
 
-`assets/site/applications-objects.svg` uses a 720 × 440 canvas for two application windows exchanging data with three empty JSON objects. Its arrows run both ways, and its only characters are JSON braces. The image sits beside the introduction immediately after the hero.
+`assets/site/applications-objects.svg` uses a 720 × 480 canvas with an angled app window, a small team of AI agents, and an API endpoint surrounding floating JSON objects and an array. Sweeping arrows connect them. Gentle floating and flowing dotted paths add movement; the illustration stays still when reduced motion is preferred. The image sits beside the introduction immediately after the hero. Its Apps, AI agents, and APIs labels are editable in the Application diagram table in `content/labels.md`.
 
 The three feature illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
 
