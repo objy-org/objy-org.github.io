@@ -78,14 +78,15 @@ body>main>.sidebar-toggle,.sidebar:not(.page-sidebar){display:none}
 .intro-section{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
 .intro-section .section-art{grid-column:1;grid-row:1}
 .intro-section .section-copy{grid-column:2;grid-row:1}
-.intro-section #bring-your-own-cloud{font-size:17px;line-height:1.5;margin:40px 0 16px}
-.intro-section #bring-your-own-cloud+ul{display:flex;flex-wrap:wrap;gap:10px;list-style:none;padding:0;margin:0}
-.intro-section #bring-your-own-cloud+ul li{margin:0}
-.intro-section #bring-your-own-cloud+ul a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 16px;border:1px solid #4a4947;border-radius:7px;background:#282827;color:var(--text);font-size:14px;font-weight:600;line-height:1.5;text-decoration:none}
-.intro-section #bring-your-own-cloud+ul a:hover{border-color:var(--accent);background:#302b29;color:var(--accent)}
-.intro-section #bring-your-own-cloud+ul+p{margin-top:24px;font-size:15px}
-.intro-section #bring-your-own-cloud+ul+p a{display:inline-flex;align-items:center;gap:12px;min-height:44px;text-decoration:none}
-.intro-section #bring-your-own-cloud+ul+p a::after{content:'↗';color:var(--accent);font-size:19px}
+.hero-installation{display:flex;align-items:center;gap:20px;width:max-content;max-width:100%;margin:40px auto 0;padding:6px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#555 transparent}
+.hero-installation>*{flex-shrink:0}
+.hero-installation #bring-your-own-cloud{font-size:14px;font-weight:400;line-height:1.5;color:var(--muted);white-space:nowrap;margin:0}
+.section-hero .section-copy .hero-installation .installation-source{max-width:none;margin:0;font-size:14px;line-height:1.5}
+.hero-installation ul{display:flex;align-items:center;gap:10px;list-style:none;padding:0;margin:0}
+.hero-installation li{margin:0}
+.hero-installation a:not(.anchor){display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 16px;border:1px solid #4a4947;border-radius:7px;background:#282827;color:var(--text);font-size:14px;font-weight:600;line-height:1.5;white-space:nowrap;text-decoration:none}
+.hero-installation .installation-source a{border-color:#8a6b63;background:#302b29}
+.hero-installation a:not(.anchor):hover{border-color:var(--accent);background:#302b29;color:var(--accent)}
 
 
 .markdown-body,.document-page{overflow-wrap:anywhere}

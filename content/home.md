@@ -8,11 +8,7 @@ Build anything using powerful objects served by an in-memory database.
 
 [Explore objy.db](/?id=build-with-objects)
 
-![Floating empty JSON objects and arrays connected by flowing arrows.](assets/site/header-objects.svg)
-
-## Build applications around objects. :id=build-with-objects
-
-Model the people, products, and processes your app works with as objects. Connect them with references, then build interfaces that read, update, and share the same data.
+[GitHub](https://github.com/objy-org)
 
 ### Bring your own cloud :id=bring-your-own-cloud
 
@@ -22,7 +18,11 @@ Model the people, products, and processes your app works with as objects. Connec
 - [AWS](https://aws.amazon.com/)
 - [Azure](https://azure.microsoft.com/)
 
-[View on GitHub](https://github.com/objy-org)
+![Floating empty JSON objects and arrays connected by flowing arrows.](assets/site/header-objects.svg)
+
+## Build applications around objects. :id=build-with-objects
+
+Model the people, products, and processes your app works with as objects. Connect them with references, then build interfaces that read, update, and share the same data.
 
 ![Two application windows exchange data with three empty JSON objects through two-way arrows.](assets/site/applications-objects.svg)
 
