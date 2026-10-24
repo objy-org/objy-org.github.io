@@ -46,19 +46,14 @@ Give every object its own shape, connections, and rules.
 
 ## Deploy on your terms. :id=deployment
 
-From local development to distributed clusters, choose how your applications connect to their objects.
+Run locally, bring your own cloud, or put the database in the browser.
 
-### Locally :id=deploy-locally
+### Quick-start :id=deploy-quick-start
 
-Start a local instance with Node.js or Docker. Build, explore, and test your application on your own machine.
+Start locally with Node.js or Docker, then scale to a cluster across VMs, containers, or processes.
 
 - [GitHub](https://github.com/objy-org)
 - [Run locally](DATABASE.md?id=run-a-node)
-
-### Cluster :id=deploy-cluster
-
-Deploy nodes across VMs, containers, or separate processes. Distribute objects across shards and keep replicas across nodes.
-
 - [Cluster setup](DATABASE.md?id=deploy-a-cluster)
 
 ### Bring your own cloud :id=bring-your-own-cloud
@@ -73,6 +68,4 @@ Choose your provider and run on infrastructure you control, with your own networ
 
 ### Browser :id=deploy-browser
 
-Connect your web app to objy.db with the JavaScript client. Read, update, and query objects directly from your interface.
-
-- [JavaScript client](DATABASE.md?id=clients-and-apis)
+Run objy.db directly in the browser. Keep objects in memory for fast reads and updates, right where your application runs.

@@ -34,7 +34,7 @@ The “Objects that do more” section follows Storage internals. Its introducti
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
 
-The bottom Deployment section is edited in `home.md`. Each `###` heading starts an option: Locally, Cluster, Bring your own cloud, or Browser. Put its explanation and a bullet list of links beneath that heading; those links become buttons within the same option. Keep `:id=deployment` and each subheading's ID so navigation stays connected. The layout adapts from four columns on wide screens to two columns, then one on mobile. All copy and destinations are editable in Markdown.
+The bottom Deployment section is edited in `home.md`. Each `###` heading starts an option: Quick-start, Bring your own cloud, or Browser. Quick-start combines local and cluster deployment, with GitHub, Run locally, and Cluster setup links. Optional bullet lists of links become buttons within the same option. Keep `:id=deployment` and each subheading's ID so navigation stays connected. The layout uses three columns on desktop and one column on smaller screens. All copy and destinations are editable in Markdown.
 
 In `_sidebar.md`, change labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
