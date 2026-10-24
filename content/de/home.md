@@ -2,7 +2,7 @@
 
 # Baue Anwendungen rund um schnelle Objekte. :id=top
 
-> In-Memory-Objektdatenbank
+> In-Memory-Objektdatenbank made in DE
 
 OBJY ist eine In-Memory-Objektdatenbank, die schnellen Zugriff mit effizienter Speicherung verbindet – als Basis für deine gesamte Anwendung. API, Authentifizierung, Benutzerverwaltung, Berechtigungen und mehr sind schon integriert.
 
