@@ -542,6 +542,21 @@
       externalLinkTarget: '_self',
       executeScript: false,
       notFoundPage: false,
+      markdown(marked, renderer) {
+        // Remote documents use the same renderer and menu, with their own link base.
+        for (const type of ['link', 'image']) {
+          const render = renderer[type];
+          renderer[type] = function (token) {
+            const source = currentPage?.file;
+            if (source && /^https?:\/\//i.test(source)) {
+              token = { ...token, href: pages.remoteLink(token.href, source, type === 'image') };
+            }
+            return render.call(this, token);
+          };
+        }
+        marked.setOptions({ renderer });
+        return marked;
+      },
       plugins: [objyTheme]
     };
     // Docsify starts only after its language-specific routes are configured.

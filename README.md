@@ -13,15 +13,17 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `home.md` | Hero, section explanations, image paths and alternative text, links |
 | `sidebar.md` | Homepage menu labels, destinations, and order |
 | `labels.md` | Header links, navigation, controls, metadata, diagram labels |
-| `database.md` | Database documentation |
+| `database.md` | Local deployment reference used by homepage quick-start links |
 
 Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first three `##` headings after the hero create feature columns; later headings create full-width sections. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its four Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 
+The top-bar Documentation link opens `content/documentation.md`, a single shared Markdown include pointing to the live objy.db README. Both languages use that source; the website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
+
 ## Implementation
 
-`index.html` loads the custom theme in `assets/site/site.css`, configuration and layout hooks in `assets/site/site.js`. The theme reads the language registry, selects the requested or saved language, and then loads the pinned Docsify distribution in `assets/vendor/docsify.min.js`. Language selection and URL helpers live in `assets/site/languages.mjs`. Local document resolution and translation fallback live in `assets/site/pages.mjs`.
+`index.html` loads the custom theme in `assets/site/site.css`, configuration and layout hooks in `assets/site/site.js`. The theme reads the language registry, selects the requested or saved language, and then loads the pinned Docsify distribution in `assets/vendor/docsify.min.js`. Language selection and URL helpers live in `assets/site/languages.mjs`. Local and remote document loading, link resolution, and translation fallback live in `assets/site/pages.mjs`.
 
 Docsify renders the Markdown and handles routes. The theme uses the curated `sidebar.md` menu on the homepage and automatically builds other pages’ menus from their rendered headings, including indented subchapters. The theme arranges its rendered HTML into the hero, a responsive feature grid, and full-width detail sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
@@ -41,7 +43,7 @@ Open `http://127.0.0.1:8000/`. HTTP is required for Docsify to load Markdown. Fo
 
 ## Routes
 
-Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. Documentation opens at `/?lang=de#/DATABASE` with the same theme and engine. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
+Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. Live documentation opens at `/?lang=de#/content/documentation`. The local deployment reference remains at `/?lang=de#/DATABASE`, with the same theme and engine. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
 
 Metadata, the document’s `lang` attribute, controls, alt text, and SVG labels follow the selected language. All document headings keep stable IDs across translations. Code examples and API keys remain unchanged.
 
@@ -51,7 +53,7 @@ For a route such as `#/guides/setup`, the site looks for `content/<selected-lang
 
 ## Validation
 
-Run `node --test tests/*.test.mjs` with Node.js. The tests validate language selection, URL preservation, registry entries, translated label parity, section IDs, local links, documentation code examples, arbitrary Markdown routes, and page-loading fallback. No package installation or build is needed. Also preview both languages on desktop and mobile when changing layout or translations.
+Run `node --test tests/*.test.mjs` with Node.js. The tests validate language selection, URL preservation, registry entries, translated label parity, section IDs, local links, documentation code examples, arbitrary Markdown routes, remote source loading and relative links, and page-loading fallback. No package installation or build is needed. Also preview both languages on desktop and mobile when changing layout or translations.
 
 ## Content sources
 

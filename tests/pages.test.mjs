@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { markdownFiles, loadMarkdown } from '../assets/site/pages.mjs';
+import { markdownFiles, loadMarkdown, remoteRoute, remoteLink } from '../assets/site/pages.mjs';
 
 const resolve = (route, language = 'de') => markdownFiles(route, language, 'en', ['en', 'de']);
 
@@ -62,4 +62,53 @@ test('route changes can cancel in-flight page requests', async () => {
       signal.throwIfAborted();
     }
   }), { name: 'AbortError' });
+});
+
+const remoteReadme = 'https://raw.githubusercontent.com/objy-org/objy.db/refs/heads/main/README.md';
+
+test('a standalone remote include loads its source and revalidates it on each visit', async () => {
+  const controller = new AbortController();
+  const calls = [];
+  const fetchFile = async (file, options) => {
+    calls.push({ file, options });
+    return new Response(file === 'content/documentation.md'
+      ? `[Documentation](${remoteReadme} ':include')\n`
+      : '# Live documentation');
+  };
+  for (let visit = 0; visit < 2; visit++) {
+    assert.deepEqual(await loadMarkdown(['content/documentation.md'], { signal: controller.signal, fetchFile }), {
+      file: remoteReadme, markdown: '# Live documentation'
+    });
+  }
+  const remoteCalls = calls.filter(call => call.file === remoteReadme);
+  assert.equal(remoteCalls.length, 2);
+  for (const call of remoteCalls) {
+    assert.equal(call.options.signal, controller.signal);
+    assert.equal(call.options.cache, 'no-cache');
+    assert.equal(call.options.credentials, 'omit');
+  }
+});
+
+test('remote Markdown links preserve source paths, queries, chapters, and reloadable routes', () => {
+  const source = `${remoteReadme}?version=latest#quick-start`;
+  const route = remoteRoute(source);
+  assert.deepEqual(resolve(route.split('?')[0]), [`${remoteReadme}?version=latest`]);
+  assert.equal(new URLSearchParams(route.split('?')[1]).get('id'), 'quick-start');
+  assert.equal(remoteLink('client/README.md#browser', remoteReadme), remoteRoute(remoteReadme.replace('README.md', 'client/README.md#browser')));
+  assert.equal(remoteLink('../API.md', remoteReadme.replace('README.md', 'client/README.md')), remoteRoute(remoteReadme.replace('README.md', 'API.md')));
+  assert.equal(remoteLink('#quick-start', remoteReadme), remoteRoute(`${remoteReadme}#quick-start`));
+  assert.equal(remoteLink('images/chart.svg', remoteReadme, true), remoteReadme.replace('README.md', 'images/chart.svg'));
+  assert.equal(remoteLink('https://example.org/', remoteReadme), 'https://example.org/');
+  assert.equal(remoteLink('mailto:hello@example.org', remoteReadme), 'mailto:hello@example.org');
+  assert.throws(() => remoteRoute('file:///private/README.md'), /HTTP/);
+  assert.throws(() => resolve(`/remote/${btoa('javascript:alert(1)')}`), /HTTP/);
+});
+
+test('unavailable remote includes use the missing-page path instead of showing a broken embed', async () => {
+  assert.equal(await loadMarkdown(['content/documentation.md'], {
+    fetchFile: async file => new Response(file === remoteReadme ? '' : `[Docs](${remoteReadme} ":include")`, {
+      status: file === remoteReadme ? 404 : 200
+    })
+  }), null);
+  await assert.rejects(loadMarkdown([remoteReadme], { fetchFile: async () => { throw new TypeError('Failed to fetch'); } }), /Failed to fetch/);
 });

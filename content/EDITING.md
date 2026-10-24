@@ -9,7 +9,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Headlines, section copy, images, links | [home.md](en/home.md) | [home.md](de/home.md) |
 | Homepage menu labels and order | [sidebar.md](en/sidebar.md) | [sidebar.md](de/sidebar.md) |
 | Header, controls, metadata, diagram labels | [labels.md](en/labels.md) | [labels.md](de/labels.md) |
-| Database documentation | [database.md](en/database.md) | [database.md](de/database.md) |
+| Local deployment reference | [database.md](en/database.md) | [database.md](de/database.md) |
 
 Edit the file in the language you want to change. The original `content/home.md`, `content/labels.md`, `_sidebar.md`, and `DATABASE.md` have moved into these folders; there are no separate copies to keep in sync. Existing website URLs still work.
 
@@ -78,6 +78,18 @@ Use `#` for the page title, `##` for chapters, and `###` for subchapters. You do
 Links within a document are relative to its folder. From `guides/setup.md`, `[Next](next.md)` opens `guides/next.md`, and `[Database](../database.md)` opens the database page. Link directly to a chapter with `[Installation](setup.md?id=installation)`. For a link from any page to a top-level document, start with `/`, for example `[Database](/database.md)`.
 
 Markdown files at the repository root work too. The site first checks the selected language folder, then the default language, then the root. If a new page has no translation yet, readers see its default-language version. The top-left OBJY logo always returns to the homepage in the selected language.
+
+## Include live documentation
+
+The top-bar Documentation link opens [the shared documentation page](documentation.md). This file contains only a remote include:
+
+```markdown
+[OBJY DB documentation](https://raw.githubusercontent.com/objy-org/objy.db/refs/heads/main/README.md ':include')
+```
+
+The README is fetched from GitHub when the page loads. Edit the original file in the database repository to update the documentation; no copy or website build is needed. The left menu follows its headings automatically. Both website languages currently display the same English source, while the header and controls keep the selected language.
+
+To use a different source, edit the URL in `content/documentation.md`. Keep this page as a single include so relative Markdown links and images resolve from the remote file. Linked Markdown files also open inside the site with their own chapter menus. The source must be a public raw Markdown URL that allows browser requests. Source caching can delay updates; failed loads show the standard page-unavailable message.
 
 ## Add a homepage section
 

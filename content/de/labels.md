@@ -21,7 +21,7 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Language menu | Sprache ändern |
 | Skip link | Zum Inhalt springen |
 | Product link | [objy.db](#/?id=top) |
-| Documentation link | [Dokumentation](#/DATABASE) |
+| Documentation link | [Dokumentation](#/content/documentation) |
 | Source link | [GitHub](https://github.com/objy-org) |
 
 ## Controls
