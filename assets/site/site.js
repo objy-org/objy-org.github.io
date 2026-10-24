@@ -107,21 +107,21 @@
     }
     if (heading.id === 'deployment') {
       section.classList.add('deployment-section');
-      body.querySelector(':scope > ul')?.classList.add('deployment-options');
-      // Markdown owns the deployment explanations and the links below them.
-      const cloudLabel = body.querySelector('#bring-your-own-cloud');
-      const providers = cloudLabel?.nextElementSibling;
-      if (providers?.tagName === 'UL') {
-        const source = cloudLabel.previousElementSibling;
-        const installation = document.createElement('div');
-        installation.className = 'deployment-links';
-        cloudLabel.before(installation);
-        if (source?.matches('p') && source.querySelector('a:only-child')) {
-          source.classList.add('installation-source');
-          installation.append(source);
+      // Each Markdown subheading groups its explanation and links into one option.
+      const options = document.createElement('div');
+      options.className = 'deployment-options';
+      let option;
+      for (const node of [...body.childNodes]) {
+        if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H3') {
+          option = document.createElement('div');
+          option.className = 'deployment-option';
+          option.setAttribute('role', 'group');
+          option.setAttribute('aria-labelledby', node.id);
+          options.append(option);
         }
-        installation.append(cloudLabel, providers);
+        if (option) option.append(node);
       }
+      if (options.children.length) body.append(options);
     }
     if (heading.id === 'top') {
       body.querySelectorAll(':scope > p').forEach(paragraph => {

@@ -48,18 +48,33 @@ Each object is split internally into smart blocks for fast access and efficient 
 
 ## Deploy on your terms. :id=deployment
 
-Start with one node. Run on your own hardware or in your cloud, then scale out across a cluster.
+From local development to distributed clusters, choose how your applications connect to their objects.
 
-- **On your machine** Run objy.db with Node.js or Docker on a laptop, a server, or a virtual machine.
-- **In your cloud** Choose your provider and deploy on infrastructure you control, with your own networking and S3-compatible storage.
-- **Across a cluster** Distribute objects across shards and keep replicas on multiple nodes to match your application's capacity needs.
+### Locally :id=deploy-locally
 
-[GitHub](https://github.com/objy-org)
+Start a local instance with Node.js or Docker. Build, explore, and test your application on your own machine.
+
+- [GitHub](https://github.com/objy-org)
+- [Run locally](DATABASE.md?id=run-a-node)
+
+### Cluster :id=deploy-cluster
+
+Deploy nodes across VMs, containers, or separate processes. Distribute objects across shards and keep replicas across nodes.
+
+- [Cluster setup](DATABASE.md?id=deploy-a-cluster)
 
 ### Bring your own cloud :id=bring-your-own-cloud
+
+Choose your provider and run on infrastructure you control, with your own networking and S3-compatible storage.
 
 - [Hetzner](https://www.hetzner.com/cloud/)
 - [IONOS](https://cloud.ionos.com/)
 - [Google Cloud](https://cloud.google.com/)
 - [AWS](https://aws.amazon.com/)
 - [Azure](https://azure.microsoft.com/)
+
+### Browser :id=deploy-browser
+
+Connect your web app to objy.db with the JavaScript client. Read, update, and query objects directly from your interface.
+
+- [JavaScript client](DATABASE.md?id=clients-and-apis)

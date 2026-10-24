@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage has a centered hero, an illustrated introduction to building applications around objects, and three feature columns: JSON with extras, Simple API, and “Runs everywhere, horizontally scalable”. Each column has text above its illustration. A full-width Storage internals section follows, with text beside its larger 3D illustration. A final Deployment section explains local, cloud, and cluster setups, with GitHub and cloud provider links. There is no build step.
+A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage has a centered hero, an illustrated introduction to building applications around objects, and three feature columns: JSON with extras, Simple API, and “Runs everywhere, horizontally scalable”. Each column has text above its illustration. A full-width Storage internals section follows, with text beside its larger 3D illustration. A final Deployment section covers Locally, Cluster, Bring your own cloud, and Browser, with relevant links beneath each explanation. There is no build step.
 
 ## Editing
 
