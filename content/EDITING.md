@@ -14,29 +14,29 @@ The website runs on Docsify. Routine content changes only require Markdown, with
 Edit the words in `home.md`. Keep the heading's `:id=...` suffix so menu links keep working:
 
 ```markdown
-## Abstract objects :id=abstract-objects
+## JSON objects :id=abstract-objects
 
 Give anything a shape with flexible properties.
 ```
 
-Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Use `##` for page sections and `###` for smaller headings within a section.
+Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Each `##` heading creates a feature column beneath the hero. Use `###` for smaller headings within a column.
 
-Keep each section focused on one idea and use concrete examples. The homepage presents abstract objects, storage internals, and running and deploying objy.db.
+Keep each section focused on one idea and use concrete examples. The feature row presents JSON objects, scalability, and fast, efficient storage, in that order.
 
 ## Change links or the menu
 
 ```markdown
 [Documentation](DATABASE.md)
-[Abstract objects](/?id=abstract-objects)
+[JSON objects](/?id=abstract-objects)
 ```
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
 
 In `_sidebar.md`, change labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
-## Add a section
+## Add a feature column
 
-Add a heading with a unique ID made of lowercase letters and hyphens:
+Add a `##` heading with a unique ID made of lowercase letters and hyphens:
 
 ```markdown
 ## Your new section :id=new-section
@@ -50,7 +50,7 @@ Then add its menu entry to `_sidebar.md`:
 - [Your new section](/?id=new-section)
 ```
 
-The new section uses the same simple layout automatically.
+The new column joins the feature grid automatically. There are three columns per row on wide screens; narrower screens stack them vertically.
 
 ## Change labels
 
@@ -60,7 +60,7 @@ The Object diagram, Storage diagram, and Deploy diagram tables control the words
 
 ## Change section images
 
-Each section has a standalone image in `home.md`. On wide screens, the sections alternate between text on the left and an image on the left. On smaller screens, the text comes first and the image follows. This happens automatically when you add or reorder illustrated sections. The opening section centers an illustration of objects on a memory chip above its text. The three following sections use explanatory diagrams.
+Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. Narrower screens stack the columns vertically in Markdown order. The opening hero centers an illustration of objects on a memory chip above its text.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

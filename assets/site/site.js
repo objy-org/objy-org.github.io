@@ -132,7 +132,9 @@
     }
     if (sections[0]?.dataset.section !== 'top') throw new Error('home.md: keep the # headline with :id=top first.');
     sections.forEach(decorateSection);
-    return `<div class="page-layout"><div id="sidebar-slot"></div><div class="sections-root">${sections.map(section => section.outerHTML).join('')}</div></div>`;
+    const [hero, ...features] = sections;
+    const featureGrid = features.length ? `<div class="feature-grid">${features.map(section => section.outerHTML).join('')}</div>` : '';
+    return `<div class="page-layout"><div id="sidebar-slot"></div><div class="sections-root">${hero.outerHTML}${featureGrid}</div></div>`;
   }
 
   function mountSidebar() {
@@ -213,14 +215,17 @@
     let scheduled = false;
     const updateActive = () => {
       let current = '';
+      let currentRow = -Infinity;
+      const requested = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
+      const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
       for (const section of sections) {
-        if (contentTop(section) <= 180) current = section.dataset.section;
-      }
-      if (sections.length && scrollY + innerHeight >= document.documentElement.scrollHeight - 4) {
-        const requested = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
-        const heading = sections.find(section => section.dataset.section === requested)?.querySelector('h1, h2');
-        const top = heading?.getBoundingClientRect().top;
-        current = top >= 0 && top < innerHeight ? requested : sections.at(-1).dataset.section;
+        const top = contentTop(section);
+        if (top > (atEnd ? innerHeight : 180)) continue;
+        // Columns share a vertical position: retain the selected column within that row.
+        if (top > currentRow + 1 || (Math.abs(top - currentRow) <= 1 && section.dataset.section === requested)) {
+          current = section.dataset.section;
+          currentRow = top;
+        }
       }
       links.forEach(link => {
         if (anchorId(link) === current) link.setAttribute('aria-current', 'location');

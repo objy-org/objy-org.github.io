@@ -1,3 +1,3 @@
-- [Abstract objects](/?id=abstract-objects)
-- [Storage internals](/?id=storage-internals)
-- [Run & deploy](/?id=run-and-deploy)
+- [JSON objects](/?id=abstract-objects)
+- [Scalable](/?id=run-and-deploy)
+- [Fast, efficient storage](/?id=storage-internals)
