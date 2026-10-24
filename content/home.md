@@ -1,6 +1,13 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# Build applications around fast objects. **In memory. Scalable.** :id=top
+# Build everyhting around fast objects.  :id=top
+
+> In-Memory Object Database
+
+
+OBJY is an in-memory object database that combines fast access and efficient storage to power your entire application. API, authentication, user management, permissions and more — all built in.
+
+
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
@@ -11,7 +18,7 @@ Create, read, update, and delete objects through one simple API. Query, aggregat
 ![Four large API capabilities—Query, Vector, CRUD, and Aggregate—each have their own icon and share one API connection.](assets/site/simple-api.svg)
 
 
-## JSON with extras :id=abstract-objects
+## Fast, large-scale JSON with Extras :id=abstract-objects
 
 Model anything with flexible JSON objects, unique identities, and live references.
 
