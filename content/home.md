@@ -1,14 +1,8 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# Fast, efficient in-memory objects :id=top
+# Build apps and agents around objects. :id=top
 
-> In-Memory Object Database
-
-![Floating empty JSON objects and arrays connected by flowing arrows.](assets/site/header-objects.svg)
-
-## Build applications around fast objects using a simple API. :id=build-with-objects
-
-Model the people, products, and processes your app works with as objects. Connect them with references, then build interfaces that read, update, and share the same data.
+objy.db is an in-memory object database with a simple API. Build locally, deploy anywhere.
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 

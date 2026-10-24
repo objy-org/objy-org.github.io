@@ -1,4 +1,4 @@
-- [Build with objects](/?id=build-with-objects)
+- [Build with objects](/?id=top)
 - [JSON with extras](/?id=abstract-objects)
 - [Simple API](/?id=simple-api)
 - [Runs everywhere](/?id=run-and-deploy)

@@ -11,11 +11,9 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Header illustration
 
-`assets/site/header-objects.svg` shows empty JSON objects and arrays floating among curved arrows, with no cards or backgrounds. Its only characters are curly braces and square brackets, and it sits above the centered headline. Its path and alternative description are editable in `content/home.md`.
+`assets/site/applications-objects.svg` uses a 720 × 480 canvas with an angled app window, a small team of AI agents, and an API endpoint surrounding floating JSON objects and an array. Sweeping arrows connect them. Gentle floating and flowing dotted paths add movement; the illustration stays still when reduced motion is preferred. It sits above the centered hero headline and description. Its Apps, AI agents, and APIs labels are editable in the Application diagram table in `content/labels.md`. The image path and alternative description are editable in `content/home.md`.
 
 ## Section illustrations
-
-`assets/site/applications-objects.svg` uses a 720 × 480 canvas with an angled app window, a small team of AI agents, and an API endpoint surrounding floating JSON objects and an array. Sweeping arrows connect them. Gentle floating and flowing dotted paths add movement; the illustration stays still when reduced motion is preferred. The image sits beside the introduction immediately after the hero. Its Apps, AI agents, and APIs labels are editable in the Application diagram table in `content/labels.md`.
 
 The three feature illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
 

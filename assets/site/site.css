@@ -37,12 +37,12 @@ body>main>.sidebar-toggle,.sidebar:not(.page-sidebar){display:none}
 .page-section{padding:36px 0;scroll-margin-top:8px}
 .page-section h1,.page-section h2{scroll-margin-top:var(--section-anchor-offset,56px)}
 .page-section .section-copy{max-width:780px}
-.section-hero{display:flex;flex-direction:column;align-items:center;gap:36px;padding:56px 0 100px;text-align:center}
+.section-hero{display:flex;flex-direction:column;align-items:center;gap:28px;padding:32px 0 88px;text-align:center}
 .section-hero .section-copy{width:100%;max-width:960px}
-.section-hero h1{font-size:clamp(40px,3.7vw,60px);font-weight:400;letter-spacing:-1.9px;line-height:1.15;max-width:960px;margin:0 auto}
+.section-hero h1{font-size:clamp(40px,3.7vw,60px);font-weight:400;letter-spacing:-1.9px;line-height:1.15;max-width:960px;margin:0 auto;text-wrap:balance}
 .section-hero h1 strong{font-weight:600;display:block}
 .section-copy .eyebrow{color:var(--accent);font-size:19px;font-weight:600;margin:0 0 28px;line-height:1.5}
-.hero-art{width:100%;max-width:720px;min-width:0;margin:0 auto}
+.hero-art{width:100%;max-width:600px;min-width:0;margin:0 auto}
 .hero-art img,.hero-art svg{display:block;width:100%;height:auto}
 .section-hero .section-copy p:not(.eyebrow){max-width:650px;margin:28px auto 0;line-height:1.85;font-size:18px}
 .section-hero .hero-action{margin-top:32px!important}
@@ -75,9 +75,6 @@ body>main>.sidebar-toggle,.sidebar:not(.page-sidebar){display:none}
 .detail-section .section-copy p+ul{margin-top:24px}
 .detail-section .section-copy li+li{margin-top:20px}
 .detail-section .section-art{max-width:680px;align-self:center}
-.intro-section{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
-.intro-section .section-art{grid-column:1;grid-row:1}
-.intro-section .section-copy{grid-column:2;grid-row:1}
 .deployment-section{display:block}
 .deployment-section.detail-section .section-copy{max-width:none}
 .deployment-section h2{text-align:center}
@@ -113,7 +110,6 @@ pre{position:relative;max-width:100%;overflow:auto;background:#292929;border-rad
   .detail-section{grid-template-columns:1fr;gap:52px;padding:88px 0 112px}
   .detail-section .section-copy{max-width:650px}
   .detail-section .section-art{max-width:660px}
-  .intro-section .section-copy,.intro-section .section-art{grid-column:auto;grid-row:auto}
 
   .feature-grid{grid-template-columns:1fr;row-gap:112px;padding:100px 0 128px}
   .feature-grid>.page-section{grid-template-rows:auto auto;grid-row:auto;gap:52px}

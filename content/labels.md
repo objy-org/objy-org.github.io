@@ -6,8 +6,8 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 
 | Location | Text |
 | --- | --- |
-| Page title | objy.db — Everything starts with an object. |
-| Page description | An in-memory object database with flexible objects, compact storage, and clustering built in. Everything starts with an object. |
+| Page title | objy.db — Build apps and agents around objects. |
+| Page description | objy.db is an in-memory object database with a simple API. Build locally, deploy anywhere. |
 
 ## Navigation
 

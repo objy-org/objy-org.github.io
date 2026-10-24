@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage has a centered hero, an illustrated introduction to building applications around objects, and three feature columns: JSON with extras, Simple API, and “Runs everywhere, horizontally scalable”. Each column has text above its illustration. A full-width Storage internals section follows, with text beside its larger 3D illustration. A final Deployment section covers Locally, Cluster, Bring your own cloud, and Browser, with relevant links beneath each explanation. There is no build step.
+A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage has a centered illustrated hero followed directly by three feature columns: JSON with extras, Simple API, and “Runs everywhere, horizontally scalable”. Each column has text above its illustration. A full-width Storage internals section follows, with text beside its larger 3D illustration. A final Deployment section covers Locally, Cluster, Bring your own cloud, and Browser, with relevant links beneath each explanation. There is no build step.
 
 ## Editing
 
@@ -13,15 +13,15 @@ See [the staff editing guide](content/EDITING.md).
 | `content/labels.md` | Header links, navigation labels, browser metadata, diagram labels |
 | `DATABASE.md` | Database documentation |
 
-Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headings. The `build-with-objects` section appears directly below the hero. The next three `##` headings create feature columns; later headings create full-width sections below. Add a link in `_sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
+Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes when renaming headings. The first three `##` headings after the hero create feature columns; later headings create full-width sections below. Add a link in `_sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
 ## Implementation
 
 `index.html` loads the custom theme in `assets/site/site.css`, configuration and layout hooks in `assets/site/site.js`, and the pinned Docsify distribution in `assets/vendor/docsify.min.js`.
 
-Docsify renders the Markdown, manages the sidebar, and handles routes. The theme arranges its rendered HTML into the hero, the object introduction, a responsive feature grid, and full-width detail sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
+Docsify renders the Markdown, manages the sidebar, and handles routes. The theme arranges its rendered HTML into the hero, a responsive feature grid, and full-width detail sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
-The first standalone image in each section's Markdown becomes its illustration. `assets/site/header-objects.svg` shows empty JSON objects and arrays floating among arrows above the centered hero text. The original logo and icon are restored as `assets/site/logo.png` and `assets/site/favicon.png`. The hero and five section SVGs are loaded and inlined; the JSON examples, storage labels, and API operation labels are supplied by `content/labels.md`. The scalability illustration has no editable labels. Image paths and alternative text are editable in `content/home.md`. Other image files use ordinary image elements. Layout and artwork design remain developer concerns.
+The first standalone image in each section's Markdown becomes its illustration. `assets/site/applications-objects.svg` shows apps, AI agents, and APIs sharing floating objects above the centered hero headline and description. The original logo and icon are restored as `assets/site/logo.png` and `assets/site/favicon.png`. The hero and four section SVGs are loaded and inlined; the application labels, JSON examples, storage labels, and API operation labels are supplied by `content/labels.md`. The scalability illustration has no editable labels. Image paths and alternative text are editable in `content/home.md`. Other image files use ordinary image elements. Layout and artwork design remain developer concerns.
 
 Only trusted repository Markdown is rendered. Add sanitization before accepting untrusted page submissions.
 
