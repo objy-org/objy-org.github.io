@@ -32,6 +32,8 @@ Keep each section focused on one idea and use concrete examples. The feature row
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
 
+The introduction's “Bring your own cloud” buttons are a Markdown list in `home.md`. Edit, add, or remove provider links in that list; they wrap automatically. Keep `:id=bring-your-own-cloud` on the label so the button styling stays connected. The separate GitHub link follows the list and is editable in the same way.
+
 In `_sidebar.md`, change labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
 ## Add a section

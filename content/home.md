@@ -14,6 +14,16 @@ Build anything using powerful objects served by an in-memory database.
 
 Model the people, products, and processes your app works with as objects. Connect them with references, then build interfaces that read, update, and share the same data.
 
+### Bring your own cloud :id=bring-your-own-cloud
+
+- [Hetzner](https://www.hetzner.com/cloud/)
+- [IONOS](https://cloud.ionos.com/)
+- [Google Cloud](https://cloud.google.com/)
+- [AWS](https://aws.amazon.com/)
+- [Azure](https://azure.microsoft.com/)
+
+[View on GitHub](https://github.com/objy-org)
+
 ![Two application windows exchange data with three empty JSON objects through two-way arrows.](assets/site/applications-objects.svg)
 
 ## JSON with extras :id=abstract-objects
