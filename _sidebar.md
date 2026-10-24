@@ -3,3 +3,4 @@
 - [Simple API](/?id=simple-api)
 - [Runs everywhere](/?id=run-and-deploy)
 - [Storage internals](/?id=storage-internals)
+- [Deployment](/?id=deployment)

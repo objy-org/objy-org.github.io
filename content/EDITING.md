@@ -32,7 +32,7 @@ Keep each section focused on one idea and use concrete examples. The feature row
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
 
-The centered installation row beneath the hero headline is edited in `home.md`: a GitHub link, the “Bring your own cloud” label, then a Markdown list of provider links. Keep `:id=bring-your-own-cloud` on the label so the layout stays connected. Edit, add, or remove provider links in that list. The row stays on one line and scrolls sideways on small screens.
+The bottom Deployment section is edited in `home.md`. Its first bullet list becomes three explanations side by side, with each bold phrase used as a title. Below it are a GitHub link, the “Bring your own cloud” label, and a second list of provider links. Keep `:id=deployment` and `:id=bring-your-own-cloud` so the layout stays connected. The explanations stack and the links wrap on small screens. All copy and destinations are editable in Markdown.
 
 In `_sidebar.md`, change labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 

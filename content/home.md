@@ -8,16 +8,6 @@ Build anything using powerful objects served by an in-memory database.
 
 [Explore objy.db](/?id=build-with-objects)
 
-[GitHub](https://github.com/objy-org)
-
-### Bring your own cloud :id=bring-your-own-cloud
-
-- [Hetzner](https://www.hetzner.com/cloud/)
-- [IONOS](https://cloud.ionos.com/)
-- [Google Cloud](https://cloud.google.com/)
-- [AWS](https://aws.amazon.com/)
-- [Azure](https://azure.microsoft.com/)
-
 ![Floating empty JSON objects and arrays connected by flowing arrows.](assets/site/header-objects.svg)
 
 ## Build applications around objects. :id=build-with-objects
@@ -55,3 +45,21 @@ Each object is split internally into smart blocks for fast access and efficient 
 - **Compressed fields:** Less-used data stays compressed in memory and expands when read.
 
 ![A complete JSON object sits in front of three visible internal storage tiers: hot fields, compact columns, and compressed fields, all in memory.](assets/site/storage-internals.svg)
+
+## Deploy on your terms. :id=deployment
+
+Start with one node. Run on your own hardware or in your cloud, then scale out across a cluster.
+
+- **On your machine** Run objy.db with Node.js or Docker on a laptop, a server, or a virtual machine.
+- **In your cloud** Choose your provider and deploy on infrastructure you control, with your own networking and S3-compatible storage.
+- **Across a cluster** Distribute objects across shards and keep replicas on multiple nodes to match your application's capacity needs.
+
+[GitHub](https://github.com/objy-org)
+
+### Bring your own cloud :id=bring-your-own-cloud
+
+- [Hetzner](https://www.hetzner.com/cloud/)
+- [IONOS](https://cloud.ionos.com/)
+- [Google Cloud](https://cloud.google.com/)
+- [AWS](https://aws.amazon.com/)
+- [Azure](https://azure.microsoft.com/)

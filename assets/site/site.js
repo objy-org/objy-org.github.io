@@ -105,14 +105,16 @@
       else section.append(figure);
       if (!isHero) section.classList.add('section-illustrated');
     }
-    if (heading.id === 'top') {
-      // Keep the Markdown source link, cloud label, and provider list in one hero row.
+    if (heading.id === 'deployment') {
+      section.classList.add('deployment-section');
+      body.querySelector(':scope > ul')?.classList.add('deployment-options');
+      // Markdown owns the deployment explanations and the links below them.
       const cloudLabel = body.querySelector('#bring-your-own-cloud');
       const providers = cloudLabel?.nextElementSibling;
       if (providers?.tagName === 'UL') {
         const source = cloudLabel.previousElementSibling;
         const installation = document.createElement('div');
-        installation.className = 'hero-installation';
+        installation.className = 'deployment-links';
         cloudLabel.before(installation);
         if (source?.matches('p') && source.querySelector('a:only-child')) {
           source.classList.add('installation-source');
@@ -120,6 +122,8 @@
         }
         installation.append(cloudLabel, providers);
       }
+    }
+    if (heading.id === 'top') {
       body.querySelectorAll(':scope > p').forEach(paragraph => {
         if (paragraph.children.length === 1 && paragraph.firstElementChild.tagName === 'A' && paragraph.textContent.trim() === paragraph.firstElementChild.textContent.trim()) {
           paragraph.classList.add('hero-action');
