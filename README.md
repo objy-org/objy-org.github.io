@@ -13,13 +13,14 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `home.md` | Hero, section explanations, image paths and alternative text, links |
 | `sidebar.md` | Homepage menu labels, destinations, and order |
 | `labels.md` | Header links, navigation, controls, metadata, diagram labels |
+| `documentation.md` | Documentation index and links to individual guides |
 | `database.md` | Local deployment reference used by homepage quick-start links |
 
 Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first three `##` headings after the hero create feature columns; later headings create full-width sections. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
-`content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its four Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
+`content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 
-The top-bar Documentation link opens `content/documentation.md`, a single shared Markdown include pointing to the live objy.db README. Both languages use that source; the website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
+The top-bar Documentation link opens the selected language’s `documentation.md` index. Its first entry links to Server documentation at `content/server.md`, a shared Markdown include pointing to the live objy.db README. Add future client docs and other guides as Markdown headings and links in each index. Both languages use the same English server source; the index and website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
 
 ## Implementation
 
@@ -43,7 +44,7 @@ Open `http://127.0.0.1:8000/`. HTTP is required for Docsify to load Markdown. Fo
 
 ## Routes
 
-Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. Live documentation opens at `/?lang=de#/content/documentation`. The local deployment reference remains at `/?lang=de#/DATABASE`, with the same theme and engine. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
+Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. The documentation index opens at `/?lang=de#/documentation`; its Server documentation link opens `/?lang=de#/content/server`. The local deployment reference remains at `/?lang=de#/DATABASE`, with the same theme and engine. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
 
 Metadata, the document’s `lang` attribute, controls, alt text, and SVG labels follow the selected language. All document headings keep stable IDs across translations. Code examples and API keys remain unchanged.
 

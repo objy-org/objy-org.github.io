@@ -9,6 +9,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Headlines, section copy, images, links | [home.md](en/home.md) | [home.md](de/home.md) |
 | Homepage menu labels and order | [sidebar.md](en/sidebar.md) | [sidebar.md](de/sidebar.md) |
 | Header, controls, metadata, diagram labels | [labels.md](en/labels.md) | [labels.md](de/labels.md) |
+| Documentation index | [documentation.md](en/documentation.md) | [documentation.md](de/documentation.md) |
 | Local deployment reference | [database.md](en/database.md) | [database.md](de/database.md) |
 
 Edit the file in the language you want to change. The original `content/home.md`, `content/labels.md`, `_sidebar.md`, and `DATABASE.md` have moved into these folders; there are no separate copies to keep in sync. Existing website URLs still work.
@@ -34,7 +35,7 @@ The “Objects that do more” section follows Storage internals. Its introducti
 ## Change links or the menu
 
 ```markdown
-[Documentation](DATABASE.md)
+[Documentation](/documentation.md)
 [JSON with extras](/?id=abstract-objects)
 ```
 
@@ -79,17 +80,23 @@ Links within a document are relative to its folder. From `guides/setup.md`, `[Ne
 
 Markdown files at the repository root work too. The site first checks the selected language folder, then the default language, then the root. If a new page has no translation yet, readers see its default-language version. The top-left OBJY logo always returns to the homepage in the selected language.
 
+## Manage the documentation index
+
+The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. These Markdown files list the available guides. The first entry is Server documentation, which links to [the shared server page](server.md).
+
+To add client docs or another guide later, add a `##` heading, a short explanation, and a Markdown link to each language’s index. Each heading appears in the left menu automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
+
 ## Include live documentation
 
-The top-bar Documentation link opens [the shared documentation page](documentation.md). This file contains only a remote include:
+The server page, `content/server.md`, contains only a remote include:
 
 ```markdown
-[OBJY DB documentation](https://raw.githubusercontent.com/objy-org/objy.db/refs/heads/main/README.md ':include')
+[Server documentation](https://raw.githubusercontent.com/objy-org/objy.db/refs/heads/main/README.md ':include')
 ```
 
-The README is fetched from GitHub when the page loads. Edit the original file in the database repository to update the documentation; no copy or website build is needed. The left menu follows its headings automatically. Both website languages currently display the same English source, while the header and controls keep the selected language.
+The README is fetched from GitHub when readers open Server documentation. Edit the original file in the database repository to update the server documentation; no copy or website build is needed. Its left menu follows its headings automatically. Both website languages currently display the same English source, while the header and controls keep the selected language.
 
-To use a different source, edit the URL in `content/documentation.md`. Keep this page as a single include so relative Markdown links and images resolve from the remote file. Linked Markdown files also open inside the site with their own chapter menus. The source must be a public raw Markdown URL that allows browser requests. Source caching can delay updates; failed loads show the standard page-unavailable message.
+To use a different source, edit the URL in `content/server.md`. Keep each remote page as a single include so relative Markdown links and images resolve from the remote file. Linked Markdown files also open inside the site with their own chapter menus. The source must be a public raw Markdown URL that allows browser requests. Source caching can delay updates; failed loads show the standard page-unavailable message.
 
 ## Add a homepage section
 
@@ -132,12 +139,12 @@ The file must exist in the repository, or use a full image URL. Images automatic
 ## Add a language
 
 1. Copy `content/en/` to a new folder named after the language code, such as `content/fr/`.
-2. Translate `home.md`, `sidebar.md`, `labels.md`, and `database.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
+2. Translate `home.md`, `sidebar.md`, `labels.md`, `documentation.md`, and `database.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
 3. Add an entry to `content/languages.json`, for example `{ "code": "fr", "name": "Français", "short": "FR" }`. The code must match the folder. The language appears in the switcher automatically; no HTML or JavaScript changes are needed.
-4. Preview `/?lang=fr` and `/?lang=fr#/DATABASE`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
+4. Preview `/?lang=fr`, `/?lang=fr#/documentation`, and `/?lang=fr#/DATABASE`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
 5. Run `node --test tests/*.test.mjs` to check for missing files, labels, anchors, or broken local links.
 
-The registry's `defaultLanguage` controls the default for new visitors. Unknown URL language codes fall back to that default. Missing UI labels also fall back to the default language, but translate every label before releasing a new language. Translate the four core files before registering a language. Additional Markdown pages can fall back to the default language until their translations are ready.
+The registry's `defaultLanguage` controls the default for new visitors. Unknown URL language codes fall back to that default. Missing UI labels also fall back to the default language, but translate every label before releasing a new language. Translate the core files before registering a language. Additional Markdown pages can fall back to the default language until their translations are ready.
 
 Use language-neutral links such as `DATABASE.md?id=run-a-node` and `/?id=deployment` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
 
