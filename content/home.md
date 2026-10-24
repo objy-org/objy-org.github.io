@@ -38,8 +38,8 @@ Start with one node. Grow into a resilient cluster on your infrastructure.
 
 ## Storage internals :id=storage-internals
 
-In-memory speed, compact columns, and compression. Built for objects and analytics.
-
-Your application sees one complete object. Inside, hot fields stay ready, columns power analytics, and less-used fields stay compressed in memory.
+- **Hot fields:** Frequently used fields stay uncompressed in memory for fast access.
+- **Compact columns:** Selected values sit together for efficient scans and analytics.
+- **Compressed fields:** Less-used data stays compressed in memory and expands when read.
 
 ![A complete JSON object sits in front of three visible internal storage tiers: hot fields, compact columns, and compressed fields, all in memory.](assets/site/storage-internals.svg)
