@@ -11,7 +11,7 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Header illustration
 
-`assets/site/header-objects.svg` shows free-floating JSON braces with no cards or backgrounds, flowing around two compact RAM modules. Its only characters are JSON braces, and it sits above the centered headline. Its path and alternative description are editable in `content/home.md`.
+`assets/site/header-objects.svg` shows empty JSON objects and arrays floating among curved arrows, with no cards or backgrounds. Its only characters are curly braces and square brackets, and it sits above the centered headline. Its path and alternative description are editable in `content/home.md`.
 
 ## Section illustrations
 

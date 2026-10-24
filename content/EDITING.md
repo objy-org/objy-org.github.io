@@ -60,7 +60,7 @@ The Object diagram table controls the JSON fields and reference in the objects i
 
 ## Change section images
 
-Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. Narrower screens stack the columns vertically in Markdown order. The opening hero centers an illustration of JSON objects flowing around RAM modules above its text.
+Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. Narrower screens stack the columns vertically in Markdown order. The opening hero centers an illustration of empty JSON objects and arrays floating among arrows above its text.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

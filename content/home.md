@@ -8,7 +8,7 @@ Store, connect, and query the things your application is made of. An in-memory d
 
 [Explore objy.db](/?id=abstract-objects)
 
-![Floating JSON braces and flowing arrows surround two compact RAM bars, representing objects moving through an in-memory database.](assets/site/header-objects.svg)
+![Floating empty JSON objects and arrays connected by flowing arrows.](assets/site/header-objects.svg)
 
 ## JSON objects :id=abstract-objects
 
