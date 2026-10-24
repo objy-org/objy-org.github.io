@@ -170,6 +170,19 @@
     const sections = [...document.querySelectorAll('.sections-root .page-section')];
     if (!nav || !menu) return;
     const links = [...nav.querySelectorAll('a')];
+    const contentTop = section => Math.min(...[...section.children].map(element => element.getBoundingClientRect().top));
+    // Keep the whole illustration visible when it is taller than its neighboring copy.
+    const measureAnchors = () => {
+      for (const section of sections.filter(section => section.classList.contains('section-illustrated'))) {
+        const heading = section.querySelector('h2');
+        const offset = Math.max(56, heading.getBoundingClientRect().top - contentTop(section) + 8);
+        section.style.setProperty('--section-anchor-offset', `${offset}px`);
+      }
+    };
+    const sectionSizes = new ResizeObserver(measureAnchors);
+    sections.forEach(section => sectionSizes.observe(section));
+    signal.addEventListener('abort', () => sectionSizes.disconnect(), { once: true });
+    measureAnchors();
     const closeMenu = () => {
       menu.setAttribute('aria-expanded', 'false');
       menu.querySelector('.menu-indicator').textContent = '+';
@@ -199,7 +212,7 @@
     const updateActive = () => {
       let current = '';
       for (const section of sections) {
-        if (document.getElementById(section.dataset.section).getBoundingClientRect().top <= 180) current = section.dataset.section;
+        if (contentTop(section) <= 180) current = section.dataset.section;
       }
       if (sections.length && scrollY + innerHeight >= document.documentElement.scrollHeight - 4) {
         const requested = new URLSearchParams(location.hash.split('?')[1] || '').get('id');

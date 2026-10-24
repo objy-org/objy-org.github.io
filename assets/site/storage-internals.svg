@@ -1,25 +1,46 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" fill="none">
-  <g font-family="Montserrat, Arial, sans-serif" text-anchor="middle">
-    <rect x="20" y="28" width="600" height="263" rx="16" fill="#252624" stroke="#69705e"/>
-    <text x="320" y="67" fill="#c1ccae" font-size="20" data-copy="storage-diagram.memory">IN MEMORY</text>
-    <rect x="43" y="95" width="170" height="146" rx="10" fill="#2d3028"/>
-    <g stroke="#adbba0" stroke-width="3" stroke-linecap="round"><path d="M70 119h69M70 138h109M70 157h87M70 176h102"/></g>
-    <text x="128" y="219" fill="#d5ddcb" font-size="17" data-copy="storage-diagram.hot">Hot fields</text>
-    <rect x="235" y="95" width="170" height="146" rx="10" fill="#302b2a"/>
-    <g fill="#d49e93"><rect x="263" y="114" width="23" height="70" rx="3"/><rect x="309" y="114" width="23" height="70" rx="3"/><rect x="355" y="114" width="23" height="70" rx="3"/></g>
-    <g stroke="#302b2a" stroke-width="4"><path d="M260 134h121M260 157h121"/></g>
-    <text x="320" y="219" fill="#e1b6ad" font-size="17" data-copy="storage-diagram.columns">Compact columns</text>
-    <rect x="427" y="95" width="170" height="146" rx="10" fill="#2c2931"/>
-    <g stroke="#b0a6c2" stroke-width="4" stroke-linecap="round"><path d="M458 135h108M458 145h108M458 155h108M458 165h108"/></g>
-    <path d="m483 115 8 8 8-8m-8-5v12M524 183l8-8 8 8m-8 5v-12" stroke="#b0a6c2" stroke-width="1.7"/>
-    <text x="512" y="219" fill="#cdc5dc" font-size="17" data-copy="storage-diagram.compressed">Compressed fields</text>
-    <text x="320" y="271" fill="#b6b2ab" font-size="15" data-copy="storage-diagram.reads">Read back complete objects</text>
-    <path d="M320 291v30M314 315l6 6 6-6" stroke="#8b8781" stroke-width="1.5"/>
-    <rect x="196" y="329" width="248" height="39" rx="7" stroke="#6c665d"/>
-    <text x="320" y="355" fill="#c7bca9" font-size="16" data-copy="storage-diagram.wal">Optional local write-ahead log</text>
-    <path d="M320 369v23M314 386l6 6 6-6" stroke="#8b8781" stroke-width="1.5"/>
-    <rect x="85" y="401" width="470" height="55" rx="10" fill="#2a2926" stroke="#6c665d"/>
-    <text x="320" y="425" fill="#e0d6c5" font-size="18" data-copy="storage-diagram.persistence">S3-compatible storage</text>
-    <text x="320" y="446" fill="#b6b2ab" font-size="14" data-copy="storage-diagram.backups">Journals &amp; snapshots</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 800" fill="none">
+  <g font-family="Montserrat, Arial, sans-serif">
+    <text x="24" y="30" fill="#f2f0eb" font-size="27" font-weight="600" data-copy="storage-diagram.outside">Your application</text>
+    <text x="612" y="29" fill="#aaa69f" font-size="20" text-anchor="end" data-copy="storage-diagram.format">JSON</text>
+    <rect x="20" y="56" width="600" height="258" rx="14" fill="#252525" stroke="#77716a" stroke-width="1.5"/>
+    <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="26">
+      <text x="48" y="94" fill="#d6d2cb">{</text>
+      <text x="76" y="132" fill="#c3d5af" data-copy="storage-diagram.json-identity">&quot;_id&quot;: &quot;bike-001&quot;,</text>
+      <text x="76" y="170" fill="#c3d5af" data-copy="storage-diagram.json-name">&quot;name&quot;: &quot;City bike&quot;,</text>
+      <text x="76" y="208" fill="#e7b0a5" data-copy="storage-diagram.json-price">&quot;price&quot;: 199,</text>
+      <text x="76" y="246" fill="#c7b8df" data-copy="storage-diagram.json-notes">&quot;notes&quot;: &quot;Everyday rides&quot;</text>
+      <text x="48" y="284" fill="#d6d2cb">}</text>
+    </g>
+    <g stroke="#aaa298" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M306 328v40m-7-8 7 8 7-8"/>
+      <path d="M334 368v-40m-7 8 7-8 7 8"/>
+    </g>
+    <rect x="20" y="384" width="600" height="344" rx="16" fill="#222522" stroke="#777d6b" stroke-width="1.5" stroke-dasharray="6 6"/>
+    <text x="42" y="418" fill="#e5e8dc" font-size="26" font-weight="600" data-copy="storage-diagram.inside">Inside objy.db</text>
+    <text x="596" y="416" fill="#b7c4a6" font-size="20" text-anchor="end" data-copy="storage-diagram.memory">IN MEMORY</text>
+
+    <rect x="36" y="438" width="568" height="78" rx="10" fill="#2b3027"/>
+    <g stroke="#bdd1aa" stroke-width="3" stroke-linecap="round"><path d="M57 459h27M57 475h37M57 491h20"/></g>
+    <text x="112" y="469" fill="#d4e3c4" font-size="28" font-weight="600" data-copy="storage-diagram.hot">Hot fields</text>
+    <text x="112" y="499" fill="#c3d5af" font-size="24" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.hot-fields">_id, name</text>
+    <rect x="462" y="453" width="120" height="20" rx="5" stroke="#9eae8e" stroke-width="1.5"/>
+    <rect x="462" y="483" width="85" height="18" rx="5" stroke="#9eae8e" stroke-width="1.5"/>
+    <path d="M472 463h42M472 492h25" stroke="#9eae8e" stroke-width="2" stroke-linecap="round"/>
+
+    <rect x="36" y="530" width="568" height="78" rx="10" fill="#322b28"/>
+    <g fill="#d9a296"><rect x="56" y="551" width="10" height="36" rx="2"/><rect x="72" y="551" width="10" height="36" rx="2"/><rect x="88" y="551" width="10" height="36" rx="2"/></g>
+    <text x="112" y="561" fill="#edc4ba" font-size="28" font-weight="600" data-copy="storage-diagram.columns">Compact columns</text>
+    <text x="112" y="591" fill="#e7b0a5" font-size="24" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.column-field">price</text>
+    <rect x="462" y="539" width="120" height="12" rx="3" fill="#b78376" opacity=".2"/>
+    <rect x="462" y="558" width="120" height="30" rx="5" fill="#c28d80"/>
+    <text x="522" y="581" fill="#211b18" font-size="25" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" text-anchor="middle" data-copy="storage-diagram.column-value">199</text>
+    <rect x="462" y="595" width="120" height="7" rx="3" fill="#b78376" opacity=".2"/>
+
+    <rect x="36" y="622" width="568" height="78" rx="10" fill="#2e2a34"/>
+    <g stroke="#bfafd7" stroke-width="3" stroke-linecap="round"><path d="M57 650h38M57 659h38M57 668h38M57 677h38"/></g>
+    <text x="112" y="653" fill="#d8cce9" font-size="28" font-weight="600" data-copy="storage-diagram.compressed">Compressed fields</text>
+    <text x="112" y="683" fill="#c7b8df" font-size="24" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.compressed-field">notes</text>
+    <g stroke="#b7a5cf" stroke-width="4" stroke-linecap="round"><path d="M466 646h112M466 656h83M466 666h104M466 676h62"/></g>
+    <text x="320" y="775" fill="#d3cec4" font-size="26" text-anchor="middle" data-copy="storage-diagram.reads">One object in. One object out.</text>
   </g>
 </svg>

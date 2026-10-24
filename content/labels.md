@@ -51,14 +51,22 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 
 | Location | Text |
 | --- | --- |
+| Outside | Your application |
+| Format | JSON |
+| Json identity | `"_id": "bike-001",` |
+| Json name | `"name": "City bike",` |
+| Json price | `"price": 199,` |
+| Json notes | `"notes": "Everyday rides"` |
+| Inside | Inside objy.db |
 | Memory | IN MEMORY |
 | Hot | Hot fields |
+| Hot fields | `_id, name` |
 | Columns | Compact columns |
+| Column field | `price` |
+| Column value | `199` |
 | Compressed | Compressed fields |
-| Reads | Read back complete objects |
-| Wal | Optional local write-ahead log |
-| Persistence | S3-compatible storage |
-| Backups | Journals & snapshots |
+| Compressed field | `notes` |
+| Reads | One object in. One object out. |
 
 ## Deploy diagram
 

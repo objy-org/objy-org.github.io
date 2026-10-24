@@ -24,7 +24,7 @@ People, products, places, processes. Give anything an identity, properties, and 
 
 Read and write individual objects. Run aggregates across collections. In-memory access, compression, and compact columns power both kinds of work.
 
-![Hot fields, compact columns, and compressed fields share an in-memory working set; a local write-ahead log and S3 journals and snapshots provide persistence.](assets/site/storage-internals.svg)
+![The application sees one JSON object. Inside objy.db, its identity and name stay hot, price is stored in a compact column, and notes are compressed in memory. Reads return the complete object.](assets/site/storage-internals.svg)
 
 ## From One node to a whole cluster. :id=run-and-deploy
 

@@ -56,7 +56,7 @@ The new section uses the same simple layout automatically.
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Object diagram, Storage diagram, and Deploy diagram tables control the words inside the three section illustrations. Keep these labels short so they fit. Their shapes, colors, and layout are managed separately by a developer.
+The Object diagram, Storage diagram, and Deploy diagram tables control the words inside the three section illustrations. Keep these labels short so they fit. The storage diagram also has editable JSON lines and matching field names; update both together when changing its example. Their shapes, colors, and layout are managed separately by a developer.
 
 ## Change section images
 
