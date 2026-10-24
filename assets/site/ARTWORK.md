@@ -11,14 +11,14 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Header illustration
 
-`assets/site/header-objects.svg` shows JSON braces flowing around two floating RAM modules. Its only characters are JSON braces, and it sits above the centered headline. Its path and alternative description are editable in `content/home.md`.
+`assets/site/header-objects.svg` shows free-floating JSON braces with no cards or backgrounds, flowing around two compact RAM modules. Its only characters are JSON braces, and it sits above the centered headline. Its path and alternative description are editable in `content/home.md`.
 
 ## Section illustrations
 
 Three simple native SVG illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
 
 - `assets/site/abstract-objects.svg`: a JSON object with an identity, color, availability, and an owner reference using the database’s actual reference format.
-- `assets/site/run-and-deploy.svg`: three server cabinets connected in a cluster, without topology labels.
+- `assets/site/run-and-deploy.svg`: three database silos connected in a cluster, without topology labels.
 - `assets/site/storage-internals.svg`: a JSON face pulled forward to reveal three internal tiers, labeled Hot fields, Columns, and Compressed.
 
 The JSON example and short storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The cluster illustration contains no text. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.

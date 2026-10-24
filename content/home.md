@@ -8,7 +8,7 @@ Store, connect, and query the things your application is made of. An in-memory d
 
 [Explore objy.db](/?id=abstract-objects)
 
-![JSON objects and flowing arrows surround two floating RAM modules, representing objects moving through an in-memory database.](assets/site/header-objects.svg)
+![Floating JSON braces and flowing arrows surround two compact RAM bars, representing objects moving through an in-memory database.](assets/site/header-objects.svg)
 
 ## JSON objects :id=abstract-objects
 
@@ -20,7 +20,7 @@ Model anything with flexible JSON objects, unique identities, and live reference
 
 Start with one node. Grow into a resilient cluster on your infrastructure.
 
-![Three server machines connected in a cluster.](assets/site/run-and-deploy.svg)
+![Three database silos connected in a cluster.](assets/site/run-and-deploy.svg)
 
 ## Fast, efficient storage :id=storage-internals
 
