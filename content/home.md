@@ -30,9 +30,9 @@ Create, read, update, and delete objects through one simple API. Query, aggregat
 ![One object API connects to four operations: CRUD, querying, aggregation, and vector search.](assets/site/simple-api.svg)
 
 
-## Scalable and performant :id=run-and-deploy
+## Runs everywhere, horizontally scalable :id=run-and-deploy
 
-Start with one node. Grow into a resilient cluster on your infrastructure.
+Run in browsers, on servers, or across clusters. Scale horizontally by adding nodes as your application grows.
 
 ![Three database silos connected in a cluster.](assets/site/run-and-deploy.svg)
 

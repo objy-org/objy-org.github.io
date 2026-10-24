@@ -21,7 +21,7 @@ Give anything a shape with flexible properties.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. The section with `:id=build-with-objects` is the full-width introduction beneath the hero. The next three `##` headings create the feature columns. Every later `##` heading creates a full-width section below that row. Use `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The feature row presents JSON with extras, Simple API, and Scalable and performant, in that order. Storage internals follows as a separate section.
+Keep each section focused on one idea and use concrete examples. The feature row presents JSON with extras, Simple API, and “Runs everywhere, horizontally scalable”, in that order. Storage internals follows as a separate section.
 
 ## Change links or the menu
 
