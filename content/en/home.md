@@ -1,6 +1,6 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# Build everyhting around fast objects.  :id=top
+# Build applications around fast objects.  :id=top
 
 > In-Memory Object Database
 

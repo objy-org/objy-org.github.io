@@ -1,8 +1,10 @@
-/* Editorial content lives in content/*.md; this file provides the layout and interactions. */
+/* Editorial content lives in content/<language>/*.md. */
 (() => {
   'use strict';
 
   let labels;
+  let language;
+  let languageRegistry;
   let illustrations = {};
   const illustrationFiles = [
     'assets/site/applications-objects.svg',
@@ -41,6 +43,7 @@
     document.querySelector('meta[name="description"]').content = copy('site.page-description');
     document.querySelector('meta[property="og:title"]').content = copy('site.page-title');
     document.querySelector('meta[property="og:description"]').content = copy('site.page-description');
+    document.querySelector('[role="progressbar"]')?.setAttribute('aria-label', copy('controls.loading-label'));
   }
 
   function readMarkdown(markdown) {
@@ -358,14 +361,18 @@
   function objyTheme(hook, vm) {
     let contentReady;
     let loadError;
+    const labelFiles = [`content/${languageRegistry.defaultLanguage}/labels.md`];
+    if (language.code !== languageRegistry.defaultLanguage) labelFiles.push(`content/${language.code}/labels.md`);
     const loadContent = () => contentReady ||= Promise.all([
-      'content/labels.md', ...illustrationFiles
+      ...labelFiles, ...illustrationFiles
     ].map(async file => {
       const response = await fetch(file);
       if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);
       return response.text();
-    })).then(async ([labelMarkdown, ...artwork]) => {
-      labels = readLabels(labelMarkdown);
+    })).then(async files => {
+      // New UI labels fall back to the default until their translation is supplied.
+      labels = Object.assign(Object.create(null), ...files.slice(0, labelFiles.length).map(readLabels));
+      const artwork = files.slice(labelFiles.length);
       illustrations = Object.fromEntries(illustrationFiles.map((file, i) => [file, artwork[i]]));
       await document.fonts.ready;
     });
@@ -406,19 +413,87 @@
     });
   }
 
-  window.$docsify = {
-    el: '#app',
-    homepage: 'content/home.md',
-    loadSidebar: '_sidebar.md',
-    loadNavbar: false,
-    maxLevel: 2,
-    subMaxLevel: 0,
-    skipLink: false,
-    keyBindings: false,
-    auto2top: false,
-    externalLinkTarget: '_self',
-    executeScript: false,
-    notFoundPage: false,
-    plugins: [objyTheme]
-  };
+  async function startSite() {
+    const [i18n, registry] = await Promise.all([
+      import('./languages.mjs'),
+      fetch('content/languages.json').then(response => {
+        if (!response.ok) throw new Error(`Language registry: ${response.status}`);
+        return response.json();
+      })
+    ]);
+    languageRegistry = i18n.validateRegistry(registry);
+    let saved;
+    try { saved = localStorage.getItem('objy.language'); } catch { /* Storage is optional. */ }
+    language = i18n.chooseLanguage(registry, new URL(location.href).searchParams.get('lang'), saved);
+    document.documentElement.lang = language.code;
+    history.replaceState(history.state, '', i18n.withLanguage(location.href, language.code));
+    try { localStorage.setItem('objy.language', language.code); } catch { /* URL still preserves the selection. */ }
+
+    const switcher = document.querySelector('.language-switcher');
+    const summary = switcher.querySelector('summary');
+    switcher.querySelector('.current-language').textContent = language.short;
+    const choices = switcher.querySelector('ul');
+    for (const choice of registry.languages) {
+      const item = document.createElement('li');
+      const link = document.createElement('a');
+      link.textContent = choice.name;
+      link.lang = choice.code;
+      link.hreflang = choice.code;
+      if (choice.code === language.code) link.setAttribute('aria-current', 'true');
+      link.addEventListener('click', event => {
+        if (choice.code === language.code) {
+          event.preventDefault();
+          switcher.open = false;
+          summary.focus();
+        }
+        try { localStorage.setItem('objy.language', choice.code); } catch { /* Optional preference. */ }
+      });
+      item.append(link);
+      choices.append(item);
+    }
+    const updateLanguageLinks = () => {
+      choices.querySelectorAll('a').forEach(link => { link.href = i18n.withLanguage(location.href, link.hreflang); });
+      switcher.open = false;
+    };
+    updateLanguageLinks();
+    window.addEventListener('hashchange', updateLanguageLinks);
+    document.addEventListener('click', event => {
+      if (!switcher.contains(event.target)) switcher.open = false;
+    });
+    switcher.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        switcher.open = false;
+        summary.focus();
+      }
+    });
+
+    window.$docsify = {
+      el: '#app',
+      homepage: `content/${language.code}/home.md`,
+      loadSidebar: `content/${language.code}/sidebar.md`,
+      alias: { '^/DATABASE(?:\\.md)?$': `content/${language.code}/database.md` },
+      loadNavbar: false,
+      maxLevel: 2,
+      subMaxLevel: 0,
+      skipLink: false,
+      keyBindings: false,
+      auto2top: false,
+      externalLinkTarget: '_self',
+      executeScript: false,
+      notFoundPage: false,
+      plugins: [objyTheme]
+    };
+    // Docsify starts only after its language-specific routes are configured.
+    const engine = document.createElement('script');
+    engine.src = 'assets/vendor/docsify.min.js';
+    engine.onerror = () => console.error('The local Docsify engine could not load.');
+    document.head.append(engine);
+  }
+
+  startSite().catch(error => {
+    console.error('OBJY could not start:', error);
+    const message = document.querySelector('.loading-message');
+    message.textContent = 'OBJY could not load. Please reload the page.';
+    message.setAttribute('role', 'alert');
+  });
 })();

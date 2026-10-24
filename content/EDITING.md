@@ -2,12 +2,18 @@
 
 The website runs on Docsify. Routine content changes only require Markdown, with no build command.
 
-| What to change | File |
-| --- | --- |
-| Headline, section explanations, image paths, links | [home.md](home.md) |
-| Left menu labels, links, and order | [_sidebar.md](../_sidebar.md) |
-| Header links, navigation labels, page title, description, and diagram labels | [labels.md](labels.md) |
-| Database documentation | [DATABASE.md](../DATABASE.md) |
+All translated copy lives under `content/`, grouped by language. English is in `content/en/`; German is in `content/de/`.
+
+| What to change | English | German |
+| --- | --- | --- |
+| Headlines, section copy, images, links | [home.md](en/home.md) | [home.md](de/home.md) |
+| Left menu labels and order | [sidebar.md](en/sidebar.md) | [sidebar.md](de/sidebar.md) |
+| Header, controls, metadata, diagram labels | [labels.md](en/labels.md) | [labels.md](de/labels.md) |
+| Database documentation | [database.md](en/database.md) | [database.md](de/database.md) |
+
+Edit the file in the language you want to change. The original `content/home.md`, `content/labels.md`, `_sidebar.md`, and `DATABASE.md` have moved into these folders; there are no separate copies to keep in sync. Existing website URLs still work.
+
+The switcher at the top right remembers the visitor's choice. A URL with `?lang=de` or `?lang=en` explicitly selects that language. Internal links keep the selected language automatically.
 
 ## Change the page copy
 
@@ -36,7 +42,7 @@ The words inside `[]` are the label. The destination goes inside `()`. `/?id=abs
 
 The bottom Deployment section is edited in `home.md`. Each `###` heading starts an option: Quick-start, Bring your own cloud, or Browser. Quick-start combines local and cluster deployment, with GitHub, Run locally, and Cluster setup links. Optional bullet lists of links become buttons within the same option. Keep `:id=deployment` and each subheading's ID so navigation stays connected. The layout uses three columns on desktop and one column on smaller screens. All copy and destinations are editable in Markdown.
 
-In `_sidebar.md`, change labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
+In `sidebar.md`, change labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
 ## Add a section
 
@@ -48,7 +54,7 @@ Add a `##` heading with a unique ID made of lowercase letters and hyphens:
 A short description.
 ```
 
-Then add its menu entry to `_sidebar.md`:
+Then add its menu entry to `sidebar.md`:
 
 ```markdown
 - [Your new section](/?id=new-section)
@@ -75,6 +81,18 @@ Change an image's file path to use a different image. The words inside `![]` des
 ```
 
 The file must exist in the repository, or use a full image URL. Images automatically fit the available width. Additional images in the same section stay within its text.
+
+## Add a language
+
+1. Copy `content/en/` to a new folder named after the language code, such as `content/fr/`.
+2. Translate `home.md`, `sidebar.md`, `labels.md`, and `database.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
+3. Add an entry to `content/languages.json`, for example `{ "code": "fr", "name": "Français", "short": "FR" }`. The code must match the folder. The language appears in the switcher automatically; no HTML or JavaScript changes are needed.
+4. Preview `/?lang=fr` and `/?lang=fr#/DATABASE`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
+5. Run `node --test tests/languages.test.mjs` to check for missing files, labels, anchors, or broken local links.
+
+The registry's `defaultLanguage` controls the default for new visitors. Unknown URL language codes fall back to that default. Missing UI labels also fall back to the default language, but translate every label before releasing a new language. Full page translations must exist before the language is registered.
+
+Use language-neutral links such as `DATABASE.md?id=run-a-node` and `/?id=deployment` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
 
 ## Review and publish
 

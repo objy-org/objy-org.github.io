@@ -1,0 +1,7 @@
+- [Mit Objekten bauen](/?id=top)
+- [Einfache API](/?id=simple-api)
+- [JSON mit Extras](/?id=abstract-objects)
+- [Läuft überall](/?id=run-and-deploy)
+- [Speicheraufbau](/?id=storage-internals)
+- [Objekte können mehr](/?id=object-capabilities)
+- [Bereitstellung](/?id=deployment)

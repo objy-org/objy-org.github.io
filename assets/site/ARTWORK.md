@@ -11,7 +11,7 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Header illustration
 
-`assets/site/applications-objects.svg` uses a 720 × 480 canvas with an angled app window, a small team of AI agents, and an API endpoint surrounding floating JSON objects and an array. Sweeping arrows connect them. Gentle floating and flowing dotted paths add movement; the illustration stays still when reduced motion is preferred. It sits above the centered hero headline. Its Apps, AI agents, and APIs labels are editable in the Application diagram table in `content/labels.md`. The image path and alternative description are editable in `content/home.md`.
+`assets/site/applications-objects.svg` uses a 720 × 480 canvas with an angled app window, a small team of AI agents, and an API endpoint surrounding floating JSON objects and an array. Sweeping arrows connect them. Gentle floating and flowing dotted paths add movement; the illustration stays still when reduced motion is preferred. It sits above the centered hero headline. Its Apps, AI agents, and APIs labels are editable in the Application diagram table in `content/<language>/labels.md`. The image path and alternative description are editable in `content/<language>/home.md`.
 
 ## Section illustrations
 
@@ -25,6 +25,6 @@ The feature row places the API on the left, JSON in the center, and deployment o
 
 The full-width section restores `assets/site/storage-internals.svg` from `3f1a306`: a 660 × 570 illustration with a complete JSON object on the front plane and hot fields, compact columns, and compressed fields on a rear plane. Its larger presentation keeps both the JSON example and all three tiers readable.
 
-`assets/site/object-capabilities.svg` follows in the “Objects that do more” section. A new field floats into a JSON object, a curved reference leads to a separate user object, and a shield represents read/write access. The 720 × 560 illustration uses the same coral, sage, and lavender palette. Its labels and JSON fragments live in the Capabilities diagram table in `content/labels.md`. The section places its image on the left on desktop and after the copy on smaller screens.
+`assets/site/object-capabilities.svg` follows in the “Objects that do more” section. A new field floats into a JSON object, a curved reference leads to a separate user object, and a shield represents read/write access. The 720 × 560 illustration uses the same coral, sage, and lavender palette. Its labels and JSON fragments live in the Capabilities diagram table in `content/<language>/labels.md`. The section places its image on the left on desktop and after the copy on smaller screens.
 
-The JSON examples and storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The API diagram table controls its operation labels. The deployment illustration uses only JSON braces and has no text labels. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.
+The JSON examples and storage labels are editable in the Object diagram and Storage diagram tables in `content/<language>/labels.md`. The API diagram table controls its operation labels. The deployment illustration uses only JSON braces and has no text labels. Paths and alternative descriptions live in `content/<language>/home.md`; layout and shapes remain developer concerns.

@@ -18,6 +18,7 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Section navigation label | On this page |
 | Sidebar heading | Explore objy.db |
 | Mobile menu | Menu |
+| Language menu | Change language |
 | Skip link | Skip to content |
 | Product link | [objy.db](#/?id=top) |
 | Documentation link | [Documentation](#/DATABASE) |
@@ -31,6 +32,7 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Copy success | Copied! |
 | Copy fallback | Select & copy |
 | Copy label | Copy code |
+| Loading label | Loading… |
 
 ## Application diagram
 

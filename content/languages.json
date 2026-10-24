@@ -1,0 +1,15 @@
+{
+  "defaultLanguage": "en",
+  "languages": [
+    {
+      "code": "en",
+      "name": "English",
+      "short": "EN"
+    },
+    {
+      "code": "de",
+      "name": "Deutsch",
+      "short": "DE"
+    }
+  ]
+}

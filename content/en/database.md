@@ -4,7 +4,7 @@ objy.db is an in-memory, sharded, replicated database for dynamic objects. Objec
 
 [Back to the website](/?id=top)
 
-## Abstract objects
+## Abstract objects :id=abstract-objects
 
 Each object has a unique `_id`. Its other properties can contain strings, numbers, booleans, arrays, nested objects, or `null`. Collections do not need a fixed schema before objects are inserted.
 
@@ -25,7 +25,7 @@ References store the target collection and object ID. Reads can expand reference
 
 Collection hooks enable server-registered validation, transformations, and other behavior around public create, read, update, and delete operations. Optional extensions add inheritance and lifecycle actions. Scheduled event execution needs a separate scheduler; it is not an automatic feature of the core database.
 
-## Memory, compression, and columns
+## Memory, compression, and columns :id=memory-compression-and-columns
 
 Objects and indexes live in memory. Collection metadata configures how fields are indexed, represented in columns, or compressed:
 
@@ -47,13 +47,13 @@ Objects and indexes live in memory. Collection metadata configures how fields ar
 
 Indexed and column fields remain hot automatically. Reads still return complete objects. Queries on non-indexed compressed fields can require decompression during a scan.
 
-## Persistence
+## Persistence :id=persistence
 
 S3-compatible storage holds journals and snapshots. Nodes restore snapshots, replay newer journals, and rebuild indexes when they start.
 
 Write acknowledgement is configurable. Memory acknowledgement confirms acceptance in RAM. Local-WAL acknowledgement waits for a local write-ahead-log flush. Persistence and replication should be configured around the recovery guarantees your application needs.
 
-## Run a node
+## Run a node :id=run-a-node
 
 From a database source checkout with Node.js installed:
 
@@ -64,7 +64,7 @@ node src/index.js --config spread-db.config.json --node node-a --url http://loca
 
 The database console is served at the node's root URL. Use the database repository's configuration examples for your storage and cluster settings. The repository also supplies a Dockerfile for container deployments.
 
-## Deploy a cluster
+## Deploy a cluster :id=deploy-a-cluster
 
 Run as a Node.js process or a Docker container on suitable local machines, virtual machines, on-premises infrastructure, or cloud servers. A persistent deployment needs reachable S3-compatible storage and the configured local WAL directory when WAL is enabled.
 
@@ -72,7 +72,7 @@ A shared shard map assigns objects to shards. Each shard has one or more replica
 
 Topology changes are planned operations. The deployment tooling supports a maintenance workflow that stops traffic, resizes the topology, restores data into the new shard layout, verifies readiness, and reopens traffic. This is not automatic, zero-downtime scaling.
 
-## Clients and APIs
+## Clients and APIs :id=clients-and-apis
 
 The database exposes an HTTP API. Object routes use this shape:
 
