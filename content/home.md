@@ -2,8 +2,6 @@
 
 # Build applications around fast objects. **In memory. Scalable.** :id=top
 
-objy.db is an in-memory object database with a simple API. Build locally, deploy anywhere.
-
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
 ## JSON with extras :id=abstract-objects
@@ -17,7 +15,7 @@ Model anything with flexible JSON objects, unique identities, and live reference
 
 Create, read, update, and delete objects through one simple API. Query, aggregate, and find similar objects with vector search.
 
-![One object API connects to four operations: CRUD, querying, aggregation, and vector search.](assets/site/simple-api.svg)
+![Four large API capabilities—Query, Vector, CRUD, and Aggregate—each have their own icon and share one API connection.](assets/site/simple-api.svg)
 
 
 ## Runs everywhere, scalable :id=run-and-deploy
