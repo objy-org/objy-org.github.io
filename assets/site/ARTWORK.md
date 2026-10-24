@@ -17,7 +17,7 @@ The header image is the original cube-and-code illustration, retained as artwork
 Three native SVG illustrations use a consistent dark, coral, sage, and lavender palette:
 
 - `assets/site/abstract-objects.svg`: identity, flexible properties, a reference, and optional hooks.
-- `assets/site/storage-internals.svg`: two stacked views of the same object: the intact JSON shell above an exposed internal memory view. Matching edges connect the shell to its hot fields, compact columns, and compressed fields. Reads return the complete object.
+- `assets/site/storage-internals.svg`: two overlapping 3D planes: the intact JSON object sits in front of its storage internals, offset down and left. The rear plane exposes hot fields, compact columns, and compressed fields along the top and right edges. Reads return the complete object.
 - `assets/site/run-and-deploy.svg`: one node and a cluster with two shards and two replicas per shard.
 
 These diagrams were authored as vector assets so their labels remain editable through the Markdown tables in `content/labels.md`. Their default labels also make each SVG understandable when viewed on its own. Paths and alternative descriptions live in `content/home.md`.

@@ -1,59 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 730" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 570" fill="none">
   <g font-family="Montserrat, Arial, sans-serif" stroke-linejoin="round">
-    <text x="48" y="24" fill="#d6d2cb" font-size="20" data-copy="storage-diagram.outside">The object you work with</text>
+    <!-- Rear plane: storage stays visible above and to the right of the object. -->
+    <g transform="matrix(1 -.12 0 1 190 80)">
+      <rect x="10" y="14" width="440" height="340" fill="#141414" opacity=".45"/>
+      <path d="M440 0l12 10v340l-12-10Z" fill="#2c3028" stroke="#68705f" stroke-width="1.2"/>
+      <path d="M0 340l12 10h440l-12-10Z" fill="#20241e" stroke="#68705f" stroke-width="1.2"/>
+      <rect width="440" height="340" fill="#252923" stroke="#8c9380" stroke-width="1.2"/>
+      <text x="20" y="31" fill="#d2d9c8" font-size="18" data-copy="storage-diagram.inside">Inside objy.db</text>
+      <text x="420" y="31" fill="#aebba0" font-size="13" text-anchor="end" data-copy="storage-diagram.memory">IN MEMORY</text>
 
-    <!-- The intact outer shell, lifted above its internal view. -->
-    <path d="m48 64 22-20h544l-22 20Z" fill="#30302e" stroke="#77716a" stroke-width="1.2"/>
-    <path d="m592 64 22-20v232l-22 20Z" fill="#292927" stroke="#77716a" stroke-width="1.2"/>
-    <rect x="48" y="64" width="544" height="232" fill="#252525" stroke="#8b847b" stroke-width="1.2"/>
-    <text x="568" y="92" fill="#aaa69f" font-size="14" text-anchor="end" data-copy="storage-diagram.format">JSON</text>
-    <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20">
-      <text x="80" y="105" fill="#d6d2cb">{</text>
-      <text x="102" y="137" fill="#c3d5af" data-copy="storage-diagram.json-identity">&quot;_id&quot;: &quot;bike-001&quot;,</text>
-      <text x="102" y="166" fill="#c3d5af" data-copy="storage-diagram.json-name">&quot;name&quot;: &quot;City bike&quot;,</text>
-      <text x="102" y="195" fill="#e7b0a5" data-copy="storage-diagram.json-price">&quot;price&quot;: 199,</text>
-      <text x="102" y="224" fill="#c7b8df" data-copy="storage-diagram.json-notes">&quot;notes&quot;: &quot;Everyday rides&quot;</text>
-      <text x="80" y="256" fill="#d6d2cb">}</text>
+      <rect x="20" y="54" width="400" height="76" rx="4" fill="#30382a"/>
+      <g stroke="#a6bc90" stroke-width="1.4">
+        <rect x="38" y="72" width="202" height="17" rx="3"/>
+        <rect x="38" y="99" width="162" height="13" rx="3"/>
+        <path d="M49 80h66m-66 25h45"/>
+      </g>
+      <text x="270" y="84" fill="#d4e3c4" font-size="16" data-copy="storage-diagram.hot">Hot fields</text>
+      <text x="270" y="108" fill="#b9cba5" font-size="14" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.hot-fields">_id, name</text>
+
+      <rect x="20" y="146" width="400" height="76" rx="4" fill="#38302b"/>
+      <g fill="#b9887b">
+        <rect x="38" y="160" width="44" height="48" rx="3" opacity=".5"/>
+        <rect x="92" y="160" width="44" height="48" rx="3" opacity=".7"/>
+        <rect x="146" y="160" width="44" height="48" rx="3"/>
+        <rect x="200" y="160" width="40" height="48" rx="3" opacity=".4"/>
+      </g>
+      <path d="M38 176h202M38 192h202" stroke="#38302b" stroke-width="3"/>
+      <text x="270" y="176" fill="#edc4ba" font-size="16" data-copy="storage-diagram.columns">Compact columns</text>
+      <text x="270" y="200" fill="#d8a296" font-size="14" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.column-field">price</text>
+      <text x="405" y="200" fill="#edc4ba" font-size="14" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.column-value">199</text>
+
+      <rect x="20" y="238" width="400" height="76" rx="4" fill="#332e3b"/>
+      <g stroke="#af9dc8" stroke-width="3" stroke-linecap="round">
+        <path d="M40 254h196M40 264h144M40 274h184M40 284h162M40 294h112"/>
+      </g>
+      <text x="270" y="268" fill="#d8cce9" font-size="16" data-copy="storage-diagram.compressed">Compressed fields</text>
+      <text x="270" y="292" fill="#bbacd2" font-size="14" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.compressed-field">notes</text>
     </g>
 
-    <!-- Matching edges connect two views of the same object. -->
-    <g stroke="#77716a" stroke-width="1.2" stroke-dasharray="3 7" opacity=".65">
-      <path d="M48 306v102M592 306v102M614 286v102"/>
+    <!-- Front plane: one intact object masks the storage detail behind it. -->
+    <g transform="matrix(1 -.12 0 1 32 224)">
+      <rect x="12" y="16" width="400" height="286" fill="#111111" opacity=".65"/>
+      <path d="M400 0l12 10v286l-12-10Z" fill="#35312f" stroke="#8b8176" stroke-width="1.2"/>
+      <path d="M0 286l12 10h400l-12-10Z" fill="#242220" stroke="#8b8176" stroke-width="1.2"/>
+      <rect width="400" height="286" fill="#262524" stroke="#b1a395" stroke-width="1.4"/>
+      <path d="M0 49h400" stroke="#514a43"/>
+      <text x="22" y="31" fill="#ded8ce" font-size="18" data-copy="storage-diagram.outside">The object you work with</text>
+      <text x="378" y="31" fill="#aaa69f" font-size="13" text-anchor="end" data-copy="storage-diagram.format">JSON</text>
+      <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20">
+        <text x="24" y="85" fill="#d6d2cb">{</text>
+        <text x="46" y="116" fill="#c3d5af" data-copy="storage-diagram.json-identity">&quot;_id&quot;: &quot;bike-001&quot;,</text>
+        <text x="46" y="145" fill="#c3d5af" data-copy="storage-diagram.json-name">&quot;name&quot;: &quot;City bike&quot;,</text>
+        <text x="46" y="174" fill="#e7b0a5" data-copy="storage-diagram.json-price">&quot;price&quot;: 199,</text>
+        <text x="46" y="203" fill="#c7b8df" data-copy="storage-diagram.json-notes">&quot;notes&quot;: &quot;Everyday rides&quot;</text>
+        <text x="24" y="235" fill="#d6d2cb">}</text>
+      </g>
     </g>
-    <text x="320" y="349" fill="#aaa69f" font-size="16" text-anchor="middle" data-copy="storage-diagram.cutaway">The same object, opened up</text>
-    <path d="M320 368v22m-5-5 5 5 5-5" stroke="#9d9589" stroke-width="1.3" stroke-linecap="round"/>
-
-    <!-- The exposed memory compartments sit inside the matching shell. -->
-    <path d="m48 418 22-20h544l-22 20Z" fill="#30342c" stroke="#777d6b" stroke-width="1.2"/>
-    <path d="m592 418 22-20v250l-22 20Z" fill="#282c26" stroke="#777d6b" stroke-width="1.2"/>
-    <rect x="48" y="418" width="544" height="250" fill="#222522" stroke="#8c9380" stroke-width="1.2"/>
-    <text x="70" y="448" fill="#e5e8dc" font-size="18" data-copy="storage-diagram.inside">Inside objy.db</text>
-    <text x="570" y="447" fill="#aebba0" font-size="14" text-anchor="end" data-copy="storage-diagram.memory">IN MEMORY</text>
-
-    <rect x="68" y="468" width="504" height="54" rx="5" fill="#2b3027"/>
-    <g stroke="#bdd1aa" stroke-width="2" stroke-linecap="round"><path d="M84 481h23M84 494h31M84 507h18"/></g>
-    <text x="132" y="491" fill="#d4e3c4" font-size="20" data-copy="storage-diagram.hot">Hot fields</text>
-    <text x="132" y="511" fill="#b9cba5" font-size="16" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.hot-fields">_id, name</text>
-    <g stroke="#9eae8e" stroke-width="1.2">
-      <rect x="444" y="480" width="108" height="12" rx="3"/>
-      <rect x="444" y="501" width="74" height="10" rx="3"/>
-      <path d="M452 486h36M452 506h20"/>
-    </g>
-
-    <rect x="68" y="530" width="504" height="54" rx="5" fill="#322b28"/>
-    <g fill="#d9a296"><rect x="84" y="543" width="8" height="28" rx="1"/><rect x="96" y="543" width="8" height="28" rx="1"/><rect x="108" y="543" width="8" height="28" rx="1"/></g>
-    <text x="132" y="553" fill="#edc4ba" font-size="20" data-copy="storage-diagram.columns">Compact columns</text>
-    <text x="132" y="573" fill="#d8a296" font-size="16" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.column-field">price</text>
-    <rect x="444" y="537" width="108" height="8" rx="2" fill="#b78376" opacity=".2"/>
-    <rect x="444" y="549" width="108" height="22" rx="3" fill="#c28d80"/>
-    <text x="498" y="566" fill="#211b18" font-size="18" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" text-anchor="middle" data-copy="storage-diagram.column-value">199</text>
-    <rect x="444" y="575" width="108" height="5" rx="2" fill="#b78376" opacity=".2"/>
-
-    <rect x="68" y="592" width="504" height="54" rx="5" fill="#2e2a34"/>
-    <g stroke="#bfafd7" stroke-width="2" stroke-linecap="round"><path d="M84 607h31M84 615h31M84 623h31M84 631h31"/></g>
-    <text x="132" y="615" fill="#d8cce9" font-size="20" data-copy="storage-diagram.compressed">Compressed fields</text>
-    <text x="132" y="635" fill="#bbacd2" font-size="16" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="storage-diagram.compressed-field">notes</text>
-    <g stroke="#b7a5cf" stroke-width="3" stroke-linecap="round"><path d="M446 606h104M446 614h76M446 622h96M446 630h58"/></g>
-    <text x="320" y="710" fill="#aaa69f" font-size="16" text-anchor="middle" data-copy="storage-diagram.reads">One object in. One object out.</text>
+    <text x="330" y="554" fill="#aaa69f" font-size="16" text-anchor="middle" data-copy="storage-diagram.reads">One object in. One object out.</text>
   </g>
 </svg>
