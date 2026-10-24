@@ -34,7 +34,7 @@ Create, read, update, and delete objects through one simple API. Query, aggregat
 
 Run in browsers, on servers, or across clusters. Scale horizontally by adding nodes as your application grows.
 
-![Three database silos connected in a cluster.](assets/site/run-and-deploy.svg)
+![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
 
 ## Storage internals :id=storage-internals
 

@@ -21,8 +21,8 @@ The three feature illustrations share a 520 × 320 canvas and the site's coral, 
 
 - `assets/site/abstract-objects.svg`: a JSON object with an identity, color, availability, and an owner reference using the database’s actual reference format.
 - `assets/site/simple-api.svg`: one object API branching into four operations, illustrated by add/remove controls, a magnifying glass, aggregation bars, and neighboring vector points.
-- `assets/site/run-and-deploy.svg`: three database silos connected in a cluster, without topology labels.
+- `assets/site/run-and-deploy.svg`: a browser window, a single server, and three connected servers; small arrows lead from one deployment size to the next.
 
 The full-width section restores `assets/site/storage-internals.svg` from `3f1a306`: a 660 × 570 illustration with a complete JSON object on the front plane and hot fields, compact columns, and compressed fields on a rear plane. Its larger presentation keeps both the JSON example and all three tiers readable.
 
-The JSON examples and storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The API diagram table controls its operation labels. The cluster illustration contains no text. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.
+The JSON examples and storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The API diagram table controls its operation labels. The deployment illustration uses only JSON braces and has no text labels. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.
