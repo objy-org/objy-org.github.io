@@ -7,6 +7,7 @@
   const illustrationFiles = [
     'assets/site/header-objects.svg',
     'assets/site/abstract-objects.svg',
+    'assets/site/runs-everywhere.svg',
     'assets/site/storage-internals.svg',
     'assets/site/run-and-deploy.svg'
   ];
@@ -132,9 +133,13 @@
     }
     if (sections[0]?.dataset.section !== 'top') throw new Error('home.md: keep the # headline with :id=top first.');
     sections.forEach(decorateSection);
-    const [hero, ...features] = sections;
+    const [hero, ...content] = sections;
+    // The first three H2 sections form the feature row; later sections get room for detail.
+    const features = content.slice(0, 3);
+    const details = content.slice(3);
+    details.forEach(section => section.classList.add('detail-section'));
     const featureGrid = features.length ? `<div class="feature-grid">${features.map(section => section.outerHTML).join('')}</div>` : '';
-    return `<div class="page-layout"><div id="sidebar-slot"></div><div class="sections-root">${hero.outerHTML}${featureGrid}</div></div>`;
+    return `<div class="page-layout"><div id="sidebar-slot"></div><div class="sections-root">${hero.outerHTML}${featureGrid}${details.map(section => section.outerHTML).join('')}</div></div>`;
   }
 
   function mountSidebar() {

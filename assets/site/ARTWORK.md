@@ -15,10 +15,12 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Section illustrations
 
-Three simple native SVG illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
+The three feature illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
 
 - `assets/site/abstract-objects.svg`: a JSON object with an identity, color, availability, and an owner reference using the database’s actual reference format.
+- `assets/site/runs-everywhere.svg`: a server cabinet, a browser window with JSON braces, and a cloud.
 - `assets/site/run-and-deploy.svg`: three database silos connected in a cluster, without topology labels.
-- `assets/site/storage-internals.svg`: a JSON face pulled forward to reveal three internal tiers, labeled Hot fields, Columns, and Compressed.
 
-The JSON example and short storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The cluster illustration contains no text. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.
+The full-width section restores `assets/site/storage-internals.svg` from `3f1a306`: a 660 × 570 illustration with a complete JSON object on the front plane and hot fields, compact columns, and compressed fields on a rear plane. Its larger presentation keeps both the JSON example and all three tiers readable.
+
+The JSON examples and storage labels are editable in the Object diagram and Storage diagram tables in `content/labels.md`. The cluster illustration contains no text; the runtime illustration uses only JSON braces. Paths and alternative descriptions live in `content/home.md`; layout and shapes remain developer concerns.
