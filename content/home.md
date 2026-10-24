@@ -38,6 +38,8 @@ Start with one node. Grow into a resilient cluster on your infrastructure.
 
 ## Storage internals :id=storage-internals
 
+Each object is split internally into smart blocks for fast access and efficient storage.
+
 - **Hot fields:** Frequently used fields stay uncompressed in memory for fast access.
 - **Compact columns:** Selected values sit together for efficient scans and analytics.
 - **Compressed fields:** Less-used data stays compressed in memory and expands when read.
