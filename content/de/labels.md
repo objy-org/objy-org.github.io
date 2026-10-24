@@ -34,6 +34,14 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Copy label | Code kopieren |
 | Loading label | Wird geladen… |
 
+## Documents
+
+| Location | Text |
+| --- | --- |
+| Unavailable title | Seite nicht verfügbar |
+| Unavailable description | Diese Markdown-Seite konnte nicht geladen werden. Prüfe den Link oder versuche es erneut. |
+| Back home | Zurück zur Startseite |
+
 ## Application diagram
 
 | Location | Text |

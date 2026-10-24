@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
+import { markdownFiles } from '../assets/site/pages.mjs';
 import { validateRegistry, chooseLanguage, withLanguage } from '../assets/site/languages.mjs';
 
 const root = new URL('../', import.meta.url);
@@ -69,10 +70,15 @@ for (const language of registry.languages) {
           continue;
         }
         const [page, query = ''] = target.replace(/^#/, '').split('?');
-        const destination = /DATABASE(?:\.md)?$/.test(page) ? 'database.md' : 'home.md';
-        assert.ok(['/', '', '/DATABASE', 'DATABASE.md'].includes(page), `${file}: unexpected local route ${target}`);
+        const route = new URL(page || (file === 'home.md' || file === 'sidebar.md' ? '/' : file), 'https://objy.test/').pathname;
+        const destination = markdownFiles(route, language.code, registry.defaultLanguage, registry.languages.map(item => item.code))
+          .find(path => existsSync(new URL(path, root)));
+        assert.ok(destination, `${file}: missing local page ${target}`);
         const id = new URLSearchParams(query).get('id');
-        if (id) assert.ok(anchors(files[destination]).includes(id), `${file}: missing anchor ${target}`);
+        // The core pages use explicit IDs shared by all translations.
+        if (id && /\/(home|database)\.md$/.test(destination)) {
+          assert.ok(anchors(read(destination)).includes(id), `${file}: missing anchor ${target}`);
+        }
       }
     }
   });

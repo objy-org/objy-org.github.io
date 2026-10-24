@@ -5,6 +5,8 @@
   let labels;
   let language;
   let languageRegistry;
+  let homepageSidebar;
+  let currentPage;
   let illustrations = {};
   const illustrationFiles = [
     'assets/site/applications-objects.svg',
@@ -164,7 +166,7 @@
     return `<div class="page-layout"><div id="sidebar-slot"></div><div class="sections-root">${hero.outerHTML}${featureGrid}${details.map(section => section.outerHTML).join('')}</div></div>`;
   }
 
-  function mountSidebar() {
+  function mountSidebar(vm) {
     const sidebar = document.querySelector('aside.sidebar');
     const slot = document.getElementById('sidebar-slot');
     if (!sidebar || !slot) return;
@@ -177,6 +179,37 @@
     nav.id = 'section-links';
     nav.setAttribute('role', 'navigation');
     nav.dataset.copyAria = 'navigation.section-navigation-label';
+    const caption = sidebar.querySelector('.sidebar-heading');
+    const documentPage = document.querySelector('.document-page');
+    nav.classList.toggle('chapter-links', Boolean(documentPage));
+    if (documentPage) {
+      const headings = [...documentPage.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')];
+      const title = headings[0];
+      const chapters = title?.tagName === 'H1' && headings.length > 1 ? headings.slice(1) : headings;
+      const firstLevel = Math.min(...chapters.map(heading => Number(heading.tagName.slice(1))));
+      const list = document.createElement('ul');
+      for (const heading of chapters) {
+        const item = document.createElement('li');
+        const link = document.createElement('a');
+        link.textContent = heading.textContent;
+        link.href = vm.router.toURL(vm.route.path, { id: heading.id });
+        item.style.setProperty('--chapter-depth', Math.min(3, Number(heading.tagName.slice(1)) - firstLevel));
+        if (Number(heading.tagName.slice(1)) > firstLevel) item.classList.add('subchapter');
+        heading.dataset.chapter = heading.id;
+        item.append(link);
+        list.append(item);
+      }
+      nav.replaceChildren(list);
+      caption.removeAttribute('data-copy');
+      caption.textContent = title?.textContent || copy('navigation.section-navigation-label');
+    } else {
+      caption.dataset.copy = 'navigation.sidebar-heading';
+      nav.replaceChildren(readMarkdown(homepageSidebar));
+      nav.querySelectorAll('a').forEach(link => {
+        const href = link.getAttribute('href');
+        if (!/^(?:[a-z]+:|\/\/)/i.test(href)) link.href = vm.router.toURL(href, null, '/');
+      });
+    }
     slot.replaceWith(sidebar);
   }
 
@@ -261,11 +294,13 @@
     }, { signal });
     const nav = document.getElementById('section-links');
     const menu = document.querySelector('.section-menu-toggle');
-    const sections = [...document.querySelectorAll('.sections-root .page-section')];
+    const sections = [...document.querySelectorAll('.sections-root .page-section, .document-page [data-chapter]')];
     if (!nav || !menu) return;
     wireFeatureConnections(signal);
     const links = [...nav.querySelectorAll('a')];
-    const contentTop = section => Math.min(...[...section.children].map(element => element.getBoundingClientRect().top));
+    const contentTop = section => section.hasAttribute('data-chapter')
+      ? section.getBoundingClientRect().top
+      : Math.min(...[...section.children].map(element => element.getBoundingClientRect().top));
     // Keep artwork visible when it is above or taller than its neighboring copy.
     const measureAnchors = () => {
       for (const section of sections.filter(section => section.matches('.section-illustrated, .section-hero'))) {
@@ -283,6 +318,7 @@
       menu.querySelector('.menu-indicator').textContent = '+';
       document.querySelector('.page-sidebar').classList.remove('menu-open');
     };
+    closeMenu();
     menu.addEventListener('click', () => {
       const open = menu.getAttribute('aria-expanded') !== 'true';
       menu.setAttribute('aria-expanded', String(open));
@@ -311,10 +347,11 @@
       const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
       for (const section of sections) {
         const top = contentTop(section);
+        const id = section.dataset.chapter || section.dataset.section;
         if (top > (atEnd ? innerHeight : 180)) continue;
         // Columns share a vertical position: retain the selected column within that row.
-        if (top > currentRow + 1 || (Math.abs(top - currentRow) <= 1 && section.dataset.section === requested)) {
-          current = section.dataset.section;
+        if (top > currentRow + 1 || (Math.abs(top - currentRow) <= 1 && id === requested)) {
+          current = id;
           currentRow = top;
         }
       }
@@ -364,7 +401,7 @@
     const labelFiles = [`content/${languageRegistry.defaultLanguage}/labels.md`];
     if (language.code !== languageRegistry.defaultLanguage) labelFiles.push(`content/${language.code}/labels.md`);
     const loadContent = () => contentReady ||= Promise.all([
-      ...labelFiles, ...illustrationFiles
+      ...labelFiles, `content/${language.code}/sidebar.md`, ...illustrationFiles
     ].map(async file => {
       const response = await fetch(file);
       if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);
@@ -372,7 +409,8 @@
     })).then(async files => {
       // New UI labels fall back to the default until their translation is supplied.
       labels = Object.assign(Object.create(null), ...files.slice(0, labelFiles.length).map(readLabels));
-      const artwork = files.slice(labelFiles.length);
+      homepageSidebar = files[labelFiles.length];
+      const artwork = files.slice(labelFiles.length + 1);
       illustrations = Object.fromEntries(illustrationFiles.map((file, i) => [file, artwork[i]]));
       await document.fonts.ready;
     });
@@ -390,13 +428,16 @@
         loadError = error;
         console.error('OBJY content could not load:', error);
       }
+      if (!currentPage && !loadError) {
+        markdown = `# ${copy('documents.unavailable-title')}\n\n${copy('documents.unavailable-description')}\n\n[${copy('documents.back-home')}](/?id=top)`;
+      }
       next(markdown);
     });
 
     hook.afterEach(html => {
       if (loadError) return html; // Keep Docsify's readable Markdown output available.
       try {
-        return vm.route.path === '/' ? decorateHomepage(html) : `<div class="page-layout"><div id="sidebar-slot"></div><div class="document-page">${html}</div></div>`;
+        return vm.route.path === '/' && currentPage ? decorateHomepage(html) : `<div class="page-layout"><div id="sidebar-slot"></div><div class="document-page">${html}</div></div>`;
       } catch (error) {
         console.error('OBJY theme could not format this page:', error);
         return `<div class="page-layout"><div id="sidebar-slot"></div><div class="document-page">${html}</div></div>`;
@@ -405,7 +446,7 @@
 
     hook.doneEach(() => {
       if (loadError) return;
-      mountSidebar();
+      mountSidebar(vm);
       bindCopy();
       wireNavigation();
       wireCopyButtons();
@@ -414,8 +455,9 @@
   }
 
   async function startSite() {
-    const [i18n, registry] = await Promise.all([
+    const [i18n, pages, registry] = await Promise.all([
       import('./languages.mjs'),
+      import('./pages.mjs'),
       fetch('content/languages.json').then(response => {
         if (!response.ok) throw new Error(`Language registry: ${response.status}`);
         return response.json();
@@ -467,17 +509,36 @@
       }
     });
 
+    let pageRequest;
+    const renderMarkdown = (route, match, done) => {
+      pageRequest?.abort();
+      const request = pageRequest = new AbortController();
+      Promise.resolve().then(() => {
+        const files = pages.markdownFiles(route, language.code, registry.defaultLanguage, registry.languages.map(item => item.code));
+        return pages.loadMarkdown(files, { signal: request.signal });
+      }).then(page => {
+        if (request.signal.aborted) return;
+        currentPage = page;
+        done(page?.markdown || '');
+      }).catch(error => {
+        if (request.signal.aborted) return;
+        console.error('Markdown page could not load:', error);
+        currentPage = null;
+        done('');
+      });
+    };
     window.$docsify = {
       el: '#app',
       homepage: `content/${language.code}/home.md`,
-      loadSidebar: `content/${language.code}/sidebar.md`,
-      alias: { '^/DATABASE(?:\\.md)?$': `content/${language.code}/database.md` },
+      loadSidebar: false,
+      relativePath: true,
+      routes: { '/.*': renderMarkdown },
       loadNavbar: false,
       maxLevel: 2,
       subMaxLevel: 0,
       skipLink: false,
       keyBindings: false,
-      auto2top: false,
+      auto2top: true,
       externalLinkTarget: '_self',
       executeScript: false,
       notFoundPage: false,

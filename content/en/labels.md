@@ -34,6 +34,14 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Copy label | Copy code |
 | Loading label | Loading… |
 
+## Documents
+
+| Location | Text |
+| --- | --- |
+| Unavailable title | Page unavailable |
+| Unavailable description | This Markdown page could not be loaded. Check the link or try again. |
+| Back home | Back to the homepage |
+
 ## Application diagram
 
 | Location | Text |

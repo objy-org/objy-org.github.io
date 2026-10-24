@@ -11,7 +11,7 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | File in each language folder | Content |
 | --- | --- |
 | `home.md` | Hero, section explanations, image paths and alternative text, links |
-| `sidebar.md` | Section menu labels, destinations, and order |
+| `sidebar.md` | Homepage menu labels, destinations, and order |
 | `labels.md` | Header links, navigation, controls, metadata, diagram labels |
 | `database.md` | Database documentation |
 
@@ -21,9 +21,9 @@ Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations
 
 ## Implementation
 
-`index.html` loads the custom theme in `assets/site/site.css`, configuration and layout hooks in `assets/site/site.js`. The theme reads the language registry, selects the requested or saved language, and then loads the pinned Docsify distribution in `assets/vendor/docsify.min.js`. Language selection and URL helpers live in `assets/site/languages.mjs`.
+`index.html` loads the custom theme in `assets/site/site.css`, configuration and layout hooks in `assets/site/site.js`. The theme reads the language registry, selects the requested or saved language, and then loads the pinned Docsify distribution in `assets/vendor/docsify.min.js`. Language selection and URL helpers live in `assets/site/languages.mjs`. Local document resolution and translation fallback live in `assets/site/pages.mjs`.
 
-Docsify renders the Markdown, manages the sidebar, and handles routes. The theme arranges its rendered HTML into the hero, a responsive feature grid, and full-width detail sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
+Docsify renders the Markdown and handles routes. The theme uses the curated `sidebar.md` menu on the homepage and automatically builds other pages’ menus from their rendered headings, including indented subchapters. The theme arranges its rendered HTML into the hero, a responsive feature grid, and full-width detail sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
 The first standalone image in each section's Markdown becomes its illustration. `assets/site/applications-objects.svg` shows apps, AI agents, and APIs sharing floating objects above the centered hero headline. The original logo and icon are restored as `assets/site/logo.png` and `assets/site/favicon.png`. The hero and five section SVGs are loaded and inlined; the application labels, JSON examples, storage labels, and API operation labels are supplied by the selected language’s `labels.md`. The scalability illustration has no editable labels. Image paths and alternative text are editable in the selected language’s `home.md`. Other image files use ordinary image elements. Layout and artwork design remain developer concerns.
 
@@ -45,9 +45,13 @@ Sections use standard Docsify hashes with a page-level language parameter: `/?la
 
 Metadata, the document’s `lang` attribute, controls, alt text, and SVG labels follow the selected language. All document headings keep stable IDs across translations. Code examples and API keys remain unchanged.
 
+Local Markdown links such as `[Database](database.md)` or `[Setup](guides/setup.md)` open in the same layout. Relative links inside nested documents resolve from that document’s folder. No page registration or separate menu file is needed: use `#` for the title, `##` for chapters, and `###` for subchapters. The top-left logo always returns to the homepage while keeping the selected language.
+
+For a route such as `#/guides/setup`, the site looks for `content/<selected-language>/guides/setup.md`, then the default-language version, then `guides/setup.md` at the repository root. Root-level Markdown and shared files such as `content/EDITING.md` are also supported. Missing pages show a localized message and a home link.
+
 ## Validation
 
-Run `node --test tests/languages.test.mjs` with Node.js. The tests validate language selection, URL preservation, registry entries, translated label parity, section IDs, local links, and documentation code examples. No package installation or build is needed. Also preview both languages on desktop and mobile when changing layout or translations.
+Run `node --test tests/*.test.mjs` with Node.js. The tests validate language selection, URL preservation, registry entries, translated label parity, section IDs, local links, documentation code examples, arbitrary Markdown routes, and page-loading fallback. No package installation or build is needed. Also preview both languages on desktop and mobile when changing layout or translations.
 
 ## Content sources
 
