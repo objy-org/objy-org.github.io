@@ -6,7 +6,7 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 
 | Location | Text |
 | --- | --- |
-| Page title | objy.db — Baue Anwendungen rund um schnelle Objekte. |
+| Page title | objy.db — Baue Anwendungsfälle rund um schnelle Objekte. |
 | Page description | objy.db ist eine In-Memory-Objektdatenbank mit einfacher API, Authentifizierung und Benutzerverwaltung. Lokal starten, überall betreiben. |
 
 ## Navigation
