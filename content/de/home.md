@@ -1,6 +1,6 @@
 <!-- Texte und Bilder in Markdown bearbeiten. Alle :id=... unverändert lassen. -->
 
-# In-Memory Objektdatenbank :id=top
+# Schnelle, hochskalierbare<br> In-Memory-Objektdatenbank. :id=top
 
 > Baue Anwendungsfälle rund um schnelle Objekte.
 
@@ -8,7 +8,7 @@ Flexibles JSON. Live-Verweise. Effiziente Speicherung.\
 Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benutzerverwaltung und Berechtigungen.
 
 - [Jetzt loslegen](/get-started.md)
-- [Ein Objekt in Aktion](/?id=object-capabilities)
+- [Anwendungsbeispiel ansehen](/?id=object-capabilities)
 
 ![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
 
@@ -26,19 +26,19 @@ Erstellen, lesen, ändern und löschen. Abfragen, aggregieren und per Vektorsuch
 
 ## Läuft überall. Wächst mit. :id=run-and-deploy
 
-Im Browser, auf Servern oder im Cluster. Füge weitere Knoten hinzu, wenn deine Anwendung wächst.
+Starte im Browser oder auf einem Server. Verteile Objekte auf einen Cluster, wenn Datenmenge und Auslastung wachsen.
 
 ![Ein Browserfenster, ein einzelner Server und drei verbundene Server zeigen den Betrieb vom Browser bis zum Cluster.](assets/site/run-and-deploy.svg)
 
 ## Benutzer & Zugriff. Inklusive. :id=users-and-access
 
-Benutzer, Authentifizierung, Berechtigungen und rollenbasierter Zugriff (RBAC). Lege fest, wer lesen, schreiben und administrieren darf.
+Benutzer, Authentifizierung, Berechtigungen und rollenbasierter Zugriff. Lege fest, wer lesen, schreiben und administrieren darf.
 
 ![Benutzeridentitäten sind mit einem Anmeldeschloss und einem Schutzschild für Zugriffsrechte verbunden.](assets/site/users-access.svg)
 
-## Ein Objekt. Eine echte Anwendung. :id=object-capabilities
+## Baue eine Fahrradverleih-App. :id=object-capabilities
 
-Ein Fahrrad, sein Besitzer und die Speicherung dahinter. Starte mit den Daten, die deine Anwendung bereits versteht.
+Fahrräder sind Objekte. Besitzer sind Objekte. Verbinde sie und finde heraus, was verfügbar ist.
 
 #### Fahrrad :id=example-bike
 
@@ -50,7 +50,7 @@ Ein Fahrrad, sein Besitzer und die Speicherung dahinter. Starte mit den Daten, d
   "name": "City bike",
   "available": true,
   "price": 199,
-  "description": "A lightweight bike for everyday city rides.",
+  "description": "Everyday city rides.",
   "owner": {
     "type": "reference",
     "collection": "people",
@@ -63,7 +63,7 @@ Ein Fahrrad, sein Besitzer und die Speicherung dahinter. Starte mit den Daten, d
 
 **Deine Daten. Deine Struktur.**
 
-Jedes Objekt hat seine eigene ID und flexible Felder. Speichere einen Preis, ergänze eine Beschreibung und folge dem Besitzer-Verweis zur verknüpften Person, ohne ihr Profil in jedes Fahrrad zu kopieren.
+Speichere ein Fahrrad mit eigenen Eigenschaften. Verweise auf seinen Besitzer, ohne dessen Profil zu kopieren.
 
 [Dem Besitzer-Verweis folgen →](/?id=example-owner)
 
@@ -71,7 +71,7 @@ Jedes Objekt hat seine eigene ID und flexible Felder. Speichere einen Preis, erg
 
 **Verbunden, ohne Kopien.**
 
-Der Verweis identifiziert die Person in der Collection people. Löse ihn beim Lesen auf, um die aktuellen Werte des verknüpften Objekts zu verwenden.
+Das ist die Person, auf die das Fahrrad verweist. Lies ihr aktuelles Profil über den Verweis.
 
 > app / people / person-001
 
@@ -87,14 +87,11 @@ Der Verweis identifiziert die Person in der Collection people. Löse ihn beim Le
 
 ### Abfrage :id=example-query
 
-**Finde die passenden Fahrräder.**
+**Finde, was verfügbar ist.**
 
-Filtere verfügbare Fahrräder, sortiere nach Preis und erhalte bis zu zehn Treffer. Frage über den JavaScript-Client dieselben Felder ab, die du im Objekt siehst.
+Finde verfügbare Fahrräder, sortiert nach Preis.
 
 ```js
-const bikes = client.database('app')
-  .collection('bikes');
-
 await bikes.find(
   { available: true },
   { sortBy: 'price', sort: 'asc', limit: 10 }
@@ -103,13 +100,9 @@ await bikes.find(
 
 ### Meta :id=example-meta
 
-**Gleiche Objekte. Intelligent gespeichert.**
+**Eine Collection. Intelligent gespeichert.**
 
-Collection-Metadaten steuern, wie diese Objekte abgefragt und gespeichert werden.
-
-- **Indizes:** `available` und `price` beschleunigen Filter und Sortierung.
-- **Spalten:** `price` liegt für effiziente Aggregation in einer kompakten Spalte.
-- **Kompression:** Große `description`-Daten bleiben im Arbeitsspeicher komprimiert. `minBytes` legt die Mindestgröße fest; Lesezugriffe liefern vollständige Objekte.
+Lege für die gesamte Collection fest, welche Felder indiziert, in Spalten gespeichert oder komprimiert werden.
 
 > app / bikes / meta
 

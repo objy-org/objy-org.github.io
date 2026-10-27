@@ -1,6 +1,6 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# In-Memory Object Database :id=top
+# Fast, large-scale<br> in-memory object database. :id=top
 
 > Build applications around fast objects.
 
@@ -8,7 +8,7 @@ Flexible JSON objects. Live references. Efficient storage.\
 Build your application on OBJY, with API, authentication, users, and permissions built in.
 
 - [Get started](/get-started.md)
-- [See an object in action](/?id=object-capabilities)
+- [See an application example](/?id=object-capabilities)
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
@@ -26,19 +26,19 @@ Create, read, update, and delete. Query, aggregate, and search by vector through
 
 ## Run anywhere. Scale out. :id=run-and-deploy
 
-From browsers to servers and clusters. Add nodes as your application grows.
+Start in a browser or on a server. Distribute objects across a cluster as your data and workload grow.
 
 ![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
 
 ## Users & access. Built in. :id=users-and-access
 
-Users, authentication, permissions, and role-based access control (RBAC). Define who can read, write, and administer.
+Users, authentication, permissions, and role-based access control. Define who can read, write, and administer.
 
 ![User identities connect to a login lock and an access-control shield.](assets/site/users-access.svg)
 
-## One object. A real application. :id=object-capabilities
+## Build a bike-rental app. :id=object-capabilities
 
-A bike, its owner, and the storage behind it. Start with the data your application already understands.
+Bikes are objects. Owners are objects. Connect them, then find what’s available.
 
 #### Bike :id=example-bike
 
@@ -50,7 +50,7 @@ A bike, its owner, and the storage behind it. Start with the data your applicati
   "name": "City bike",
   "available": true,
   "price": 199,
-  "description": "A lightweight bike for everyday city rides.",
+  "description": "Everyday city rides.",
   "owner": {
     "type": "reference",
     "collection": "people",
@@ -63,7 +63,7 @@ A bike, its owner, and the storage behind it. Start with the data your applicati
 
 **Your data. Your shape.**
 
-Every object has its own ID and flexible fields. Store a price, add a description, and follow the owner reference to a connected person without copying their profile into every bike.
+Store a bike with its own properties. Reference its owner without copying their profile.
 
 [Follow the owner reference →](/?id=example-owner)
 
@@ -71,7 +71,7 @@ Every object has its own ID and flexible fields. Store a price, add a descriptio
 
 **Connected, without the copies.**
 
-The reference identifies the person in the people collection. Resolve it when reading to use the connected object's current values.
+This is the person referenced by the bike. Read their current profile through the reference.
 
 > app / people / person-001
 
@@ -87,14 +87,11 @@ The reference identifies the person in the people collection. Resolve it when re
 
 ### Query :id=example-query
 
-**Find the bikes that fit.**
+**Find what’s available.**
 
-Filter available bikes, sort by price, and return up to ten matches. Query the same fields you see in the object through the JavaScript client.
+Find available bikes, sorted by price.
 
 ```js
-const bikes = client.database('app')
-  .collection('bikes');
-
 await bikes.find(
   { available: true },
   { sortBy: 'price', sort: 'asc', limit: 10 }
@@ -103,13 +100,9 @@ await bikes.find(
 
 ### Meta :id=example-meta
 
-**Same objects. Smarter storage.**
+**One collection. Smarter storage.**
 
-Collection metadata controls how these objects are queried and stored.
-
-- **Indexes:** `available` and `price` accelerate filtering and sorting.
-- **Columns:** `price` sits in a compact column for efficient aggregation.
-- **Compression:** Large `description` payloads stay compressed in memory. `minBytes` sets the size threshold; reads return complete objects.
+Choose which fields are indexed, stored in columns, or compressed for the whole collection.
 
 > app / bikes / meta
 
