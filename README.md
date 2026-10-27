@@ -43,7 +43,7 @@ The first standalone image in each section's Markdown becomes its illustration. 
 
 Rendered Markdown is sanitized with bundled DOMPurify before it enters the document. Scripts, event handlers, unsafe URLs, styles, forms, and page-supplied translation bindings are removed; headings, code blocks, tables, and details/summary remain available. Local SVG artwork is a trusted repository asset, inlined separately by the homepage module.
 
-Browser metadata updates from the selected language’s `labels.md`; clients that do not execute JavaScript use the fallback tags in `index.html`. Sync those tags when social-preview metadata changes. The neutral loading message, emergency English fallback, no-JavaScript links, and the OBJY wordmark remain in the shell.
+Browser metadata updates from the selected language’s `labels.md`; clients that do not execute JavaScript use the fallback tags in `index.html`. Sync those tags when social-preview metadata changes. The neutral loading message, emergency English fallback, no-JavaScript links, and the home logo remain in the shell. Top-menu links highlight the matching page or descendant route with `aria-current="page"`. The Documentation entry is the fallback for guides without their own top-menu link, including live remote documents.
 
 ## Local preview
 

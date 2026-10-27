@@ -96,17 +96,15 @@ figure {
   align-items: center;
   gap: 20px;
 }
-.wordmark {
+.home-logo {
   display: inline-flex;
   align-items: center;
-  gap: 11px;
-  font-size: 23px;
-  font-weight: 600;
-  letter-spacing: 1.6px;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
   text-decoration: none;
-  line-height: 1;
 }
-.wordmark img {
+.home-logo img {
   display: block;
   width: 38px;
   height: 38px;
@@ -131,7 +129,7 @@ figure {
 .header-actions > a:hover {
   color: var(--text);
 }
-.header-links .product-link {
+.header-links a[aria-current='page'] {
   color: var(--accent);
 }
 .header-actions {
@@ -785,10 +783,7 @@ pre {
   .header-brand {
     gap: 18px;
   }
-  .wordmark {
-    font-size: 20px;
-  }
-  .wordmark img {
+  .home-logo img {
     width: 30px;
     height: 30px;
   }
@@ -928,11 +923,7 @@ pre {
   .header-brand {
     gap: 12px;
   }
-  .wordmark {
-    font-size: 18px;
-    gap: 8px;
-  }
-  .wordmark img {
+  .home-logo img {
     width: 26px;
     height: 26px;
   }
@@ -949,10 +940,6 @@ pre {
   }
   .header-actions {
     gap: 8px;
-  }
-  .wordmark {
-    font-size: 16px;
-    gap: 6px;
   }
   .language-switcher {
     font-size: 12px;

@@ -62,6 +62,26 @@ function anchorId(link) {
   return new URLSearchParams(link.hash.split('?')[1] || '').get('id');
 }
 
+function updateHeaderNavigation(route) {
+  const normalize = (path) =>
+    decodeURI(path.split('?')[0]).replace(/\.(?:md|markdown)$/i, '').replace(/\/+$/, '') || '/';
+  const current = normalize(route);
+  const links = [...document.querySelectorAll('.header-links a')];
+  const match = links
+    .map((link) => ({ link, url: new URL(link.href) }))
+    .filter(({ url }) => url.origin === location.origin && url.hash.startsWith('#/'))
+    .map(({ link, url }) => ({ link, path: normalize(url.hash.slice(1)) }))
+    .filter(({ path }) => current === path || (path !== '/' && current.startsWith(`${path}/`)))
+    .sort((a, b) => b.path.length - a.path.length)[0]?.link;
+  // Guides without their own top-level link belong to the documentation entry.
+  const active =
+    match || (current !== '/' && links.find((link) => link.hasAttribute('data-navigation-fallback')));
+  links.forEach((link) => {
+    if (link === active) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+}
+
 let navigationEvents;
 function wireNavigation() {
   navigationEvents?.abort();
@@ -280,6 +300,7 @@ function objyTheme(hook, vm) {
     if (loadError) return;
     mountSidebar(vm);
     bindCopy();
+    updateHeaderNavigation(vm.route.path);
     wireNavigation();
     wireCopyButtons();
     document.getElementById('main').setAttribute('tabindex', '-1');
