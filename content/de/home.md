@@ -4,7 +4,7 @@
 
 > Baue Anwendungsfälle rund um schnelle Objekte.
 
-Flexibles JSON. Live-Verweise. Effiziente Speicherung.\
+Flexibles JSON. Live-Referenzen. Effiziente Speicherung.\
 Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benutzerverwaltung und Berechtigungen.
 
 - [Jetzt loslegen](/get-started.md)
@@ -14,9 +14,9 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 ## Mehr als JSON. :id=abstract-objects
 
-Dynamische Eigenschaften, verschachtelte Daten, eindeutige IDs und Live-Verweise. Modelliere Objekte passend zu deiner Anwendung und entwickle sie mit ihr weiter.
+Dynamische Eigenschaften, verschachtelte Daten, eindeutige IDs und Live-Referenzen. Modelliere Objekte passend zu deiner Anwendung und entwickle sie mit ihr weiter.
 
-![Ein JSON-Objekt mit ID, Farbe, Verfügbarkeit und einem Verweis auf eine Person in der Collection people.](assets/site/abstract-objects.svg)
+![Ein JSON-Objekt mit ID, Farbe, Verfügbarkeit und einer Referenz auf eine Person in der Collection people.](assets/site/abstract-objects.svg)
 
 ## CRUD, Aggregationen, Vektorsuche. Eine API. :id=simple-api
 
@@ -38,7 +38,7 @@ Benutzer, Authentifizierung, Berechtigungen und rollenbasierter Zugriff. Lege fe
 
 ## Deine Welt. Als Objekte. :id=object-capabilities
 
-Live-Verweise, verschachtelte Daten, Vektoren und Dateien. Unterschiedliche Strukturen. Dasselbe Objektmodell.
+Live-Referenzen, verschachtelte Daten, Vektoren und Dateien. Unterschiedliche Strukturen. Dasselbe Objektmodell.
 
 ### Gerät :id=example-device
 
