@@ -16,7 +16,6 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Home label | OBJY Startseite |
 | Main navigation label | Hauptnavigation |
 | Section navigation label | Auf dieser Seite |
-| Sidebar heading | Entdecke objy.db |
 | Mobile menu | Menü |
 | Language menu | Sprache ändern |
 | Skip link | Zum Inhalt springen |

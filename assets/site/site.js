@@ -24,7 +24,6 @@ function mountSidebar(vm) {
   nav.id = 'section-links';
   nav.setAttribute('role', 'navigation');
   nav.dataset.copyAria = 'navigation.section-navigation-label';
-  const caption = sidebar.querySelector('.sidebar-heading');
   const documentPage = document.querySelector('.document-page');
   nav.classList.toggle('chapter-links', Boolean(documentPage));
   if (documentPage) {
@@ -45,10 +44,7 @@ function mountSidebar(vm) {
       list.append(item);
     }
     nav.replaceChildren(list);
-    caption.removeAttribute('data-copy');
-    caption.textContent = title?.textContent || copy('navigation.section-navigation-label');
   } else {
-    caption.dataset.copy = 'navigation.sidebar-heading';
     nav.replaceChildren(readMarkdown(homepageSidebar));
     nav.querySelectorAll('a').forEach((link) => {
       const href = link.getAttribute('href');
