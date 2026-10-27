@@ -8,7 +8,7 @@ Flexibles JSON. Live-Verweise. Effiziente Speicherung.\
 Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benutzerverwaltung und Berechtigungen.
 
 - [Jetzt loslegen](/get-started.md)
-- [Anwendungsbeispiel ansehen](/?id=object-capabilities)
+- [Objektbeispiele ansehen](/?id=object-capabilities)
 
 ![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
 
@@ -36,84 +36,62 @@ Benutzer, Authentifizierung, Berechtigungen und rollenbasierter Zugriff. Lege fe
 
 ![Benutzeridentitäten sind mit einem Anmeldeschloss und einem Schutzschild für Zugriffsrechte verbunden.](assets/site/users-access.svg)
 
-## Baue eine Fahrradverleih-App. :id=object-capabilities
+## Deine Welt. Als Objekte. :id=object-capabilities
 
-Fahrräder sind Objekte. Besitzer sind Objekte. Verbinde sie und finde heraus, was verfügbar ist.
+Live-Verweise, verschachtelte Daten, Vektoren und Dateien. Unterschiedliche Strukturen. Dasselbe Objektmodell.
 
-#### Fahrrad :id=example-bike
+### Gerät :id=example-device
 
-> app / bikes / bike-001
+> app / devices / drone-01
 
 ```json
 {
-  "_id": "bike-001",
-  "name": "City bike",
-  "available": true,
-  "price": 199,
-  "description": "Everyday city rides.",
-  "owner": {
+  "_id": "drone-01",
+  "name": "Survey drone",
+  "online": true,
+  "telemetry": {"altitude": 120, "battery": 87},
+  "capabilities": ["mapping", "thermal"],
+  "operator": {
     "type": "reference",
     "collection": "people",
-    "value": "person-001"
+    "value": "person-42"
   }
 }
 ```
 
-### Objekt :id=example-object
+### KI-Gedächtnis :id=example-memory
 
-**Deine Daten. Deine Struktur.**
-
-Speichere ein Fahrrad mit eigenen Eigenschaften. Verweise auf seinen Besitzer, ohne dessen Profil zu kopieren.
-
-[Dem Besitzer-Verweis folgen →](/?id=example-owner)
-
-#### Person :id=example-owner
-
-**Verbunden, ohne Kopien.**
-
-Das ist die Person, auf die das Fahrrad verweist. Lies ihr aktuelles Profil über den Verweis.
-
-> app / people / person-001
+> app / memories / memory-01 · Vektor beim Einfügen
 
 ```json
 {
-  "_id": "person-001",
-  "name": "Alex",
-  "email": "alex@example.com"
+  "_id": "memory-01",
+  "title": "Roof inspection",
+  "text": "Solar panels need cleaning.",
+  "tags": ["inspection", "solar"],
+  "_vec": [0.12, -0.43, 0.87],
+  "source": {
+    "type": "reference",
+    "collection": "files",
+    "value": "scan-01"
+  }
 }
 ```
 
-[← Zurück zum Fahrrad](/?id=example-object)
+### Datei :id=example-file
 
-### Abfrage :id=example-query
-
-**Finde, was verfügbar ist.**
-
-Finde verfügbare Fahrräder, sortiert nach Preis.
-
-```js
-await bikes.find(
-  { available: true },
-  { sortBy: 'price', sort: 'asc', limit: 10 }
-);
-```
-
-### Meta :id=example-meta
-
-**Eine Collection. Intelligent gespeichert.**
-
-Lege für die gesamte Collection fest, welche Felder indiziert, in Spalten gespeichert oder komprimiert werden.
-
-> app / bikes / meta
+> app / files / scan-01 · nach dem Upload
 
 ```json
 {
-  "indexes": ["available", "price"],
-  "columns": ["price"],
-  "tiering": {
-    "mode": "compressedMemory",
-    "offload": ["description"],
-    "minBytes": 4096
+  "_id": "scan-01",
+  "name": "roof-scan.jpg",
+  "tags": ["aerial", "inspection"],
+  "resolution": {"width": 4096, "height": 2160},
+  "_file": {
+    "storage": "s3",
+    "key": "spread-db/files/db/app/collection/files/object/scan-01/blob/f7x2",
+    "mimeType": "image/jpeg"
   }
 }
 ```

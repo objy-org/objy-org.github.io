@@ -33,9 +33,9 @@ The top-bar Documentation link opens the selected language’s `documentation.md
 | `languages.mjs` | Language registry, selection, and language URLs |
 | `markup.mjs` | Markdown label parsing, translation bindings, and HTML sanitization |
 | `homepage.mjs` | Homepage composition, illustration loading, and action-link layouts |
-| `examples.mjs` | Markdown-driven example tabs, referenced records, and keyboard interaction |
+| `examples.mjs` | Markdown-driven object tabs, one code panel, and keyboard interaction |
 
-Only the homepage module knows about the hero/feature/detail layout. Card sections are detected from subheadings, and illustrated detail sections alternate automatically. An introductory code block followed by H3 chapters creates an interactive example; H4 chapters provide linked views within a tab. The renderer uses this structure rather than fixed section names or object fields. Link-only lists become actions in the hero and closing section. The Object tab displays a bike and its owner reference, Query shows filtering and sorting, and Meta displays collection indexes, columns, and compressed-memory configuration. The example displays local sample content and does not contact a database.
+Only the homepage module knows about the hero/feature/detail layout. Card sections are detected from subheadings, and illustrated detail sections alternate automatically. Two or more H3 chapters, each containing an optional source-label quote and one code block, create tabs above a single shared code window. Other chapter content keeps its normal layout. The renderer uses this structure rather than fixed section names or object fields. Link-only lists become actions in the hero and closing section. The object examples show a connected device, AI memory with an embedding, and a file object after upload. They display local sample content and do not contact a database.
 
 Docsify renders the Markdown and handles routes. The theme uses the curated `sidebar.md` menu on the homepage and automatically builds other pages’ menus from their rendered headings, including indented subchapters. The theme arranges its rendered HTML into the hero, a responsive feature grid, and full-width detail sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
@@ -67,7 +67,7 @@ For a route such as `#/guides/setup`, the site looks for `content/<selected-lang
 
 Run `node --test tests/*.test.mjs` with Node.js. The tests validate language selection, URL preservation, registry entries, translated label parity, section IDs, local links, documentation code examples, arbitrary Markdown routes, remote source loading and relative links, and page-loading fallback. All localized Markdown files are discovered recursively so new documentation pages are included in validation. No package installation or build is needed.
 
-With the preview running, open `http://127.0.0.1:8000/tests/browser.html` for browser regression checks covering safe markup, literal translation values, reusable homepage layouts, missing artwork, documentation loading without homepage images, example tabs and references, keyboard navigation, listener cleanup, and Markdown action links. Also preview both languages on desktop and mobile when changing layout or translations.
+With the preview running, open `http://127.0.0.1:8000/tests/browser.html` for browser regression checks covering safe markup, literal translation values, reusable homepage layouts, missing artwork, documentation loading without homepage images, object tabs, deep links, keyboard navigation, listener cleanup, and Markdown action links. Also preview both languages on desktop and mobile when changing layout or translations.
 
 ## Content sources
 

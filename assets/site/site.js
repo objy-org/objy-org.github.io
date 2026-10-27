@@ -202,8 +202,9 @@ function wireCopyButtons() {
     const controls = pre.parentElement.matches('.example-code')
       ? pre.parentElement.querySelector('.example-code-header')
       : pre;
-    if (!code || controls.querySelector('.copy-button')) return;
-    const button = document.createElement('button');
+    if (!code) return;
+    // Section jumps can rebind navigation without replacing the code window.
+    const button = controls.querySelector('.copy-button') || document.createElement('button');
     button.type = 'button';
     button.className = 'copy-button';
     button.textContent = copy('controls.copy-button');

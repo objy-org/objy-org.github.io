@@ -43,7 +43,7 @@ The top-bar Get started now link opens `get-started.md`. This page contains the 
 
 A list containing only links becomes a row of action buttons in the hero or a closing section without an illustration. The first link is the primary action. A horizontal rule (`---`) separates a closing section’s footer links. All labels and destinations come from the Markdown.
 
-On the homepage, sections with `###` subheadings and no standalone illustration or introductory code sample use the options layout: three columns on desktop, stacked on smaller screens. Bullet lists of links become buttons within each option.
+On the homepage, sections with `###` subheadings and no standalone illustration or tabbed code examples use the options layout: three columns on desktop, stacked on smaller screens. Bullet lists of links become buttons within each option.
 
 In `sidebar.md`, change homepage menu labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
@@ -130,15 +130,24 @@ The storage section’s S3 callout is an ordinary Markdown blockquote below the 
 
 ## Edit the interactive object example
 
-The object example lives in `home.md`, under `:id=object-capabilities`. Its content uses ordinary Markdown:
+The object example lives in `home.md`, under `:id=object-capabilities`. It shows one code window with tabs above it. Each tab comes from a `###` heading followed by an optional source-label quote and one fenced code block:
 
-- The introduction and first JSON code block define the sample object. A quote immediately before that block labels its collection and identity.
-- Put a `####` heading before that first sample to name its tab above the code, for example `#### Bike :id=example-bike`. Nested `####` chapters with a matching code format become additional tabs there; their headings supply the names, such as Person. Selecting an object also shows its explanation.
-- Each `###` chapter becomes a tab. Its heading supplies the tab label; the paragraphs and code beneath it supply the explanation. The first bold paragraph is the explanation’s title.
-- A nested `####` chapter creates a linked view within its parent tab. Give it an ID and link to that ID, for example `[Follow the owner reference](/?id=example-owner)`. A code block in any tab or nested view with the same language as the introductory block replaces the data shown on the left; a quote before it supplies the new source label. The Meta tab uses this to display collection configuration rather than the default object.
-- Code blocks in a different language, such as JavaScript, remain in the explanation. They are displayed as examples, not executed.
+````markdown
+### Device :id=example-device
 
-Keep `:id=example-object`, `:id=example-owner`, `:id=example-query`, and `:id=example-meta` consistent across translations, and keep code samples identical. The tab names and JSON field names do not control the interaction. No JavaScript changes are needed to edit the example or add another tab. This is an illustrative local example; it does not send requests to a database.
+> app / devices / drone-01
+
+```json
+{
+  "_id": "drone-01",
+  "name": "Survey drone"
+}
+```
+````
+
+Keep at least two examples. To add another tab, add another `###` heading and code block in the same section. The heading names the tab, and the quote labels the code window. Keep explanations in the section introduction; each tab contains only its quote and code. Copy always copies the selected example. No JavaScript changes are needed to edit the examples or add another tab.
+
+Keep tab IDs consistent across translations, and keep code samples identical. Link directly to a tab with `/?id=example-memory`, for instance. These are illustrative objects and do not send requests to a database. The AI memory example shows `_vec` on insert; OBJY indexes it separately and hides it from ordinary reads. The file example shows a stored object after upload; the server creates its `_file` descriptor and key.
 
 ## Change section images
 

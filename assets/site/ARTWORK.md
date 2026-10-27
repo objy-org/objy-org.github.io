@@ -43,6 +43,6 @@ The feature grid covers API and JSON in its first row, then deployment and users
 
 The storage section after the interactive object example extends `assets/site/storage-internals.svg` from `3f1a306` to a 660 × 740 canvas. A complete JSON object sits on the front plane, with hot fields, compact columns, and compressed fields on a rear plane. Persist and Recover arrows lead to a small cylinder labeled as optional S3 durability through journals and snapshots. This addition uses custom SVG geometry with no external icon artwork. All labels remain editable in the Storage diagram table.
 
-The object example uses selectable Markdown chapters and code blocks in place of the former object-capabilities illustration. Its sample data, reference destination, and explanations are editable directly in `content/<language>/home.md`.
+The object example uses selectable Markdown chapters and code blocks in place of the former object-capabilities illustration. Its tab labels, source labels, and sample data are editable directly in `content/<language>/home.md`.
 
 The JSON examples and storage labels are editable in the Object diagram and Storage diagram tables in `content/<language>/labels.md`. The API diagram table controls its operation labels. The deployment illustration uses only JSON braces and has no text labels. Paths and alternative descriptions live in `content/<language>/home.md`; layout and shapes remain developer concerns.

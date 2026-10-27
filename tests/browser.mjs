@@ -134,57 +134,61 @@ await check('A missing illustration falls back to the image without losing page 
   assert(content.querySelector('.hero-art img'), 'Image fallback missing');
 });
 
-await check('Markdown examples switch tabs, follow references, and support keyboard navigation', async () => {
-  const markup = '<h1 id="top">Hello</h1><h2 id="a">A</h2><h2 id="b">B</h2><h2 id="c">C</h2>' +
-    '<h2 id="demo">Example</h2><p>Introduction</p><h4 id="first">First item</h4><blockquote><p>items / first</p></blockquote>' +
+await check('Markdown object tabs share one code panel and support deep links and keyboard navigation', async () => {
+  const markup = '<h1 id="top">Hello</h1><h2 id="demo">Example</h2><p>Introduction</p>' +
+    '<h3 id="first">First item</h3><blockquote><p>items / first</p></blockquote>' +
     '<pre><code class="lang-json">{"_id":"first","literal":"&lt;tag&gt;"}</code></pre>' +
-    '<h3 id="inspect">Inspect</h3><p>Inspect this record.</p><p><a href="#/?id=related">Related</a></p>' +
-    '<h4 id="related">Related record</h4><p>Connected data.</p><blockquote><p>people / second</p></blockquote>' +
-    '<pre><code class="lang-json">{"_id":"second"}</code></pre><p><a href="#/?id=inspect">Back</a></p>' +
-    '<h3 id="find">Find</h3><p>Query description.</p><pre><code class="lang-js">await items.find({});</code></pre>' +
-    '<h3 id="tune">Tune</h3><p>Storage configuration.</p><blockquote><p>items / meta</p></blockquote>' +
-    '<pre><code class="lang-json">{"indexes":["kind"],"columns":["amount"],"tiering":{"mode":"compressedMemory","offload":["notes"],"minBytes":4096}}</code></pre>';
+    '<h3 id="related">Related record</h3><blockquote><p>people / second</p></blockquote>' +
+    '<pre><code class="language-json">{"_id":"second"}</code></pre>' +
+    '<h3 id="last">Last item</h3><pre><code class="lang-yaml">name: last</code></pre>';
   const fixture = document.createElement('div');
   fixture.append(htmlFragment(await decorateHomepage(markup)));
   document.body.append(fixture);
   const controller = new AbortController();
+  const previousUrl = location.href;
   try {
+    history.replaceState(null, '', '#/?id=related');
     wireExamples(controller.signal, fixture);
-    const code = fixture.querySelector('.example-code > pre code');
+    const panel = fixture.querySelector('.example-code');
+    const code = panel.querySelector('pre code');
     const tabs = [...fixture.querySelectorAll('[data-example-tab]')];
-    const records = [...fixture.querySelectorAll('[data-example-record]')];
     const active = () => tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
-    assert(JSON.parse(code.textContent).literal === '<tag>', 'Literal JSON changed');
-    assert(records.map((tab) => tab.textContent).join(',') === 'First item,Related record', 'Object tabs did not use Markdown labels');
-    assert(records[0].getAttribute('aria-selected') === 'true', 'Default object tab was not selected');
-    records[1].click();
-    assert(JSON.parse(code.textContent)._id === 'second', 'Object tab did not display the connected object');
-    assert(!fixture.querySelector('#example-panel-related').hidden, 'Object tab did not update the explanation');
-    assert(fixture.querySelector('.example-code').getAttribute('aria-labelledby') === records[1].id, 'Code panel did not identify its selected object tab');
-    records[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
-    assert(JSON.parse(code.textContent)._id === 'first', 'Object tab keyboard navigation did not wrap');
-    tabs[1].click();
-    assert(active().textContent === 'Find', 'Tab did not change');
-    assert(!fixture.querySelector('#example-panel-find').hidden, 'Query panel remained hidden');
-    tabs[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
-    assert(active().textContent === 'Tune', 'Keyboard tab navigation failed');
-    assert(JSON.parse(code.textContent).columns[0] === 'amount', 'Tab did not display its metadata');
-    assert(fixture.querySelector('.example-source-label').textContent === 'items / meta', 'Metadata label did not change');
+    assert(fixture.querySelectorAll('[role="tablist"]').length === 1, 'Multiple tab groups rendered');
+    assert(fixture.querySelectorAll('pre').length === 1, 'More than one code snippet rendered');
+    assert(tabs.map((tab) => tab.textContent).join(',') === 'First item,Related record,Last item', 'Tabs did not use Markdown labels');
+    assert(JSON.parse(code.textContent)._id === 'second', 'Initial deep link did not select its object');
     tabs[0].click();
-    assert(JSON.parse(code.textContent)._id === 'first', 'Object tab did not restore its sample after metadata');
-    fixture.querySelector('a[href="#/?id=related"]').click();
-    assert(JSON.parse(code.textContent)._id === 'second', 'Reference did not update the visible object');
-    assert(fixture.querySelector('.example-source-label').textContent === 'people / second', 'Source label did not change');
-    assert(records[1].getAttribute('aria-selected') === 'true', 'Reference did not select its object tab');
-    assert(active().getAttribute('aria-controls') === 'example-panel-related', 'Selected tab does not identify its visible panel');
-    fixture.querySelector('a[href="#/?id=inspect"]').click();
-    assert(JSON.parse(code.textContent)._id === 'first', 'Back link did not restore the original object');
+    assert(JSON.parse(code.textContent).literal === '<tag>', 'Literal JSON changed');
     assert(!code.querySelector('tag'), 'Example content became HTML');
-    controller.abort();
     tabs[1].click();
-    assert(active().textContent === 'Inspect', 'Example listeners survived cleanup');
+    assert(panel.querySelector('pre code') === code, 'Code element changed, breaking copy controls');
+    assert(JSON.parse(code.textContent)._id === 'second', 'Tab did not change the visible object');
+    assert(fixture.querySelector('.example-source-label').textContent === 'people / second', 'Source label did not change');
+    assert(panel.getAttribute('aria-labelledby') === tabs[1].id, 'Panel does not identify the selected tab');
+    assert(tabs.every((tab) => tab.getAttribute('aria-controls') === panel.id), 'Tabs do not control the shared panel');
+    assert(tabs[0].tabIndex === -1 && tabs[1].tabIndex === 0, 'Roving tab focus did not update');
+    tabs[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
+    assert(active() === tabs[2] && document.activeElement === tabs[2], 'End did not select and focus the last tab');
+    assert(code.textContent === 'name: last', 'Third source did not display');
+    assert(fixture.querySelector('.example-format').textContent === 'YAML', 'Code format did not update');
+    assert(fixture.querySelector('.example-source-label').textContent === '', 'Missing source retained a stale label');
+    tabs[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    assert(active() === tabs[0], 'Right arrow did not wrap');
+    tabs[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
+    assert(active() === tabs[2], 'Left arrow did not wrap');
+    tabs[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'Home', bubbles: true }));
+    assert(active() === tabs[0], 'Home did not select the first tab');
+    history.replaceState(null, '', '#/?id=related');
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    assert(active() === tabs[1], 'Changed deep link did not select its object');
+    controller.abort();
+    tabs[0].click();
+    history.replaceState(null, '', '#/?id=first');
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    assert(active() === tabs[1], 'Example listeners survived cleanup');
   } finally {
     controller.abort();
+    history.replaceState(null, '', previousUrl);
     fixture.remove();
   }
 });
@@ -199,6 +203,48 @@ await check('Homepage actions and footer are derived from Markdown links', async
   assert(content.querySelector('.section-hero .section-actions a').textContent === 'Start', 'Hero action missing');
   assert(content.querySelector('.section-callout .section-actions a').textContent === 'Docs', 'Closing action missing');
   assert(content.querySelector('.section-footer a').textContent === 'GitHub', 'Markdown footer missing');
+});
+
+await check('Copy uses the selected object and survives same-page navigation', async () => {
+  const frame = site.contentWindow;
+  let copied;
+  const originalClipboard = Object.getOwnPropertyDescriptor(frame.navigator, 'clipboard');
+  Object.defineProperty(frame.navigator, 'clipboard', {
+    configurable: true,
+    value: { writeText: async (text) => { copied = text; } },
+  });
+  const navigate = async (hash) => {
+    const changed = new Promise((resolve) => frame.addEventListener('hashchange', resolve, { once: true }));
+    frame.location.hash = hash;
+    await changed;
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        const document = site.contentDocument;
+        if (document.querySelector('.example-code .copy-button')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Object examples did not load'));
+        frame.requestAnimationFrame(ready);
+      };
+      frame.requestAnimationFrame(ready);
+    });
+  };
+  try {
+    await navigate('#/?id=object-capabilities');
+    const document = site.contentDocument;
+    const tabs = document.querySelectorAll('[data-example-tab]');
+    tabs[1].click();
+    document.querySelector('.example-code .copy-button').click();
+    assert(JSON.parse(copied)._id === 'memory-01', 'Copy did not use the selected object');
+    await navigate('#/?id=storage-internals');
+    site.contentDocument.querySelector('[data-example-tab]').click();
+    copied = null;
+    site.contentDocument.querySelector('.example-code .copy-button').click();
+    assert(JSON.parse(copied)?._id === 'drone-01', 'Copy stopped working after a section jump');
+    assert(site.contentDocument.querySelectorAll('.example-code .copy-button').length === 1, 'Copy controls were duplicated');
+  } finally {
+    if (originalClipboard) Object.defineProperty(frame.navigator, 'clipboard', originalClipboard);
+    else delete frame.navigator.clipboard;
+  }
 });
 
 site.remove();

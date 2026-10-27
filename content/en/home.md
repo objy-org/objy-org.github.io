@@ -8,7 +8,7 @@ Flexible JSON objects. Live references. Efficient storage.\
 Build your application on OBJY, with API, authentication, users, and permissions built in.
 
 - [Get started](/get-started.md)
-- [See an application example](/?id=object-capabilities)
+- [Explore object examples](/?id=object-capabilities)
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
@@ -36,84 +36,62 @@ Users, authentication, permissions, and role-based access control. Define who ca
 
 ![User identities connect to a login lock and an access-control shield.](assets/site/users-access.svg)
 
-## Build a bike-rental app. :id=object-capabilities
+## Your world. As objects. :id=object-capabilities
 
-Bikes are objects. Owners are objects. Connect them, then find what’s available.
+Live references, nested data, vectors, and files. Different shapes. The same object model.
 
-#### Bike :id=example-bike
+### Device :id=example-device
 
-> app / bikes / bike-001
+> app / devices / drone-01
 
 ```json
 {
-  "_id": "bike-001",
-  "name": "City bike",
-  "available": true,
-  "price": 199,
-  "description": "Everyday city rides.",
-  "owner": {
+  "_id": "drone-01",
+  "name": "Survey drone",
+  "online": true,
+  "telemetry": {"altitude": 120, "battery": 87},
+  "capabilities": ["mapping", "thermal"],
+  "operator": {
     "type": "reference",
     "collection": "people",
-    "value": "person-001"
+    "value": "person-42"
   }
 }
 ```
 
-### Object :id=example-object
+### AI memory :id=example-memory
 
-**Your data. Your shape.**
-
-Store a bike with its own properties. Reference its owner without copying their profile.
-
-[Follow the owner reference →](/?id=example-owner)
-
-#### Person :id=example-owner
-
-**Connected, without the copies.**
-
-This is the person referenced by the bike. Read their current profile through the reference.
-
-> app / people / person-001
+> app / memories / memory-01 · vector on insert
 
 ```json
 {
-  "_id": "person-001",
-  "name": "Alex",
-  "email": "alex@example.com"
+  "_id": "memory-01",
+  "title": "Roof inspection",
+  "text": "Solar panels need cleaning.",
+  "tags": ["inspection", "solar"],
+  "_vec": [0.12, -0.43, 0.87],
+  "source": {
+    "type": "reference",
+    "collection": "files",
+    "value": "scan-01"
+  }
 }
 ```
 
-[← Back to the bike](/?id=example-object)
+### File :id=example-file
 
-### Query :id=example-query
-
-**Find what’s available.**
-
-Find available bikes, sorted by price.
-
-```js
-await bikes.find(
-  { available: true },
-  { sortBy: 'price', sort: 'asc', limit: 10 }
-);
-```
-
-### Meta :id=example-meta
-
-**One collection. Smarter storage.**
-
-Choose which fields are indexed, stored in columns, or compressed for the whole collection.
-
-> app / bikes / meta
+> app / files / scan-01 · after upload
 
 ```json
 {
-  "indexes": ["available", "price"],
-  "columns": ["price"],
-  "tiering": {
-    "mode": "compressedMemory",
-    "offload": ["description"],
-    "minBytes": 4096
+  "_id": "scan-01",
+  "name": "roof-scan.jpg",
+  "tags": ["aerial", "inspection"],
+  "resolution": {"width": 4096, "height": 2160},
+  "_file": {
+    "storage": "s3",
+    "key": "spread-db/files/db/app/collection/files/object/scan-01/blob/f7x2",
+    "mimeType": "image/jpeg"
   }
 }
 ```
