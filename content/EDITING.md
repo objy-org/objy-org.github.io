@@ -82,7 +82,7 @@ Markdown files at the repository root work too. The site first checks the select
 
 ## Manage the documentation index
 
-The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. These Markdown files list the available guides: Server documentation links to [the shared server page](server.md), and JavaScript client documentation links to [the shared client page](client.md).
+The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. These Markdown files list the available guides: Server documentation links to [the shared server page](server.md), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md).
 
 To add another guide, add a `##` heading, a short explanation, and a Markdown link to each language’s index. Each heading appears in the left menu automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
@@ -94,7 +94,7 @@ The server page, `content/server.md`, contains only a remote include:
 [Server documentation](https://raw.githubusercontent.com/objy-org/objy.db/refs/heads/main/README.md ':include')
 ```
 
-The README is fetched from GitHub when readers open Server documentation. The client page, `content/client.md`, uses the same pattern to load `client/README.md` from the database repository. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
+The README is fetched from GitHub when readers open Server documentation. The client page, `content/client.md`, uses the same pattern to load `client/README.md` from the database repository, and `content/api.md` loads `API.md`. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
 
 To use a different source, edit the URL in `content/server.md`. Keep each remote page as a single include so relative Markdown links and images resolve from the remote file. Linked Markdown files also open inside the site with their own chapter menus. The source must be a public raw Markdown URL that allows browser requests. Source caching can delay updates; failed loads show the standard page-unavailable message.
 
