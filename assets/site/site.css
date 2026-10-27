@@ -396,7 +396,9 @@ body > main > .sidebar-toggle,
   padding: 0;
 }
 .feature-grid .section-copy {
-  max-width: none;
+  width: 100%;
+  max-width: 430px;
+  justify-self: center;
 }
 .feature-grid h2 {
   font-size: clamp(24px, 2vw, 30px);
@@ -909,6 +911,7 @@ pre {
     max-width: 440px;
     margin: 0 auto;
   }
+  .feature-grid .section-copy,
   .feature-grid .section-copy p {
     max-width: 600px;
   }
