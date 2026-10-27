@@ -2,7 +2,7 @@
 
 Run locally, bring your own cloud, or put the database in the browser.
 
-## Quick-start :id=deploy-quick-start
+## ![](assets/site/icons/quick-start.svg) Quick-start :id=deploy-quick-start
 
 Start locally with Node.js or Docker, then scale to a cluster across VMs, containers, or processes.
 
@@ -10,7 +10,7 @@ Start locally with Node.js or Docker, then scale to a cluster across VMs, contai
 - [Run locally](DATABASE.md?id=run-a-node)
 - [Cluster setup](DATABASE.md?id=deploy-a-cluster)
 
-## Bring your own cloud :id=bring-your-own-cloud
+## ![](assets/site/icons/cloud.svg) Bring your own cloud :id=bring-your-own-cloud
 
 Choose your provider and run on infrastructure you control, with your own networking and S3-compatible storage.
 
@@ -20,6 +20,6 @@ Choose your provider and run on infrastructure you control, with your own networ
 - [AWS](https://aws.amazon.com/)
 - [Azure](https://azure.microsoft.com/)
 
-## Browser :id=deploy-browser
+## ![](assets/site/icons/browser.svg) Browser :id=deploy-browser
 
 Run objy.db directly in the browser. Keep objects in memory for fast reads and updates, right where your application runs.

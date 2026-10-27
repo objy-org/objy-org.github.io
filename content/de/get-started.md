@@ -2,7 +2,7 @@
 
 Starte lokal, nutze deine eigene Cloud oder betreibe die Datenbank direkt im Browser.
 
-## Schnellstart :id=deploy-quick-start
+## ![](assets/site/icons/quick-start.svg) Schnellstart :id=deploy-quick-start
 
 Starte lokal mit Node.js oder Docker. Skaliere danach zum Cluster auf VMs, in Containern oder über mehrere Prozesse.
 
@@ -10,7 +10,7 @@ Starte lokal mit Node.js oder Docker. Skaliere danach zum Cluster auf VMs, in Co
 - [Lokal starten](DATABASE.md?id=run-a-node)
 - [Cluster einrichten](DATABASE.md?id=deploy-a-cluster)
 
-## Deine eigene Cloud :id=bring-your-own-cloud
+## ![](assets/site/icons/cloud.svg) Deine eigene Cloud :id=bring-your-own-cloud
 
 Wähle deinen Anbieter und behalte die Kontrolle über deine Infrastruktur – mit eigenem Netzwerk und S3-kompatiblem Speicher.
 
@@ -20,6 +20,6 @@ Wähle deinen Anbieter und behalte die Kontrolle über deine Infrastruktur – m
 - [AWS](https://aws.amazon.com/)
 - [Azure](https://azure.microsoft.com/)
 
-## Browser :id=deploy-browser
+## ![](assets/site/icons/browser.svg) Browser :id=deploy-browser
 
 Betreibe objy.db direkt im Browser. Halte Objekte im Arbeitsspeicher für schnelle Lese- und Schreibzugriffe – genau dort, wo deine Anwendung läuft.

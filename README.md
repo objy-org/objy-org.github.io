@@ -80,5 +80,6 @@ Compression is in memory; the local write-ahead log and S3 journals/snapshots pr
 - Docsify 5.0.0, npm package entry `dist/docsify.min.js`, MIT license in `assets/vendor/docsify.LICENSE`.
 - DOMPurify 3.4.17, npm package entry `dist/purify.es.mjs`, vendored as `assets/vendor/purify.mjs`; Apache-2.0/MPL-2.0 license in `assets/vendor/purify.LICENSE`.
 - Montserrat Regular and SemiBold from Google Fonts, SIL Open Font License in `assets/site/montserrat-LICENSE.txt`.
+- Original OBJY and live OBJY DB documentation source notices are retained in `assets/vendor/objy.LICENSE` and `assets/vendor/objy-db.LICENSE`. Brand usage rights were confirmed by the user; see the icon provenance review in `assets/site/ARTWORK.md`.
 
 Artwork details and the original asset sources are recorded in `assets/site/ARTWORK.md`.
