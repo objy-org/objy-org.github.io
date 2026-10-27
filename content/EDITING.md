@@ -86,6 +86,8 @@ The top-bar Documentation link opens `content/en/documentation.md` or `content/d
 
 To add another guide, add a `##` heading, a short explanation, and a Markdown link to each language’s index. Each heading appears in the left menu automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
+An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/server.svg) Server :id=server`. Keep its alternative text empty because the adjacent heading already names the chapter. The guide link after the description receives an accent color and arrow automatically. The icons and styling work with any chapter name.
+
 ## Include live documentation
 
 The server page, `content/server.md`, contains only a remote include:

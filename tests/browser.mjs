@@ -49,7 +49,11 @@ await new Promise((resolve, reject) => {
 window.marked = site.contentWindow.marked;
 
 await check('Documentation loads without downloading homepage illustrations', () => {
-  const files = site.contentWindow.performance.getEntriesByType('resource').map((entry) => entry.name);
+  // Ordinary Markdown icons use image requests; homepage SVGs are fetched for inlining.
+  const files = site.contentWindow.performance
+    .getEntriesByType('resource')
+    .filter((entry) => entry.initiatorType === 'fetch')
+    .map((entry) => entry.name);
   assert(
     !files.some((file) => /\.svg(?:\?|$)/.test(file)),
     'An illustration loaded on the documentation page',

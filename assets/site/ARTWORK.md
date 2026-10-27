@@ -15,6 +15,8 @@ The original assets are restored unchanged from the repository before the redesi
 
 ## Section illustrations
 
+The documentation index uses three small line icons in `assets/site/icons/`: `server.svg` (stacked server units, coral), `client.svg` (a code window, lavender), and `api.svg` (connected endpoints, sage). They share a 48 × 48 canvas and rounded tile. Each is an ordinary Markdown image inside its chapter heading, with empty alternative text because the adjacent title provides the label. No icon library or page-specific JavaScript is needed.
+
 The three feature illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
 
 - `assets/site/abstract-objects.svg`: a JSON object with an identity, color, availability, and an owner reference using the database’s actual reference format.
