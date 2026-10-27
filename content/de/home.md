@@ -18,7 +18,7 @@ Dynamische Eigenschaften, verschachtelte Daten, eindeutige IDs und Live-Verweise
 
 ![Ein JSON-Objekt mit ID, Farbe, Verfügbarkeit und einem Verweis auf eine Person in der Collection people.](assets/site/abstract-objects.svg)
 
-## Eine API. Alle Operationen. :id=simple-api
+## CRUD, Aggregationen, Vektorsuche. Eine API. :id=simple-api
 
 Erstellen, lesen, ändern und löschen. Abfragen, aggregieren und per Vektorsuche finden – über eine API.
 

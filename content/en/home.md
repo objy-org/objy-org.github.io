@@ -18,7 +18,7 @@ Dynamic properties, nested data, unique identities, and live references. Model o
 
 ![A JSON object with an identity, color, availability, and an owner reference to a person in the people collection.](assets/site/abstract-objects.svg)
 
-## One API. Every operation. :id=simple-api
+## CRUD, aggregations, vector search. One API. :id=simple-api
 
 Create, read, update, and delete. Query, aggregate, and search by vector through one API.
 
