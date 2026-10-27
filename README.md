@@ -15,7 +15,6 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `labels.md` | Header links, navigation, controls, metadata, diagram labels |
 | `get-started.md` | Deployment options: Quick-start, Bring your own cloud, and Browser |
 | `documentation.md` | Documentation index and links to individual guides |
-| `database.md` | Local deployment reference used by the Get started page |
 
 Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first three `##` headings after the hero create feature columns; later headings create full-width sections. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
@@ -35,7 +34,7 @@ The top-bar Documentation link opens the selected language’s `documentation.md
 | `markup.mjs` | Markdown label parsing, translation bindings, and HTML sanitization |
 | `homepage.mjs` | Homepage composition, illustration loading, and decorative connections |
 
-Only the homepage module knows about the hero/feature/detail layout. Card sections are detected from subheadings, illustrated detail sections alternate automatically, and decorative connections use the three feature positions rather than particular chapter IDs. The legacy `/DATABASE` spelling remains supported for existing links.
+Only the homepage module knows about the hero/feature/detail layout. Card sections are detected from subheadings, illustrated detail sections alternate automatically, and decorative connections use the three feature positions rather than particular chapter IDs.
 
 Docsify renders the Markdown and handles routes. The theme uses the curated `sidebar.md` menu on the homepage and automatically builds other pages’ menus from their rendered headings, including indented subchapters. The theme arranges its rendered HTML into the hero, a responsive feature grid, and full-width detail sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
@@ -55,11 +54,11 @@ Open `http://127.0.0.1:8000/`. HTTP is required for Docsify to load Markdown. Fo
 
 ## Routes
 
-Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. Get started opens at `/?lang=de#/get-started`, with deployment chapters generated from its Markdown. The documentation index opens at `/?lang=de#/documentation`; its Server documentation link opens `/?lang=de#/content/server`. The local deployment reference remains at `/?lang=de#/DATABASE`, with the same theme and engine. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
+Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. Get started opens at `/?lang=de#/get-started`, with deployment chapters generated from its Markdown. The documentation index opens at `/?lang=de#/documentation`; its Server documentation link opens `/?lang=de#/content/server`. The Run locally and Cluster setup links open the live server documentation at its Quick Start and Run a Cluster chapters. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
 
 Metadata, the document’s `lang` attribute, controls, alt text, and SVG labels follow the selected language. All document headings keep stable IDs across translations. Code examples and API keys remain unchanged.
 
-Local Markdown links such as `[Database](database.md)` or `[Setup](guides/setup.md)` open in the same layout. Relative links inside nested documents resolve from that document’s folder. No page registration or separate menu file is needed: use `#` for the title, `##` for chapters, and `###` for subchapters. The top-left logo always returns to the homepage while keeping the selected language.
+Local Markdown links such as `[Documentation](documentation.md)` or `[Setup](guides/setup.md)` open in the same layout. Relative links inside nested documents resolve from that document’s folder. No page registration or separate menu file is needed: use `#` for the title, `##` for chapters, and `###` for subchapters. The top-left logo always returns to the homepage while keeping the selected language.
 
 For a route such as `#/guides/setup`, the site looks for `content/<selected-language>/guides/setup.md`, then the default-language version, then `guides/setup.md` at the repository root. Root-level Markdown and shared files such as `content/EDITING.md` are also supported. Missing pages show a localized message and a home link.
 

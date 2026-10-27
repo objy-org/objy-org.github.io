@@ -7,8 +7,8 @@ Starte lokal, nutze deine eigene Cloud oder betreibe die Datenbank direkt im Bro
 Starte lokal mit Node.js oder Docker. Skaliere danach zum Cluster auf VMs, in Containern oder über mehrere Prozesse.
 
 - [GitHub](https://github.com/objy-org)
-- [Lokal starten](DATABASE.md?id=run-a-node)
-- [Cluster einrichten](DATABASE.md?id=deploy-a-cluster)
+- [Lokal starten](/content/server.md?id=quick-start)
+- [Cluster einrichten](/content/server.md?id=run-a-cluster)
 
 ## ![](assets/site/icons/cloud.svg) Deine eigene Cloud :id=bring-your-own-cloud
 

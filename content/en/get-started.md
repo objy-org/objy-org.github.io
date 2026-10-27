@@ -7,8 +7,8 @@ Run locally, bring your own cloud, or put the database in the browser.
 Start locally with Node.js or Docker, then scale to a cluster across VMs, containers, or processes.
 
 - [GitHub](https://github.com/objy-org)
-- [Run locally](DATABASE.md?id=run-a-node)
-- [Cluster setup](DATABASE.md?id=deploy-a-cluster)
+- [Run locally](/content/server.md?id=quick-start)
+- [Cluster setup](/content/server.md?id=run-a-cluster)
 
 ## ![](assets/site/icons/cloud.svg) Bring your own cloud :id=bring-your-own-cloud
 

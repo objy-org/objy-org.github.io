@@ -49,8 +49,6 @@ export function markdownFiles(route, language, defaultLanguage, languageCodes) {
   const localized = path.match(/^content\/([^/]+)\/(.+)$/);
   if (localized && languageCodes.includes(localized[1])) path = localized[2];
   else if (path.startsWith('content/')) return [markdownPath(path)];
-  // Preserve links shared before database.md moved into the language folders.
-  if (/^database(?:\.md)?$/i.test(path)) path = 'database.md';
   path = markdownPath(path);
   return [...new Set([`content/${language}/${path}`, `content/${defaultLanguage}/${path}`, path])];
 }

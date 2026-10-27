@@ -4,11 +4,8 @@ import { markdownFiles, loadMarkdown, remoteRoute, remoteLink, contentLink } fro
 
 const resolve = (route, language = 'de') => markdownFiles(route, language, 'en', ['en', 'de']);
 
-test('home and legacy database links select the current translation', () => {
+test('home selects the current translation', () => {
   assert.deepEqual(resolve('/'), ['content/de/home.md']);
-  for (const route of ['/DATABASE', '/DATABASE.md', '/database.md']) {
-    assert.deepEqual(resolve(route), ['content/de/database.md', 'content/en/database.md', 'database.md']);
-  }
 });
 
 test('arbitrary and nested Markdown routes need no registration', () => {
@@ -169,7 +166,7 @@ test('local images follow the document source, including nested translations and
     contentLink('/assets/site/logo.png', 'content/de/home.md', true, base),
     `${base}assets/site/logo.png`,
   );
-  assert.equal(contentLink('../database.md', 'content/de/guides/setup.md', false, base), '../database.md');
+  assert.equal(contentLink('../documentation.md', 'content/de/guides/setup.md', false, base), '../documentation.md');
   assert.equal(
     contentLink('data:image/png;base64,abc', 'content/de/home.md', true, base),
     'data:image/png;base64,abc',
