@@ -7,9 +7,6 @@
 Flexible JSON objects. Live references. Efficient storage.\
 Build your application on OBJY, with API, authentication, users, and permissions built in.
 
-- [Get started](/get-started.md)
-- [Explore object examples](/?id=object-capabilities)
-
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
 ## More than JSON. :id=abstract-objects

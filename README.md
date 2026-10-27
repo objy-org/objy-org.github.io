@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage has a compact illustrated hero with Get started and object-example links, four features in a two-by-two grid, an interactive object example, storage internals, and a closing Quick Start section. All copy, example data, headings, and destinations are managed in Markdown in English and German. The separate Get started page covers local and cluster setup, bring your own cloud, and browser deployment. There is no build step.
+A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage has a large illustrated hero, four features in a two-by-two grid, an interactive object example, storage internals, and a closing Quick Start section. All copy, example data, headings, and destinations are managed in Markdown in English and German. The separate Get started page covers local and cluster setup, bring your own cloud, and browser deployment. There is no build step.
 
 ## Editing
 
