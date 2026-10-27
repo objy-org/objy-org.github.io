@@ -1,8 +1,8 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# Build applications around fast objects.  :id=top
+# In-Memory Object Database :id=top
 
-> In-Memory Object Database
+> Build applications around fast objects.
 
 
 OBJY is an in-memory object database that combines fast access and efficient storage to power your entire application. API, authentication, user management, permissions and more — all built in.
