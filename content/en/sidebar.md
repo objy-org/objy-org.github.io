@@ -1,4 +1,4 @@
 - [Build with objects](/?id=top)
-- [What you get](/?id=simple-api)
+- [What you get](/?id=abstract-objects)
 - [An object in action](/?id=object-capabilities)
 - [Storage internals](/?id=storage-internals)

@@ -1,4 +1,4 @@
 - [Mit Objekten bauen](/?id=top)
-- [Das steckt drin](/?id=simple-api)
+- [Das steckt drin](/?id=abstract-objects)
 - [Ein Objekt in Aktion](/?id=object-capabilities)
 - [Speicheraufbau](/?id=storage-internals)

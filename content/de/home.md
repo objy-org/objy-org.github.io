@@ -12,17 +12,17 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 ![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
 
+## Mehr als JSON. :id=abstract-objects
+
+Dynamische Eigenschaften, verschachtelte Daten, eindeutige IDs und Live-Verweise. Modelliere Objekte passend zu deiner Anwendung und entwickle sie mit ihr weiter.
+
+![Ein JSON-Objekt mit ID, Farbe, Verfügbarkeit und einem Verweis auf eine Person in der Collection people.](assets/site/abstract-objects.svg)
+
 ## Eine API. Alle Operationen. :id=simple-api
 
 Erstellen, lesen, ändern und löschen. Abfragen, aggregieren und per Vektorsuche finden – über eine API.
 
 ![Abfragen, Vektoren, CRUD und Aggregation teilen sich eine API-Verbindung.](assets/site/simple-api.svg)
-
-## JSON. Mit Verbindungen. :id=abstract-objects
-
-Gib jedem Objekt seine eigene Form und Identität. Verbinde es über Live-Verweise mit anderen Objekten.
-
-![Ein JSON-Objekt mit ID, Farbe, Verfügbarkeit und einem Verweis auf eine Person in der Collection people.](assets/site/abstract-objects.svg)
 
 ## Läuft überall. Wächst mit. :id=run-and-deploy
 

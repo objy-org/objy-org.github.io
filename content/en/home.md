@@ -12,17 +12,17 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
+## More than JSON. :id=abstract-objects
+
+Dynamic properties, nested data, unique identities, and live references. Model objects your way, and evolve them as your application grows.
+
+![A JSON object with an identity, color, availability, and an owner reference to a person in the people collection.](assets/site/abstract-objects.svg)
+
 ## One API. Every operation. :id=simple-api
 
 Create, read, update, and delete. Query, aggregate, and search by vector through one API.
 
 ![Query, Vector, CRUD, and Aggregate share one API connection.](assets/site/simple-api.svg)
-
-## JSON. With connections. :id=abstract-objects
-
-Give every object its own shape and identity. Connect it to others with live references.
-
-![A JSON object with an identity, color, availability, and an owner reference to a person in the people collection.](assets/site/abstract-objects.svg)
 
 ## Run anywhere. Scale out. :id=run-and-deploy
 

@@ -21,20 +21,20 @@ The switcher at the top right remembers the visitor's choice. A URL with `?lang=
 Edit the words in `home.md`. Keep the heading's `:id=...` suffix so menu links keep working:
 
 ```markdown
-## JSON. With connections. :id=abstract-objects
+## More than JSON. :id=abstract-objects
 
 Give anything a shape with flexible properties.
 ```
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Consecutive `##` sections with standalone images immediately after the hero create the feature grid. The first section without an illustration starts the full-width details; later illustrated sections stay full-width. This structure controls the grouping, rather than a fixed feature count. Use `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The four feature sections cover the API, connected JSON objects, deployment, and built-in users and access control. The interactive object example follows them, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
+Keep each section focused on one idea and use concrete examples. The four feature sections cover object features, the API, deployment, and built-in users and access control. The interactive object example follows them, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
 
 ## Change links or the menu
 
 ```markdown
 [Documentation](/documentation.md)
-[JSON with extras](/?id=abstract-objects)
+[More than JSON](/?id=abstract-objects)
 ```
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
