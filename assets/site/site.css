@@ -81,14 +81,17 @@ figure {
   top: 0;
   z-index: 30;
   height: var(--header-height);
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 30px 0 25px;
+  column-gap: 24px;
+  padding: 0 30px;
   background: #202020;
   border-bottom: 1px solid var(--line);
 }
 .header-brand {
+  grid-column: 1;
+  grid-row: 1;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -109,25 +112,36 @@ figure {
   height: 38px;
 }
 .header-links {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
   display: flex;
   align-items: center;
-  gap: 34px;
-  font-size: 14px;
+  gap: 40px;
+  font-size: 20px;
+  font-weight: 600;
+  white-space: nowrap;
 }
-.header-links a {
+.header-links a,
+.header-actions > a {
   text-decoration: none;
   color: var(--muted);
 }
-.header-links a:hover {
+.header-links a:hover,
+.header-actions > a:hover {
   color: var(--text);
 }
 .header-links .product-link {
   color: var(--accent);
 }
 .header-actions {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
   display: flex;
   align-items: center;
   gap: 28px;
+  font-size: 14px;
 }
 .language-switcher {
   position: relative;
@@ -734,12 +748,14 @@ pre {
 }
 @media (max-width: 760px) {
   :root {
-    --header-height: 64px;
+    --header-height: 108px;
   }
   html {
-    scroll-padding-top: 92px;
+    scroll-padding-top: 136px;
   }
   .site-header {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 64px 1fr;
     padding: 0 22px;
   }
   .header-brand {
@@ -753,14 +769,17 @@ pre {
     height: 30px;
   }
   .header-links {
-    gap: 18px;
-    font-size: 13px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: start;
+    gap: 28px;
+    font-size: 17px;
   }
   .header-actions {
+    grid-column: 2;
     gap: 14px;
   }
-  .header-links .product-link,
-  .header-links .source-link {
+  .header-actions .source-link {
     display: none;
   }
   .section-menu-toggle {
@@ -896,9 +915,6 @@ pre {
   .header-actions {
     gap: 10px;
   }
-  .header-links {
-    font-size: 12px;
-  }
 }
 @media (max-width: 360px) {
   .site-header {
@@ -909,9 +925,6 @@ pre {
   }
   .header-actions {
     gap: 8px;
-  }
-  .header-links {
-    font-size: 11px;
   }
   .wordmark {
     font-size: 16px;
