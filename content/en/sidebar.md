@@ -1,6 +1,4 @@
 - [Build with objects](/?id=top)
-- [Simple API](/?id=simple-api)
-- [JSON with extras](/?id=abstract-objects)
-- [Runs everywhere](/?id=run-and-deploy)
+- [What you get](/?id=simple-api)
+- [An object in action](/?id=object-capabilities)
 - [Storage internals](/?id=storage-internals)
-- [Objects that do more](/?id=object-capabilities)

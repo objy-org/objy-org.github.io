@@ -62,22 +62,6 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Reference collection | `"collection": "people",` |
 | Reference value | `"value": "person-001"` |
 
-## Capabilities diagram
-
-| Location | Text |
-| --- | --- |
-| New property | New property |
-| Property | `"available": true` |
-| Object | Your object |
-| Identity | `"_id": "bike-001",` |
-| Color | `"color": "coral",` |
-| Owner | `"owner": { … }` |
-| User | User object |
-| User identity | `"_id": "person-001"` |
-| Reference | Live reference |
-| Permissions | Permissions |
-| Access | Read · Write |
-
 ## Storage diagram
 
 | Location | Text |

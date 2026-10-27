@@ -62,22 +62,6 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Reference collection | `"collection": "people",` |
 | Reference value | `"value": "person-001"` |
 
-## Capabilities diagram
-
-| Location | Text |
-| --- | --- |
-| New property | Neues Feld |
-| Property | `"available": true` |
-| Object | Dein Objekt |
-| Identity | `"_id": "bike-001",` |
-| Color | `"color": "coral",` |
-| Owner | `"owner": { … }` |
-| User | Benutzer |
-| User identity | `"_id": "person-001"` |
-| Reference | Live-Verweis |
-| Permissions | Zugriff |
-| Access | Lesen · Ändern |
-
 ## Storage diagram
 
 | Location | Text |

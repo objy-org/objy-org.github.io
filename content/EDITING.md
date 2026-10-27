@@ -21,16 +21,14 @@ The switcher at the top right remembers the visitor's choice. A URL with `?lang=
 Edit the words in `home.md`. Keep the heading's `:id=...` suffix so menu links keep working:
 
 ```markdown
-## JSON with extras :id=abstract-objects
+## JSON. With connections. :id=abstract-objects
 
 Give anything a shape with flexible properties.
 ```
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. The first three `##` headings after the hero create the feature columns. Every later `##` heading creates a full-width section below that row. Use `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The feature row presents Simple API, JSON with extras, and “Runs everywhere, scalable”, in that order. On wide screens, curved arrows between the illustrations point toward the JSON object in the center; they disappear when the columns stack. Storage internals follows as a separate section.
-
-The “Objects that do more” section follows Storage internals. Its introduction and three bullet points explain dynamic properties, references, and user permissions. Edit these in `home.md`; keep `:id=object-capabilities` for the menu link. Illustrated detail sections alternate text and artwork automatically on desktop, starting with the image on the right. The section names do not control this layout.
+Keep each section focused on one idea and use concrete examples. The first three sections are the API, connected JSON objects, and deployment. The interactive object example follows them, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
 
 ## Change links or the menu
 
@@ -43,7 +41,9 @@ The words inside `[]` are the label. The destination goes inside `()`. `/?id=abs
 
 The top-bar Get started now link opens `get-started.md`. This page contains the deployment options previously shown on the homepage: Quick-start, Bring your own cloud, and Browser. Each `##` heading becomes an entry in its automatic left menu. Quick-start combines local and cluster deployment, with GitHub, Run locally, and Cluster setup links. Run locally opens the live server guide at Quick Start; Cluster setup opens Run a Cluster. All copy and destinations are editable in Markdown. Keep the page and chapter IDs so shared links continue to work.
 
-On the homepage, sections with `###` subheadings and no standalone illustration can still use the options layout: three columns on desktop, stacked on smaller screens. Bullet lists of links become buttons within each option.
+A list containing only links becomes a row of action buttons in the hero or a closing section without an illustration. The first link is the primary action. A horizontal rule (`---`) separates a closing section’s footer links. All labels and destinations come from the Markdown.
+
+On the homepage, sections with `###` subheadings and no standalone illustration or introductory code sample use the options layout: three columns on desktop, stacked on smaller screens. Bullet lists of links become buttons within each option.
 
 In `sidebar.md`, change homepage menu labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
@@ -126,11 +126,20 @@ In `labels.md`, edit the right-hand column. Keep the headings and left-hand colu
 
 The Application diagram table controls the Apps, AI agents, and APIs labels in the hero illustration. The Object diagram table controls the JSON fields and reference in the objects illustration. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls the labels and JSON example in the larger 3D storage illustration. The API diagram table controls the short operation labels in the Simple API illustration. The scalability illustration has no editable labels. Their shapes, colors, and layout are managed separately by a developer.
 
-The Capabilities diagram table controls the labels and JSON fragments in the “Objects that do more” illustration. Keep these short so they fit the floating cards.
+## Edit the interactive object example
+
+The object example lives in `home.md`, under `:id=object-capabilities`. Its content uses ordinary Markdown:
+
+- The introduction and first JSON code block define the sample object. A quote immediately before that block labels its collection and identity.
+- Each `###` chapter becomes a tab. Its heading supplies the tab label; the paragraphs and code beneath it supply the explanation. The first bold paragraph is the explanation’s title.
+- A nested `####` chapter creates a linked view within its parent tab. Give it an ID and link to that ID, for example `[Follow the owner reference](/?id=example-owner)`. A code block with the same language as the introductory block replaces the object shown on the left; a quote before it supplies the new source label.
+- Code blocks in a different language, such as JavaScript, remain in the explanation. They are displayed as examples, not executed.
+
+Keep `:id=example-object`, `:id=example-owner`, `:id=example-query`, and `:id=example-access` consistent across translations, and keep code samples identical. The tab names and JSON field names do not control the interaction. No JavaScript changes are needed to edit the example or add another tab. This is an illustrative local example; it does not send requests to a database.
 
 ## Change section images
 
-Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. The storage section below uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
+Each feature has a standalone image in `home.md`. The three features form one row on wide screens, with each text block above its image. After the interactive object example, the storage section uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

@@ -1,6 +1,7 @@
 // No test framework or package installation: run this page through the local HTTP server.
 import { createCopy, htmlFragment, sanitizeMarkup } from '../assets/site/markup.mjs';
 import { decorateHomepage } from '../assets/site/homepage.mjs';
+import { wireExamples } from '../assets/site/examples.mjs';
 
 const results = document.getElementById('results');
 let failures = 0;
@@ -126,6 +127,59 @@ await check('A missing illustration falls back to the image without losing page 
   );
   assert(content.querySelector('h1').textContent === 'Still readable', 'Page content lost');
   assert(content.querySelector('.hero-art img'), 'Image fallback missing');
+});
+
+await check('Markdown examples switch tabs, follow references, and support keyboard navigation', async () => {
+  const markup = '<h1 id="top">Hello</h1><h2 id="a">A</h2><h2 id="b">B</h2><h2 id="c">C</h2>' +
+    '<h2 id="demo">Example</h2><p>Introduction</p><blockquote><p>items / first</p></blockquote>' +
+    '<pre><code class="lang-json">{"_id":"first","literal":"&lt;tag&gt;"}</code></pre>' +
+    '<h3 id="inspect">Inspect</h3><p>Inspect this record.</p><p><a href="#/?id=related">Related</a></p>' +
+    '<h4 id="related">Related record</h4><p>Connected data.</p><blockquote><p>people / second</p></blockquote>' +
+    '<pre><code class="lang-json">{"_id":"second"}</code></pre><p><a href="#/?id=inspect">Back</a></p>' +
+    '<h3 id="find">Find</h3><p>Query description.</p><pre><code class="lang-js">await items.find({});</code></pre>' +
+    '<h3 id="rules">Rules</h3><p>Access description.</p>';
+  const fixture = document.createElement('div');
+  fixture.append(htmlFragment(await decorateHomepage(markup)));
+  document.body.append(fixture);
+  const controller = new AbortController();
+  try {
+    wireExamples(controller.signal, fixture);
+    const code = fixture.querySelector('.example-code > pre code');
+    const tabs = [...fixture.querySelectorAll('[role="tab"]')];
+    const active = () => tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
+    assert(JSON.parse(code.textContent).literal === '<tag>', 'Literal JSON changed');
+    tabs[1].click();
+    assert(active().textContent === 'Find', 'Tab did not change');
+    assert(!fixture.querySelector('#example-panel-find').hidden, 'Query panel remained hidden');
+    tabs[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    assert(active().textContent === 'Rules', 'Keyboard tab navigation failed');
+    tabs[0].click();
+    fixture.querySelector('a[href="#/?id=related"]').click();
+    assert(JSON.parse(code.textContent)._id === 'second', 'Reference did not update the visible object');
+    assert(fixture.querySelector('.example-source-label').textContent === 'people / second', 'Source label did not change');
+    assert(active().getAttribute('aria-controls') === 'example-panel-related', 'Selected tab does not identify its visible panel');
+    fixture.querySelector('a[href="#/?id=inspect"]').click();
+    assert(JSON.parse(code.textContent)._id === 'first', 'Back link did not restore the original object');
+    assert(!code.querySelector('tag'), 'Example content became HTML');
+    controller.abort();
+    tabs[1].click();
+    assert(active().textContent === 'Inspect', 'Example listeners survived cleanup');
+  } finally {
+    controller.abort();
+    fixture.remove();
+  }
+});
+
+await check('Homepage actions and footer are derived from Markdown links', async () => {
+  const content = htmlFragment(await decorateHomepage(
+    '<h1 id="top">Hello</h1><p>Intro</p><ul><li><a href="get-started.md">Start</a></li></ul>' +
+    '<h2 id="a">A</h2><h2 id="b">B</h2><h2 id="c">C</h2>' +
+    '<h2 id="next">Next</h2><p>Build something.</p><ul><li><a href="content/server.md">Docs</a></li></ul>' +
+    '<hr><p><a href="https://github.com/objy-org">GitHub</a></p>',
+  ));
+  assert(content.querySelector('.section-hero .section-actions a').textContent === 'Start', 'Hero action missing');
+  assert(content.querySelector('.section-callout .section-actions a').textContent === 'Docs', 'Closing action missing');
+  assert(content.querySelector('.section-footer a').textContent === 'GitHub', 'Markdown footer missing');
 });
 
 site.remove();

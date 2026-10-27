@@ -1,7 +1,8 @@
 import * as i18n from './languages.mjs';
 import * as pages from './pages.mjs';
 import { createCopy, readMarkdown, sanitizeMarkup } from './markup.mjs';
-import { decorateHomepage, wireFeatureConnections } from './homepage.mjs';
+import { decorateHomepage } from './homepage.mjs';
+import { wireExamples } from './examples.mjs';
 
 /* Editorial content lives in content/<language>/*.md. */
 let copy;
@@ -83,6 +84,7 @@ function wireNavigation() {
   navigationEvents?.abort();
   navigationEvents = new AbortController();
   const signal = navigationEvents.signal;
+  wireExamples(signal);
   document.querySelector('.skip-link').addEventListener(
     'click',
     (event) => {
@@ -100,7 +102,6 @@ function wireNavigation() {
     ...document.querySelectorAll('.sections-root .page-section, .document-page [data-chapter]'),
   ];
   if (!nav || !menu) return;
-  wireFeatureConnections(signal);
   const links = [...nav.querySelectorAll('a')];
   const contentTop = (section) =>
     section.hasAttribute('data-chapter')
@@ -198,7 +199,10 @@ function wireNavigation() {
 function wireCopyButtons() {
   document.querySelectorAll('pre').forEach((pre) => {
     const code = pre.querySelector('code');
-    if (!code || pre.querySelector('.copy-button')) return;
+    const controls = pre.parentElement.matches('.example-code')
+      ? pre.parentElement.querySelector('.example-code-header')
+      : pre;
+    if (!code || controls.querySelector('.copy-button')) return;
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'copy-button';
@@ -226,7 +230,7 @@ function wireCopyButtons() {
       },
       { signal: navigationEvents.signal },
     );
-    pre.append(button);
+    controls.append(button);
   });
 }
 
