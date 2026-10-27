@@ -39,7 +39,7 @@ The four feature illustrations share a 520 × 320 canvas and the site's coral, s
 - `assets/site/run-and-deploy.svg`: a browser window, a single server, and three connected servers; small arrows lead from one deployment size to the next.
 - `assets/site/users-access.svg`: custom SVG artwork created for this site, showing user identities connected to a login lock and an access shield. No external icon library or third-party artwork is used; the picture has no embedded text to translate.
 
-The feature row covers API, JSON, deployment, and users/access, in that order. Each illustration sits beneath its explanation. The grid becomes two columns on tablets and one on phones.
+The feature grid covers API and JSON in its first row, then deployment and users/access in its second row. Each illustration sits beneath its explanation. Desktop and tablet use two columns; phones use one.
 
 The storage section after the interactive object example uses `assets/site/storage-internals.svg` from `3f1a306`: a 660 × 570 illustration with a complete JSON object on the front plane and hot fields, compact columns, and compressed fields on a rear plane. Its larger presentation keeps both the JSON example and all three tiers readable.
 

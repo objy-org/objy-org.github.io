@@ -139,7 +139,7 @@ Keep `:id=example-object`, `:id=example-owner`, `:id=example-query`, and `:id=ex
 
 ## Change section images
 
-Each feature has a standalone image in `home.md`. The four features form one row on wide screens, two columns on tablets, and one column on phones, with each text block above its image. After the interactive object example, the storage section uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
+Each feature has a standalone image in `home.md`. The four features form two rows of two columns on desktop and tablets, and one column on phones, with each text block above its image. After the interactive object example, the storage section uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

@@ -134,7 +134,7 @@ export async function decorateHomepage(html) {
       section.classList.toggle('art-first', index % 2 === 1);
     });
   const featureGrid = features.length
-    ? `<div class="feature-grid" style="--feature-columns:${Math.min(4, features.length)}">${features.map((section) => section.outerHTML).join('')}</div>`
+    ? `<div class="feature-grid" style="--feature-columns:${Math.min(2, features.length)}">${features.map((section) => section.outerHTML).join('')}</div>`
     : '';
   return `<div class="sections-root">${hero.outerHTML}${featureGrid}${details.map((section) => section.outerHTML).join('')}</div>`;
 }

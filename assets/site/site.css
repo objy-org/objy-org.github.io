@@ -382,15 +382,16 @@ body > main > .sidebar-toggle,
 }
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(var(--feature-columns, 4), minmax(0, 1fr));
-  column-gap: clamp(24px, 2.2vw, 40px);
-  row-gap: 32px;
+  grid-template-columns: repeat(var(--feature-columns, 2), minmax(0, 1fr));
+  column-gap: clamp(40px, 6vw, 88px);
+  row-gap: 64px;
   padding: 48px 0 72px;
 }
 .feature-grid > .page-section {
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 2;
+  row-gap: 28px;
   min-width: 0;
   padding: 0;
 }
@@ -402,7 +403,9 @@ body > main > .sidebar-toggle,
   line-height: 1.25;
   letter-spacing: -0.8px;
   margin-bottom: 20px;
-  min-height: 2.5em;
+}
+.feature-grid .section-art {
+  max-width: 320px;
 }
 .feature-grid .section-copy p {
   font-size: 16px;

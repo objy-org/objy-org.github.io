@@ -113,7 +113,7 @@ await check('Homepage layouts work with arbitrary chapter names', async () => {
     '<h2 id="choices">Choices</h2><h3 id="small">Small</h3><p>First choice</p><h3 id="large">Large</h3><p>Second choice</p>';
   const content = htmlFragment(await decorateHomepage(markup));
   assert(content.querySelectorAll('.feature-grid > section').length === 4, 'Feature count was hard-coded');
-  assert(content.querySelector('.feature-grid').style.getPropertyValue('--feature-columns') === '4', 'Feature columns did not follow the content');
+  assert(content.querySelector('.feature-grid').style.getPropertyValue('--feature-columns') === '2', 'Features did not use the two-column layout');
   assert(
     content.querySelector('.art-first')?.dataset.section === 'second-detail',
     'Illustrations did not alternate',

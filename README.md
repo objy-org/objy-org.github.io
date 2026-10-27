@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage has a compact illustrated hero with Get started and object-example links, four feature columns, an interactive object example, storage internals, and a closing Quick Start section. All copy, example data, headings, and destinations are managed in Markdown in English and German. The separate Get started page covers local and cluster setup, bring your own cloud, and browser deployment. There is no build step.
+A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage has a compact illustrated hero with Get started and object-example links, four features in a two-by-two grid, an interactive object example, storage internals, and a closing Quick Start section. All copy, example data, headings, and destinations are managed in Markdown in English and German. The separate Get started page covers local and cluster setup, bring your own cloud, and browser deployment. There is no build step.
 
 ## Editing
 
@@ -16,7 +16,7 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `get-started.md` | Deployment options: Quick-start, Bring your own cloud, and Browser |
 | `documentation.md` | Documentation index and links to individual guides |
 
-Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. Consecutive illustrated `##` sections after the hero create the feature grid. The first section without an illustration starts the full-width detail sections; later illustrations remain details. The grid adapts to the number of features, up to four columns on desktop, two on tablets, and one on mobile. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
+Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. Consecutive illustrated `##` sections after the hero create the feature grid. The first section without an illustration starts the full-width detail sections; later illustrations remain details. The grid adapts to the number of features, up to two columns on desktop and tablets, and one on mobile. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 
