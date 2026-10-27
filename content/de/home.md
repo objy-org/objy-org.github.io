@@ -133,7 +133,11 @@ Arbeite mit vollständigen Objekten. Intern teilt OBJY sie für schnellen Zugrif
 - **Kompakte Spalten:** Ausgewählte Werte liegen zusammen – für effiziente Scans und Aggregation.
 - **Komprimierte Felder:** Halte mehr Daten im Arbeitsspeicher und entpacke sie beim Lesen.
 
-![Ein vollständiges JSON-Objekt liegt vor drei internen Speicherebenen: heißen Feldern, kompakten Spalten und komprimierten Feldern.](assets/site/storage-internals.svg)
+> **Schnell im RAM. Optional dauerhaft in S3.**
+>
+> Aktiviere S3-Journale und Snapshots, um deine Objekte für die Wiederherstellung zu sichern.
+
+![Ein vollständiges JSON-Objekt liegt vor drei Speicherebenen im RAM. Pfeile zum Sichern und Wiederherstellen verbinden sie mit einer optionalen S3-Sicherung aus Journalen und Snapshots.](assets/site/storage-internals.svg?v=2)
 
 ## Starte mit einem Knoten. :id=start-building
 

@@ -126,6 +126,8 @@ In `labels.md`, edit the right-hand column. Keep the headings and left-hand colu
 
 The Application diagram table controls the Apps, AI agents, and APIs labels in the hero illustration. The Object diagram table controls the JSON fields and reference in the objects illustration. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls the labels and JSON example in the larger 3D storage illustration. The API diagram table controls the short operation labels in the Simple API illustration. The scalability illustration has no editable labels. Their shapes, colors, and layout are managed separately by a developer.
 
+The storage section’s S3 callout is an ordinary Markdown blockquote below the three bullets in `home.md`; its first paragraph is bold. The accompanying Persist, Recover, and optional S3 labels live in the Storage diagram table. Keep S3 durability explicitly optional in both the callout and illustration when editing them.
+
 ## Edit the interactive object example
 
 The object example lives in `home.md`, under `:id=object-capabilities`. Its content uses ordinary Markdown:

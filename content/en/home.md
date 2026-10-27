@@ -133,7 +133,11 @@ Work with complete objects. Internally, OBJY splits them into blocks for fast ac
 - **Compact columns:** Selected values sit together for efficient scans and aggregation.
 - **Compressed fields:** Keep more data in memory. Expand it when you read.
 
-![A complete JSON object sits in front of three internal storage tiers: hot fields, compact columns, and compressed fields.](assets/site/storage-internals.svg)
+> **Fast in memory. Optional S3 durability.**
+>
+> Enable S3-backed journals and snapshots to preserve your objects for recovery.
+
+![A complete JSON object sits in front of three in-memory storage tiers. Persist and recover arrows connect them to optional S3 durability through journals and snapshots.](assets/site/storage-internals.svg?v=2)
 
 ## Start with one node. :id=start-building
 

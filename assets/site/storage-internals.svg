@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 570" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 740" fill="none">
   <g font-family="Montserrat, Arial, sans-serif" stroke-linejoin="round">
     <!-- Rear plane: three broad tiers, with all labels outside the foreground silhouette. -->
     <g transform="matrix(1 -.12 0 1 190 80)">
@@ -35,5 +35,22 @@
       </g>
     </g>
     <text x="330" y="554" fill="#aaa69f" font-size="16" text-anchor="middle" data-copy="storage-diagram.reads">One object in. One object out.</text>
+
+    <!-- Optional persistence sits beneath the in-memory tiers. -->
+    <g stroke="#dfa59a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M260 574v30m-6-6 6 6 6-6"/>
+      <path d="M400 604v-30m-6 6 6-6 6 6"/>
+    </g>
+    <g fill="#b2afaa" font-size="18" text-anchor="middle">
+      <text x="260" y="628" data-copy="storage-diagram.persist">Persist</text>
+      <text x="400" y="628" data-copy="storage-diagram.recover">Recover</text>
+    </g>
+    <g stroke="#dfa59a" stroke-width="1.7">
+      <path d="M171 668v34c0 5 11 9 24 9s24-4 24-9v-34"/>
+      <ellipse cx="195" cy="668" rx="24" ry="9"/>
+      <path d="M171 685c0 5 11 9 24 9s24-4 24-9"/>
+    </g>
+    <text x="240" y="680" fill="#f2f0eb" font-size="22" font-weight="600" data-copy="storage-diagram.durability">Optional S3 durability</text>
+    <text x="240" y="707" fill="#aaa69f" font-size="18" data-copy="storage-diagram.durability-detail">Journals + snapshots</text>
   </g>
 </svg>

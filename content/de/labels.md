@@ -78,6 +78,10 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Columns | Kompakte Spalten |
 | Compressed | Komprimiert |
 | Reads | Ein Objekt rein. Ein Objekt raus. |
+| Persist | Sichern |
+| Recover | Wiederherstellen |
+| Durability | S3-Sicherung (optional) |
+| Durability detail | Journale + Snapshots |
 
 ## API diagram
 

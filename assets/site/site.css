@@ -475,6 +475,21 @@ body > main > .sidebar-toggle,
 .detail-section .section-copy li + li {
   margin-top: 16px;
 }
+.detail-section .section-copy blockquote {
+  margin: 32px 0 0;
+  padding-left: 18px;
+  border-color: var(--accent);
+}
+.detail-section .section-copy blockquote p {
+  margin: 0;
+  font-size: 16px;
+}
+.detail-section .section-copy blockquote p + p {
+  margin-top: 8px;
+}
+.detail-section .section-copy blockquote strong {
+  color: var(--accent);
+}
 .detail-section .section-art {
   max-width: 680px;
   align-self: center;

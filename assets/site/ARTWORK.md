@@ -41,7 +41,7 @@ The four feature illustrations share a 520 × 320 canvas and the site's coral, s
 
 The feature grid covers API and JSON in its first row, then deployment and users/access in its second row. Each illustration sits beneath its explanation. Desktop and tablet use two columns; phones use one.
 
-The storage section after the interactive object example uses `assets/site/storage-internals.svg` from `3f1a306`: a 660 × 570 illustration with a complete JSON object on the front plane and hot fields, compact columns, and compressed fields on a rear plane. Its larger presentation keeps both the JSON example and all three tiers readable.
+The storage section after the interactive object example extends `assets/site/storage-internals.svg` from `3f1a306` to a 660 × 740 canvas. A complete JSON object sits on the front plane, with hot fields, compact columns, and compressed fields on a rear plane. Persist and Recover arrows lead to a small cylinder labeled as optional S3 durability through journals and snapshots. This addition uses custom SVG geometry with no external icon artwork. All labels remain editable in the Storage diagram table.
 
 The object example uses selectable Markdown chapters and code blocks in place of the former object-capabilities illustration. Its sample data, reference destination, and explanations are editable directly in `content/<language>/home.md`.
 
