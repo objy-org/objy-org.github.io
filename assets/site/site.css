@@ -319,7 +319,7 @@ body > main > .sidebar-toggle,
 }
 .hero-art {
   width: 100%;
-  max-width: 420px;
+  max-width: 600px;
   min-width: 0;
   margin: 0 auto;
 }
@@ -982,7 +982,7 @@ pre {
     max-width: 540px;
   }
   .hero-art {
-    max-width: 300px;
+    max-width: 420px;
   }
   .page-section {
     padding: 48px 0;
