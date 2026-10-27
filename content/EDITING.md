@@ -131,6 +131,7 @@ The Application diagram table controls the Apps, AI agents, and APIs labels in t
 The object example lives in `home.md`, under `:id=object-capabilities`. Its content uses ordinary Markdown:
 
 - The introduction and first JSON code block define the sample object. A quote immediately before that block labels its collection and identity.
+- Put a `####` heading before that first sample to name its tab above the code, for example `#### Bike :id=example-bike`. Nested `####` chapters with a matching code format become additional tabs there; their headings supply the names, such as Person. Selecting an object also shows its explanation.
 - Each `###` chapter becomes a tab. Its heading supplies the tab label; the paragraphs and code beneath it supply the explanation. The first bold paragraph is the explanation’s title.
 - A nested `####` chapter creates a linked view within its parent tab. Give it an ID and link to that ID, for example `[Follow the owner reference](/?id=example-owner)`. A code block in any tab or nested view with the same language as the introductory block replaces the data shown on the left; a quote before it supplies the new source label. The Meta tab uses this to display collection configuration rather than the default object.
 - Code blocks in a different language, such as JavaScript, remain in the explanation. They are displayed as examples, not executed.

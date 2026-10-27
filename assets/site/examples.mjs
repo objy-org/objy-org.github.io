@@ -1,5 +1,6 @@
 // A code sample before H3 chapters turns those chapters into an explorable example.
-// H4 chapters are linked views within their parent tab, such as a referenced object.
+// An H4 before the sample names it; matching samples in nested H4 chapters
+// become object tabs above the code as well as linked views in the explanation.
 function sourceLabel(pre) {
   const quote = pre.previousElementSibling;
   if (quote?.tagName !== 'BLOCKQUOTE') return '';
@@ -29,12 +30,17 @@ export function decorateExample(section) {
 
   const nodes = [];
   for (let node = sample.nextSibling; node; node = node.nextSibling) nodes.push(node);
+  const previous = sample.previousElementSibling;
+  const heading = previous?.tagName === 'BLOCKQUOTE' ? previous.previousElementSibling : previous;
+  const sampleHeading = heading?.tagName === 'H4' ? heading : null;
   const source = keepSource(sample, 'example-default');
   const format = source.content.querySelector('code').className;
   const workspace = document.createElement('div');
   workspace.className = 'example-workspace';
   const codePanel = document.createElement('div');
   codePanel.className = 'example-code';
+  const data = document.createElement('div');
+  data.className = 'example-data';
   const header = document.createElement('div');
   header.className = 'example-code-header';
   const label = document.createElement('span');
@@ -88,7 +94,35 @@ export function decorateExample(section) {
     );
     if (record) item.append(keepSource(record, 'example-record'));
   }
-  workspace.append(codePanel, notes);
+  if (sampleHeading) {
+    const records = document.createElement('div');
+    records.className = 'example-tabs example-record-tabs';
+    records.setAttribute('role', 'tablist');
+    records.setAttribute('aria-label', tabs.firstElementChild.textContent);
+    codePanel.id = `example-code-${section.dataset.section}`;
+    codePanel.setAttribute('role', 'tabpanel');
+    const choices = [
+      [sampleHeading, tabs.firstElementChild.dataset.exampleTab],
+      ...[...notes.querySelectorAll('.example-panel:has(.example-record) > h4')]
+        .map((heading) => [heading, heading.id]),
+    ];
+    for (const [heading, chapter] of choices) {
+      const tab = document.createElement('button');
+      tab.type = 'button';
+      tab.id = `example-record-tab-${chapter}`;
+      tab.dataset.exampleRecord = chapter;
+      tab.textContent = heading.textContent;
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-controls', codePanel.id);
+      records.append(tab);
+      heading.replaceChildren(document.createTextNode(heading.textContent));
+      heading.classList.add('example-heading');
+    }
+    sampleHeading.remove();
+    data.append(records);
+  }
+  data.append(codePanel);
+  workspace.append(data, notes);
   section.classList.add('section-example');
   section.append(workspace);
   return true;
@@ -98,6 +132,8 @@ export function wireExamples(signal, root = document) {
   for (const workspace of root.querySelectorAll('.example-workspace')) {
     const panels = [...workspace.querySelectorAll('.example-panel')];
     const tabs = [...workspace.querySelectorAll('[data-example-tab]')];
+    const records = [...workspace.querySelectorAll('[data-example-record]')];
+    const codePanel = workspace.querySelector('.example-code');
     const code = workspace.querySelector('.example-code > pre code');
     const label = workspace.querySelector('.example-source-label');
     const defaultSource = workspace.querySelector('.example-default');
@@ -116,25 +152,33 @@ export function wireExamples(signal, root = document) {
       const source = panel.querySelector('.example-record') || defaultSource;
       code.innerHTML = source.content.querySelector('code').innerHTML;
       label.textContent = source.dataset.label;
+      const currentRecord = records.find((tab) => tab.dataset.exampleRecord === id) || records[0];
+      records.forEach((tab) => {
+        const selected = tab === currentRecord;
+        tab.setAttribute('aria-selected', String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      if (currentRecord) codePanel.setAttribute('aria-labelledby', currentRecord.id);
       return panel;
     };
     const fromHash = () => {
       const id = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
       if (select(id)) workspace.scrollIntoView({ block: 'start', behavior: 'auto' });
     };
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => select(tab.dataset.exampleTab), { signal });
+    for (const group of [tabs, records]) group.forEach((tab, index) => {
+      const chapter = (item) => item.dataset.exampleTab || item.dataset.exampleRecord;
+      tab.addEventListener('click', () => select(chapter(tab)), { signal });
       tab.addEventListener('keydown', (event) => {
         const next = {
-          ArrowRight: (index + 1) % tabs.length,
-          ArrowLeft: (index + tabs.length - 1) % tabs.length,
+          ArrowRight: (index + 1) % group.length,
+          ArrowLeft: (index + group.length - 1) % group.length,
           Home: 0,
-          End: tabs.length - 1,
+          End: group.length - 1,
         }[event.key];
         if (next === undefined) return;
         event.preventDefault();
-        select(tabs[next].dataset.exampleTab);
-        tabs[next].focus({ preventScroll: true });
+        select(chapter(group[next]));
+        group[next].focus({ preventScroll: true });
       }, { signal });
     });
     workspace.addEventListener('click', (event) => {
@@ -151,7 +195,8 @@ export function wireExamples(signal, root = document) {
       if (!selected) return;
       event.preventDefault();
       event.stopPropagation();
-      const focus = selected.querySelector('h4') ||
+      const focus = records.find((tab) => tab.dataset.exampleRecord === selected.dataset.chapter) ||
+        selected.querySelector('h4') ||
         tabs.find((tab) => tab.dataset.exampleTab === selected.dataset.parent);
       if (focus.tagName === 'H4') focus.setAttribute('tabindex', '-1');
       focus.focus({ preventScroll: true });

@@ -40,6 +40,8 @@ Benutzer, Authentifizierung, Berechtigungen und rollenbasierter Zugriff (RBAC). 
 
 Ein Fahrrad, sein Besitzer und die Speicherung dahinter. Starte mit den Daten, die deine Anwendung bereits versteht.
 
+#### Fahrrad :id=example-bike
+
 > app / bikes / bike-001
 
 ```json
@@ -65,7 +67,9 @@ Jedes Objekt hat seine eigene ID und flexible Felder. Speichere einen Preis, erg
 
 [Dem Besitzer-Verweis folgen →](/?id=example-owner)
 
-#### Verbunden, ohne Kopien. :id=example-owner
+#### Person :id=example-owner
+
+**Verbunden, ohne Kopien.**
 
 Der Verweis identifiziert die Person in der Collection people. Löse ihn beim Lesen auf, um die aktuellen Werte des verknüpften Objekts zu verwenden.
 

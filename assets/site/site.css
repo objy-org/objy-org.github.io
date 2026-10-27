@@ -406,6 +406,7 @@ body > main > .sidebar-toggle,
 }
 .feature-grid .section-art {
   max-width: 320px;
+  margin-inline: auto;
 }
 .feature-grid .section-copy p {
   font-size: 16px;
@@ -620,6 +621,9 @@ body > main > .sidebar-toggle,
   border-radius: 8px;
   overflow: hidden;
   background: #282727;
+}
+.example-data {
+  min-width: 0;
 }
 .example-code-header {
   display: flex;

@@ -40,6 +40,8 @@ Users, authentication, permissions, and role-based access control (RBAC). Define
 
 A bike, its owner, and the storage behind it. Start with the data your application already understands.
 
+#### Bike :id=example-bike
+
 > app / bikes / bike-001
 
 ```json
@@ -65,7 +67,9 @@ Every object has its own ID and flexible fields. Store a price, add a descriptio
 
 [Follow the owner reference →](/?id=example-owner)
 
-#### Connected, without the copies. :id=example-owner
+#### Person :id=example-owner
+
+**Connected, without the copies.**
 
 The reference identifies the person in the people collection. Resolve it when reading to use the connected object's current values.
 

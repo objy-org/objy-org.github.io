@@ -136,7 +136,7 @@ await check('A missing illustration falls back to the image without losing page 
 
 await check('Markdown examples switch tabs, follow references, and support keyboard navigation', async () => {
   const markup = '<h1 id="top">Hello</h1><h2 id="a">A</h2><h2 id="b">B</h2><h2 id="c">C</h2>' +
-    '<h2 id="demo">Example</h2><p>Introduction</p><blockquote><p>items / first</p></blockquote>' +
+    '<h2 id="demo">Example</h2><p>Introduction</p><h4 id="first">First item</h4><blockquote><p>items / first</p></blockquote>' +
     '<pre><code class="lang-json">{"_id":"first","literal":"&lt;tag&gt;"}</code></pre>' +
     '<h3 id="inspect">Inspect</h3><p>Inspect this record.</p><p><a href="#/?id=related">Related</a></p>' +
     '<h4 id="related">Related record</h4><p>Connected data.</p><blockquote><p>people / second</p></blockquote>' +
@@ -151,9 +151,18 @@ await check('Markdown examples switch tabs, follow references, and support keybo
   try {
     wireExamples(controller.signal, fixture);
     const code = fixture.querySelector('.example-code > pre code');
-    const tabs = [...fixture.querySelectorAll('[role="tab"]')];
+    const tabs = [...fixture.querySelectorAll('[data-example-tab]')];
+    const records = [...fixture.querySelectorAll('[data-example-record]')];
     const active = () => tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
     assert(JSON.parse(code.textContent).literal === '<tag>', 'Literal JSON changed');
+    assert(records.map((tab) => tab.textContent).join(',') === 'First item,Related record', 'Object tabs did not use Markdown labels');
+    assert(records[0].getAttribute('aria-selected') === 'true', 'Default object tab was not selected');
+    records[1].click();
+    assert(JSON.parse(code.textContent)._id === 'second', 'Object tab did not display the connected object');
+    assert(!fixture.querySelector('#example-panel-related').hidden, 'Object tab did not update the explanation');
+    assert(fixture.querySelector('.example-code').getAttribute('aria-labelledby') === records[1].id, 'Code panel did not identify its selected object tab');
+    records[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    assert(JSON.parse(code.textContent)._id === 'first', 'Object tab keyboard navigation did not wrap');
     tabs[1].click();
     assert(active().textContent === 'Find', 'Tab did not change');
     assert(!fixture.querySelector('#example-panel-find').hidden, 'Query panel remained hidden');
@@ -166,6 +175,7 @@ await check('Markdown examples switch tabs, follow references, and support keybo
     fixture.querySelector('a[href="#/?id=related"]').click();
     assert(JSON.parse(code.textContent)._id === 'second', 'Reference did not update the visible object');
     assert(fixture.querySelector('.example-source-label').textContent === 'people / second', 'Source label did not change');
+    assert(records[1].getAttribute('aria-selected') === 'true', 'Reference did not select its object tab');
     assert(active().getAttribute('aria-controls') === 'example-panel-related', 'Selected tab does not identify its visible panel');
     fixture.querySelector('a[href="#/?id=inspect"]').click();
     assert(JSON.parse(code.textContent)._id === 'first', 'Back link did not restore the original object');
