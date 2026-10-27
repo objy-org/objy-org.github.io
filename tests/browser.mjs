@@ -247,6 +247,60 @@ await check('Copy uses the selected object and survives same-page navigation', a
   }
 });
 
+await check('Articles stay centered in the viewport without colliding with the chapter menu', async () => {
+  const frame = site.contentWindow;
+  const previousStyle = site.getAttribute('style');
+  const resize = async (width) => {
+    site.style.width = `${width}px`;
+    site.style.height = '800px';
+    await new Promise((resolve) => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+  };
+  const checkCenter = (selector) => {
+    const document = site.contentDocument;
+    const width = document.documentElement.clientWidth;
+    const rect = document.querySelector(selector).getBoundingClientRect();
+    assert(Math.abs(rect.left + rect.width / 2 - width / 2) <= 1, `Article is off center at ${width}px`);
+    assert(document.documentElement.scrollWidth <= width + 1, `Page overflows horizontally at ${width}px`);
+    return rect;
+  };
+  try {
+    for (const width of [2560, 1920, 1440, 1280, 1101, 1100, 1024, 761, 760, 390]) {
+      await resize(width);
+      const rect = checkCenter('.sections-root');
+      const document = site.contentDocument;
+      const menu = document.querySelector('.section-menu-toggle');
+      const sidebar = document.querySelector('.page-sidebar');
+      if (width > 1100) {
+        assert(frame.getComputedStyle(sidebar).display !== 'none', 'Desktop chapter menu is missing');
+        assert(sidebar.getBoundingClientRect().right < rect.left, 'Chapter menu overlaps the centered article');
+      } else {
+        assert(frame.getComputedStyle(menu).display !== 'none', 'Collapsible menu control is missing');
+        menu.click();
+        assert(frame.getComputedStyle(sidebar).display !== 'none', 'Chapter drawer did not open');
+        menu.click();
+        assert(frame.getComputedStyle(sidebar).display === 'none', 'Chapter drawer did not close');
+      }
+    }
+    frame.location.hash = '#/documentation';
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        if (site.contentDocument.querySelector('.document-page')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Documentation did not load'));
+        frame.requestAnimationFrame(ready);
+      };
+      frame.requestAnimationFrame(ready);
+    });
+    for (const width of [1920, 1280, 1024, 390]) {
+      await resize(width);
+      checkCenter('.document-page');
+    }
+  } finally {
+    if (previousStyle === null) site.removeAttribute('style');
+    else site.setAttribute('style', previousStyle);
+  }
+});
+
 site.remove();
 document.getElementById('status').textContent =
   `${results.children.length - failures} passed, ${failures} failed`;
