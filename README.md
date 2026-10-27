@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage has a centered illustrated hero followed directly by three feature columns: Simple API, JSON with extras, and “Runs everywhere, scalable”. Each column has text above its illustration. On wide screens, short curved arrows lead from the API and deployment illustrations toward the central JSON object. A full-width Storage internals section follows, with text beside its larger 3D illustration. The following “Objects that do more” section explains dynamic properties, live references, and user permissions beside a floating-object illustration. A final Deployment section covers Quick-start (local and cluster deployment), Bring your own cloud, and Browser, with relevant links beneath each explanation. There is no build step.
+A Docsify 5 site with a dark theme, a simple top header, and section navigation fixed to the far left edge. OBJY is the brand; **objy.db and its object-centric database features are the focus**. The homepage has a centered illustrated hero followed directly by three feature columns: Simple API, JSON with extras, and “Runs everywhere, scalable”. Each column has text above its illustration. On wide screens, short curved arrows lead from the API and deployment illustrations toward the central JSON object. A full-width Storage internals section follows, with text beside its larger 3D illustration. The following “Objects that do more” section explains dynamic properties, live references, and user permissions beside a floating-object illustration. The separate Get started now page covers Quick-start (local and cluster deployment), Bring your own cloud, and Browser, with relevant links beneath each explanation. There is no build step.
 
 ## Editing
 
@@ -13,8 +13,9 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `home.md` | Hero, section explanations, image paths and alternative text, links |
 | `sidebar.md` | Homepage menu labels, destinations, and order |
 | `labels.md` | Header links, navigation, controls, metadata, diagram labels |
+| `get-started.md` | Deployment options: Quick-start, Bring your own cloud, and Browser |
 | `documentation.md` | Documentation index and links to individual guides |
-| `database.md` | Local deployment reference used by homepage quick-start links |
+| `database.md` | Local deployment reference used by the Get started page |
 
 Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first three `##` headings after the hero create feature columns; later headings create full-width sections. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
@@ -54,7 +55,7 @@ Open `http://127.0.0.1:8000/`. HTTP is required for Docsify to load Markdown. Fo
 
 ## Routes
 
-Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. The documentation index opens at `/?lang=de#/documentation`; its Server documentation link opens `/?lang=de#/content/server`. The local deployment reference remains at `/?lang=de#/DATABASE`, with the same theme and engine. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
+Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. Get started opens at `/?lang=de#/get-started`, with deployment chapters generated from its Markdown. The documentation index opens at `/?lang=de#/documentation`; its Server documentation link opens `/?lang=de#/content/server`. The local deployment reference remains at `/?lang=de#/DATABASE`, with the same theme and engine. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
 
 Metadata, the document’s `lang` attribute, controls, alt text, and SVG labels follow the selected language. All document headings keep stable IDs across translations. Code examples and API keys remain unchanged.
 

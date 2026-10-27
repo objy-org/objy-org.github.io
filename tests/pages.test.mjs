@@ -37,7 +37,8 @@ test('loading prefers translations, then default content, then repository files'
   for (const available of files) {
     const requests = [];
     const result = await loadMarkdown(files, {
-      fetchFile: async (file) => {
+      fetchFile: async (file, options) => {
+        assert.equal(options.cache, 'no-cache', 'Markdown edits must be revalidated');
         requests.push(file);
         return new Response(file === available ? '# Setup' : '', { status: file === available ? 200 : 404 });
       },

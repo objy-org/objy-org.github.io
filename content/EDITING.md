@@ -9,6 +9,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Headlines, section copy, images, links | [home.md](en/home.md) | [home.md](de/home.md) |
 | Homepage menu labels and order | [sidebar.md](en/sidebar.md) | [sidebar.md](de/sidebar.md) |
 | Header, controls, metadata, diagram labels | [labels.md](en/labels.md) | [labels.md](de/labels.md) |
+| Get started and deployment options | [get-started.md](en/get-started.md) | [get-started.md](de/get-started.md) |
 | Documentation index | [documentation.md](en/documentation.md) | [documentation.md](de/documentation.md) |
 | Local deployment reference | [database.md](en/database.md) | [database.md](de/database.md) |
 
@@ -41,7 +42,9 @@ The “Objects that do more” section follows Storage internals. Its introducti
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
 
-The bottom Deployment section is edited in `home.md`. Each `###` heading starts an option: Quick-start, Bring your own cloud, or Browser. Quick-start combines local and cluster deployment, with GitHub, Run locally, and Cluster setup links. Optional bullet lists of links become buttons within the same option. Keep `:id=deployment` and each subheading's ID so navigation stays connected. Any homepage section with `###` subheadings and no standalone illustration uses this options layout. It uses three columns on desktop and one column on smaller screens. All copy and destinations are editable in Markdown.
+The top-bar Get started now link opens `get-started.md`. This page contains the deployment options previously shown on the homepage: Quick-start, Bring your own cloud, and Browser. Each `##` heading becomes an entry in its automatic left menu. Quick-start combines local and cluster deployment, with GitHub, Run locally, and Cluster setup links. All copy and destinations are editable in Markdown. Keep the page and chapter IDs so shared links continue to work.
+
+On the homepage, sections with `###` subheadings and no standalone illustration can still use the options layout: three columns on desktop, stacked on smaller screens. Bullet lists of links become buttons within each option.
 
 In `sidebar.md`, change homepage menu labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
@@ -141,14 +144,14 @@ Shared images in `assets/` are relative to the site root. Other relative image p
 ## Add a language
 
 1. Copy `content/en/` to a new folder named after the language code, such as `content/fr/`.
-2. Translate `home.md`, `sidebar.md`, `labels.md`, `documentation.md`, and `database.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
+2. Translate `home.md`, `sidebar.md`, `labels.md`, `get-started.md`, `documentation.md`, and `database.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
 3. Add an entry to `content/languages.json`, for example `{ "code": "fr", "name": "Français", "short": "FR" }`. The code must match the folder. The language appears in the switcher automatically; no HTML or JavaScript changes are needed.
-4. Preview `/?lang=fr`, `/?lang=fr#/documentation`, and `/?lang=fr#/DATABASE`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
+4. Preview `/?lang=fr`, `/?lang=fr#/get-started`, `/?lang=fr#/documentation`, and `/?lang=fr#/DATABASE`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
 5. Run `node --test tests/*.test.mjs` to check for missing files, labels, anchors, or broken local links.
 
 The registry's `defaultLanguage` controls the default for new visitors. Unknown URL language codes fall back to that default. Missing UI labels also fall back to the default language, but translate every label before releasing a new language. Translate the core files before registering a language. Additional Markdown pages can fall back to the default language until their translations are ready.
 
-Use language-neutral links such as `DATABASE.md?id=run-a-node` and `/?id=deployment` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
+Use language-neutral links such as `DATABASE.md?id=run-a-node` and `/get-started.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
 
 ## Review and publish
 

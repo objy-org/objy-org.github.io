@@ -61,7 +61,8 @@ export async function loadMarkdown(files, { signal, fetchFile = fetch } = {}) {
     const remote = isRemote(file);
     const response = await fetchFile(file, {
       signal,
-      ...(remote ? { cache: 'no-cache', credentials: 'omit' } : {}),
+      cache: 'no-cache',
+      ...(remote ? { credentials: 'omit' } : {}),
     });
     if (response.status === 404) continue;
     if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);

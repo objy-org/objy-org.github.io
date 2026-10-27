@@ -223,7 +223,7 @@ function objyTheme(hook, vm) {
   const loadContent = () =>
     (contentReady ||= Promise.all(
       [...labelFiles, `content/${language.code}/sidebar.md`].map(async (file) => {
-        const response = await fetch(file);
+        const response = await fetch(file, { cache: 'no-cache' });
         if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);
         return response.text();
       }),

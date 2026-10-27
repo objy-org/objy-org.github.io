@@ -4,4 +4,3 @@
 - [Runs everywhere](/?id=run-and-deploy)
 - [Storage internals](/?id=storage-internals)
 - [Objects that do more](/?id=object-capabilities)
-- [Deployment](/?id=deployment)

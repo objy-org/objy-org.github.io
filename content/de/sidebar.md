@@ -4,4 +4,3 @@
 - [Läuft überall](/?id=run-and-deploy)
 - [Speicheraufbau](/?id=storage-internals)
 - [Objekte können mehr](/?id=object-capabilities)
-- [Bereitstellung](/?id=deployment)
