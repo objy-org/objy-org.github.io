@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <title>OBJY browser checks</title>
+  <style>
+    body {
+      font: 17px/1.6 system-ui;
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 24px;
+    }
+    .pass {
+      color: #196c31;
+    }
+    .fail {
+      color: #a02020;
+    }
+    iframe {
+      width: 1px;
+      height: 1px;
+      position: absolute;
+      left: -10000px;
+    }
+  </style>
+  <h1>OBJY browser checks</h1>
+  <p id="status">Running…</p>
+  <ol id="results"></ol>
+  <script type="module" src="browser.mjs"></script>
+</html>

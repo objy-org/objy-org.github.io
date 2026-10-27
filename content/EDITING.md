@@ -30,7 +30,7 @@ Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual.
 
 Keep each section focused on one idea and use concrete examples. The feature row presents Simple API, JSON with extras, and “Runs everywhere, scalable”, in that order. On wide screens, curved arrows between the illustrations point toward the JSON object in the center; they disappear when the columns stack. Storage internals follows as a separate section.
 
-The “Objects that do more” section follows Storage internals. Its introduction and three bullet points explain dynamic properties, references, and user permissions. Edit these in `home.md`; keep `:id=object-capabilities` for the menu link. Its illustration sits on the left on desktop to alternate with the storage section.
+The “Objects that do more” section follows Storage internals. Its introduction and three bullet points explain dynamic properties, references, and user permissions. Edit these in `home.md`; keep `:id=object-capabilities` for the menu link. Illustrated detail sections alternate text and artwork automatically on desktop, starting with the image on the right. The section names do not control this layout.
 
 ## Change links or the menu
 
@@ -41,7 +41,7 @@ The “Objects that do more” section follows Storage internals. Its introducti
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
 
-The bottom Deployment section is edited in `home.md`. Each `###` heading starts an option: Quick-start, Bring your own cloud, or Browser. Quick-start combines local and cluster deployment, with GitHub, Run locally, and Cluster setup links. Optional bullet lists of links become buttons within the same option. Keep `:id=deployment` and each subheading's ID so navigation stays connected. The layout uses three columns on desktop and one column on smaller screens. All copy and destinations are editable in Markdown.
+The bottom Deployment section is edited in `home.md`. Each `###` heading starts an option: Quick-start, Bring your own cloud, or Browser. Quick-start combines local and cluster deployment, with GitHub, Run locally, and Cluster setup links. Optional bullet lists of links become buttons within the same option. Keep `:id=deployment` and each subheading's ID so navigation stays connected. Any homepage section with `###` subheadings and no standalone illustration uses this options layout. It uses three columns on desktop and one column on smaller screens. All copy and destinations are editable in Markdown.
 
 In `sidebar.md`, change homepage menu labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
@@ -134,7 +134,7 @@ Change an image's file path to use a different image. The words inside `![]` des
 ![Describe the image](assets/site/your-image.png)
 ```
 
-The file must exist in the repository, or use a full image URL. Images automatically fit the available width. Additional images in the same section stay within its text.
+Shared images in `assets/` are relative to the site root. Other relative image paths are resolved from the actual Markdown file, so a guide can keep its images beside it. The file must exist in the repository, or use a full image URL. Images automatically fit the available width. Additional images in the same section stay within its text.
 
 ## Add a language
 
