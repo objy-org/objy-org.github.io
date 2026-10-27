@@ -121,9 +121,12 @@ export async function decorateHomepage(html) {
     throw new Error('home.md: keep the # headline with :id=top first.');
   await Promise.all(sections.map(decorateSection));
   const [hero, ...content] = sections;
-  // The hero leads directly into three feature columns and later detail sections.
-  const features = content.slice(0, 3);
-  const details = content.slice(3);
+  // Consecutive illustrated chapters form the feature row; the first text/example
+  // chapter starts the details. Editors can add features without changing JavaScript.
+  const boundary = content.findIndex((section) => !section.classList.contains('section-illustrated'));
+  const count = boundary === -1 ? content.length : boundary;
+  const features = content.slice(0, count);
+  const details = content.slice(count);
   details.forEach((section) => section.classList.add('detail-section'));
   details
     .filter((section) => section.classList.contains('section-illustrated'))
@@ -131,7 +134,7 @@ export async function decorateHomepage(html) {
       section.classList.toggle('art-first', index % 2 === 1);
     });
   const featureGrid = features.length
-    ? `<div class="feature-grid">${features.map((section) => section.outerHTML).join('')}</div>`
+    ? `<div class="feature-grid" style="--feature-columns:${Math.min(4, features.length)}">${features.map((section) => section.outerHTML).join('')}</div>`
     : '';
   return `<div class="sections-root">${hero.outerHTML}${featureGrid}${details.map((section) => section.outerHTML).join('')}</div>`;
 }

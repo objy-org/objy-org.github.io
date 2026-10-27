@@ -100,15 +100,20 @@ await check('Translation values are parsed once and preserve literal HTML-lookin
 await check('Homepage layouts work with arbitrary chapter names', async () => {
   const image =
     '<p><img alt="Sample" src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22/%3E"></p>';
+  const features = ['one', 'two', 'three', 'four']
+    .map((name) => `<h2 id="${name}">${name}</h2>${image}`)
+    .join('');
   const markup =
-    '<h1 id="top">Hello</h1><h2 id="one">One</h2><h2 id="two">Two</h2><h2 id="three">Three</h2>' +
+    '<h1 id="top">Hello</h1>' + features +
+    '<h2 id="details">Details</h2><p>More to explore.</p>' +
     '<h2 id="first-detail">First detail</h2>' +
     image +
     '<h2 id="second-detail">Second detail</h2>' +
     image +
     '<h2 id="choices">Choices</h2><h3 id="small">Small</h3><p>First choice</p><h3 id="large">Large</h3><p>Second choice</p>';
   const content = htmlFragment(await decorateHomepage(markup));
-  assert(content.querySelectorAll('.feature-grid > section').length === 3, 'Feature grid lost');
+  assert(content.querySelectorAll('.feature-grid > section').length === 4, 'Feature count was hard-coded');
+  assert(content.querySelector('.feature-grid').style.getPropertyValue('--feature-columns') === '4', 'Feature columns did not follow the content');
   assert(
     content.querySelector('.art-first')?.dataset.section === 'second-detail',
     'Illustrations did not alternate',
@@ -137,7 +142,8 @@ await check('Markdown examples switch tabs, follow references, and support keybo
     '<h4 id="related">Related record</h4><p>Connected data.</p><blockquote><p>people / second</p></blockquote>' +
     '<pre><code class="lang-json">{"_id":"second"}</code></pre><p><a href="#/?id=inspect">Back</a></p>' +
     '<h3 id="find">Find</h3><p>Query description.</p><pre><code class="lang-js">await items.find({});</code></pre>' +
-    '<h3 id="rules">Rules</h3><p>Access description.</p>';
+    '<h3 id="tune">Tune</h3><p>Storage configuration.</p><blockquote><p>items / meta</p></blockquote>' +
+    '<pre><code class="lang-json">{"indexes":["kind"],"columns":["amount"],"tiering":{"mode":"compressedMemory","offload":["notes"],"minBytes":4096}}</code></pre>';
   const fixture = document.createElement('div');
   fixture.append(htmlFragment(await decorateHomepage(markup)));
   document.body.append(fixture);
@@ -152,8 +158,11 @@ await check('Markdown examples switch tabs, follow references, and support keybo
     assert(active().textContent === 'Find', 'Tab did not change');
     assert(!fixture.querySelector('#example-panel-find').hidden, 'Query panel remained hidden');
     tabs[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
-    assert(active().textContent === 'Rules', 'Keyboard tab navigation failed');
+    assert(active().textContent === 'Tune', 'Keyboard tab navigation failed');
+    assert(JSON.parse(code.textContent).columns[0] === 'amount', 'Tab did not display its metadata');
+    assert(fixture.querySelector('.example-source-label').textContent === 'items / meta', 'Metadata label did not change');
     tabs[0].click();
+    assert(JSON.parse(code.textContent)._id === 'first', 'Object tab did not restore its sample after metadata');
     fixture.querySelector('a[href="#/?id=related"]').click();
     assert(JSON.parse(code.textContent)._id === 'second', 'Reference did not update the visible object');
     assert(fixture.querySelector('.example-source-label').textContent === 'people / second', 'Source label did not change');

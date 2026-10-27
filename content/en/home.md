@@ -30,9 +30,15 @@ From browsers to servers and clusters. Add nodes as your application grows.
 
 ![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
 
+## Users & access. Built in. :id=users-and-access
+
+Users, authentication, permissions, and role-based access control (RBAC). Define who can read, write, and administer.
+
+![User identities connect to a login lock and an access-control shield.](assets/site/users-access.svg)
+
 ## One object. A real application. :id=object-capabilities
 
-A bike, its owner, and who can change it. Start with the data your application already understands.
+A bike, its owner, and the storage behind it. Start with the data your application already understands.
 
 > app / bikes / bike-001
 
@@ -41,6 +47,8 @@ A bike, its owner, and who can change it. Start with the data your application a
   "_id": "bike-001",
   "name": "City bike",
   "available": true,
+  "price": 199,
+  "description": "A lightweight bike for everyday city rides.",
   "owner": {
     "type": "reference",
     "collection": "people",
@@ -53,7 +61,7 @@ A bike, its owner, and who can change it. Start with the data your application a
 
 **Your data. Your shape.**
 
-Add the fields your app needs. The owner reference connects this bike to a person without copying their profile into every record.
+Every object has its own ID and flexible fields. Store a price, add a description, and follow the owner reference to a connected person without copying their profile into every bike.
 
 [Follow the owner reference →](/?id=example-owner)
 
@@ -75,22 +83,43 @@ The reference identifies the person in the people collection. Resolve it when re
 
 ### Query :id=example-query
 
-**Ask for what your app needs.**
+**Find the bikes that fit.**
 
-Find available bikes through the JavaScript client. Use the same collection for reads, updates, and aggregation.
+Filter available bikes, sort by price, and return up to ten matches. Query the same fields you see in the object through the JavaScript client.
 
 ```js
 const bikes = client.database('app')
   .collection('bikes');
 
-await bikes.find({ available: true });
+await bikes.find(
+  { available: true },
+  { sortBy: 'price', sort: 'asc', limit: 10 }
+);
 ```
 
-### Access :id=example-access
+### Meta :id=example-meta
 
-**Access belongs in the platform.**
+**Same objects. Smarter storage.**
 
-Authenticate users and control read and write access through collection permissions. Your objects, users, and access rules share one platform.
+Collection metadata controls how these objects are queried and stored.
+
+- **Indexes:** `available` and `price` accelerate filtering and sorting.
+- **Columns:** `price` sits in a compact column for efficient aggregation.
+- **Compression:** Large `description` payloads stay compressed in memory. `minBytes` sets the size threshold; reads return complete objects.
+
+> app / bikes / meta
+
+```json
+{
+  "indexes": ["available", "price"],
+  "columns": ["price"],
+  "tiering": {
+    "mode": "compressedMemory",
+    "offload": ["description"],
+    "minBytes": 4096
+  }
+}
+```
 
 ## Objects outside. Smart storage inside. :id=storage-internals
 

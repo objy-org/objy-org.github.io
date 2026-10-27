@@ -30,9 +30,15 @@ Im Browser, auf Servern oder im Cluster. Füge weitere Knoten hinzu, wenn deine 
 
 ![Ein Browserfenster, ein einzelner Server und drei verbundene Server zeigen den Betrieb vom Browser bis zum Cluster.](assets/site/run-and-deploy.svg)
 
+## Benutzer & Zugriff. Inklusive. :id=users-and-access
+
+Benutzer, Authentifizierung, Berechtigungen und rollenbasierter Zugriff (RBAC). Lege fest, wer lesen, schreiben und administrieren darf.
+
+![Benutzeridentitäten sind mit einem Anmeldeschloss und einem Schutzschild für Zugriffsrechte verbunden.](assets/site/users-access.svg)
+
 ## Ein Objekt. Eine echte Anwendung. :id=object-capabilities
 
-Ein Fahrrad, sein Besitzer und wer es ändern darf. Starte mit den Daten, die deine Anwendung bereits versteht.
+Ein Fahrrad, sein Besitzer und die Speicherung dahinter. Starte mit den Daten, die deine Anwendung bereits versteht.
 
 > app / bikes / bike-001
 
@@ -41,6 +47,8 @@ Ein Fahrrad, sein Besitzer und wer es ändern darf. Starte mit den Daten, die de
   "_id": "bike-001",
   "name": "City bike",
   "available": true,
+  "price": 199,
+  "description": "A lightweight bike for everyday city rides.",
   "owner": {
     "type": "reference",
     "collection": "people",
@@ -53,7 +61,7 @@ Ein Fahrrad, sein Besitzer und wer es ändern darf. Starte mit den Daten, die de
 
 **Deine Daten. Deine Struktur.**
 
-Ergänze die Felder, die deine Anwendung braucht. Der Verweis verbindet das Fahrrad mit einer Person, ohne ihr Profil in jeden Datensatz zu kopieren.
+Jedes Objekt hat seine eigene ID und flexible Felder. Speichere einen Preis, ergänze eine Beschreibung und folge dem Besitzer-Verweis zur verknüpften Person, ohne ihr Profil in jedes Fahrrad zu kopieren.
 
 [Dem Besitzer-Verweis folgen →](/?id=example-owner)
 
@@ -75,22 +83,43 @@ Der Verweis identifiziert die Person in der Collection people. Löse ihn beim Le
 
 ### Abfrage :id=example-query
 
-**Finde, was deine Anwendung braucht.**
+**Finde die passenden Fahrräder.**
 
-Finde verfügbare Fahrräder über den JavaScript-Client. Nutze dieselbe Collection für Lesezugriffe, Änderungen und Aggregation.
+Filtere verfügbare Fahrräder, sortiere nach Preis und erhalte bis zu zehn Treffer. Frage über den JavaScript-Client dieselben Felder ab, die du im Objekt siehst.
 
 ```js
 const bikes = client.database('app')
   .collection('bikes');
 
-await bikes.find({ available: true });
+await bikes.find(
+  { available: true },
+  { sortBy: 'price', sort: 'asc', limit: 10 }
+);
 ```
 
-### Zugriff :id=example-access
+### Meta :id=example-meta
 
-**Zugriff gehört zur Plattform.**
+**Gleiche Objekte. Intelligent gespeichert.**
 
-Authentifiziere Benutzer und steuere Lese- und Schreibzugriffe über Collection-Berechtigungen. Objekte, Benutzer und Zugriffsregeln auf einer Plattform.
+Collection-Metadaten steuern, wie diese Objekte abgefragt und gespeichert werden.
+
+- **Indizes:** `available` und `price` beschleunigen Filter und Sortierung.
+- **Spalten:** `price` liegt für effiziente Aggregation in einer kompakten Spalte.
+- **Kompression:** Große `description`-Daten bleiben im Arbeitsspeicher komprimiert. `minBytes` legt die Mindestgröße fest; Lesezugriffe liefern vollständige Objekte.
+
+> app / bikes / meta
+
+```json
+{
+  "indexes": ["available", "price"],
+  "columns": ["price"],
+  "tiering": {
+    "mode": "compressedMemory",
+    "offload": ["description"],
+    "minBytes": 4096
+  }
+}
+```
 
 ## Außen JSON, innen effiziente Speicherung :id=storage-internals
 

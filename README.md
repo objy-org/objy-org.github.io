@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage has a compact illustrated hero with Get started and object-example links, three feature columns, an interactive object example, storage internals, and a closing Quick Start section. All copy, example data, headings, and destinations are managed in Markdown in English and German. The separate Get started page covers local and cluster setup, bring your own cloud, and browser deployment. There is no build step.
+A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage has a compact illustrated hero with Get started and object-example links, four feature columns, an interactive object example, storage internals, and a closing Quick Start section. All copy, example data, headings, and destinations are managed in Markdown in English and German. The separate Get started page covers local and cluster setup, bring your own cloud, and browser deployment. There is no build step.
 
 ## Editing
 
@@ -16,7 +16,7 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `get-started.md` | Deployment options: Quick-start, Bring your own cloud, and Browser |
 | `documentation.md` | Documentation index and links to individual guides |
 
-Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first three `##` headings after the hero create feature columns; later headings create full-width sections. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
+Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. Consecutive illustrated `##` sections after the hero create the feature grid. The first section without an illustration starts the full-width detail sections; later illustrations remain details. The grid adapts to the number of features, up to four columns on desktop, two on tablets, and one on mobile. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 
@@ -35,7 +35,7 @@ The top-bar Documentation link opens the selected language’s `documentation.md
 | `homepage.mjs` | Homepage composition, illustration loading, and action-link layouts |
 | `examples.mjs` | Markdown-driven example tabs, referenced records, and keyboard interaction |
 
-Only the homepage module knows about the hero/feature/detail layout. Card sections are detected from subheadings, and illustrated detail sections alternate automatically. An introductory code block followed by H3 chapters creates an interactive example; H4 chapters provide linked views within a tab. The renderer uses this structure rather than fixed section names or object fields. Link-only lists become actions in the hero and closing section. The example displays local sample content and does not contact a database.
+Only the homepage module knows about the hero/feature/detail layout. Card sections are detected from subheadings, and illustrated detail sections alternate automatically. An introductory code block followed by H3 chapters creates an interactive example; H4 chapters provide linked views within a tab. The renderer uses this structure rather than fixed section names or object fields. Link-only lists become actions in the hero and closing section. The Object tab displays a bike and its owner reference, Query shows filtering and sorting, and Meta displays collection indexes, columns, and compressed-memory configuration. The example displays local sample content and does not contact a database.
 
 Docsify renders the Markdown and handles routes. The theme uses the curated `sidebar.md` menu on the homepage and automatically builds other pages’ menus from their rendered headings, including indented subchapters. The theme arranges its rendered HTML into the hero, a responsive feature grid, and full-width detail sections, moves its native sidebar into the layout, and binds labels from Markdown tables using Docsify's bundled parser. The mobile menu and active-section indication are supplied by the theme.
 
