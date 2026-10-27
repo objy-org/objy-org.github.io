@@ -270,8 +270,7 @@ body > main > .sidebar-toggle,
   padding-top: 4px;
   padding-bottom: 4px;
 }
-.sections-root,
-.document-page {
+.sections-root {
   max-width: var(--content-width);
   margin: 0;
   min-width: 0;
@@ -593,6 +592,9 @@ body > main > .sidebar-toggle,
   overflow-wrap: anywhere;
 }
 .document-page {
+  max-width: 900px;
+  min-width: 0;
+  margin: 0 auto;
   padding: 60px 0 100px;
 }
 .document-page h1 {
