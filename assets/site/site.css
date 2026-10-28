@@ -497,19 +497,14 @@ body > main > .sidebar-toggle,
   font-size: 15px;
   line-height: 1.85;
 }
-.overview-note pre {
-  margin: 16px 0 0;
-  padding: 12px;
-  border: 1px solid #403b38;
-  border-radius: 7px;
-  background: #282625;
-  font-size: 12px;
-  line-height: 1.65;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
+.overview-note p:has(> img:only-child) {
+  margin-top: 20px;
 }
-.overview-note pre code {
-  font-size: 1em;
+.overview-note p > img:only-child {
+  display: block;
+  width: 224px;
+  max-width: 100%;
+  height: auto;
 }
 .overview-note .anchor {
   color: inherit;

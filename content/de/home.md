@@ -11,7 +11,7 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 ## Objekte im Mittelpunkt. :id=abstract-objects
 
-![Die Leseansicht eines Geräts enthält die referenzierte Person unter operator.object. Das Quellobjekt ist grau dargestellt: eine Live-Referenz statt einer gespeicherten Kopie. Abfrage und Berechtigungsregel zeigen auf das übergeordnete Objekt.](assets/site/abstract-objects.svg?v=5)
+![Die Leseansicht eines Geräts enthält die referenzierte Person unter operator.object. Das Quellobjekt ist grau dargestellt: eine Live-Referenz statt einer gespeicherten Kopie. Pfeile verbinden die umliegenden Funktionen mit dem übergeordneten Objekt.](assets/site/abstract-objects.svg?v=5)
 
 ### Mehr als JSON. :id=object-model
 
@@ -21,29 +21,19 @@ Flexible Eigenschaften, verschachtelte Daten und Live-Referenzen, aufgelöst in 
 
 CRUD, Abfragen, Aggregationen, Vektorsuche.
 
-```json
-{
-  "online": true,
-  "battery": {
-    "$gte": 50
-  }
-}
-```
+![Erstellen und Ändern, Abfragen, Aggregationen und Vektorsuche.](assets/site/overview-api.svg)
 
 ### Benutzer & Zugriff. :id=users-and-access
 
-Auth, Benutzer, RBAC. Lesen + ändern:
+Authentifizierung, Benutzer, Berechtigungen und RBAC.
 
-```json
-{
-  "query": {},
-  "perm": "ru"
-}
-```
+![Ein Benutzer, ein Schlüssel zur Authentifizierung und ein Schutzschild für Berechtigungen.](assets/site/overview-access.svg)
 
 ### Läuft überall. :id=run-and-deploy
 
 Browser, Server und horizontal skalierbare Cluster.
+
+![Ein Browserfenster, ein Server und ein RAM-Modul.](assets/site/overview-runtime.svg)
 
 ## Deine Welt. Als Objekte. :id=object-capabilities
 

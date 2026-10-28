@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 68" fill="none">
+  <g stroke="#bfcda9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Create and update. -->
+    <path d="M15 20h17m-17 9h11M15 38h8M37 42v10H8V13h23"/>
+    <path d="m25 37 17-17 6 6-17 17-9 3 3-9Zm13-13 6 6"/>
+    <!-- Query. -->
+    <circle cx="86" cy="29" r="14"/>
+    <path d="m96 39 13 13M79 26h14m-14 7h8"/>
+    <!-- Aggregate. -->
+    <path d="M129 21h12m-12 13h12m-12 13h12m6-26 9 13-9 13m9-13h15"/>
+    <path d="M166 29v10m5-5h-10"/>
+    <!-- Vector similarity. -->
+    <path d="m198 21 23 9-18 18m-5-27 5 27m18-18-28 7"/>
+    <circle cx="198" cy="21" r="4" fill="#212121"/>
+    <circle cx="221" cy="30" r="4" fill="#212121"/>
+    <circle cx="203" cy="48" r="4" fill="#212121"/>
+    <circle cx="193" cy="37" r="3" fill="#212121"/>
+  </g>
+</svg>

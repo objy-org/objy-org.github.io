@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 224 72" fill="none">
+  <g stroke="#bfcda9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Browser. -->
+    <rect x="4" y="17" width="54" height="39" rx="4"/>
+    <path d="M4 29h54m-46-6h1m6 0h1m6 0h1m-1 14-6 6 6 6m10-12 6 6-6 6"/>
+    <!-- Server. -->
+    <rect x="88" y="12" width="36" height="48" rx="4"/>
+    <path d="M88 28h36m-36 16h36m-28-24h13m-13 16h13m-13 16h13m7-32h1m-1 16h1m-1 16h1"/>
+    <!-- RAM module. -->
+    <path d="M154 24h66v26h-66V24Zm8 26v7m8-7v7m8-7v7m8-7v7m8-7v7m8-7v7m8-7v7"/>
+    <rect x="161" y="30" width="11" height="13" rx="1"/>
+    <rect x="179" y="30" width="11" height="13" rx="1"/>
+    <rect x="197" y="30" width="11" height="13" rx="1"/>
+  </g>
+</svg>

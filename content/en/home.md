@@ -11,7 +11,7 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 ## Objects at the center. :id=abstract-objects
 
-![A device read response includes its referenced person under operator.object. The person source is gray, showing a live reference rather than a stored copy. Query and permission snippets point to the parent object.](assets/site/abstract-objects.svg?v=5)
+![A device read response includes its referenced person under operator.object. The person source is gray, showing a live reference rather than a stored copy. Arrows connect the surrounding capabilities to the parent object.](assets/site/abstract-objects.svg?v=5)
 
 ### More than JSON. :id=object-model
 
@@ -21,29 +21,19 @@ Flexible properties, nested data, and live references resolved into `.object`.
 
 CRUD, queries, aggregations, vector search.
 
-```json
-{
-  "online": true,
-  "battery": {
-    "$gte": 50
-  }
-}
-```
+![Create and update, query, aggregation, and vector search.](assets/site/overview-api.svg)
 
 ### Users & access. :id=users-and-access
 
-Auth, users, RBAC. Read + update:
+Authentication, users, permissions, and RBAC.
 
-```json
-{
-  "query": {},
-  "perm": "ru"
-}
-```
+![A user, an authentication key, and a permissions shield.](assets/site/overview-access.svg)
 
 ### Run anywhere. :id=run-and-deploy
 
 Browsers, servers, and horizontally scalable clusters.
+
+![A browser window, a server, and a RAM module.](assets/site/overview-runtime.svg)
 
 ## Your world. As objects. :id=object-capabilities
 
