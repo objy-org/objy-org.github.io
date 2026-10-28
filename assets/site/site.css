@@ -387,7 +387,7 @@ body > main > .sidebar-toggle,
   display: grid;
   grid-template-columns: repeat(var(--feature-columns, 2), minmax(0, 1fr));
   column-gap: clamp(40px, 6vw, 88px);
-  row-gap: 64px;
+  row-gap: 88px;
   padding: 48px 0 72px;
 }
 .feature-grid > .page-section {
@@ -846,7 +846,7 @@ pre {
 
   .feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    row-gap: 48px;
+    row-gap: 72px;
     padding: 36px 0 64px;
   }
   .feature-grid > .page-section {
