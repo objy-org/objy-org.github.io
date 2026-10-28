@@ -9,29 +9,41 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 ![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
 
-## Mehr als JSON. :id=abstract-objects
+## Objekte im Mittelpunkt. :id=abstract-objects
 
-Dynamische Eigenschaften, verschachtelte Daten, eindeutige IDs und Live-Referenzen. Modelliere Objekte passend zu deiner Anwendung und entwickle sie mit ihr weiter.
+![Die Leseansicht eines Geräts enthält die referenzierte Person unter operator.object. Das Quellobjekt ist grau dargestellt: eine Live-Referenz statt einer gespeicherten Kopie. Abfrage und Berechtigungsregel zeigen auf das übergeordnete Objekt.](assets/site/abstract-objects.svg?v=5)
 
-![Zwei JSON-Objekte: Ein Gerät referenziert eine Person in der Collection people. Ein Pfeil verbindet den Referenzwert person-42 mit der passenden Objekt-ID.](assets/site/abstract-objects.svg?v=2)
+### Mehr als JSON. :id=object-model
 
-## CRUD, Aggregationen, Vektorsuche. Eine API. :id=simple-api
+Flexible Eigenschaften, verschachtelte Daten und Live-Referenzen, aufgelöst in `.object`.
 
-Erstellen, lesen, ändern und löschen. Abfragen, aggregieren und per Vektorsuche finden – über eine API.
+### Vielseitige API. :id=simple-api
 
-![Abfragen, Vektoren, CRUD und Aggregation teilen sich eine API-Verbindung.](assets/site/simple-api.svg)
+CRUD, Abfragen, Aggregationen, Vektorsuche.
 
-## Läuft überall. Wächst mit. :id=run-and-deploy
+```json
+{
+  "online": true,
+  "battery": {
+    "$gte": 50
+  }
+}
+```
 
-Starte im Browser oder auf einem Server. Verteile Objekte auf einen Cluster, wenn Datenmenge und Auslastung wachsen.
+### Benutzer & Zugriff. :id=users-and-access
 
-![Ein Browserfenster, ein einzelner Server und drei verbundene Server zeigen den Betrieb vom Browser bis zum Cluster.](assets/site/run-and-deploy.svg)
+Auth, Benutzer, RBAC. Lesen + ändern:
 
-## Benutzer & Zugriff. Inklusive. :id=users-and-access
+```json
+{
+  "query": {},
+  "perm": "ru"
+}
+```
 
-Benutzer, Authentifizierung, Berechtigungen und rollenbasierter Zugriff. Lege fest, wer lesen, schreiben und administrieren darf.
+### Läuft überall. :id=run-and-deploy
 
-![Benutzeridentitäten sind mit einem Anmeldeschloss und einem Schutzschild für Zugriffsrechte verbunden.](assets/site/users-access.svg)
+Browser, Server und horizontal skalierbare Cluster.
 
 ## Deine Welt. Als Objekte. :id=object-capabilities
 

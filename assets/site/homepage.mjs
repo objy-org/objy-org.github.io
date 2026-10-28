@@ -26,6 +26,37 @@ async function inlineIllustration(source) {
   return illustrationCache.get(url.href);
 }
 
+// Illustrated chapters with subheadings form one diagram with surrounding callouts.
+function decorateOverview(section, figure) {
+  const body = section.querySelector('.markdown-body');
+  if (!body.querySelector(':scope > h3')) return;
+  const diagram = document.createElement('div');
+  diagram.className = 'feature-overview';
+  const visual = document.createElement('div');
+  visual.className = 'overview-visual';
+  visual.append(figure);
+  diagram.append(visual);
+  const notes = [];
+  let note;
+  for (const node of [...body.childNodes]) {
+    if (node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H3') {
+      note = document.createElement('div');
+      note.className = 'overview-note markdown-body';
+      notes.push(note);
+      diagram.append(note);
+    }
+    if (note) note.append(node);
+  }
+  const rows = Math.ceil(notes.length / 2);
+  diagram.style.setProperty('--overview-rows', rows);
+  notes.forEach((item, index) => {
+    item.dataset.side = index < rows ? 'left' : 'right';
+    item.style.setProperty('--callout-row', index % rows + 1);
+  });
+  section.classList.add('section-overview');
+  section.append(diagram);
+}
+
 async function decorateSection(section) {
   const body = section.querySelector('.markdown-body');
   const heading = body.querySelector('h1, h2');
@@ -59,7 +90,10 @@ async function decorateSection(section) {
     paragraph.remove();
     if (isHero) section.prepend(figure);
     else section.append(figure);
-    if (!isHero) section.classList.add('section-illustrated');
+    if (!isHero) {
+      section.classList.add('section-illustrated');
+      decorateOverview(section, figure);
+    }
   }
   const example = !image && heading.tagName !== 'H1' && decorateExample(section);
   if (!example && heading.tagName !== 'H1' && !image && body.querySelector(':scope > h3')) {
@@ -123,13 +157,15 @@ export async function decorateHomepage(html) {
   const [hero, ...content] = sections;
   // Consecutive illustrated chapters form the feature row; the first text/example
   // chapter starts the details. Editors can add features without changing JavaScript.
-  const boundary = content.findIndex((section) => !section.classList.contains('section-illustrated'));
+  const boundary = content.findIndex((section) =>
+    !section.classList.contains('section-illustrated') || section.classList.contains('section-overview'),
+  );
   const count = boundary === -1 ? content.length : boundary;
   const features = content.slice(0, count);
   const details = content.slice(count);
   details.forEach((section) => section.classList.add('detail-section'));
   details
-    .filter((section) => section.classList.contains('section-illustrated'))
+    .filter((section) => section.matches('.section-illustrated:not(.section-overview)'))
     .forEach((section, index) => {
       section.classList.toggle('art-first', index % 2 === 1);
     });

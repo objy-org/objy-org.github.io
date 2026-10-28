@@ -55,15 +55,22 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Location | Text |
 | --- | --- |
 | Source collection | devices |
+| Read view | Leseansicht |
 | Identity | `"_id": "drone-01",` |
+| Online | `"online": true,` |
+| Battery | `"battery": 87,` |
 | Reference | `"operator": {` |
 | Reference type | `"type": "reference",` |
 | Reference collection | `"collection": "people",` |
-| Reference value | `"value": "person-42"` |
-| Connection | Live-Referenz |
+| Reference value | `"value": "person-42",` |
+| Expanded object | `"object": {` |
+| Expanded identity | `"_id": "person-42",` |
+| Expanded name | `"name": "Alex"` |
 | Target collection | people |
-| Target identity | `"_id": "person-42",` |
+| Target identity | `"person-42",` |
 | Target name | `"name": "Alex"` |
+| Live source | Live-Quelle |
+| Connection | Aufgelöst, nicht kopiert |
 
 ## Storage diagram
 
@@ -85,13 +92,3 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Recover | Wiederherstellen |
 | Durability | S3-Sicherung (optional) |
 | Durability detail | Journale + Snapshots |
-
-## API diagram
-
-| Location | Text |
-| --- | --- |
-| Interface | API |
-| Crud | CRUD |
-| Query | Abfragen |
-| Aggregate | Aggregation |
-| Vector | Vektoren |

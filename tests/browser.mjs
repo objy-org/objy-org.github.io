@@ -124,6 +124,26 @@ await check('Homepage layouts work with arbitrary chapter names', async () => {
   );
 });
 
+await check('An illustrated overview keeps arbitrary Markdown callouts around one image', async () => {
+  const image = '<p><img alt="Connected objects" src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22/%3E"></p>';
+  const notes = ['alpha', 'beta', 'gamma', 'delta', 'epsilon']
+    .map((name, index) => `<h3 id="${name}">${name}</h3><p>${name} explanation</p>${index === 0 ? '<pre><code class="lang-json">{"online":true}</code></pre>' : ''}`)
+    .join('');
+  const content = htmlFragment(await decorateHomepage(
+    '<h1 id="top">Hello</h1><h2 id="overview">Overview</h2>' + image + notes +
+    '<h2 id="storage">Storage</h2>' + image,
+  ));
+  const overview = content.querySelector('.section-overview');
+  assert(overview.querySelectorAll('.overview-visual figure').length === 1, 'Overview did not use one shared image');
+  assert(overview.querySelectorAll('.overview-note').length === 5, 'Callout count was hard-coded');
+  assert(overview.querySelectorAll('[data-side="left"]').length === 3, 'Callouts were not divided between sides');
+  assert(overview.querySelector('.feature-overview').style.getPropertyValue('--overview-rows') === '3', 'Diagram did not span its callout rows');
+  assert(overview.querySelector('#epsilon').nextElementSibling.textContent === 'epsilon explanation', 'Callout content or anchor was lost');
+  assert(JSON.parse(overview.querySelector('.overview-note pre code').textContent).online, 'Callout code preview was lost');
+  assert(!content.querySelector('.feature-grid'), 'Overview was rendered as separate feature cards');
+  assert(!content.querySelector('[data-section="storage"]').classList.contains('art-first'), 'Overview changed later illustration placement');
+});
+
 await check('A missing illustration falls back to the image without losing page content', async () => {
   const content = htmlFragment(
     await decorateHomepage(
@@ -232,6 +252,7 @@ await check('Copy uses the selected object and survives same-page navigation', a
     await navigate('#/?id=object-capabilities');
     const document = site.contentDocument;
     const tabs = document.querySelectorAll('[data-example-tab]');
+    assert(!document.querySelector('.overview-note .copy-button'), 'Diagram previews gained extra controls');
     tabs[1].click();
     document.querySelector('.example-code .copy-button').click();
     assert(JSON.parse(copied)._id === 'memory-01', 'Copy did not use the selected object');

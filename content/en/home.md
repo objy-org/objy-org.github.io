@@ -9,29 +9,41 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
-## More than JSON. :id=abstract-objects
+## Objects at the center. :id=abstract-objects
 
-Dynamic properties, nested data, unique identities, and live references. Model objects your way, and evolve them as your application grows.
+![A device read response includes its referenced person under operator.object. The person source is gray, showing a live reference rather than a stored copy. Query and permission snippets point to the parent object.](assets/site/abstract-objects.svg?v=5)
 
-![Two JSON objects: a device references a person in the people collection. An arrow connects the reference value person-42 to the matching object identity.](assets/site/abstract-objects.svg?v=2)
+### More than JSON. :id=object-model
 
-## CRUD, aggregations, vector search. One API. :id=simple-api
+Flexible properties, nested data, and live references resolved into `.object`.
 
-Create, read, update, and delete. Query, aggregate, and search by vector through one API.
+### Versatile API. :id=simple-api
 
-![Query, Vector, CRUD, and Aggregate share one API connection.](assets/site/simple-api.svg)
+CRUD, queries, aggregations, vector search.
 
-## Run anywhere. Scale out. :id=run-and-deploy
+```json
+{
+  "online": true,
+  "battery": {
+    "$gte": 50
+  }
+}
+```
 
-Start in a browser or on a server. Distribute objects across a cluster as your data and workload grow.
+### Users & access. :id=users-and-access
 
-![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
+Auth, users, RBAC. Read + update:
 
-## Users & access. Built in. :id=users-and-access
+```json
+{
+  "query": {},
+  "perm": "ru"
+}
+```
 
-Users, authentication, permissions, and role-based access control. Define who can read, write, and administer.
+### Run anywhere. :id=run-and-deploy
 
-![User identities connect to a login lock and an access-control shield.](assets/site/users-access.svg)
+Browsers, servers, and horizontally scalable clusters.
 
 ## Your world. As objects. :id=object-capabilities
 

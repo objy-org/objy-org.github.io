@@ -21,14 +21,14 @@ The switcher at the top right remembers the visitor's choice. A URL with `?lang=
 Edit the words in `home.md`. Keep the heading's `:id=...` suffix so menu links keep working:
 
 ```markdown
-## More than JSON. :id=abstract-objects
+## Objects at the center. :id=abstract-objects
 
 Give anything a shape with flexible properties.
 ```
 
-Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Consecutive `##` sections with standalone images immediately after the hero create the feature grid. The first section without an illustration starts the full-width details; later illustrated sections stay full-width. This structure controls the grouping, rather than a fixed feature count. Use `###` for smaller headings within a section.
+Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. An illustrated `##` section with `###` subheadings creates one wide overview. Its image sits in the middle with the subheadings and their text arranged around it. On narrower screens the image sits above its callouts. The layout follows the Markdown structure, rather than fixed chapter names. Use `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The four feature sections cover object features, the API, deployment, and built-in users and access control. The interactive object example follows them, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
+Keep each section focused on one idea and use concrete examples. The overview’s four callouts cover object features, the API, users and access control, and deployment. Each callout is an ordinary `###` heading and paragraph, optionally followed by a fenced JSON preview, editable here without touching artwork or JavaScript. The API preview is a query; the access preview is one rule from a user’s permissions array. These small previews are displayed without copy buttons to keep the diagram uncluttered. The interactive object example follows the overview, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
 
 ## Change links or the menu
 
@@ -118,13 +118,13 @@ Then add its menu entry to `sidebar.md`:
 - [Your new section](/?id=new-section)
 ```
 
-Keep the illustrated feature sections together immediately after the hero. Append new `##` sections after those to add full-width content below it. On narrower screens, the columns and each section’s text and image stack vertically.
+Keep the illustrated overview immediately after the hero. Append new `##` sections below it to add more content. On narrower screens, diagrams, callouts, and each detail section stack automatically.
 
 ## Change labels
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Application diagram table controls the Apps, AI agents, and APIs labels in the hero illustration. The Object diagram table controls both JSON objects, collection names, and the reference label in the objects illustration. Keep Reference value and Target identity matched, and keep Reference collection matched with Target collection. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls the labels and JSON example in the larger 3D storage illustration. The API diagram table controls the short operation labels in the Simple API illustration. The scalability illustration has no editable labels. Their shapes, colors, and layout are managed separately by a developer.
+The Application diagram table controls the Apps, AI agents, and APIs labels in the hero illustration. The Object diagram table controls both JSON objects, collection names, and the reference label in the objects illustration. Keep Reference value, Expanded identity, and Target identity pointing to the same person, and keep Reference collection matched with Target collection. The parent shows a read response with its live reference resolved under `object`; the muted person beside it represents the original source, not another stored copy. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls the labels and JSON example in the larger 3D storage illustration. The overview’s four callout headings and explanations live directly in `home.md`. Their shapes, colors, and layout are managed separately by a developer.
 
 The storage section’s S3 callout is an ordinary Markdown blockquote below the three bullets in `home.md`; its first paragraph is bold. The accompanying Persist, Recover, and optional S3 labels live in the Storage diagram table. Keep S3 durability explicitly optional in both the callout and illustration when editing them.
 
@@ -151,7 +151,7 @@ Keep tab IDs consistent across translations, and keep code samples identical. Li
 
 ## Change section images
 
-Each feature has a standalone image in `home.md`. The four features form two rows of two columns on desktop and tablets, and one column on phones, with each text block above its image. After the interactive object example, the storage section uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
+The feature overview has one standalone image in `home.md`, followed by its `###` callouts. The JSON objects and arrows belong to that shared SVG; the callout headings and explanations remain ordinary Markdown. On desktop the callouts sit on either side of the image. On narrow screens they move below the image and the side arrows are hidden to preserve readability. After the interactive object example, the storage section uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

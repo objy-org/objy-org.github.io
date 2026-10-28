@@ -198,6 +198,8 @@ function wireNavigation() {
 
 function wireCopyButtons() {
   document.querySelectorAll('pre').forEach((pre) => {
+    // Small overview previews are part of the illustration, without extra controls.
+    if (pre.closest('.overview-note')) return;
     const code = pre.querySelector('code');
     const controls = pre.parentElement.matches('.example-code')
       ? pre.parentElement.querySelector('.example-code-header')
