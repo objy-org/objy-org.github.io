@@ -9,31 +9,29 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
-## Objects at the center. :id=abstract-objects
+## More than JSON. :id=abstract-objects
 
-![A device read response includes its referenced person under operator.object. The person source is gray, showing a live reference rather than a stored copy. Arrows connect the surrounding capabilities to the parent object.](assets/site/abstract-objects.svg?v=5)
+Dynamic properties, nested data, unique identities, and live references. Model objects your way, and evolve them as your application grows.
 
-### More than JSON. :id=object-model
+![Two JSON objects: a device references a person in the people collection. An arrow connects the reference value person-42 to the matching object identity.](assets/site/abstract-objects.svg?v=2)
 
-Flexible properties, nested data, and live references resolved into `.object`.
+## CRUD, aggregations, vector search. One API. :id=simple-api
 
-### Versatile API. :id=simple-api
+Create, read, update, and delete. Query, aggregate, and search by vector through one API.
 
-CRUD, queries, aggregations, vector search.
+![Query, Vector, CRUD, and Aggregate share one API connection.](assets/site/simple-api.svg)
 
-![Create and update, query, aggregation, and vector search.](assets/site/overview-api.svg)
+## Run anywhere. Scale out. :id=run-and-deploy
 
-### Users & access. :id=users-and-access
+Start in a browser or on a server. Distribute objects across a cluster as your data and workload grow.
 
-Authentication, users, permissions, and RBAC.
+![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
 
-![A user, an authentication key, and a permissions shield.](assets/site/overview-access.svg)
+## Users & access. Built in. :id=users-and-access
 
-### Run anywhere. :id=run-and-deploy
+Users, authentication, permissions, and role-based access control. Define who can read, write, and administer.
 
-Browsers, servers, and horizontally scalable clusters.
-
-![A browser window, a server, and a RAM module.](assets/site/overview-runtime.svg)
+![User identities connect to a login lock and an access-control shield.](assets/site/users-access.svg)
 
 ## Your world. As objects. :id=object-capabilities
 

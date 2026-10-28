@@ -55,22 +55,15 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Location | Text |
 | --- | --- |
 | Source collection | devices |
-| Read view | Read view |
 | Identity | `"_id": "drone-01",` |
-| Online | `"online": true,` |
-| Battery | `"battery": 87,` |
 | Reference | `"operator": {` |
 | Reference type | `"type": "reference",` |
 | Reference collection | `"collection": "people",` |
-| Reference value | `"value": "person-42",` |
-| Expanded object | `"object": {` |
-| Expanded identity | `"_id": "person-42",` |
-| Expanded name | `"name": "Alex"` |
+| Reference value | `"value": "person-42"` |
+| Connection | Live reference |
 | Target collection | people |
-| Target identity | `"person-42",` |
+| Target identity | `"_id": "person-42",` |
 | Target name | `"name": "Alex"` |
-| Live source | Live source |
-| Connection | Resolved, not copied |
 
 ## Storage diagram
 
@@ -92,3 +85,13 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Recover | Recover |
 | Durability | Optional S3 durability |
 | Durability detail | Journals + snapshots |
+
+## API diagram
+
+| Location | Text |
+| --- | --- |
+| Interface | API |
+| Crud | CRUD |
+| Query | Query |
+| Aggregate | Aggregate |
+| Vector | Vector |
