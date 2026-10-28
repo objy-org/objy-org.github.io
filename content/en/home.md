@@ -93,6 +93,42 @@ Live references, nested data, vectors, and files. Different shapes. The same obj
 }
 ```
 
+### Query :id=example-query
+
+> app / devices · online mapping drones, highest battery first
+
+```js
+const devices = client.database('app').collection('devices');
+
+await devices.find(
+  {
+    online: true,
+    'telemetry.battery': { $gte: 50 },
+    capabilities: { $contains: 'mapping' }
+  },
+  { sortBy: 'telemetry.battery', sort: 'desc', limit: 10 }
+);
+```
+
+### Aggregation :id=example-aggregation
+
+> app / devices · fleet statistics by online status
+
+```js
+const devices = client.database('app').collection('devices');
+
+await devices.search({
+  $aggregate: {
+    groupBy: 'online',
+    fields: {
+      devices: { $count: true },
+      avgBattery: { $avg: 'telemetry.battery' },
+      maxAltitude: { $max: 'telemetry.altitude' }
+    }
+  }
+});
+```
+
 ## Objects outside. Smart storage inside. :id=storage-internals
 
 Work with complete objects. Internally, OBJY splits them into blocks for fast access and efficient storage.

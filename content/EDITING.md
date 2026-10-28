@@ -147,7 +147,7 @@ The object example lives in `home.md`, under `:id=object-capabilities`. It shows
 
 Keep at least two examples. To add another tab, add another `###` heading and code block in the same section. The heading names the tab, and the quote labels the code window. Keep explanations in the section introduction; each tab contains only its quote and code. Copy always copies the selected example. No JavaScript changes are needed to edit the examples or add another tab.
 
-Keep tab IDs consistent across translations, and keep code samples identical. Link directly to a tab with `/?id=example-memory`, for instance. These are illustrative objects and do not send requests to a database. The AI memory example shows `_vec` on insert; OBJY indexes it separately and hides it from ordinary reads. The file example shows a stored object after upload; the server creates its `_file` descriptor and key.
+Keep tab IDs consistent across translations, and keep code samples identical. Link directly to a tab with `/?id=example-memory`, for instance. These are illustrative examples and do not send requests to a database. The Query and Aggregation tabs use the JavaScript client and assume it is already authenticated. Use a `js` code fence for client operations and `json` for object data; the code window updates its format label automatically. The AI memory example shows `_vec` on insert; OBJY indexes it separately and hides it from ordinary reads. The file example shows a stored object after upload; the server creates its `_file` descriptor and key.
 
 ## Change section images
 

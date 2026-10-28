@@ -93,6 +93,42 @@ Live-Referenzen, verschachtelte Daten, Vektoren und Dateien. Unterschiedliche St
 }
 ```
 
+### Abfrage :id=example-query
+
+> app / devices · aktive Kartierungsdrohnen, höchster Akkustand zuerst
+
+```js
+const devices = client.database('app').collection('devices');
+
+await devices.find(
+  {
+    online: true,
+    'telemetry.battery': { $gte: 50 },
+    capabilities: { $contains: 'mapping' }
+  },
+  { sortBy: 'telemetry.battery', sort: 'desc', limit: 10 }
+);
+```
+
+### Aggregation :id=example-aggregation
+
+> app / devices · Flottenstatistik nach Online-Status
+
+```js
+const devices = client.database('app').collection('devices');
+
+await devices.search({
+  $aggregate: {
+    groupBy: 'online',
+    fields: {
+      devices: { $count: true },
+      avgBattery: { $avg: 'telemetry.battery' },
+      maxAltitude: { $max: 'telemetry.altitude' }
+    }
+  }
+});
+```
+
 ## Außen JSON, innen effiziente Speicherung :id=storage-internals
 
 Arbeite mit vollständigen Objekten. Intern teilt OBJY sie für schnellen Zugriff und effiziente Speicherung in Blöcke auf.
