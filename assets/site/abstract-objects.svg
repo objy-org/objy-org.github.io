@@ -1,21 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="6 0 520 320" fill="none">
-  <g stroke-linejoin="round">
-    <path d="m44 28 12-10h432l-12 10Z" fill="#38302c" stroke="#8d766b" stroke-width="1.3"/>
-    <path d="m476 28 12-10v278l-12 10Z" fill="#2b2724" stroke="#8d766b" stroke-width="1.3"/>
-    <rect x="44" y="28" width="432" height="278" fill="#292624" stroke="#c69b8c" stroke-width="1.5"/>
-    <rect x="78" y="143" width="374" height="124" rx="5" fill="#b8a6d0" fill-opacity=".055"/>
-    <path d="M80 151v108" stroke="#b8a6d0" stroke-opacity=".5" stroke-width="2"/>
-    <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19">
-      <text x="64" y="55" fill="#d7c8bb">{</text>
-      <text x="86" y="81" fill="#ead1c7" data-copy="object-diagram.identity">&quot;_id&quot;: &quot;bike-001&quot;,</text>
-      <text x="86" y="107" fill="#becdab" data-copy="object-diagram.property">&quot;color&quot;: &quot;coral&quot;,</text>
-      <text x="86" y="133" fill="#becdab" data-copy="object-diagram.available">&quot;available&quot;: true,</text>
-      <text x="86" y="159" fill="#c8b7de" data-copy="object-diagram.reference">&quot;owner&quot;: {</text>
-      <text x="108" y="185" fill="#c8b7de" data-copy="object-diagram.reference-type">&quot;type&quot;: &quot;reference&quot;,</text>
-      <text x="108" y="211" fill="#c8b7de" data-copy="object-diagram.reference-collection">&quot;collection&quot;: &quot;people&quot;,</text>
-      <text x="108" y="237" fill="#c8b7de" data-copy="object-diagram.reference-value">&quot;value&quot;: &quot;person-001&quot;</text>
-      <text x="86" y="263" fill="#c8b7de">}</text>
-      <text x="64" y="289" fill="#d7c8bb">}</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 440" fill="none">
+  <defs>
+    <marker id="objects-reference-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="m2 1 6 4-6 4" stroke="#c8b7de" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <!-- Two complete objects; the highlighted reference points to the second identity. -->
+  <rect x="16" y="16" width="356" height="242" rx="8" fill="#292624" stroke="#c69b8c" stroke-width="1.5"/>
+  <path d="M17 58h354" stroke="#57463f"/>
+  <rect x="50" y="109" width="306" height="96" rx="5" fill="#b8a6d0" fill-opacity=".075"/>
+  <path d="M51 116v82" stroke="#b8a6d0" stroke-width="2" stroke-linecap="round"/>
+
+  <rect x="196" y="280" width="308" height="144" rx="8" fill="#29262e" stroke="#b8a6d0" stroke-width="1.5"/>
+  <path d="M197 318h306" stroke="#51465c"/>
+  <rect x="228" y="340" width="260" height="26" rx="4" fill="#b8a6d0" fill-opacity=".1"/>
+
+  <path d="M346 188h108q36 0 36 36v124q0 10-11 10h-13" stroke="#c8b7de" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#objects-reference-arrow)"/>
+  <circle cx="346" cy="188" r="4" fill="#c8b7de"/>
+  <text x="427" y="269" fill="#c8b7de" font-family="Montserrat, Arial, sans-serif" font-size="14" text-anchor="middle" data-copy="object-diagram.connection">Live reference</text>
+
+  <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace">
+    <text x="34" y="43" fill="#d3ad9e" font-size="17" data-copy="object-diagram.source-collection">devices</text>
+    <text x="214" y="305" fill="#c8b7de" font-size="17" data-copy="object-diagram.target-collection">people</text>
+    <g font-size="19">
+      <text x="36" y="78" fill="#d7c8bb">{</text>
+      <text x="56" y="101" fill="#ead1c7" data-copy="object-diagram.identity">&quot;_id&quot;: &quot;drone-01&quot;,</text>
+      <text x="56" y="124" fill="#c8b7de" data-copy="object-diagram.reference">&quot;operator&quot;: {</text>
+      <text x="76" y="147" fill="#c8b7de" data-copy="object-diagram.reference-type">&quot;type&quot;: &quot;reference&quot;,</text>
+      <text x="76" y="170" fill="#c8b7de" data-copy="object-diagram.reference-collection">&quot;collection&quot;: &quot;people&quot;,</text>
+      <text x="76" y="193" fill="#e1d0f1" data-copy="object-diagram.reference-value">&quot;value&quot;: &quot;person-42&quot;</text>
+      <text x="56" y="216" fill="#c8b7de">}</text>
+      <text x="36" y="239" fill="#d7c8bb">}</text>
+
+      <text x="216" y="335" fill="#d7c8bb">{</text>
+      <text x="236" y="358" fill="#e1d0f1" data-copy="object-diagram.target-identity">&quot;_id&quot;: &quot;person-42&quot;,</text>
+      <text x="236" y="381" fill="#becdab" data-copy="object-diagram.target-name">&quot;name&quot;: &quot;Alex&quot;</text>
+      <text x="216" y="404" fill="#d7c8bb">}</text>
     </g>
   </g>
 </svg>

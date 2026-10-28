@@ -54,13 +54,16 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 
 | Location | Text |
 | --- | --- |
-| Identity | `"_id": "bike-001",` |
-| Property | `"color": "coral",` |
-| Available | `"available": true,` |
-| Reference | `"owner": {` |
+| Source collection | devices |
+| Identity | `"_id": "drone-01",` |
+| Reference | `"operator": {` |
 | Reference type | `"type": "reference",` |
 | Reference collection | `"collection": "people",` |
-| Reference value | `"value": "person-001"` |
+| Reference value | `"value": "person-42"` |
+| Connection | Live-Referenz |
+| Target collection | people |
+| Target identity | `"_id": "person-42",` |
+| Target name | `"name": "Alex"` |
 
 ## Storage diagram
 

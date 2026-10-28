@@ -13,7 +13,7 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 Dynamic properties, nested data, unique identities, and live references. Model objects your way, and evolve them as your application grows.
 
-![A JSON object with an identity, color, availability, and an owner reference to a person in the people collection.](assets/site/abstract-objects.svg)
+![Two JSON objects: a device references a person in the people collection. An arrow connects the reference value person-42 to the matching object identity.](assets/site/abstract-objects.svg?v=2)
 
 ## CRUD, aggregations, vector search. One API. :id=simple-api
 

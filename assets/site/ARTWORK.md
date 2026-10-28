@@ -33,9 +33,9 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 The documentation index uses three small line icons in `assets/site/icons/`: `server.svg` (stacked server units, coral), `client.svg` (a code window, lavender), and `api.svg` (connected endpoints, sage). Get started uses `quick-start.svg` (a terminal prompt, coral), `cloud.svg` (a cloud with an upload arrow, lavender), and `browser.svg` (a browser window with empty object braces, sage). They share a 48 × 48 canvas and rounded tile. Each is an ordinary Markdown image inside its chapter heading, with empty alternative text because the adjacent title provides the label. No icon library or page-specific JavaScript is needed.
 
-The four feature illustrations share a 520 × 320 canvas and the site's coral, sage, and lavender palette:
+The four feature illustrations share the site's coral, sage, and lavender palette. They use 520 × 320 canvases, except for the two-object reference illustration, which uses 520 × 440:
 
-- `assets/site/abstract-objects.svg`: a JSON object with an identity, color, availability, and an owner reference using the database’s actual reference format.
+- `assets/site/abstract-objects.svg`: two staggered JSON objects: a device with an operator reference and a person in the people collection. A lavender arrow connects the reference value to the matching object identity. Collection names, fields, and the live-reference label remain editable in Markdown.
 - `assets/site/simple-api.svg`: four large capability tiles in a two-by-two layout—Query, Vector, CRUD, and Aggregate—with prominent labels and icons around a small shared API connection.
 - `assets/site/run-and-deploy.svg`: a browser window, a single server, and three connected servers; small arrows lead from one deployment size to the next.
 - `assets/site/users-access.svg`: custom SVG artwork created for this site, showing user identities connected to a login lock and an access shield. No external icon library or third-party artwork is used; the picture has no embedded text to translate.

@@ -13,7 +13,7 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 Dynamische Eigenschaften, verschachtelte Daten, eindeutige IDs und Live-Referenzen. Modelliere Objekte passend zu deiner Anwendung und entwickle sie mit ihr weiter.
 
-![Ein JSON-Objekt mit ID, Farbe, Verfügbarkeit und einer Referenz auf eine Person in der Collection people.](assets/site/abstract-objects.svg)
+![Zwei JSON-Objekte: Ein Gerät referenziert eine Person in der Collection people. Ein Pfeil verbindet den Referenzwert person-42 mit der passenden Objekt-ID.](assets/site/abstract-objects.svg?v=2)
 
 ## CRUD, Aggregationen, Vektorsuche. Eine API. :id=simple-api
 
