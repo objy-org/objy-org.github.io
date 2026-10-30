@@ -2,7 +2,7 @@
 import { createCopy, htmlFragment, sanitizeMarkup } from '../assets/site/markup.mjs';
 import { decorateHomepage } from '../assets/site/homepage.mjs';
 import { wireExamples } from '../assets/site/examples.mjs';
-import { decorateDocument } from '../assets/site/documents.mjs';
+import { decorateDocument, wireDocuments } from '../assets/site/documents.mjs';
 
 const results = document.getElementById('results');
 let failures = 0;
@@ -105,6 +105,50 @@ await check('Directory link groups preserve every destination without nesting li
   assert(!directory.querySelector('a a'), 'Action links were nested');
   const guide = htmlFragment(decorateDocument(markup.replace('Source</a></li>', 'Source</a> plus instructions</li>')));
   assert(!guide.querySelector('.document-directory'), 'A list with additional instructions was hidden');
+});
+
+await check('Icon chapters with commands or actions become accessible inline accordions with working deep links', () => {
+  const fixture = document.createElement('div');
+  fixture.append(htmlFragment(decorateDocument(
+    '<h1 id="start">Start</h1>' +
+    '<h2 id="alpha"><a class="anchor"><img src="local.svg" alt="">Alpha</a></h2>' +
+    '<pre><code class="lang-sh"><span class="token function">objy</span> run</code></pre>' +
+    '<p><a href="guide.md?id=first">Guide</a></p>' +
+    '<h2 id="beta"><img src="cloud.svg" alt="">Beta</h2>' +
+    '<ul><li><a href="https://example.com/cloud">Provider</a></li></ul>' +
+    '<h2 id="gamma"><img src="browser.svg" alt="">Gamma</h2>' +
+    '<pre><code>const db = createDatabase();</code></pre>',
+  )));
+  document.body.append(fixture);
+  const previousUrl = location.href;
+  const controller = new AbortController();
+  try {
+    const rows = [...fixture.querySelectorAll('.accordion-row')];
+    assert(rows.length === 3 && rows[0].open, 'Row count or initial expansion is incorrect');
+    assert(rows.every((row) => row.querySelector('summary > h2') &&
+      row.querySelector('.accordion-body') && row.name === 'document-accordion'), 'Rows lost native accordion structure');
+    assert(fixture.querySelector('.accordion-body .token.function'), 'Code highlighting was lost');
+    assert(fixture.querySelector('.accordion-body code').textContent === 'objy run', 'Code source changed');
+    assert(fixture.querySelector('.accordion-body a').getAttribute('href') === 'guide.md?id=first', 'Guide destination changed');
+    assert(!fixture.querySelector('summary a') && fixture.querySelector('summary img').alt === '',
+      'Summary contains an extra link or repeats the icon label');
+    history.replaceState(null, '', '#/example?id=gamma');
+    wireDocuments(controller.signal, fixture);
+    assert(rows[2].open && !rows[0].open, 'Initial chapter link did not open its row exclusively');
+    history.replaceState(null, '', '#/example?id=beta');
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    assert(rows[1].open && !rows[2].open, 'Changed chapter link did not select its row');
+    rows[1].querySelector('summary').click();
+    assert(!rows.some((row) => row.open), 'An open row could not collapse');
+    controller.abort();
+    history.replaceState(null, '', '#/example?id=alpha');
+    window.dispatchEvent(new HashChangeEvent('hashchange'));
+    assert(!rows.some((row) => row.open), 'Chapter listeners survived cleanup');
+  } finally {
+    controller.abort();
+    history.replaceState(null, '', previousUrl);
+    fixture.remove();
+  }
 });
 
 await check('Markdown HTML removes scripts, event handlers, unsafe URLs, and fake site bindings', () => {
@@ -374,6 +418,43 @@ await check('Articles stay centered in the viewport without colliding with the c
   } finally {
     if (previousStyle === null) site.removeAttribute('style');
     else site.setAttribute('style', previousStyle);
+  }
+});
+
+await check('Deployment rows preserve both translations, chapter links, and mobile layouts', async () => {
+  for (const language of ['en', 'de']) {
+    site.src = `../?lang=${language}#/get-started?id=deploy-cluster`;
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        const document = site.contentDocument;
+        if (document?.documentElement.lang === language && document.querySelector('.document-accordion')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Deployment page did not load'));
+        setTimeout(ready, 16);
+      };
+      ready();
+    });
+    const document = site.contentDocument;
+    const rows = [...document.querySelectorAll('.accordion-row')];
+    assert(document.documentElement.lang === language && rows.length === 4, 'Wrong translation or missing deployment row');
+    assert(rows[1].open && !rows[0].open, 'Deployment chapter link did not open its row');
+    assert(document.querySelector('.page-sidebar').hidden && document.querySelector('.section-menu-toggle').hidden,
+      'Deployment accordion still shows a chapter menu');
+    for (const width of [1280, 760, 390, 320]) {
+      site.style.width = `${width}px`;
+      site.style.height = '1000px';
+      for (const row of rows) {
+        if (!row.open) row.querySelector('summary').click();
+        assert(rows.filter((item) => item.open).length === 1, 'More than one deployment row is open');
+        assert(document.documentElement.scrollWidth <= width + 1, `${language} deployment page overflows at ${width}px`);
+        const icon = row.querySelector('img').getBoundingClientRect();
+        assert(icon.width === 64, 'Deployment icon is not 64px');
+        for (const action of row.querySelectorAll('.accordion-body a')) {
+          const rect = action.getBoundingClientRect();
+          assert(rect.left >= 0 && rect.right <= width + 1, `${language} action is clipped at ${width}px`);
+        }
+      }
+    }
   }
 });
 

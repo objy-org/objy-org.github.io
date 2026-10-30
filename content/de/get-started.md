@@ -1,18 +1,26 @@
 # Deine Anwendung. Dein Betrieb. :id=deployment
 
-Starte lokal, in deiner Cloud oder direkt im Browser.
+## ![](assets/site/icons/quick-start.svg) Lokal starten :id=deploy-quick-start
 
-## ![](assets/site/icons/quick-start.svg) Schnellstart :id=deploy-quick-start
+```sh
+git clone https://github.com/objy-org/objy.db.git
+cd objy.db
+npm ci && npm link
+objy run
+```
 
-Lokal starten. Zum Cluster skalieren.
+[Schnellstart-Anleitung](/content/server.md?id=quick-start)
 
-- [GitHub](https://github.com/objy-org)
-- [Lokal starten](/content/server.md?id=quick-start)
-- [Cluster einrichten](/content/server.md?id=run-a-cluster)
+## ![](assets/site/icons/server.svg) Cluster starten :id=deploy-cluster
+
+```sh
+objy start --instances 4
+objy status
+```
+
+[Cluster einrichten](/content/server.md?id=run-a-cluster)
 
 ## ![](assets/site/icons/cloud.svg) Deine eigene Cloud :id=bring-your-own-cloud
-
-Wähle deinen Anbieter. Behalte die Kontrolle.
 
 - [Hetzner](https://www.hetzner.com/cloud/)
 - [IONOS](https://cloud.ionos.com/)
@@ -20,8 +28,13 @@ Wähle deinen Anbieter. Behalte die Kontrolle.
 - [AWS](https://aws.amazon.com/)
 - [Azure](https://azure.microsoft.com/)
 
-## ![](assets/site/icons/browser.svg) Browser :id=deploy-browser
+[Server einrichten](/content/server.md?id=quick-start)
 
-Schnelle Objekte im Arbeitsspeicher, direkt in deiner Anwendung.
+## ![](assets/site/icons/browser.svg) Im Browser starten :id=deploy-browser
 
-[Im Browser starten](/content/server.md?id=run-in-a-browser)
+```js
+import { createDatabase } from "@objydb/browser";
+const objy = createDatabase();
+```
+
+[Browser-Anleitung](/content/server.md?id=run-in-a-browser)

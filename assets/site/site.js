@@ -2,7 +2,7 @@ import * as i18n from './languages.mjs';
 import * as pages from './pages.mjs';
 import { createCopy, readMarkdown, sanitizeMarkup } from './markup.mjs';
 import { decorateHomepage } from './homepage.mjs';
-import { decorateDocument } from './documents.mjs';
+import { decorateDocument, wireDocuments } from './documents.mjs';
 import { wireExamples } from './examples.mjs';
 
 /* Editorial content lives in content/<language>/*.md. */
@@ -27,7 +27,7 @@ function mountSidebar(vm) {
   nav.setAttribute('role', 'navigation');
   nav.dataset.copyAria = 'navigation.section-navigation-label';
   const documentPage = document.querySelector('.document-page');
-  const directory = documentPage?.classList.contains('document-directory') || false;
+  const directory = documentPage?.matches('.document-directory, .document-accordion') || false;
   sidebar.hidden = directory;
   document.querySelector('.section-menu-toggle').hidden = directory;
   nav.classList.toggle('chapter-links', Boolean(documentPage));
@@ -89,6 +89,7 @@ function wireNavigation() {
   navigationEvents = new AbortController();
   const signal = navigationEvents.signal;
   wireExamples(signal);
+  wireDocuments(signal);
   document.querySelector('.skip-link').addEventListener(
     'click',
     (event) => {

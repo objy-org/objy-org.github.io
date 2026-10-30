@@ -31,7 +31,7 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 ## Section illustrations
 
-The documentation index uses three small line icons in `assets/site/icons/`: `server.svg` (stacked server units, coral), `client.svg` (a code window, lavender), and `api.svg` (connected endpoints, sage). Get started uses `quick-start.svg` (a terminal prompt, coral), `cloud.svg` (a cloud with an upload arrow, lavender), and `browser.svg` (a browser window with empty object braces, sage). They share a 48 × 48 canvas and rounded tile. Each is an ordinary Markdown image inside its chapter heading, with empty alternative text because the adjacent title provides the label. No icon library or page-specific JavaScript is needed.
+The documentation index uses three small line icons in `assets/site/icons/`: `server.svg` (stacked server units, coral), `client.svg` (a code window, lavender), and `api.svg` (connected endpoints, sage). Get started reuses `quick-start.svg` (a terminal prompt), `server.svg` (cluster), `cloud.svg` (a cloud with an upload arrow), and `browser.svg` (a browser window with empty object braces). They share a 48 × 48 canvas and rounded tile. The deployment accordion displays them at 64px with brighter colors; a scoped CSS hue adjustment makes its server icon blue without changing the original asset used by Documentation. Each is an ordinary Markdown image inside its chapter heading, with empty alternative text because the adjacent title provides the label. No icon library is needed.
 
 The four feature illustrations share the site's coral, sage, and lavender palette. They use 520 × 320 canvases, except for the two-object reference illustration, which uses 520 × 440:
 
