@@ -4,24 +4,24 @@ Guides for building with objy.db.
 
 ## ![](assets/site/icons/server.svg) Server :id=server
 
-Set up, configure, and run the database—from a single node to a cluster.
+Run and configure OBJY.
 
 [Server documentation](/content/server.md)
 
 ## ![](assets/site/icons/api.svg) API :id=api
 
-Explore the HTTP endpoints for authentication, objects, queries, and database management.
+Work with objects over HTTP.
 
 [API documentation](/content/api.md)
 
 ## ![](assets/site/icons/browser.svg) Browser :id=browser
 
-Run the database directly in your browser, with in-memory objects, queries, indexes, and live references.
+Run the database inside your application.
 
 [Browser documentation](/content/server.md?id=run-in-a-browser)
 
 ## ![](assets/site/icons/client.svg) JavaScript client :id=javascript-client
 
-Connect your browser or Node.js application to objy.db, authenticate users, and work with objects.
+Connect from JavaScript or TypeScript.
 
 [JavaScript client documentation](/content/client.md)

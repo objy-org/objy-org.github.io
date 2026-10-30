@@ -98,9 +98,9 @@ Markdown files at the repository root work too. The site first checks the select
 
 The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. These Markdown files list the available guides: Server documentation links to [the shared server page](server.md), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md). Browser documentation links directly to the README’s Run in a Browser chapter at `/content/server.md?id=run-in-a-browser`.
 
-To add another guide, add a `##` heading, a short explanation, and a Markdown link to each language’s index. Each heading appears in the left menu automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
+To add another guide, add a `##` heading with an icon, a short explanation, and one Markdown link to each language’s index. Keep each explanation and destination in separate paragraphs. The site combines these into one fully clickable row, in Markdown order. The index hides the chapter menu; individual guides still generate theirs automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
-An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/server.svg) Server :id=server`. Keep its alternative text empty because the adjacent heading already names the chapter. The guide link after the description receives an accent color and arrow automatically. The icons and styling work with any chapter name.
+An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/server.svg) Server :id=server`. Keep its alternative text empty because the adjacent heading already names the chapter. Each directory row shows that icon, the chapter title, its description, and an arrow. The separate link label stays in the Markdown source but is not repeated on screen. The layout works with any chapter name or number of guides. Pages with additional chapter content keep the ordinary Markdown layout and chapter menu.
 
 ## Include live documentation
 

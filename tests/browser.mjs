@@ -2,6 +2,7 @@
 import { createCopy, htmlFragment, sanitizeMarkup } from '../assets/site/markup.mjs';
 import { decorateHomepage } from '../assets/site/homepage.mjs';
 import { wireExamples } from '../assets/site/examples.mjs';
+import { decorateDocument } from '../assets/site/documents.mjs';
 
 const results = document.getElementById('results');
 let failures = 0;
@@ -63,6 +64,30 @@ await check('Documentation loads without downloading homepage illustrations', ()
     site.contentDocument.querySelector('.document-page h1').textContent === 'Documentation',
     'Wrong page',
   );
+  const document = site.contentDocument;
+  const rows = [...document.querySelectorAll('.directory-link')];
+  assert(rows.map((row) => row.querySelector('h2').textContent.trim()).join(',') ===
+    'Server,API,Browser,JavaScript client', 'Directory order changed');
+  assert(rows.every((row) => !row.querySelector('a') && row.querySelector('p')), 'Directory rows contain nested links or lost descriptions');
+  assert(document.querySelector('.page-sidebar').hidden && document.querySelector('.section-menu-toggle').hidden,
+    'The directory still has a chapter menu');
+});
+
+await check('Document directories follow Markdown structure and preserve richer guides', () => {
+  const intro = '<h1 id="guides">Guides</h1><p>Choose a guide.</p>';
+  const entry = (name) => `<h2 id="${name}"><a class="anchor"><img src="icons/${name}.svg" alt="">${name}</a></h2>` +
+    `<p>About ${name}.</p><p><a href="${name}.md?id=start">Open ${name}</a></p>`;
+  const directory = htmlFragment(decorateDocument(intro + entry('alpha') + entry('beta') + entry('gamma')));
+  const rows = [...directory.querySelectorAll('.directory-link')];
+  assert(rows.length === 3, 'Guide count or names were hard-coded');
+  assert(rows[1].getAttribute('href') === 'beta.md?id=start', 'Chapter destination changed');
+  assert(rows[1].getAttribute('aria-labelledby') === 'beta' && rows[1].querySelector('#beta'), 'Guide title is not accessible');
+  assert(rows[1].querySelector('img').alt === '', 'Decorative icon is announced twice');
+  assert(directory.querySelectorAll('[role="listitem"]').length === 3, 'Directory lost list semantics');
+  const guide = htmlFragment(decorateDocument(intro + entry('alpha') + '<pre><code>Important example</code></pre>'));
+  assert(!guide.querySelector('.document-directory'), 'A richer guide was converted into an index');
+  assert(guide.querySelector('pre code').textContent === 'Important example' && guide.querySelector('h2 a'),
+    'Normal Markdown content or anchors were changed');
 });
 
 await check('Markdown HTML removes scripts, event handlers, unsafe URLs, and fake site bindings', () => {
@@ -323,6 +348,11 @@ await check('Articles stay centered in the viewport without colliding with the c
     for (const width of [1920, 1280, 1024, 390]) {
       await resize(width);
       checkCenter('.document-page');
+      const document = site.contentDocument;
+      assert(frame.getComputedStyle(document.querySelector('.page-sidebar')).display === 'none', 'Directory chapter menu is visible');
+      assert(frame.getComputedStyle(document.querySelector('.section-menu-toggle')).display === 'none', 'Directory menu toggle is visible');
+      const last = document.querySelector('.directory-list > :last-child').getBoundingClientRect();
+      if (width >= 1280) assert(last.bottom <= frame.innerHeight, 'The four guides do not fit together on desktop');
     }
   } finally {
     if (previousStyle === null) site.removeAttribute('style');

@@ -2,6 +2,7 @@ import * as i18n from './languages.mjs';
 import * as pages from './pages.mjs';
 import { createCopy, readMarkdown, sanitizeMarkup } from './markup.mjs';
 import { decorateHomepage } from './homepage.mjs';
+import { decorateDocument } from './documents.mjs';
 import { wireExamples } from './examples.mjs';
 
 /* Editorial content lives in content/<language>/*.md. */
@@ -26,6 +27,9 @@ function mountSidebar(vm) {
   nav.setAttribute('role', 'navigation');
   nav.dataset.copyAria = 'navigation.section-navigation-label';
   const documentPage = document.querySelector('.document-page');
+  const directory = documentPage?.classList.contains('document-directory') || false;
+  sidebar.hidden = directory;
+  document.querySelector('.section-menu-toggle').hidden = directory;
   nav.classList.toggle('chapter-links', Boolean(documentPage));
   if (documentPage) {
     const headings = [...documentPage.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')];
@@ -297,7 +301,7 @@ function objyTheme(hook, vm) {
     const page = currentPage;
     const path = vm.route.path;
     const clean = sanitizeMarkup(html);
-    let content = `<div class="document-page">${clean}</div>`;
+    let content = decorateDocument(clean);
     if (!loadError && path === '/' && page) {
       try {
         content = await decorateHomepage(clean);
