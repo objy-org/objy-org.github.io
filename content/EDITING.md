@@ -96,7 +96,7 @@ Markdown files at the repository root work too. The site first checks the select
 
 ## Manage the documentation index
 
-The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. These Markdown files list the available guides: Server documentation links to [the shared server page](server.md), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md).
+The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. These Markdown files list the available guides: Server documentation links to [the shared server page](server.md), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md). Browser documentation links directly to the README’s Run in a Browser chapter at `/content/server.md?id=run-in-a-browser`.
 
 To add another guide, add a `##` heading, a short explanation, and a Markdown link to each language’s index. Each heading appears in the left menu automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 

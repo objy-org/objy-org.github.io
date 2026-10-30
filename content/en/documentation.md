@@ -19,3 +19,9 @@ Connect your browser or Node.js application to objy.db, authenticate users, and 
 Explore the HTTP endpoints for authentication, objects, queries, and database management.
 
 [API documentation](/content/api.md)
+
+## ![](assets/site/icons/browser.svg) Browser :id=browser
+
+Run the database directly in your browser, with in-memory objects, queries, indexes, and live references.
+
+[Browser documentation](/content/server.md?id=run-in-a-browser)

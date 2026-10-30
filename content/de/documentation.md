@@ -19,3 +19,9 @@ Verbinde deine Browser- oder Node.js-Anwendung mit objy.db, authentifiziere Benu
 Entdecke die HTTP-Endpunkte für Authentifizierung, Objekte, Abfragen und Datenbankverwaltung.
 
 [API-Dokumentation](/content/api.md)
+
+## ![](assets/site/icons/browser.svg) Browser :id=browser
+
+Führe die Datenbank direkt im Browser aus – mit Objekten im Arbeitsspeicher, Abfragen, Indizes und Live-Referenzen.
+
+[Browser-Dokumentation](/content/server.md?id=run-in-a-browser)

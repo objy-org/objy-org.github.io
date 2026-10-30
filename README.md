@@ -20,7 +20,7 @@ Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 
-The top-bar Documentation link opens the selected language’s `documentation.md` index. Its entries link to Server documentation at `content/server.md`, JavaScript client documentation at `content/client.md`, and API documentation at `content/api.md`. These shared Markdown includes point to the live objy.db README, client README, and API reference. Add other guides as Markdown headings and links in each index. Both languages use the same English remote sources; the index and website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
+The top-bar Documentation link opens the selected language’s `documentation.md` index. Its entries link to Server documentation at `content/server.md`, JavaScript client documentation at `content/client.md`, and API documentation at `content/api.md`. The Browser entry jumps to `content/server.md?id=run-in-a-browser` in the live README. These shared Markdown includes point to the live objy.db README, client README, and API reference. Add other guides as Markdown headings and links in each index. Both languages use the same English remote sources; the index and website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
 
 ## Implementation
 
