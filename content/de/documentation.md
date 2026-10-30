@@ -8,12 +8,6 @@ Die Datenbank einrichten, konfigurieren und betreiben – vom einzelnen Knoten b
 
 [Server-Dokumentation](/content/server.md)
 
-## ![](assets/site/icons/client.svg) JavaScript-Client :id=javascript-client
-
-Verbinde deine Browser- oder Node.js-Anwendung mit objy.db, authentifiziere Benutzer und arbeite mit Objekten.
-
-[JavaScript-Client-Dokumentation](/content/client.md)
-
 ## ![](assets/site/icons/api.svg) API :id=api
 
 Entdecke die HTTP-Endpunkte für Authentifizierung, Objekte, Abfragen und Datenbankverwaltung.
@@ -25,3 +19,9 @@ Entdecke die HTTP-Endpunkte für Authentifizierung, Objekte, Abfragen und Datenb
 Führe die Datenbank direkt im Browser aus – mit Objekten im Arbeitsspeicher, Abfragen, Indizes und Live-Referenzen.
 
 [Browser-Dokumentation](/content/server.md?id=run-in-a-browser)
+
+## ![](assets/site/icons/client.svg) JavaScript-Client :id=javascript-client
+
+Verbinde deine Browser- oder Node.js-Anwendung mit objy.db, authentifiziere Benutzer und arbeite mit Objekten.
+
+[JavaScript-Client-Dokumentation](/content/client.md)
