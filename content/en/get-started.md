@@ -1,10 +1,10 @@
 # Deploy on your terms. :id=deployment
 
-Run locally, bring your own cloud, or put the database in the browser.
+Start locally, in your cloud, or in the browser.
 
 ## ![](assets/site/icons/quick-start.svg) Quick-start :id=deploy-quick-start
 
-Start locally with Node.js or Docker, then scale to a cluster across VMs, containers, or processes.
+Start locally. Scale to a cluster.
 
 - [GitHub](https://github.com/objy-org)
 - [Run locally](/content/server.md?id=quick-start)
@@ -12,7 +12,7 @@ Start locally with Node.js or Docker, then scale to a cluster across VMs, contai
 
 ## ![](assets/site/icons/cloud.svg) Bring your own cloud :id=bring-your-own-cloud
 
-Choose your provider and run on infrastructure you control, with your own networking and S3-compatible storage.
+Choose your provider. Keep control of your infrastructure.
 
 - [Hetzner](https://www.hetzner.com/cloud/)
 - [IONOS](https://cloud.ionos.com/)
@@ -22,4 +22,6 @@ Choose your provider and run on infrastructure you control, with your own networ
 
 ## ![](assets/site/icons/browser.svg) Browser :id=deploy-browser
 
-Run objy.db directly in the browser. Keep objects in memory for fast reads and updates, right where your application runs.
+Fast, in-memory objects inside your application.
+
+[Browser setup](/content/server.md?id=run-in-a-browser)

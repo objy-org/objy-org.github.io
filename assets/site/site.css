@@ -783,7 +783,7 @@ body > main > .sidebar-toggle,
 .directory-list > div {
   border-bottom: 1px solid var(--line);
 }
-.directory-link {
+.directory-row {
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr) 24px;
   align-items: center;
@@ -800,7 +800,7 @@ body > main > .sidebar-toggle,
   background: #2a2725;
   color: var(--text);
 }
-.directory-link > img {
+.directory-row > img {
   display: block;
   width: 48px;
   height: 48px;
@@ -824,16 +824,38 @@ body > main > .sidebar-toggle,
   font-size: 24px;
   line-height: 1;
 }
+.directory-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+  line-height: 1.65;
+}
+.directory-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.directory-actions a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
 @media (max-width: 760px) {
   .document-directory {
     padding-top: 40px;
   }
-  .directory-link {
+  .directory-row {
     grid-template-columns: 40px minmax(0, 1fr) 20px;
     gap: 16px;
     padding: 20px 4px;
   }
-  .directory-link > img {
+  .directory-row > img {
     width: 40px;
     height: 40px;
   }

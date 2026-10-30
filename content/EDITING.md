@@ -51,7 +51,7 @@ Supported languages include `json`, `js`/`javascript`, `ts`/`typescript`, `sh`/`
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
 
-The top-bar Get started now link opens `get-started.md`. This page contains the deployment options previously shown on the homepage: Quick-start, Bring your own cloud, and Browser. Each `##` heading becomes an entry in its automatic left menu. Quick-start combines local and cluster deployment, with GitHub, Run locally, and Cluster setup links. Run locally opens the live server guide at Quick Start; Cluster setup opens Run a Cluster. All copy and destinations are editable in Markdown. Keep the page and chapter IDs so shared links continue to work.
+The top-bar Get started now link opens `get-started.md`. This page uses the same centered directory layout as Documentation, without a chapter menu. Its three deployment options are Quick-start, Bring your own cloud, and Browser. Keep an icon heading, one short paragraph, and either one destination link or a bullet list containing only links in each option. Quick-start keeps GitHub, Run locally, and Cluster setup as separate links; the cloud option keeps its provider links. The whole Browser row links to Run in a Browser in the live README. All copy and destinations remain editable in Markdown. Keep the page and chapter IDs so shared links continue to work.
 
 A list containing only links becomes a row of action buttons in the hero or a closing section without an illustration. The first link is the primary action. A horizontal rule (`---`) separates a closing section’s footer links. All labels and destinations come from the Markdown.
 
@@ -100,7 +100,7 @@ The top-bar Documentation link opens `content/en/documentation.md` or `content/d
 
 To add another guide, add a `##` heading with an icon, a short explanation, and one Markdown link to each language’s index. Keep each explanation and destination in separate paragraphs. The site combines these into one fully clickable row, in Markdown order. The index hides the chapter menu; individual guides still generate theirs automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
-An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/server.svg) Server :id=server`. Keep its alternative text empty because the adjacent heading already names the chapter. Each directory row shows that icon, the chapter title, its description, and an arrow. The separate link label stays in the Markdown source but is not repeated on screen. The layout works with any chapter name or number of guides. Pages with additional chapter content keep the ordinary Markdown layout and chapter menu.
+An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/server.svg) Server :id=server`. Keep its alternative text empty because the adjacent heading already names the chapter. A directory row with one destination shows that icon, the chapter title, its description, and an arrow. The separate link label stays in the Markdown source but is not repeated on screen. For multiple destinations, use a bullet list containing only links; those labels appear as separate text links under the description. The layout works with any chapter name or number of entries. Pages with additional chapter content keep the ordinary Markdown layout and chapter menu.
 
 ## Include live documentation
 

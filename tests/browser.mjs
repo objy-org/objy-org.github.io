@@ -90,6 +90,23 @@ await check('Document directories follow Markdown structure and preserve richer 
     'Normal Markdown content or anchors were changed');
 });
 
+await check('Directory link groups preserve every destination without nesting links', () => {
+  const markup = '<h1 id="start">Start</h1>' +
+    '<h2 id="local"><img src="local.svg" alt="">Local</h2><p>Start here.</p>' +
+    '<ul><li><a href="https://example.com/source">Source</a></li><li><a href="guide.md?id=cluster">Cluster</a></li></ul>' +
+    '<h2 id="browser"><img src="browser.svg" alt="">Browser</h2><p>Run in the page.</p>' +
+    '<p><a href="guide.md?id=browser">Browser guide</a></p>';
+  const directory = htmlFragment(decorateDocument(markup));
+  const group = directory.querySelector('.directory-row[role="group"]');
+  assert(group?.getAttribute('aria-labelledby') === 'local', 'Link group lost its title');
+  assert([...group.querySelectorAll('.directory-actions a')].map((link) => link.getAttribute('href')).join(',') ===
+    'https://example.com/source,guide.md?id=cluster', 'An action destination was lost or reordered');
+  assert(directory.querySelectorAll('.directory-link').length === 1, 'Multiple actions were turned into one link');
+  assert(!directory.querySelector('a a'), 'Action links were nested');
+  const guide = htmlFragment(decorateDocument(markup.replace('Source</a></li>', 'Source</a> plus instructions</li>')));
+  assert(!guide.querySelector('.document-directory'), 'A list with additional instructions was hidden');
+});
+
 await check('Markdown HTML removes scripts, event handlers, unsafe URLs, and fake site bindings', () => {
   const content = htmlFragment(
     sanitizeMarkup(
