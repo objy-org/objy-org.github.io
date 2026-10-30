@@ -30,6 +30,18 @@ Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual.
 
 Keep each section focused on one idea and use concrete examples. The four feature sections cover object features, the API, deployment, and built-in users and access control. The interactive object example follows them, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
 
+## Code highlighting
+
+Add a language name immediately after a code block's opening backticks. The site highlights these blocks automatically in local pages and live remote documentation, including the homepage's example tabs:
+
+````markdown
+```json
+{"name": "Alex", "online": true}
+```
+````
+
+Supported languages include `json`, `js`/`javascript`, `ts`/`typescript`, `sh`/`bash`/`shell`, `http`, `html`, `xml`, `css`, `yaml`/`yml`, and `markdown`/`md`. Use `text` for plain output. Code contents and copied text stay unchanged; no HTML or manual coloring is needed.
+
 ## Change links or the menu
 
 ```markdown

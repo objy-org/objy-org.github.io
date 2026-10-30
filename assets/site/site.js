@@ -238,6 +238,19 @@ function wireCopyButtons() {
 function objyTheme(hook, vm) {
   let contentReady;
   let loadError;
+  // Docsify supplies Prism. Load local grammars before the first Markdown render;
+  // HTTP embeds JSON and Markdown embeds YAML, so their dependencies go first.
+  const syntaxReady = Promise.all([
+    import('../vendor/prism-json.min.js'),
+    import('../vendor/prism-bash.min.js'),
+    import('../vendor/prism-typescript.min.js'),
+    import('../vendor/prism-yaml.min.js'),
+  ])
+    .then(() => Promise.all([
+      import('../vendor/prism-http.min.js'),
+      import('../vendor/prism-markdown.min.js'),
+    ]))
+    .catch((error) => console.warn('Extra code highlighting languages could not load:', error));
   const labelFiles = [`content/${languageRegistry.defaultLanguage}/labels.md`];
   if (language.code !== languageRegistry.defaultLanguage)
     labelFiles.push(`content/${language.code}/labels.md`);
@@ -266,7 +279,7 @@ function objyTheme(hook, vm) {
     }
     let error;
     try {
-      await loadContent();
+      await Promise.all([loadContent(), syntaxReady]);
     } catch (failure) {
       error = failure;
       contentReady = null;

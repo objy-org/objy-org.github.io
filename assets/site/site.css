@@ -788,6 +788,37 @@ pre {
   font-size: 14px;
   line-height: 1.7;
 }
+/* Docsify's Prism tokens use the same palette in local and remote Markdown. */
+pre code .token:is(.comment, .prolog, .doctype, .cdata) {
+  color: #a4a09a;
+}
+pre code .token.punctuation {
+  color: #c4beb6;
+}
+pre code .token:is(.property, .tag, .attr-name, .selector, .deleted) {
+  color: #e5b5a4;
+}
+pre code .token:is(.string, .char, .attr-value, .builtin, .inserted) {
+  color: #c1d4ab;
+}
+pre code .token:is(.number, .boolean, .constant) {
+  color: #ecc28b;
+}
+pre code .token:is(.keyword, .atrule) {
+  color: #cdb7e5;
+}
+pre code .token:is(.function, .class-name) {
+  color: #b5d2df;
+}
+pre code .token:is(.operator, .entity, .url, .variable, .regex, .symbol) {
+  color: #dfc9a4;
+}
+pre code .token.bold {
+  font-weight: 600;
+}
+pre code .token.italic {
+  font-style: italic;
+}
 .copy-button {
   position: absolute;
   right: 12px;

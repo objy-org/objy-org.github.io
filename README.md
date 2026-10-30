@@ -45,6 +45,8 @@ The first standalone image in each section's Markdown becomes its illustration. 
 
 Rendered Markdown is sanitized with bundled DOMPurify before it enters the document. Scripts, event handlers, unsafe URLs, styles, forms, and page-supplied translation bindings are removed; headings, code blocks, tables, and details/summary remain available. Local SVG artwork is a trusted repository asset, inlined separately by the homepage module.
 
+Fenced code blocks use Docsify's built-in Prism highlighter with a palette matched to the dark theme. Local grammar modules add JSON, Bash/shell, TypeScript, HTTP, YAML, and Markdown to the bundled JavaScript, HTML/XML, CSS, and C-like support. They load before the first page renders, with no runtime CDN dependency. Local and remote documents share the same highlighting; homepage example tabs retain their highlighted code when switched. Specify the language after the opening fence, such as `json`, `js`, `ts`, `sh`, or `http`.
+
 Browser metadata updates from the selected language’s `labels.md`; clients that do not execute JavaScript use the fallback tags in `index.html`. Sync those tags when social-preview metadata changes. The neutral loading message, emergency English fallback, no-JavaScript links, and the home logo remain in the shell. Top-menu links highlight the matching page or descendant route with `aria-current="page"`. The Documentation entry is the fallback for guides without their own top-menu link, including live remote documents.
 
 ## Local preview
@@ -69,7 +71,7 @@ For a route such as `#/guides/setup`, the site looks for `content/<selected-lang
 
 Run `node --test tests/*.test.mjs` with Node.js. The tests validate language selection, URL preservation, registry entries, translated label parity, section IDs, local links, documentation code examples, arbitrary Markdown routes, remote source loading and relative links, and page-loading fallback. All localized Markdown files are discovered recursively so new documentation pages are included in validation. No package installation or build is needed.
 
-With the preview running, open `http://127.0.0.1:8000/tests/browser.html` for browser regression checks covering safe markup, literal translation values, reusable homepage layouts, missing artwork, documentation loading without homepage images, object tabs, deep links, keyboard navigation, listener cleanup, Markdown action links, viewport centering, and the responsive chapter menu. Also preview both languages on desktop and mobile when changing layout or translations.
+With the preview running, open `http://127.0.0.1:8000/tests/browser.html` for browser regression checks covering safe markup, syntax highlighting with unchanged source and copied text, literal translation values, reusable homepage layouts, missing artwork, documentation loading without homepage images, object tabs, deep links, keyboard navigation, listener cleanup, Markdown action links, viewport centering, and the responsive chapter menu. Also preview both languages on desktop and mobile when changing layout or translations.
 
 ## Content sources
 
@@ -80,6 +82,7 @@ Compression is in memory; the local write-ahead log and S3 journals/snapshots pr
 ## Third-party assets
 
 - Docsify 5.0.0, npm package entry `dist/docsify.min.js`, MIT license in `assets/vendor/docsify.LICENSE`.
+- Prism 1.30.0 language components from the official `PrismJS/prism` release tag: JSON, Bash, TypeScript, HTTP, YAML, and Markdown. Vendored unchanged in `assets/vendor/prism-*.min.js`, with MIT license in `assets/vendor/prism.LICENSE`; the core is already bundled with Docsify.
 - DOMPurify 3.4.17, npm package entry `dist/purify.es.mjs`, vendored as `assets/vendor/purify.mjs`; Apache-2.0/MPL-2.0 license in `assets/vendor/purify.LICENSE`.
 - Montserrat Regular and SemiBold from Google Fonts, SIL Open Font License in `assets/site/montserrat-LICENSE.txt`.
 - Original OBJY and live OBJY DB documentation source notices are retained in `assets/vendor/objy.LICENSE` and `assets/vendor/objy-db.LICENSE`. Brand usage rights were confirmed by the user; see the icon provenance review in `assets/site/ARTWORK.md`.

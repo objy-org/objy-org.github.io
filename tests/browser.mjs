@@ -97,6 +97,32 @@ await check('Translation values are parsed once and preserve literal HTML-lookin
   assert(copy('example.value') === '<object> & more', 'Translation value was double-parsed');
 });
 
+await check('Markdown code highlighting preserves source text and safe markup across languages', () => {
+  const samples = [
+    ['json', '{"name":"Alex","online":true,"literal":"<script>test</script>"}', '.property'],
+    ['js', 'const result = await db.find({online: true});', '.keyword'],
+    ['ts', 'const name: string = "Alex";', '.keyword'],
+    ['sh', 'npm install objy.db\necho "$HOME"', '.function'],
+    ['http', 'POST /api/databases HTTP/1.1\nContent-Type: application/json\n\n{"name":"app"}', '.property'],
+    ['yaml', 'database: app\nonline: true', '.key'],
+    ['markdown', '# Title\n\n**Objects**', '.bold'],
+    ['html', '<div class="example">Objects</div>', '.tag'],
+    ['text', 'Unformatted output: 42', null],
+    ['unknown-language', 'Still readable: 42', null],
+  ];
+  const markdown = samples.map(([language, source]) => `\`\`\`${language}\n${source}\n\`\`\``).join('\n\n');
+  // Exercise the same Docsify renderer and sanitizer used for local and remote pages.
+  const content = htmlFragment(sanitizeMarkup(site.contentWindow.marked(markdown)));
+  const blocks = [...content.querySelectorAll('pre code')];
+  assert(blocks.length === samples.length, 'A code block was lost');
+  samples.forEach(([language, source, token], index) => {
+    assert(blocks[index].textContent === source, `${language} source text changed`);
+    if (token) assert(blocks[index].querySelector(`.token${token}`), `${language} was not highlighted`);
+    else assert(!blocks[index].querySelector('.token'), `${language} should stay plain`);
+  });
+  assert(!content.querySelector('script,div'), 'Literal code became executable HTML');
+});
+
 await check('Homepage layouts work with arbitrary chapter names', async () => {
   const image =
     '<p><img alt="Sample" src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22/%3E"></p>';
@@ -232,6 +258,9 @@ await check('Copy uses the selected object and survives same-page navigation', a
     await navigate('#/?id=object-capabilities');
     const document = site.contentDocument;
     const tabs = document.querySelectorAll('[data-example-tab]');
+    assert(document.querySelector('.example-code .token.property'), 'Initial JSON example was not highlighted');
+    tabs[3].click();
+    assert(document.querySelector('.example-code .token.keyword'), 'Switching to JavaScript lost highlighting');
     tabs[1].click();
     document.querySelector('.example-code .copy-button').click();
     assert(JSON.parse(copied)._id === 'memory-01', 'Copy did not use the selected object');
