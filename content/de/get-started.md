@@ -3,9 +3,7 @@
 ## ![](assets/site/icons/quick-start.svg) Lokal starten :id=deploy-quick-start
 
 ```sh
-git clone https://github.com/objy-org/objy.db.git
-cd objy.db
-npm ci && npm link
+npm i -g @objy/server
 objy run
 ```
 
@@ -14,6 +12,7 @@ objy run
 ## ![](assets/site/icons/server.svg) Cluster starten :id=deploy-cluster
 
 ```sh
+npm i -g @objy/server
 objy start --instances 4
 objy status
 ```
