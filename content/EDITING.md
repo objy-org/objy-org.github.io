@@ -96,7 +96,7 @@ Markdown files at the repository root work too. The site first checks the select
 
 ## Manage the documentation index
 
-The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Server documentation opens the Server chapter of [the shared operations page](operations.md?id=server), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md). Browser documentation opens the main README’s Browser chapter at `/content/server.md?id=browser`. Local and cloud setup use the README’s Server and Cluster chapter at `/content/server.md?id=server-and-cluster`; cluster setup uses `/content/operations.md?id=server`.
+The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Server documentation opens the Server chapter of [the shared operations page](operations.md?id=server), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md). Browser documentation opens the Browser chapter of the same operations guide at `/content/operations.md?id=browser`. Local, cloud, and cluster setup use its Server chapter at `/content/operations.md?id=server`.
 
 To add another guide, add a `##` heading with an icon, a short explanation, and one Markdown link to each language’s index. Keep each explanation and destination in separate paragraphs. The site combines these into one fully clickable row, in Markdown order. The index hides the chapter menu; individual guides still generate theirs automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
@@ -183,7 +183,7 @@ Shared images in `assets/` are relative to the site root. Other relative image p
 
 The registry's `defaultLanguage` controls the default for new visitors. Unknown URL language codes fall back to that default. Missing UI labels also fall back to the default language, but translate every label before releasing a new language. Translate the core files before registering a language. Additional Markdown pages can fall back to the default language until their translations are ready.
 
-Use language-neutral links such as `/content/server.md?id=server-and-cluster`, `/content/operations.md?id=server`, and `/get-started.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
+Use language-neutral links such as `/content/operations.md?id=server`, `/content/operations.md?id=browser`, and `/get-started.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
 
 ## Review and publish
 

@@ -7,7 +7,7 @@ npm i -g @objy/server
 objy run
 ```
 
-[Quick-start guide](/content/server.md?id=server-and-cluster)
+[Quick-start guide](/content/operations.md?id=server)
 
 ## ![](assets/site/icons/server.svg) Run a cluster :id=deploy-cluster
 
@@ -27,7 +27,7 @@ objy status
 - [AWS](https://aws.amazon.com/)
 - [Azure](https://azure.microsoft.com/)
 
-[Server setup](/content/server.md?id=server-and-cluster)
+[Server setup](/content/operations.md?id=server)
 
 ## ![](assets/site/icons/browser.svg) Run in the browser :id=deploy-browser
 
@@ -36,4 +36,4 @@ import { createDatabase } from "@objy/db";
 const objy = createDatabase();
 ```
 
-[Browser guide](/content/server.md?id=browser)
+[Browser guide](/content/operations.md?id=browser)

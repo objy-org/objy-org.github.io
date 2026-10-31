@@ -18,7 +18,7 @@ Mit Objekten über HTTP arbeiten.
 
 Die Datenbank direkt in deiner Anwendung ausführen.
 
-[Browser-Dokumentation](/content/server.md?id=browser)
+[Browser-Dokumentation](/content/operations.md?id=browser)
 
 ## ![](assets/site/icons/client.svg) JavaScript-Client :id=javascript-client
 

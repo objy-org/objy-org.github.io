@@ -147,7 +147,7 @@ Arbeite mit vollständigen Objekten. Intern teilt OBJY sie für schnellen Zugrif
 
 Starte OBJY, erstelle dein erstes Objekt und baue darauf auf.
 
-- [Zum Schnellstart →](/content/server.md?id=server-and-cluster)
+- [Zum Schnellstart →](/content/operations.md?id=server)
 - [Cluster einrichten](/content/operations.md?id=server)
 
 ---
