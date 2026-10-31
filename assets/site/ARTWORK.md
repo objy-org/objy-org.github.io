@@ -15,7 +15,7 @@ Reviewed on 2026-10-27. This records the assets currently used by the site, rath
 
 | Assets | Origin and permissions |
 | --- | --- |
-| All six `assets/site/icons/*.svg` chapter icons | Custom SVG markup created by Codex for this website during this project. No downloaded icon pack, traced third-party artwork, or external icon font was used. There is no third-party icon license notice to carry over for these files. |
+| All seven `assets/site/icons/*.svg` chapter icons | Custom SVG markup created by Codex for this website during this project. No downloaded icon pack, traced third-party artwork, or external icon font was used. There is no third-party icon license notice to carry over for these files. |
 | The six larger `assets/site/*.svg` illustrations, including their small icon shapes | Custom SVG artwork introduced during this website rebuild. Repository history records their introduction in `ccede64`, `ae182bb`, `accb611`, and `eebdd01`; later commits refine these same assets. No external icon library or embedded third-party image is used. |
 | `assets/site/branding/objy-db-mark-white.svg` and `.png` | Custom white-on-transparent OBJY DB mark created for this project. The PNG is a raster export of the matching SVG; neither includes third-party artwork. |
 | `logo.png` and `favicon.png` | Existing OBJY brand assets restored byte-for-byte from `e62ff79`. The user confirmed in this project on 2026-10-27 that OBJY owns or has permission to use the existing logo and favicon. The original README references [OBJY's MIT license](https://github.com/objy-org/objy/blob/master/LICENSE.md); a copy of that notice is retained in `assets/vendor/objy.LICENSE`. |
@@ -31,7 +31,7 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 ## Section illustrations
 
-The documentation index uses three small line icons in `assets/site/icons/`: `server.svg` (stacked server units, coral), `client.svg` (a code window, lavender), and `api.svg` (connected endpoints, sage). Get started reuses `quick-start.svg` (a terminal prompt), `server.svg` (cluster), `cloud.svg` (a cloud with an upload arrow), and `browser.svg` (a browser window with empty object braces). They share a 48 × 48 canvas and rounded tile. The deployment accordion displays them at 64px with brighter colors; a scoped CSS hue adjustment makes its server icon blue without changing the original asset used by Documentation. Each is an ordinary Markdown image inside its chapter heading, with empty alternative text because the adjacent title provides the label. No icon library is needed.
+The documentation index uses three small line icons in `assets/site/icons/`: `database.svg` (a database cylinder, coral), `client.svg` (a code window, lavender), and `api.svg` (connected endpoints, sage). Get started reuses `quick-start.svg` (a terminal prompt), `server.svg` (cluster), `cloud.svg` (a cloud with an upload arrow), and `browser.svg` (a browser window with empty object braces). They share a 48 × 48 canvas and rounded tile. The deployment accordion displays them at 64px with brighter colors; a scoped CSS hue adjustment makes its server icon blue without changing the original asset. Each is an ordinary Markdown image inside its chapter heading, with empty alternative text because the adjacent title provides the label. No icon library is needed.
 
 The four feature illustrations share the site's coral, sage, and lavender palette. They use 520 × 320 canvases, except for the two-object reference illustration, which uses 520 × 440:
 

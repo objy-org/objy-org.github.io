@@ -67,7 +67,7 @@ await check('Documentation loads without downloading homepage illustrations', ()
   const document = site.contentDocument;
   const rows = [...document.querySelectorAll('.directory-link')];
   assert(rows.map((row) => row.querySelector('h2').textContent.trim()).join(',') ===
-    'Server,API,Browser,JavaScript client', 'Directory order changed');
+    'Database,API,JavaScript client', 'Directory order changed');
   assert(rows.every((row) => !row.querySelector('a') && row.querySelector('p')), 'Directory rows contain nested links or lost descriptions');
   assert(document.querySelector('.page-sidebar').hidden && document.querySelector('.section-menu-toggle').hidden,
     'The directory still has a chapter menu');
@@ -413,7 +413,7 @@ await check('Articles stay centered in the viewport without colliding with the c
       assert(frame.getComputedStyle(document.querySelector('.page-sidebar')).display === 'none', 'Directory chapter menu is visible');
       assert(frame.getComputedStyle(document.querySelector('.section-menu-toggle')).display === 'none', 'Directory menu toggle is visible');
       const last = document.querySelector('.directory-list > :last-child').getBoundingClientRect();
-      if (width >= 1280) assert(last.bottom <= frame.innerHeight, 'The four guides do not fit together on desktop');
+      if (width >= 1280) assert(last.bottom <= frame.innerHeight, 'The guides do not fit together on desktop');
     }
   } finally {
     if (previousStyle === null) site.removeAttribute('style');

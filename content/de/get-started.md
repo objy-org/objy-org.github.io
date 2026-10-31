@@ -7,7 +7,7 @@ npm i -g @objy/server
 objy run
 ```
 
-[Schnellstart-Anleitung](/content/operations.md?id=server)
+[Schnellstart-Anleitung](/content/server.md?id=start-one-node)
 
 ## ![](assets/site/icons/server.svg) Cluster starten :id=deploy-cluster
 
@@ -17,7 +17,7 @@ objy start --instances 4
 objy status
 ```
 
-[Cluster einrichten](/content/operations.md?id=server)
+[Cluster einrichten](/content/server.md?id=form-a-cluster)
 
 ## ![](assets/site/icons/cloud.svg) Deine eigene Cloud :id=bring-your-own-cloud
 
@@ -27,7 +27,7 @@ objy status
 - [AWS](https://aws.amazon.com/)
 - [Azure](https://azure.microsoft.com/)
 
-[Server einrichten](/content/operations.md?id=server)
+[Server einrichten](/content/server.md?id=start-one-node)
 
 ## ![](assets/site/icons/browser.svg) Im Browser starten :id=deploy-browser
 
@@ -36,4 +36,4 @@ import { createDatabase } from "@objy/db";
 const objy = createDatabase();
 ```
 
-[Browser-Anleitung](/content/operations.md?id=browser)
+[Browser-Anleitung](/content/database.md?id=install-in-a-browser)

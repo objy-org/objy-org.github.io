@@ -2,23 +2,17 @@
 
 Guides for building with objy.db.
 
-## ![](assets/site/icons/server.svg) Server :id=server
+## ![](assets/site/icons/database.svg) Database :id=database
 
-Run and configure OBJY.
+The database for browsers and Node.js.
 
-[Server documentation](/content/operations.md?id=server)
+[Database documentation](/content/database.md)
 
 ## ![](assets/site/icons/api.svg) API :id=api
 
 Work with objects over HTTP.
 
 [API documentation](/content/api.md)
-
-## ![](assets/site/icons/browser.svg) Browser :id=browser
-
-Run the database inside your application.
-
-[Browser documentation](/content/operations.md?id=browser)
 
 ## ![](assets/site/icons/client.svg) JavaScript client :id=javascript-client
 

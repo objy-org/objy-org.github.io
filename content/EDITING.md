@@ -12,7 +12,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Get started and deployment options | [get-started.md](en/get-started.md) | [get-started.md](de/get-started.md) |
 | Documentation index | [documentation.md](en/documentation.md) | [documentation.md](de/documentation.md) |
 
-Edit the file in the language you want to change. The database README, operations guide, client documentation, and API reference are loaded live from `objy-org/objy` through the shared Markdown includes listed below.
+Edit the file in the language you want to change. Database, server, client, and API documentation are loaded live from `objy-org/objy` through the shared Markdown includes listed below.
 
 The switcher at the top right remembers the visitor's choice. A URL with `?lang=de` or `?lang=en` explicitly selects that language. Internal links keep the selected language automatically.
 
@@ -96,23 +96,23 @@ Markdown files at the repository root work too. The site first checks the select
 
 ## Manage the documentation index
 
-The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Server documentation opens the Server chapter of [the shared operations page](operations.md?id=server), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md). Browser documentation opens the Browser chapter of the same operations guide at `/content/operations.md?id=browser`. Local, cloud, and cluster setup use its Server chapter at `/content/operations.md?id=server`.
+The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Its entries are Database, API, and JavaScript client. [Database documentation](database.md) loads `DB.md` for browsers and Node.js. [API documentation](api.md) loads `API.md`, and [JavaScript client documentation](client.md) loads `client/README.md`. Keep the JavaScript client last. Deployment links use [server documentation](server.md): local and cloud setup open `start-one-node`, and cluster setup opens `form-a-cluster`. Browser setup opens `/content/database.md?id=install-in-a-browser`.
 
 To add another guide, add a `##` heading with an icon, a short explanation, and one Markdown link to each language’s index. Keep each explanation and destination in separate paragraphs. The site combines these into one fully clickable row, in Markdown order. The index hides the chapter menu; individual guides still generate theirs automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
-An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/server.svg) Server :id=server`. Keep its alternative text empty because the adjacent heading already names the chapter. A directory row with one destination shows that icon, the chapter title, its description, and an arrow. The separate link label stays in the Markdown source but is not repeated on screen. For multiple destinations, use a bullet list containing only links; those labels appear as separate text links under the description. The layout works with any chapter name or number of entries. Pages with additional chapter content keep the ordinary Markdown layout and chapter menu.
+An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/database.svg) Database :id=database`. Keep its alternative text empty because the adjacent heading already names the chapter. A directory row with one destination shows that icon, the chapter title, its description, and an arrow. The separate link label stays in the Markdown source but is not repeated on screen. For multiple destinations, use a bullet list containing only links; those labels appear as separate text links under the description. The layout works with any chapter name or number of entries. Pages with additional chapter content keep the ordinary Markdown layout and chapter menu.
 
 ## Include live documentation
 
-The existing shared README page, `content/server.md`, contains only a remote include:
+The shared database page, `content/database.md`, contains only a remote include:
 
 ```markdown
-[Server documentation](https://raw.githubusercontent.com/objy-org/objy/refs/heads/main/README.md ':include')
+[Database documentation](https://raw.githubusercontent.com/objy-org/objy/refs/heads/main/DB.md ':include')
 ```
 
-The README is fetched from GitHub when readers open that page. `content/operations.md` loads `OPERATIONS.md` for server and cluster operation. The client page, `content/client.md`, loads `client/README.md`, and `content/api.md` loads `API.md`. All sources live in `objy-org/objy`. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
+The source is fetched from GitHub when readers open that page. `content/server.md` loads `SERVER.md` for server and cluster operation. The client page, `content/client.md`, loads `client/README.md`, and `content/api.md` loads `API.md`. All sources live in `objy-org/objy`. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
 
-To use a different source, edit the URL in `content/server.md`. Keep each remote page as a single include so relative Markdown links and images resolve from the remote file. Linked Markdown files also open inside the site with their own chapter menus. The source must be a public raw Markdown URL that allows browser requests. Source caching can delay updates; failed loads show the standard page-unavailable message.
+To use a different source, edit the URL in the matching shared Markdown page. Keep each remote page as a single include so relative Markdown links and images resolve from the remote file. Linked Markdown files also open inside the site with their own chapter menus. The source must be a public raw Markdown URL that allows browser requests. Source caching can delay updates; failed loads show the standard page-unavailable message.
 
 ## Add a homepage section
 
@@ -178,12 +178,12 @@ Shared images in `assets/` are relative to the site root. Other relative image p
 1. Copy `content/en/` to a new folder named after the language code, such as `content/fr/`.
 2. Translate `home.md`, `sidebar.md`, `labels.md`, `get-started.md`, and `documentation.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
 3. Add an entry to `content/languages.json`, for example `{ "code": "fr", "name": "Français", "short": "FR" }`. The code must match the folder. The language appears in the switcher automatically; no HTML or JavaScript changes are needed.
-4. Preview `/?lang=fr`, `/?lang=fr#/get-started`, `/?lang=fr#/documentation`, and `/?lang=fr#/content/server`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
+4. Preview `/?lang=fr`, `/?lang=fr#/get-started`, `/?lang=fr#/documentation`, and `/?lang=fr#/content/database`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
 5. Run `node --test tests/*.test.mjs` to check for missing files, labels, anchors, or broken local links.
 
 The registry's `defaultLanguage` controls the default for new visitors. Unknown URL language codes fall back to that default. Missing UI labels also fall back to the default language, but translate every label before releasing a new language. Translate the core files before registering a language. Additional Markdown pages can fall back to the default language until their translations are ready.
 
-Use language-neutral links such as `/content/operations.md?id=server`, `/content/operations.md?id=browser`, and `/get-started.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
+Use language-neutral links such as `/content/server.md?id=start-one-node`, `/content/database.md?id=install-in-a-browser`, and `/get-started.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
 
 ## Review and publish
 

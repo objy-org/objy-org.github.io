@@ -2,23 +2,17 @@
 
 Anleitungen für die Arbeit mit objy.db.
 
-## ![](assets/site/icons/server.svg) Server :id=server
+## ![](assets/site/icons/database.svg) Datenbank :id=database
 
-OBJY betreiben und konfigurieren.
+Die Datenbank für Browser und Node.js.
 
-[Server-Dokumentation](/content/operations.md?id=server)
+[Datenbank-Dokumentation](/content/database.md)
 
 ## ![](assets/site/icons/api.svg) API :id=api
 
 Mit Objekten über HTTP arbeiten.
 
 [API-Dokumentation](/content/api.md)
-
-## ![](assets/site/icons/browser.svg) Browser :id=browser
-
-Die Datenbank direkt in deiner Anwendung ausführen.
-
-[Browser-Dokumentation](/content/operations.md?id=browser)
 
 ## ![](assets/site/icons/client.svg) JavaScript-Client :id=javascript-client
 
