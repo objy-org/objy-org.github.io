@@ -21,7 +21,6 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Skip link | Skip to content |
 | Product link | [OBJY](#/?id=top) |
 | Features link | [Features](#/features) |
-| Get started link | [Get started now](#/get-started) |
 | Documentation link | [Documentation](#/documentation) |
 | Source link | [GitHub](https://github.com/objy-org) |
 
@@ -64,3 +63,24 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Memory id | `"_id": "memory-01",` |
 | Memory title | `"title": "First flight",` |
 | Memory vector | `"_vec": [0.2, 0.8, 0.4]` |
+
+## Storage diagram
+
+| Location | Text |
+| --- | --- |
+| Outside | The object you work with |
+| Format | JSON |
+| Json identity | `"_id": "bike-001",` |
+| Json name | `"name": "City bike",` |
+| Json price | `"price": 199,` |
+| Json notes | `"notes": "Everyday rides"` |
+| Inside | Inside objy.db |
+| Memory | IN MEMORY |
+| Hot | Hot fields |
+| Columns | Compact columns |
+| Compressed | Compressed fields |
+| Reads | One object in. One object out. |
+| Persist | Persist |
+| Recover | Recover |
+| Durability | Optional S3 durability |
+| Durability detail | Journals + snapshots |

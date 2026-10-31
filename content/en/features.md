@@ -2,6 +2,21 @@
 
 Fast, flexible data is just the beginning. Explore what OBJY brings to your application, from the in-memory engine to a distributed backend.
 
+## Objects outside. Smart storage inside. :id=storage-internals
+
+Work with complete objects. Internally, OBJY splits them into blocks for fast access and efficient storage.
+
+- **Hot fields:** Frequently used data stays uncompressed in memory.
+- **Compact columns:** Selected values sit together for efficient scans and aggregation.
+- **Compressed fields:** Keep more data in memory. Expand it when you read.
+
+> **Fast in memory. Optional S3 durability.**
+>
+> Enable S3-backed journals and snapshots to preserve your objects for recovery.
+
+![A complete JSON object sits in front of three in-memory storage tiers. Persist and recover arrows connect them to optional S3 durability through journals and snapshots.](assets/site/storage-internals.svg)
+
+
 ## Database core :id=database-core
 
 The same engine, embedded in browsers and Node.js. [Explore the core docs](/content/database.md).

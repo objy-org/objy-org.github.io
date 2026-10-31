@@ -2,6 +2,21 @@
 
 Schnelle, flexible Daten sind erst der Anfang. Entdecke, was OBJY deiner Anwendung bietet — von der In-Memory-Engine bis zum verteilten Backend.
 
+## Außen JSON, innen effiziente Speicherung :id=storage-internals
+
+Arbeite mit vollständigen Objekten. Intern teilt OBJY sie für schnellen Zugriff und effiziente Speicherung in Blöcke auf.
+
+- **Heiße Felder:** Häufig genutzte Daten bleiben unkomprimiert im Arbeitsspeicher.
+- **Kompakte Spalten:** Ausgewählte Werte liegen zusammen – für effiziente Scans und Aggregation.
+- **Komprimierte Felder:** Halte mehr Daten im Arbeitsspeicher und entpacke sie beim Lesen.
+
+> **Schnell im RAM. Optional dauerhaft in S3.**
+>
+> Aktiviere S3-Journale und Snapshots, um deine Objekte für die Wiederherstellung zu sichern.
+
+![Ein vollständiges JSON-Objekt liegt vor drei Speicherebenen im RAM. Pfeile zum Sichern und Wiederherstellen verbinden sie mit einer optionalen S3-Sicherung aus Journalen und Snapshots.](assets/site/storage-internals.svg)
+
+
 ## Datenbankkern :id=database-core
 
 Dieselbe Engine, eingebettet in Browser und Node.js. [Zur Core-Dokumentation](/content/database.md).

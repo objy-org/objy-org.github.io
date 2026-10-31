@@ -4,6 +4,7 @@ import { createCopy, readMarkdown, sanitizeMarkup } from './markup.mjs';
 import { decorateHomepage } from './homepage.mjs';
 import { decorateDocument, wireDocuments } from './documents.mjs';
 import { wireExamples } from './examples.mjs';
+import { inlineDocumentIllustrations } from './illustrations.mjs';
 
 /* Editorial content lives in content/<language>/*.md. */
 let copy;
@@ -337,6 +338,7 @@ function objyTheme(hook, vm) {
         console.error('OBJY theme could not format this page:', error);
       }
     }
+    content = await inlineDocumentIllustrations(content);
     // Slow artwork from an earlier navigation must never replace the current document.
     if (page !== currentPage || path !== vm.route.path) return;
     next(`<div class="page-layout"><div id="sidebar-slot"></div>${content}</div>`);

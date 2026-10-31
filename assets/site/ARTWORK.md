@@ -19,6 +19,7 @@ Reviewed on 2026-10-27. This records the assets currently used by the site, rath
 | All 21 `assets/site/icons/features/*.svg` catalog icons | Custom SVG geometry created for the feature catalog on 2026-10-31. Each capability has a distinct drawing in the site's coral, lavender, blue, or sage palette. No external artwork, icon font, or third-party icon library is used. |
 | All four `assets/site/icons/use-cases/*.svg` homepage icons | Custom SVG geometry created for this website on 2026-10-31 in the existing coral, lavender, blue, and sage palette. No downloaded artwork, icon font, or third-party library is used. |
 | `assets/site/architecture.svg` | Custom SVG geometry created for the architecture overview on 2026-10-31. No downloaded icons, external artwork, or third-party icon library is used. |
+| `assets/site/storage-internals.svg` | Restored byte-for-byte from `ff07780`. Custom OBJY website SVG based on the earlier stacked storage sketch, with an optional S3 durability layer. No external icon library or third-party artwork is used. |
 | `assets/site/branding/objy-db-mark-white.svg` and `.png` | Custom white-on-transparent OBJY DB mark created for this project. The PNG is a raster export of the matching SVG; neither includes third-party artwork. |
 | `logo.png` and `favicon.png` | Existing OBJY brand assets restored byte-for-byte from `e62ff79`. The user confirmed in this project on 2026-10-27 that OBJY owns or has permission to use the existing logo and favicon. The original README references [OBJY's MIT license](https://github.com/objy-org/objy/blob/master/LICENSE.md); a copy of that notice is retained in `assets/vendor/objy.LICENSE`. |
 | Artwork displayed by live documentation | The main README currently references `https://raw.githubusercontent.com/objy-org/objy/main/public/branding/objy-db-header-deep-field.png`. The user confirmed rights to the existing OBJY branding on 2026-10-27. The source repository publishes an [MIT license](https://github.com/objy-org/objy/blob/main/LICENSE) and a [brand notice](https://github.com/objy-org/objy/blob/main/NOTICE.md). The earlier source license notice remains in `assets/vendor/objy-db.LICENSE`. |
@@ -33,10 +34,14 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 The SVG uses a wide 1000 × 680 composition and a vertical phone composition of 360 × 700 below 641px. Both reuse the same card frame and three snippet definitions. The overlaps sit at card edges so the JSON stays readable. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `home.md`.
 
-The former apps/agents hero, individual feature illustrations, and separate storage illustration have been removed from the current branch. Their earlier versions remain recoverable in Git history.
+The former apps/agents hero and individual homepage feature illustrations remain recoverable in Git history. The storage illustration has been restored for the Features page.
 
 ## Page icons and use cases
 
 The documentation index and deployment page retain their custom SVG icons in `assets/site/icons/`. The Features page uses 21 distinct icons in `assets/site/icons/features/`. Their provenance is recorded above.
 
 The homepage uses four custom icons for AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. Its headings, icon paths, and descriptions stay editable in `content/<language>/home.md`. The 21 feature icons remain on the separate Features page, which uses short descriptions without code examples.
+
+## Storage illustration
+
+The first section of `features.md` restores the former homepage storage section and its original 660 × 740 SVG. A complete JSON object overlaps a rear plane with hot fields, compact columns, and compressed fields. Persist and Recover arrows connect it to optional S3 journals and snapshots. The shared illustration loader inlines the SVG so every label can come from the Storage diagram table in each language’s `labels.md`. The text, bullet points, durability note, and alternative description are restored from the corresponding homepage Markdown.

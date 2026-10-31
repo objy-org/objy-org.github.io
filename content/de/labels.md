@@ -21,7 +21,6 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Skip link | Zum Inhalt springen |
 | Product link | [OBJY](#/?id=top) |
 | Features link | [Features](#/features) |
-| Get started link | [Jetzt loslegen](#/get-started) |
 | Documentation link | [Dokumentation](#/documentation) |
 | Source link | [GitHub](https://github.com/objy-org) |
 
@@ -64,3 +63,24 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Memory id | `"_id": "memory-01",` |
 | Memory title | `"title": "First flight",` |
 | Memory vector | `"_vec": [0.2, 0.8, 0.4]` |
+
+## Storage diagram
+
+| Location | Text |
+| --- | --- |
+| Outside | Dein Objekt |
+| Format | JSON |
+| Json identity | `"_id": "bike-001",` |
+| Json name | `"name": "City bike",` |
+| Json price | `"price": 199,` |
+| Json notes | `"notes": "Everyday rides"` |
+| Inside | In objy.db |
+| Memory | IM RAM |
+| Hot | Heiße Felder |
+| Columns | Kompakte Spalten |
+| Compressed | Komprimiert |
+| Reads | Ein Objekt rein. Ein Objekt raus. |
+| Persist | Sichern |
+| Recover | Wiederherstellen |
+| Durability | S3-Sicherung (optional) |
+| Durability detail | Journale + Snapshots |

@@ -1,31 +1,7 @@
 import { htmlFragment } from './markup.mjs';
 import { decorateExample } from './examples.mjs';
 import { decorateDocument } from './documents.mjs';
-
-const illustrationCache = new Map();
-
-// Discover artwork from Markdown; document pages never load homepage illustrations.
-async function inlineIllustration(source) {
-  const url = new URL(source, location.href);
-  if (url.origin !== location.origin || !url.pathname.endsWith('.svg')) return null;
-  if (!illustrationCache.has(url.href)) {
-    illustrationCache.set(
-      url.href,
-      fetch(url)
-        .then(async (response) => {
-          if (!response.ok) throw new Error(`Illustration: ${response.status} ${url.pathname}`);
-          const fragment = htmlFragment(await response.text());
-          return fragment.querySelector('svg')?.outerHTML || null;
-        })
-        .catch((error) => {
-          illustrationCache.delete(url.href); // A later visit can retry; the normal image still renders.
-          console.warn(error);
-          return null;
-        }),
-    );
-  }
-  return illustrationCache.get(url.href);
-}
+import { createIllustration } from './illustrations.mjs';
 
 async function embedDocument(section, body, loadDocument) {
   const link = body.querySelector(':scope > p > a[title="embed"]:only-child');
@@ -67,19 +43,8 @@ async function decorateSection(section, options) {
   const image = body.querySelector(':scope > p > img:only-child');
   if (image) {
     const paragraph = image.parentElement;
-    const figure = document.createElement('figure');
     const isHero = heading.id === 'top';
-    figure.className = isHero ? 'hero-art' : 'section-art';
-    const artwork = await inlineIllustration(image.src);
-    if (artwork) {
-      figure.setAttribute('role', 'img');
-      figure.setAttribute('aria-label', image.alt);
-      figure.innerHTML = artwork;
-      figure.querySelector('svg').setAttribute('aria-hidden', 'true');
-    } else {
-      image.fetchPriority = isHero ? 'high' : 'auto';
-      figure.append(image);
-    }
+    const figure = await createIllustration(image, isHero ? 'hero-art' : 'section-art');
     paragraph.remove();
     section.append(figure);
     if (!isHero) section.classList.add('section-illustrated');

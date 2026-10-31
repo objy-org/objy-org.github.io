@@ -43,8 +43,25 @@ export function decorateDocument(html) {
     return { heading, content, icon };
   });
   const catalogs = sections.map(({ content }) => catalogEntries(content));
-  if (catalogs.length && catalogs.every(Boolean)) {
+  const illustrations = sections.map(({ content }) => !content.some((node) => node.tagName === 'H3') &&
+    content.find((node) => node.tagName === 'P' && node.children.length === 1 && node.firstElementChild.tagName === 'IMG'));
+  if (catalogs.some(Boolean) && catalogs.every((catalog, index) => catalog || illustrations[index])) {
     for (const [index, { heading }] of sections.entries()) {
+      if (!catalogs[index]) {
+        const section = document.createElement('section');
+        section.className = 'document-illustration';
+        if (heading.id) section.setAttribute('aria-labelledby', heading.id);
+        heading.before(section);
+        const copy = document.createElement('div');
+        copy.className = 'document-illustration-copy';
+        copy.append(heading, ...sections[index].content.filter((node) => node !== illustrations[index]));
+        const figure = document.createElement('figure');
+        figure.className = 'document-art';
+        figure.append(illustrations[index].firstElementChild);
+        illustrations[index].remove();
+        section.append(copy, figure);
+        continue;
+      }
       const { intro, entries } = catalogs[index];
       const section = document.createElement('section');
       section.className = 'catalog-section';

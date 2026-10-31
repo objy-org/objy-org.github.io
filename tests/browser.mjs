@@ -128,6 +128,15 @@ await check('Icon subchapters form reusable catalogs without losing introduction
   assert(features.every((feature) => feature.firstElementChild.matches('img[width="64"][height="64"]') &&
     feature.firstElementChild.alt === '' && !feature.querySelector('h3 img')), 'Icons repeat the title or remain inside the heading');
   assert(features[2].querySelector('h3 a').getAttribute('href') === '#/example?id=third', 'Feature deep link was removed');
+  const illustrated = htmlFragment(decorateDocument(markup.replace('<h2 id="alpha">',
+    '<h2 id="diagram">How it works</h2><p>Overview.</p><ul><li>A tier</li></ul>' +
+    '<blockquote><p>Optional durability.</p></blockquote><p><img src="diagram.svg" alt="A layered diagram"></p><h2 id="alpha">')));
+  const overview = illustrated.querySelector('.document-illustration');
+  assert(illustrated.querySelectorAll('.catalog-feature').length === 3 &&
+    overview?.querySelector('h2').id === 'diagram' && overview.querySelector('li').textContent === 'A tier',
+    'An illustrated introduction prevented the catalog from rendering or lost its content');
+  assert(overview.querySelector('.document-art img').alt === 'A layered diagram' && overview.querySelector('blockquote'),
+    'Illustrated content lost its image description or durability note');
   const ordinary = htmlFragment(decorateDocument(markup.replace('<img src="third.svg" alt="third">', '')));
   assert(!ordinary.querySelector('.document-catalog') && ordinary.querySelectorAll('h3').length === 3 &&
     ordinary.querySelector('pre code'), 'Mixed ordinary chapters were converted or lost content');
@@ -562,13 +571,28 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
     assert(features.length === 21 && new Set(features.map((feature) => feature.querySelector('img').src)).size === 21,
       'A feature or distinct icon is missing');
     const links = [...document.querySelectorAll('#section-links a')];
-    assert(links.length === 2 && links[0].hash.endsWith('id=database-core') && links[1].hash.endsWith('id=db-server'),
-      'The feature menu should contain only the two main groups');
+    assert(links.length === 3 && links[0].hash.endsWith('id=storage-internals') &&
+      links[1].hash.endsWith('id=database-core') && links[2].hash.endsWith('id=db-server'),
+      'The feature menu should contain storage internals and the two main groups');
     assert(features.every((feature) => !feature.querySelector('h3').hasAttribute('data-chapter')),
       'Individual features still participate in chapter navigation');
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
     assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/features'),
       'Features navigation is not active');
+    assert(document.querySelectorAll('.header-links a').length === 3 &&
+      !document.querySelector('.header-links a[href$="#/get-started"]'), 'Get Started is still in the top bar');
+    const storage = document.querySelector('.document-illustration');
+    assert(storage.querySelector('h2').id === 'storage-internals' &&
+      storage.nextElementSibling.matches('.catalog-section'), 'Storage internals is not above the feature catalog');
+    assert(storage.querySelectorAll('.document-illustration-copy li').length === 3 &&
+      storage.querySelector('blockquote').textContent.toLowerCase().includes('optional'),
+      'The restored storage explanation lost a tier or its optional durability note');
+    const diagram = storage.querySelector('.document-art svg');
+    assert(diagram?.getAttribute('viewBox') === '0 0 660 740', 'The original storage illustration was not restored');
+    assert(diagram.querySelector('[data-copy="storage-diagram.hot"]').textContent ===
+      (language === 'en' ? 'Hot fields' : 'Heiße Felder'), 'The storage illustration was not translated');
+    assert(diagram.querySelector('[data-copy="storage-diagram.durability"]').textContent.toLowerCase().includes('optional'),
+      'The diagram no longer identifies S3 durability as optional');
     for (const width of [1920, 1280, 1101, 1100, 1001, 1000, 900, 761, 760, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '900px';
@@ -578,6 +602,12 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       assert(document.documentElement.scrollWidth <= viewport + 1, `${language} catalog overflows at ${width}px`);
       assert(Math.abs(article.left + article.width / 2 - viewport / 2) <= 1,
         `${language} catalog is not centered at ${width}px`);
+      const copy = storage.querySelector('.document-illustration-copy').getBoundingClientRect();
+      const art = storage.querySelector('.document-art').getBoundingClientRect();
+      assert(art.left >= article.left - 1 && art.right <= article.right + 1 &&
+        Math.abs(art.height / art.width - 740 / 660) < .01, 'The storage illustration is clipped or distorted');
+      if (article.width <= 760) assert(art.top >= copy.bottom, 'Mobile storage text and graphic overlap');
+      else assert(art.left >= copy.right, 'Desktop storage text and graphic overlap');
       const brand = document.querySelector('.header-brand').getBoundingClientRect();
       const nav = document.querySelector('.header-links').getBoundingClientRect();
       const actions = document.querySelector('.header-actions').getBoundingClientRect();
