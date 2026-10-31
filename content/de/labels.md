@@ -51,14 +51,16 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Query | Abfragen |
 | Aggregate | Aggregation |
 | Vector | Vektoren |
-| Storage | In-Memory-Speicher |
-| Hot | Heiße Felder |
-| Columns | Kompakte Spalten |
-| Compressed | Komprimierte Felder |
-| Durability | S3-Sicherung (optional) |
-| Durability detail | Journale + Snapshots |
 | Device collection | devices |
 | Device id | `"_id": "drone-01",` |
 | Device name | `"name": "Survey drone",` |
 | Device status | `"status": "ready",` |
 | Device battery | `"battery": 87` |
+| Person collection | people |
+| Person id | `"_id": "person-42",` |
+| Person name | `"name": "Alex",` |
+| Person role | `"role": "pilot"` |
+| Memory collection | memories |
+| Memory id | `"_id": "memory-01",` |
+| Memory title | `"title": "First flight",` |
+| Memory vector | `"_vec": [0.2, 0.8, 0.4]` |

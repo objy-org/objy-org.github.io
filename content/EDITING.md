@@ -29,7 +29,7 @@ Live references, nested data, vectors, and files.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-The homepage tells the story through one architecture illustration, followed by the interactive object example and a closing Quick Start section. Storage and optional S3 durability are covered in the architecture instead of a separate chapter. The subtle Show more features link below the diagram opens the full catalog. Preserve existing `:id=...` values when renaming headings.
+The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by the interactive object example and a closing Quick Start section. The subtle Show more features link below the diagram opens the full catalog, including storage and optional S3 durability. Preserve existing `:id=...` values when renaming headings.
 
 Edit the overview link as an ordinary link-only paragraph after the hero image, before the next `##` heading: `[Show more features →](/features.md)`. It appears centered beneath the illustration automatically.
 
@@ -159,9 +159,9 @@ Add new `##` chapters after the hero to place full-width content beneath it. Ill
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Architecture diagram table controls all labels and JSON examples in the main illustration, including query types, objects, storage tiers, and the optional S3 layer. The single device object uses Device id, Device name, Device status, and Device battery. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
+The Architecture diagram table controls the API labels and three JSON examples in the main illustration. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
-Keep S3 durability explicitly optional in the Durability label and image description. The Hot, Columns, and Compressed labels identify the three simple internal tiers. Readers still work with one complete object.
+Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. Use the full Features page for explanations of storage and other capabilities.
 
 ## Edit the interactive object example
 
@@ -186,7 +186,7 @@ Keep tab IDs consistent across translations, and keep code samples identical. Li
 
 ## Change section images
 
-The opening hero centers the architecture illustration beneath its headline and description. Both layouts show one JSON object in front of a shifted storage plane with three colored tiers. The compact phone composition keeps those tier labels visible beneath the object. The Show more features link follows the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero centers the illustration beneath its headline and description. Three tilted JSON cards overlap at their edges while keeping the snippets readable. They use a wide arrangement on desktop and a vertical stack on phones. The Show more features link follows the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

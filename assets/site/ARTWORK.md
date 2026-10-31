@@ -28,9 +28,9 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 ## Architecture illustration
 
-`assets/site/architecture.svg` is the single homepage illustration, displayed beneath the headline and description. CRUD, Query, Aggregate, and Vector feed into one JSON object. A shifted storage plane sits behind and below it, with three broad tiers for hot fields, compact columns, and compressed bodies. The layered geometry adapts the earlier storage sketch from `3f1a306`. Two-way arrows connect that layer to a separate dashed optional S3 panel for journals and snapshots.
+`assets/site/architecture.svg` is the single homepage illustration, displayed beneath the headline and description. CRUD, Query, Aggregate, and Vector appear above three overlapping JSON cards: a person, an AI memory with a vector, and a connected device. The tilted cards retain the layered geometry of the earlier storage sketch, with no storage internals or durability panel.
 
-The SVG uses a wide 1000 × 760 composition and a shorter phone composition of 360 × 670 below 641px. Both share one JSON face, a three-tier rear plane, and the S3 artwork. Tier labels stay visible beside or below the foreground object; the individual storage icons and explanatory captions have been removed. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `home.md`.
+The SVG uses a wide 1000 × 680 composition and a vertical phone composition of 360 × 700 below 641px. Both reuse the same card frame and three snippet definitions. The overlaps sit at card edges so the JSON stays readable. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `home.md`.
 
 The former apps/agents hero, individual feature illustrations, and separate storage illustration have been removed from the current branch. Their earlier versions remain recoverable in Git history.
 

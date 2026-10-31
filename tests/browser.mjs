@@ -419,7 +419,7 @@ await check('Articles stay centered in the viewport without colliding with the c
       assert(picture.top >= copy.bottom && Math.abs(picture.left + picture.width / 2 - width / 2) <= 1,
         'Architecture does not sit centered below the headline');
       assert(picture.width <= 1000 && picture.width > 250, 'Architecture size is incorrect');
-      const ratio = width <= 640 ? 670 / 360 : 760 / 1000;
+      const ratio = width <= 640 ? 700 / 360 : 680 / 1000;
       assert(Math.abs(picture.height / picture.width - ratio) < .01, 'Architecture aspect ratio is incorrect');
       assert(!document.querySelector('.feature-grid, [data-section="storage-internals"]'), 'The previous visual overview is still present');
       const link = more.getBoundingClientRect();
@@ -593,11 +593,11 @@ await check('Architecture artwork keeps both languages readable across desktop a
     const diagram = document.querySelector('.objy-architecture');
     const query = diagram.querySelector('[data-copy="architecture-diagram.query"]').textContent;
     assert(query === (language === 'en' ? 'Query' : 'Abfragen'), 'Query labels were not translated');
-    assert(diagram.querySelector('[data-copy="architecture-diagram.durability"]').textContent.toLowerCase().includes('optional'),
-      'S3 durability is not clearly optional');
     assert(document.querySelectorAll('#section-links a').length === 3, 'Homepage chapter links were not updated');
-    assert(diagram.querySelectorAll('#objy-arch-storage .storage-tier').length === 3,
-      'The storage overview does not contain three simple tiers');
+    assert(diagram.querySelectorAll('defs .object-snippet').length === 3,
+      'The illustration does not contain three distinct JSON snippets');
+    assert(!diagram.querySelector('[id*="storage"], [id*="s3"], [data-copy*="durability"]'),
+      'Storage internals or S3 are still present in the illustration');
     for (const width of [1440, 1280, 761, 641, 640, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '900px';
@@ -608,14 +608,20 @@ await check('Architecture artwork keeps both languages readable across desktop a
       assert((frame.getComputedStyle(wide).display === 'none') === compact &&
         (frame.getComputedStyle(phone).display !== 'none') === compact, 'Wrong architecture layout is visible');
       const visible = compact ? phone : wide;
-      assert(visible.querySelectorAll('use[href="#objy-arch-object"]').length === 1 &&
-        visible.querySelectorAll('use[href="#objy-arch-storage"]').length === 1,
-        'Architecture must show one JSON object and one internal storage plane');
+      const cards = visible.querySelectorAll('.object-stack > use');
+      assert(cards.length === 3 && new Set([...cards].map((card) => card.getAttribute('href'))).size === 3,
+        'The illustration must show three different objects');
       const box = diagram.getBoundingClientRect();
       if (compact) assert(box.width <= 400, 'Phone architecture is unnecessarily stretched');
-      const ratio = compact ? 670 / 360 : 760 / 1000;
+      const ratio = compact ? 700 / 360 : 680 / 1000;
       assert(Math.abs(box.height / box.width - ratio) < .01, 'Architecture is stretched or clipped');
       assert(document.documentElement.scrollWidth <= width + 1, `${language} architecture page overflows at ${width}px`);
+      for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+        assert(rect.left >= box.left - 1 && rect.right <= box.right + 1 &&
+          rect.top >= box.top - 1 && rect.bottom <= box.bottom + 1,
+        `${language} object card is clipped at ${width}px`);
+      }
       for (const label of (compact ? phone : wide).querySelectorAll('text')) {
         const rect = label.getBoundingClientRect();
         assert(rect.left >= box.left - 1 && rect.right <= box.right + 1,

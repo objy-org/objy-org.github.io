@@ -51,14 +51,16 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Query | Query |
 | Aggregate | Aggregate |
 | Vector | Vector |
-| Storage | In-memory storage |
-| Hot | Hot fields |
-| Columns | Compact columns |
-| Compressed | Compressed bodies |
-| Durability | Optional S3 durability |
-| Durability detail | Journals + snapshots |
 | Device collection | devices |
 | Device id | `"_id": "drone-01",` |
 | Device name | `"name": "Survey drone",` |
 | Device status | `"status": "ready",` |
 | Device battery | `"battery": 87` |
+| Person collection | people |
+| Person id | `"_id": "person-42",` |
+| Person name | `"name": "Alex",` |
+| Person role | `"role": "pilot"` |
+| Memory collection | memories |
+| Memory id | `"_id": "memory-01",` |
+| Memory title | `"title": "First flight",` |
+| Memory vector | `"_vec": [0.2, 0.8, 0.4]` |
