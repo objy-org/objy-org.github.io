@@ -27,12 +27,9 @@ Build tools and SaaS apps with APIs, authentication, users, and permissions alre
 
 Your objects. Your ideas. Build whatever comes next.
 
-## Start with one node. :id=start-building
+## Get started. :id=start-building
 
-Get OBJY running, create your first object, and build from there.
-
-- [Read the Quick Start →](/content/server.md?id=start-one-node)
-- [Explore cluster setup](/content/server.md?id=form-a-cluster)
+[Deployment options](/get-started.md "embed")
 
 ---
 

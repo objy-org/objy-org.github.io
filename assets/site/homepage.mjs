@@ -1,5 +1,6 @@
 import { htmlFragment } from './markup.mjs';
 import { decorateExample } from './examples.mjs';
+import { decorateDocument } from './documents.mjs';
 
 const illustrationCache = new Map();
 
@@ -26,7 +27,29 @@ async function inlineIllustration(source) {
   return illustrationCache.get(url.href);
 }
 
-async function decorateSection(section) {
+async function embedDocument(section, body, loadDocument) {
+  const link = body.querySelector(':scope > p > a[title="embed"]:only-child');
+  if (!link || !loadDocument) return false;
+  const html = await loadDocument(link.getAttribute('href'));
+  if (!html) return false; // The original link remains available if loading fails.
+  const article = htmlFragment(decorateDocument(html)).querySelector('.document-page');
+  article.querySelector(':scope > h1')?.remove();
+  // Embedded chapters sit beneath the homepage section's H2.
+  for (const heading of [...article.querySelectorAll('h2, h3, h4, h5')]) {
+    const nested = document.createElement(`h${Number(heading.tagName.slice(1)) + 1}`);
+    for (const attribute of heading.attributes) nested.setAttribute(attribute.name, attribute.value);
+    nested.append(...heading.childNodes);
+    heading.replaceWith(nested);
+  }
+  const embedded = document.createElement('div');
+  embedded.classList.add('embedded-document', ...[...article.classList].filter((name) => name !== 'document-page'));
+  embedded.append(...article.childNodes);
+  link.parentElement.replaceWith(embedded);
+  section.classList.add('section-document-embed');
+  return true;
+}
+
+async function decorateSection(section, options) {
   const body = section.querySelector('.markdown-body');
   const heading = body.querySelector('h1, h2');
   section.setAttribute('aria-labelledby', heading.id);
@@ -39,6 +62,7 @@ async function decorateSection(section) {
     section.querySelector('.section-copy').prepend(eyebrow);
     quote.remove();
   }
+  const embedded = await embedDocument(section, body, options.loadDocument);
   // A standalone Markdown image becomes the section's explanatory artwork.
   const image = body.querySelector(':scope > p > img:only-child');
   if (image) {
@@ -103,7 +127,7 @@ async function decorateSection(section) {
     if (heading.tagName !== 'H1' && actions.length) section.classList.add('section-callout');
   }
   const rule = body.querySelector(':scope > hr');
-  if (section.classList.contains('section-callout') && rule) {
+  if ((section.classList.contains('section-callout') || embedded) && rule) {
     const footer = document.createElement('footer');
     footer.className = 'section-footer';
     while (rule.nextSibling) footer.append(rule.nextSibling);
@@ -111,7 +135,7 @@ async function decorateSection(section) {
   }
 }
 
-export async function decorateHomepage(html) {
+export async function decorateHomepage(html, options = {}) {
   const template = htmlFragment(html);
   const sections = [];
   let current;
@@ -130,7 +154,7 @@ export async function decorateHomepage(html) {
   }
   if (sections[0]?.dataset.section !== 'top')
     throw new Error('home.md: keep the # headline with :id=top first.');
-  await Promise.all(sections.map(decorateSection));
+  await Promise.all(sections.map((section) => decorateSection(section, options)));
   const [hero, ...details] = sections;
   // A closing link-only paragraph follows the hero artwork, keeping its copy and
   // destination editable in Markdown without turning it into a large CTA.

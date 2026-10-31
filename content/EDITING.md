@@ -29,7 +29,7 @@ Live references, nested data, vectors, and files.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by four use cases and a closing Quick Start section. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
+The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by four use cases and the Get Started deployment options. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
 
 Edit the use-case heading, descriptions, and icons directly in `home.md`. The section keeps `:id=object-capabilities` so existing links continue to work. Its menu label is Use cases; edit that label in `sidebar.md`.
 
@@ -55,6 +55,8 @@ Supported languages include `json`, `js`/`javascript`, `ts`/`typescript`, `sh`/`
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=object-capabilities` jumps to the heading with `:id=object-capabilities`.
 
 The top-bar Get started now link opens `get-started.md`. Its five deployment options are Run locally, Run a cluster, Bring your own cloud, Run in the browser, and Embed in Node.js. Each is an expandable row with a large colored icon and title; its commands or buttons appear directly underneath when opened. Keep an icon in each `##` heading, then start its content with a fenced code block or a link-only paragraph/list. This Markdown structure enables the accordion without a chapter menu. Link-only bullet lists become buttons. Finish each option with its guide link, and keep the page and chapter IDs so shared links open the right row. All titles, code, providers, and destinations stay editable in Markdown. Documentation retains its clickable directory layout.
+
+The homepage’s last section reuses this same file. In `home.md`, keep `[Deployment options](/get-started.md "embed")` below its `##` heading. Edit commands, labels, icons, and cloud buttons in `get-started.md` to change both views together. The homepage keeps its own section heading and chapter menu; embedded options keep their source IDs, working accordions, syntax highlighting, and copy buttons. If the source cannot load, the original link remains usable.
 
 A list containing only links becomes a row of action buttons in the hero or a closing section without an illustration. The first link is the primary action. A horizontal rule (`---`) separates a closing section’s footer links. All labels and destinations come from the Markdown.
 
@@ -119,7 +121,7 @@ The same engine, embedded in browsers and Node.js.
 Connect objects and expand their references when reading.
 ```
 
-Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates a responsive grid of compact feature cards automatically, on any local Markdown page. The left menu lists every feature under its group, and each ID supports direct links. Use short headings so they are easy to scan in the menu. Titles, descriptions, order, and icon paths all come from Markdown. Add the same IDs and icon paths in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
+Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates a responsive grid of compact feature cards automatically, on any local Markdown page. The left menu lists only the main groups, Database Core and DB Server. Each feature keeps its ID for direct links. Titles, descriptions, order, and icon paths all come from Markdown. Add the same IDs and icon paths in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
 
 Keep this page concise: one short description per feature, without fenced code examples. Link readers to the core or server documentation for implementation details.
 

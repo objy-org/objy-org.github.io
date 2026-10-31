@@ -27,12 +27,9 @@ Baue Tools und SaaS-Anwendungen mit integrierten APIs, Authentifizierung, Benutz
 
 Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
-## Starte mit einem Knoten. :id=start-building
+## Loslegen. :id=start-building
 
-Starte OBJY, erstelle dein erstes Objekt und baue darauf auf.
-
-- [Zum Schnellstart →](/content/server.md?id=start-one-node)
-- [Cluster einrichten](/content/server.md?id=form-a-cluster)
+[Startoptionen](/get-started.md "embed")
 
 ---
 

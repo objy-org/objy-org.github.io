@@ -12,6 +12,7 @@ let language;
 let languageRegistry;
 let homepageSidebar;
 let currentPage;
+let embeddedSource;
 
 function mountSidebar(vm) {
   const sidebar = document.querySelector('aside.sidebar');
@@ -32,7 +33,9 @@ function mountSidebar(vm) {
   document.querySelector('.section-menu-toggle').hidden = directory;
   nav.classList.toggle('chapter-links', Boolean(documentPage));
   if (documentPage) {
-    const headings = [...documentPage.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')];
+    const selector = documentPage.matches('.document-catalog') ? 'h1[id], h2[id]' :
+      'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]';
+    const headings = [...documentPage.querySelectorAll(selector)];
     const title = headings[0];
     const chapters = title?.tagName === 'H1' && headings.length > 1 ? headings.slice(1) : headings;
     const firstLevel = Math.min(...chapters.map((heading) => Number(heading.tagName.slice(1))));
@@ -305,7 +308,31 @@ function objyTheme(hook, vm) {
     let content = decorateDocument(clean);
     if (!loadError && path === '/' && page) {
       try {
-        content = await decorateHomepage(clean);
+        content = await decorateHomepage(clean, {
+          async loadDocument(href) {
+            const url = new URL(href, location.href);
+            if (url.origin !== location.origin) return null;
+            const route = url.hash.startsWith('#/') ? url.hash.slice(1).split('?')[0] :
+              url.pathname.slice(new URL('./', document.baseURI).pathname.length);
+            try {
+              const source = await pages.loadMarkdown(pages.markdownFiles(
+                route, language.code, languageRegistry.defaultLanguage,
+                languageRegistry.languages.map((entry) => entry.code),
+              ));
+              if (!source || page !== currentPage || path !== vm.route.path) return null;
+              const previousSource = embeddedSource;
+              embeddedSource = source.file;
+              try {
+                return sanitizeMarkup(vm.compiler.compile(source.markdown));
+              } finally {
+                embeddedSource = previousSource;
+              }
+            } catch (error) {
+              console.warn('Embedded Markdown could not load:', error);
+              return null;
+            }
+          },
+        });
       } catch (error) {
         console.error('OBJY theme could not format this page:', error);
       }
@@ -436,7 +463,7 @@ async function startSite() {
       for (const type of ['link', 'image']) {
         const render = renderer[type];
         renderer[type] = function (token) {
-          const source = currentPage?.file;
+          const source = embeddedSource || currentPage?.file;
           if (source)
             token = {
               ...token,
