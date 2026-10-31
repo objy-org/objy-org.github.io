@@ -411,6 +411,7 @@ body > main > .sidebar-toggle,
   justify-self: center;
 }
 .feature-grid h2 {
+  color: #d4d1cc;
   font-size: clamp(24px, 2vw, 30px);
   line-height: 1.25;
   letter-spacing: -0.8px;

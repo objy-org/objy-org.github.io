@@ -9,19 +9,19 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 ![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
 
-## Flexible JSON-Objekte. Live-Referenzen. :id=abstract-objects
+## Alles modellieren. Objekte verbinden. :id=abstract-objects
 
 ![Zwei JSON-Objekte: Ein Gerät referenziert eine Person in der Collection people. Ein Pfeil verbindet den Referenzwert person-42 mit der passenden Objekt-ID.](assets/site/abstract-objects.svg?v=2)
 
-## CRUD, Abfragen, Aggregationen und Vektoren. Eine API. :id=simple-api
+## Erstellen. Abfragen. Aggregieren. Suchen. :id=simple-api
 
 ![Abfragen, Vektoren, CRUD und Aggregation teilen sich eine API-Verbindung.](assets/site/simple-api.svg)
 
-## Läuft im Browser, auf Servern und verteilt im Cluster. :id=run-and-deploy
+## Läuft überall. Skaliert über mehrere Maschinen. :id=run-and-deploy
 
 ![Ein Browserfenster, ein einzelner Server und drei verbundene Server zeigen den Betrieb vom Browser bis zum Cluster.](assets/site/run-and-deploy.svg)
 
-## Benutzer, Authentifizierung und Berechtigungen. Integriert. :id=users-and-access
+## Benutzer verwalten. Zugriff steuern. :id=users-and-access
 
 ![Benutzeridentitäten sind mit einem Anmeldeschloss und einem Schutzschild für Zugriffsrechte verbunden.](assets/site/users-access.svg)
 
