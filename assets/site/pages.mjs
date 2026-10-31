@@ -7,6 +7,11 @@ const markdownPath = (path) =>
 export function remoteRoute(source) {
   const url = new URL(source);
   if (!isRemote(url.href)) throw new Error('Remote Markdown requires an HTTP(S) URL.');
+  // Repository READMEs may link to Markdown in another GitHub repository.
+  if (url.hostname === 'github.com' && /^\/[^/]+\/[^/]+\/blob\//.test(url.pathname)) {
+    url.hostname = 'raw.githubusercontent.com';
+    url.pathname = url.pathname.replace('/blob/', '/');
+  }
   let id = url.hash.slice(1);
   try {
     id = decodeURIComponent(id);

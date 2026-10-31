@@ -128,6 +128,14 @@ test('remote Markdown links preserve source paths, queries, chapters, and reload
   assert.throws(() => resolve(`/remote/${btoa('javascript:alert(1)')}`), /HTTP/);
 });
 
+test('GitHub Markdown links across repositories load raw content and preserve chapters', () => {
+  const clientReadme = 'https://raw.githubusercontent.com/objy-org/objy-client/refs/heads/main/README.md';
+  const route = remoteLink('https://github.com/objy-org/objy/blob/main/API.md#query', clientReadme);
+  assert.deepEqual(resolve(route.split('?')[0]), ['https://raw.githubusercontent.com/objy-org/objy/main/API.md']);
+  assert.equal(new URLSearchParams(route.split('?')[1]).get('id'), 'query');
+  assert.equal(remoteLink('https://github.com/objy-org/objy', clientReadme), 'https://github.com/objy-org/objy');
+});
+
 test('unavailable remote includes use the missing-page path instead of showing a broken embed', async () => {
   assert.equal(
     await loadMarkdown(['content/server.md'], {

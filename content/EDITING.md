@@ -12,7 +12,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Get started and deployment options | [get-started.md](en/get-started.md) | [get-started.md](de/get-started.md) |
 | Documentation index | [documentation.md](en/documentation.md) | [documentation.md](de/documentation.md) |
 
-Edit the file in the language you want to change. Database, server, client, and API documentation are loaded live from `objy-org/objy` through the shared Markdown includes listed below.
+Edit the file in the language you want to change. Database, server, and REST API documentation are loaded live from `objy-org/objy`; JavaScript client documentation comes from `objy-org/objy-client`. The shared Markdown includes are listed below.
 
 The switcher at the top right remembers the visitor's choice. A URL with `?lang=de` or `?lang=en` explicitly selects that language. Internal links keep the selected language automatically.
 
@@ -96,7 +96,7 @@ Markdown files at the repository root work too. The site first checks the select
 
 ## Manage the documentation index
 
-The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Its entries are Embedded Database, DB Server, REST API, and JavaScript client. [Embedded Database documentation](database.md) loads `DB.md` for browsers and Node.js. [DB Server documentation](server.md) loads `SERVER.md`, [REST API documentation](api.md) loads `API.md`, and [JavaScript client documentation](client.md) loads `client/README.md`. Keep the JavaScript client last. Deployment links use server documentation: local and cloud setup open `start-one-node`, and cluster setup opens `form-a-cluster`. Browser setup opens `/content/database.md?id=install-in-a-browser`; embedding in Node.js opens `/content/database.md?id=install-in-nodejs`.
+The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Its entries are Embedded Database, DB Server, REST API, and JavaScript client. [Embedded Database documentation](database.md) loads `DB.md` for browsers and Node.js. [DB Server documentation](server.md) loads `SERVER.md`, [REST API documentation](api.md) loads `API.md`, and [JavaScript client documentation](client.md) loads `README.md` from `objy-org/objy-client`. Keep the JavaScript client last. Deployment links use server documentation: local and cloud setup open `start-one-node`, and cluster setup opens `form-a-cluster`. Browser setup opens `/content/database.md?id=install-in-a-browser`; embedding in Node.js opens `/content/database.md?id=install-in-nodejs`.
 
 To add another guide, add a `##` heading with an icon, a short explanation, and one Markdown link to each language’s index. Keep each explanation and destination in separate paragraphs. The site combines these into one fully clickable row, in Markdown order. The index hides the chapter menu; individual guides still generate theirs automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
@@ -110,7 +110,7 @@ The shared database page, `content/database.md`, contains only a remote include:
 [Database documentation](https://raw.githubusercontent.com/objy-org/objy/refs/heads/main/DB.md ':include')
 ```
 
-The source is fetched from GitHub when readers open that page. `content/server.md` loads `SERVER.md` for server and cluster operation. The client page, `content/client.md`, loads `client/README.md`, and `content/api.md` loads `API.md`. All sources live in `objy-org/objy`. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
+The source is fetched from GitHub when readers open that page. `content/server.md` loads `SERVER.md` for server and cluster operation. The client page, `content/client.md`, loads the main `README.md` from `objy-org/objy-client`, and `content/api.md` loads `API.md` from `objy-org/objy`. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
 
 To use a different source, edit the URL in the matching shared Markdown page. Keep each remote page as a single include so relative Markdown links and images resolve from the remote file. Linked Markdown files also open inside the site with their own chapter menus. The source must be a public raw Markdown URL that allows browser requests. Source caching can delay updates; failed loads show the standard page-unavailable message.
 

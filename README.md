@@ -20,7 +20,7 @@ Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 
-The top-bar Documentation link opens the selected language’s `documentation.md` index. It lists Embedded Database, DB Server, REST API, and JavaScript client, in that order. Embedded Database opens `content/database.md`, which loads `DB.md` and covers browsers and Node.js. DB Server opens `content/server.md`, which loads `SERVER.md`; deployment links use this page too. REST API and JavaScript client use `content/api.md` and `content/client.md`. All four includes use the canonical `objy-org/objy` repository. Add other guides as Markdown headings and links in each index. Both languages use the same English remote sources; the index and website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
+The top-bar Documentation link opens the selected language’s `documentation.md` index. It lists Embedded Database, DB Server, REST API, and JavaScript client, in that order. Embedded Database opens `content/database.md`, which loads `DB.md` and covers browsers and Node.js. DB Server opens `content/server.md`, which loads `SERVER.md`; deployment links use this page too. REST API and JavaScript client use `content/api.md` and `content/client.md`. Database, server, and REST API sources come from `objy-org/objy`; the JavaScript client README comes from `objy-org/objy-client`. Add other guides as Markdown headings and links in each index. Both languages use the same English remote sources; the index and website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
 
 ## Implementation
 
@@ -76,7 +76,7 @@ With the preview running, open `http://127.0.0.1:8000/tests/browser.html` for br
 
 ## Content sources
 
-Documentation links were checked against `objy-org/objy` at `8efa9fe08eaff677055b6ab2bfe289e26cb44167`. The shared pages load its live `DB.md`, `SERVER.md`, `API.md`, and `client/README.md`. Browser examples use the universal `@objy/db` package.
+Documentation links were checked against `objy-org/objy` at `8efa9fe08eaff677055b6ab2bfe289e26cb44167`. The shared pages load its live `DB.md`, `SERVER.md`, and `API.md`; JavaScript client documentation loads `README.md` from `objy-org/objy-client`. Browser examples use the universal `@objy/db` package.
 
 The database descriptions were checked against the sibling `spread-db` repository (`eb221e0`), particularly `README.md`, `API.md`, and the storage implementation. The `objy-db-installer` README and `objydb-terraform` describe deployment and planned resize/restore workflows. These are implementation references, not runtime dependencies of the website.
 
