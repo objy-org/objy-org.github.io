@@ -9,9 +9,23 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 ![CRUD, queries, aggregation, and vector search above three overlapping JSON snippets: a person, an AI memory, and a connected device.](assets/site/architecture.svg)
 
-## Built around objects. :id=object-capabilities
+## What will you build? :id=object-capabilities
 
-[Explore features in detail →](/features.md "cards")
+### ![](assets/site/icons/use-cases/agents.svg) AI agents & memory :id=use-case-agents
+
+Store memories and embeddings together. Retrieve relevant context with vector search.
+
+### ![](assets/site/icons/use-cases/devices.svg) Connected devices :id=use-case-devices
+
+Model devices, telemetry, and live relationships as objects that evolve with your hardware.
+
+### ![](assets/site/icons/use-cases/dashboards.svg) Live dashboards :id=use-case-dashboards
+
+Query changing data and aggregate metrics in memory. Keep charts and operational views responsive.
+
+### ![](assets/site/icons/use-cases/apps.svg) Application backends :id=use-case-apps
+
+Build tools and SaaS apps with APIs, authentication, users, and permissions already in place.
 
 ## Start with one node. :id=start-building
 

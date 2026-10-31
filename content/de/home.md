@@ -9,9 +9,23 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 ![CRUD, Abfragen, Aggregation und Vektorsuche über drei überlappenden JSON-Beispielen: eine Person, eine KI-Erinnerung und ein vernetztes Gerät.](assets/site/architecture.svg)
 
-## Rund um deine Objekte. :id=object-capabilities
+## Was wirst du bauen? :id=object-capabilities
 
-[Features im Detail entdecken →](/features.md "cards")
+### ![](assets/site/icons/use-cases/agents.svg) KI-Agenten & Gedächtnis :id=use-case-agents
+
+Speichere Erinnerungen und Embeddings gemeinsam. Finde den passenden Kontext per Vektorsuche.
+
+### ![](assets/site/icons/use-cases/devices.svg) Vernetzte Geräte :id=use-case-devices
+
+Bilde Geräte, Telemetrie und Live-Referenzen als Objekte ab, die sich mit deiner Hardware weiterentwickeln.
+
+### ![](assets/site/icons/use-cases/dashboards.svg) Live-Dashboards :id=use-case-dashboards
+
+Frage aktuelle Daten ab und aggregiere Kennzahlen im Arbeitsspeicher. Halte Diagramme und Betriebsansichten reaktionsschnell.
+
+### ![](assets/site/icons/use-cases/apps.svg) Anwendungs-Backends :id=use-case-apps
+
+Baue Tools und SaaS-Anwendungen mit integrierten APIs, Authentifizierung, Benutzern und Berechtigungen.
 
 ## Starte mit einem Knoten. :id=start-building
 

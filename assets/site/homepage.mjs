@@ -1,6 +1,5 @@
 import { htmlFragment } from './markup.mjs';
 import { decorateExample } from './examples.mjs';
-import { decorateDocument } from './documents.mjs';
 
 const illustrationCache = new Map();
 
@@ -27,42 +26,7 @@ async function inlineIllustration(source) {
   return illustrationCache.get(url.href);
 }
 
-async function decorateFeatureCards(section, body, loadCards) {
-  const link = body.querySelector(':scope > p > a[title="cards"]:only-child');
-  if (!link || !loadCards) return;
-  const html = await loadCards(link.getAttribute('href'));
-  if (!html) return; // Keep the ordinary Markdown link if its source is unavailable.
-  const catalog = htmlFragment(decorateDocument(html)).querySelector('.document-catalog');
-  if (!catalog) return;
-  const overview = document.createElement('div');
-  overview.className = 'feature-overview';
-  for (const group of catalog.querySelectorAll(':scope > .catalog-section')) {
-    const title = document.createElement('h3');
-    title.id = group.querySelector('h2').id;
-    title.textContent = group.querySelector('h2').textContent.trim();
-    const columns = document.createElement('div');
-    columns.className = 'feature-columns';
-    for (const feature of group.querySelectorAll(':scope > .catalog-feature')) {
-      feature.querySelectorAll('pre').forEach((example) => example.remove());
-      const heading = feature.querySelector('h3');
-      const compactHeading = document.createElement('h4');
-      compactHeading.id = heading.id;
-      compactHeading.textContent = heading.textContent.trim();
-      heading.replaceWith(compactHeading);
-      const icon = feature.querySelector(':scope > img');
-      icon.width = icon.height = 64;
-      columns.append(feature);
-    }
-    group.replaceChildren(title, columns);
-    overview.append(group);
-  }
-  section.classList.add('section-feature-overview');
-  link.parentElement.before(overview);
-  link.removeAttribute('title');
-  link.parentElement.classList.add('feature-more');
-}
-
-async function decorateSection(section, options) {
+async function decorateSection(section) {
   const body = section.querySelector('.markdown-body');
   const heading = body.querySelector('h1, h2');
   section.setAttribute('aria-labelledby', heading.id);
@@ -75,7 +39,6 @@ async function decorateSection(section, options) {
     section.querySelector('.section-copy').prepend(eyebrow);
     quote.remove();
   }
-  await decorateFeatureCards(section, body, options.loadCards);
   // A standalone Markdown image becomes the section's explanatory artwork.
   const image = body.querySelector(':scope > p > img:only-child');
   if (image) {
@@ -110,11 +73,23 @@ async function decorateSection(section, options) {
         option.className = 'section-option';
         option.setAttribute('role', 'group');
         option.setAttribute('aria-labelledby', node.id);
+        const icon = node.querySelector('img');
+        if (icon && node.querySelectorAll('img').length === 1) {
+          icon.alt = '';
+          icon.width = icon.height = 72;
+          icon.loading = 'lazy';
+          option.append(icon);
+        }
         options.append(option);
       }
       if (option) option.append(node);
     }
-    if (options.children.length) body.append(options);
+    if (options.children.length) {
+      options.style.setProperty('--option-columns', Math.min(4, options.children.length));
+      section.classList.toggle('section-icon-cards',
+        [...options.children].every((option) => option.firstElementChild.tagName === 'IMG'));
+      body.append(options);
+    }
   }
   const actions = [...body.querySelectorAll(':scope > ul')].filter((list) =>
     [...list.children].every((item) =>
@@ -136,7 +111,7 @@ async function decorateSection(section, options) {
   }
 }
 
-export async function decorateHomepage(html, options = {}) {
+export async function decorateHomepage(html) {
   const template = htmlFragment(html);
   const sections = [];
   let current;
@@ -155,7 +130,7 @@ export async function decorateHomepage(html, options = {}) {
   }
   if (sections[0]?.dataset.section !== 'top')
     throw new Error('home.md: keep the # headline with :id=top first.');
-  await Promise.all(sections.map((section) => decorateSection(section, options)));
+  await Promise.all(sections.map(decorateSection));
   const [hero, ...details] = sections;
   // A closing link-only paragraph follows the hero artwork, keeping its copy and
   // destination editable in Markdown without turning it into a large CTA.

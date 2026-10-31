@@ -1,211 +1,95 @@
 # Objects at the center. :id=features
 
-Explore the core engine and the services around it. One feature at a time.
+Fast, flexible data is just the beginning. Explore what OBJY brings to your application, from the in-memory engine to a distributed backend.
 
 ## Database core :id=database-core
 
-The same engine in browsers and Node.js. Examples use an existing `items` collection. [Core docs](/content/database.md).
+The same engine, embedded in browsers and Node.js. [Explore the core docs](/content/database.md).
 
-### ![](assets/site/icons/features/flexible-objects.svg) Flexible objects :id=flexible-objects
+### ![](assets/site/icons/features/flexible-objects.svg) Objects without rigid schemas :id=flexible-objects
 
-Nested properties, arrays, and different shapes in one collection. No rigid schema to work around.
+Mix nested properties, arrays, and different value types. Your objects can evolve as your application does.
 
-```json
-{
-  "name": "Survey drone",
-  "battery": 87,
-  "capabilities": ["mapping", "thermal"]
-}
-```
+### ![](assets/site/icons/features/live-references.svg) Live references, without copies :id=live-references
 
-### ![](assets/site/icons/features/live-references.svg) Live references :id=live-references
+Connect objects and expand their references when reading. Store the relationship, without duplicating the referenced object.
 
-Connect objects without storing copies. Reads can expand the current referenced object under `.object`.
+### ![](assets/site/icons/features/in-memory.svg) Objects at in-memory speed :id=in-memory
 
-```json
-{
-  "operator": {
-    "type": "reference",
-    "collection": "people",
-    "value": "person-42"
-  }
-}
-```
+Work directly with objects held in memory, with no disk read in the core data path.
 
-### ![](assets/site/icons/features/in-memory.svg) In-memory speed :id=in-memory
+### ![](assets/site/icons/features/hot-compressed.svg) Hot fields. Compressed bodies. :id=hot-compressed
 
-Objects and their indexes live in memory. The core reads directly from the JavaScript heap.
+Keep frequently used fields directly accessible in memory and compress the rest of each object.
 
-### ![](assets/site/icons/features/hot-compressed.svg) Smart compression :id=hot-compressed
+### ![](assets/site/icons/features/columns.svg) Columns inside. Objects outside. :id=compact-columns
 
-Keep frequently used fields hot. Compress the rest through collection metadata, then hydrate it on read.
+Compact columns accelerate numeric aggregations. Read the same data back as complete objects.
 
-```json
-{
-  "tiering": {
-    "mode": "compressedMemory",
-    "keep": ["name", "status"]
-  }
-}
-```
+### ![](assets/site/icons/features/shared-values.svg) Repeated values, stored smarter :id=shared-values
 
-### ![](assets/site/icons/features/columns.svg) Compact columns :id=compact-columns
+Shared dictionaries reduce the memory used by values that appear again and again.
 
-Store selected values in compact columns for fast numeric aggregation. Reads still return complete objects.
+### ![](assets/site/icons/features/metadata.svg) Tune storage through metadata :id=collection-metadata
 
-```json
-{ "columns": ["score"] }
-```
+Configure indexes, columns, and compression at collection level, while keeping your objects easy to work with.
 
-### ![](assets/site/icons/features/shared-values.svg) Shared dictionaries :id=shared-values
+### ![](assets/site/icons/features/vector-search.svg) Find meaning with vector search :id=vector-search
 
-Repeated values share dictionary entries internally, reducing memory use without changing your objects.
+Search application-provided embeddings with a built-in HNSW index, alongside your object data.
 
-### ![](assets/site/icons/features/metadata.svg) Collection metadata :id=collection-metadata
+### ![](assets/site/icons/features/query-aggregate.svg) Query it. Group it. Add it up. :id=query-aggregation
 
-Declare indexes, columns, and compression once per collection. Your object data stays clean.
+Filter and sort objects, then group, count, sum, or average your data with the same engine.
 
-```json
-{
-  "indexes": ["status"],
-  "columns": ["score"]
-}
-```
+### ![](assets/site/icons/features/bulk-operations.svg) Built for one object. Or many. :id=bulk-operations
 
-### ![](assets/site/icons/features/vector-search.svg) Vector search :id=vector-search
+Single and bulk writes use the same execution path, so batches are a natural part of working with objects.
 
-Bring your own embeddings in `_vec`. Search them with a built-in HNSW index alongside your objects.
+### ![](assets/site/icons/features/cross-runtime.svg) One engine across environments :id=cross-runtime
 
-```js
-await items.search({
-  $vector: {
-    vector: [0.2, 0.8],
-    limit: 5
-  }
-});
-```
-
-### ![](assets/site/icons/features/query-aggregate.svg) Query & aggregate :id=query-aggregation
-
-Filter and sort objects. Group, count, sum, or average data with the same query engine.
-
-```js
-await items.search({
-  status: 'active',
-  $aggregate: {
-    fields: { total: { $sum: 'score' } }
-  }
-});
-```
-
-### ![](assets/site/icons/features/bulk-operations.svg) Bulk operations :id=bulk-operations
-
-Write one object or a batch through the same storage path. Bulk operations are built into the engine.
-
-```js
-await items.insertMany([
-  { _id: 'one', score: 9 },
-  { _id: 'two', score: 4 }
-]);
-```
-
-### ![](assets/site/icons/features/cross-runtime.svg) Browser & Node.js :id=cross-runtime
-
-Embed the same database engine in browsers and Node.js. The API stays the same in both.
-
-```js
-import { createDatabase } from '@objy/db';
-const objy = createDatabase();
-```
+Use the same database API in the browser and in Node.js. Bring the engine to where your application runs.
 
 ## DB server :id=db-server
 
-APIs, security, and scale around the core. Client examples assume an authenticated connection. [Server docs](/content/server.md).
+Add application services, distributed operation, and optional durability around the core. [Explore the server docs](/content/server.md).
 
-### ![](assets/site/icons/features/rest-client.svg) REST & JavaScript :id=rest-client
+### ![](assets/site/icons/features/rest-client.svg) Connect through REST or JavaScript :id=rest-client
 
-Connect apps and services over HTTP, directly or through the lightweight `@objy/client` package.
+Work with the database from apps and services through the REST API or the JavaScript client.
 
-```js
-import { createClient } from '@objy/client';
-const client = createClient({
-  url: 'http://localhost:8080'
-});
-```
+### ![](assets/site/icons/features/authentication.svg) Users and authentication, included :id=authentication
 
-### ![](assets/site/icons/features/authentication.svg) Users & authentication :id=authentication
+Manage user identities and authenticated sessions as part of your database backend.
 
-Manage user identities and sessions in your database backend. Sign in against an authentication-enabled collection.
+### ![](assets/site/icons/features/permissions.svg) Access control down to the object :id=object-permissions
 
-```js
-await client.login({
-  database: 'app',
-  username: 'alex',
-  password: 'your-password'
-});
-```
+Combine collection permissions, roles, and object-level rules to control who can access your data.
 
-### ![](assets/site/icons/features/permissions.svg) Object permissions :id=object-permissions
+### ![](assets/site/icons/features/files.svg) Files are objects too :id=file-objects
 
-Combine collection grants, admin roles, and query-based object rules. This user rule permits access to their own objects.
+Keep file metadata in objects and blobs in S3, protected by the same object permissions.
 
-```json
-{
-  "permissions": [{
-    "name": "Own objects",
-    "query": { "ownerId": "alex" },
-    "perm": "crud"
-  }]
-}
-```
+### ![](assets/site/icons/features/hooks.svg) Your logic around each operation :id=operation-hooks
 
-### ![](assets/site/icons/features/files.svg) Files as objects :id=file-objects
+Use server hooks to add behavior around creating, reading, updating, and deleting objects.
 
-Keep metadata in an object and the blob in S3. The same object permissions protect the file.
+### ![](assets/site/icons/features/sharding.svg) Spread objects across machines :id=object-sharding
 
-```js
-await items.insertFile(
-  { name: 'notes.txt' },
-  new Blob(['Hello OBJY']),
-  { filename: 'notes.txt' }
-);
-```
+Distribute objects across nodes with object sharding, so your database can span multiple machines.
 
-### ![](assets/site/icons/features/hooks.svg) Operation hooks :id=operation-hooks
+### ![](assets/site/icons/features/replication.svg) Replicas that catch up :id=replication-recovery
 
-Add server-registered behavior around object operations. Enable the registered hooks through collection metadata.
-
-```json
-{
-  "hooks": {
-    "use": ["audit", "timestamps"]
-  }
-}
-```
-
-### ![](assets/site/icons/features/sharding.svg) Object sharding :id=object-sharding
-
-Distribute objects across machines. Public requests can reach any node and are routed to the owning shard.
-
-### ![](assets/site/icons/features/replication.svg) Async replication :id=replication-recovery
-
-Keep copies on other nodes. Replicas catch up after interruptions; replication converges asynchronously.
+Asynchronous replication keeps copies on other nodes and lets replicas recover after interruptions.
 
 ### ![](assets/site/icons/features/s3-durability.svg) Optional S3 durability :id=s3-durability
 
-Add a local write-ahead log, S3 journals, and snapshots for persistence and recovery. Enable it when your deployment needs durability.
+Enable a local write-ahead log, S3 journals, and snapshots to persist data and restore it after a restart.
 
-### ![](assets/site/icons/features/streaming-import.svg) Streaming imports :id=streaming-import
+### ![](assets/site/icons/features/streaming-import.svg) Stream data in, batch by batch :id=streaming-import
 
-Stream NDJSON into bounded batches. Import an iterable without first building one huge array in memory.
+Import NDJSON in bounded batches, without loading the entire source into memory at once.
 
-```js
-await items.import(async function* () {
-  yield { _id: 'one', score: 9 };
-  yield { _id: 'two', score: 4 };
-});
-```
+### ![](assets/site/icons/features/cluster-console.svg) See inside your cluster :id=cluster-console
 
-### ![](assets/site/icons/features/cluster-console.svg) Cluster console :id=cluster-console
-
-See memory, replication, readiness, and topology in the server administration console.
+Inspect memory, replication, readiness, and topology in the administration console.

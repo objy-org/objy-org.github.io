@@ -125,7 +125,7 @@ await check('Icon subchapters form reusable catalogs without losing introduction
     feature.getAttribute('aria-labelledby') === feature.querySelector('h3').id), 'Features lost their accessible sections');
   assert(features[1].querySelector(':scope > pre code').textContent === 'Important example' &&
     features[2].querySelector('li').textContent === 'Extra detail', 'Richer feature content was discarded');
-  assert(features.every((feature) => feature.firstElementChild.matches('img[width="48"][height="48"]') &&
+  assert(features.every((feature) => feature.firstElementChild.matches('img[width="64"][height="64"]') &&
     feature.firstElementChild.alt === '' && !feature.querySelector('h3 img')), 'Icons repeat the title or remain inside the heading');
   assert(features[2].querySelector('h3 a').getAttribute('href') === '#/example?id=third', 'Feature deep link was removed');
   const ordinary = htmlFragment(decorateDocument(markup.replace('<img src="third.svg" alt="third">', '')));
@@ -272,29 +272,21 @@ await check('A missing illustration falls back to the image without losing page 
   assert(content.querySelector('.hero-art img'), 'Image fallback missing');
 });
 
-await check('Homepage catalog links become columns while retaining their source and fallback', async () => {
+await check('Icon subchapters become reusable homepage columns with their own accessible headings', async () => {
   const home = '<h1 id="top">Hello</h1><h2 id="overview">Overview</h2>' +
-    '<p><a href="other-catalog.md" title="cards">Read the details</a></p>';
-  const source = '<h1 id="source">Source</h1><h2 id="group">A group</h2><p>Guide introduction.</p>' +
-    '<h3 id="first"><img src="icons/first.svg">First</h3><p>First explanation.</p><pre><code>Sample</code></pre>' +
-    '<h3 id="second"><img src="icons/second.svg">Second</h3><p>Second explanation.</p>';
-  let requested;
-  const content = htmlFragment(await decorateHomepage(home, {
-    loadCards: async (href) => { requested = href; return source; },
-  }));
-  assert(requested === 'other-catalog.md', 'The catalog source was hard-coded');
-  const cards = content.querySelectorAll('.feature-columns .catalog-feature');
-  assert(cards.length === 2 && cards[1].querySelector('h4').textContent === 'Second', 'Arbitrary catalog entries were lost');
-  assert(content.querySelector('.catalog-section > h3').id === 'group' && cards[0].getAttribute('aria-labelledby') === 'first',
-    'Catalog groups or accessible headings were lost');
-  assert(!content.querySelector('pre') && cards[0].querySelector('p').textContent === 'First explanation.',
-    'Code was shown or the feature explanation was discarded');
-  assert(content.querySelector('.feature-more a').getAttribute('href') === 'other-catalog.md', 'The source link was lost');
-  for (const response of [null, '<h1>Ordinary guide</h1><p>Keep reading.</p>']) {
-    const fallback = htmlFragment(await decorateHomepage(home, { loadCards: async () => response }));
-    assert(fallback.querySelector('a[href="other-catalog.md"]') && !fallback.querySelector('.feature-overview'),
-      'An unavailable or ordinary document lost its fallback link');
-  }
+    ['alpha', 'beta', 'gamma'].map((id) => `<h3 id="${id}"><a class="anchor"><img src="icons/${id}.svg">${id}</a></h3>` +
+      `<p>About ${id}.</p>`).join('');
+  const content = htmlFragment(await decorateHomepage(home));
+  const group = content.querySelector('.section-icon-cards .section-options');
+  const cards = [...group.children];
+  assert(cards.length === 3 && group.style.getPropertyValue('--option-columns') === '3', 'Option count was hard-coded');
+  cards.forEach((card, index) => {
+    const title = card.querySelector('h3');
+    assert(card.getAttribute('aria-labelledby') === title.id && title.textContent === ['alpha', 'beta', 'gamma'][index],
+      'A title or accessible group was lost');
+    assert(card.firstElementChild.matches('img[width="72"][height="72"]') && card.firstElementChild.alt === '' &&
+      !title.querySelector('img') && card.querySelector('p'), 'The icon or explanation was lost or repeats the title');
+  });
 });
 
 await check('Markdown object tabs share one code panel and support deep links and keyboard navigation', async () => {
@@ -368,38 +360,36 @@ await check('Homepage actions and footer are derived from Markdown links', async
   assert(content.querySelector('.section-footer a').textContent === 'GitHub', 'Markdown footer missing');
 });
 
-await check('Homepage feature columns use the translated catalog without showing its code examples', async () => {
+await check('The homepage has four localized use cases instead of the feature catalog', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/?id=object-capabilities`;
     await new Promise((resolve, reject) => {
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.feature-overview')) return resolve();
-        if (Date.now() > deadline) return reject(new Error('Feature columns did not load'));
+        if (document?.documentElement.lang === language && document.querySelector('.section-icon-cards')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Use cases did not load'));
         setTimeout(ready, 16);
       };
       ready();
     });
     const document = site.contentDocument;
-    const source = await fetch(`../content/${language}/features.md`).then((response) => response.text());
+    const source = await fetch(`../content/${language}/home.md`).then((response) => response.text());
     const expected = [...source.matchAll(/^### !\[\]\(([^)]+)\) (.+) :id=(\S+)/gm)];
-    const overview = document.querySelector('.feature-overview');
-    const cards = [...overview.querySelectorAll('.catalog-feature')];
-    assert(cards.length === expected.length && cards.length === 21, 'A feature was omitted from the homepage');
+    const cards = [...document.querySelectorAll('.section-options > .section-option')];
+    assert(cards.length === expected.length && cards.length === 4, 'The homepage does not show four use cases');
     cards.forEach((card, index) => {
-      const title = card.querySelector('h4');
-      assert(title.textContent === expected[index][2] && title.id === expected[index][3], 'A translated feature title changed');
-      assert(card.querySelector('img').src.endsWith(expected[index][1]), 'A feature icon was substituted');
-      assert(card.querySelector('p')?.textContent.trim(), 'A feature description is missing');
+      const title = card.querySelector('h3');
+      assert(title.textContent.trim() === expected[index][2] && title.id === expected[index][3], 'A use-case translation changed');
+      assert(card.querySelector('img').src.endsWith(expected[index][1]), 'A use-case icon was substituted');
+      assert(card.querySelector('p')?.textContent.trim(), 'A use-case description is missing');
     });
-    assert(overview.querySelectorAll('.catalog-section > h3').length === 2, 'Core and server features are not grouped');
-    assert(!document.querySelector('.example-workspace, pre, [data-example-tab]'), 'The homepage still shows code examples');
-    assert(document.querySelector('#section-links a[href$="id=object-capabilities"]').textContent === 'Features',
-      'The homepage menu still points to the old object example');
-    assert(document.querySelector('.feature-more a').getAttribute('href').endsWith('#/features'), 'Detailed features link is missing');
-    const ids = [...document.querySelectorAll('[id]')].map((element) => element.id);
-    assert(new Set(ids).size === ids.length, 'The shared catalog introduced duplicate IDs');
+    assert(!document.querySelector('.feature-overview, .catalog-feature, .example-workspace, pre'),
+      'The previous feature catalog or code examples are still on the homepage');
+    assert(document.querySelector('#section-links a[href$="id=object-capabilities"]').textContent ===
+      (language === 'en' ? 'Use cases' : 'Anwendungsfälle'), 'The use-case chapter link was not updated');
+    const files = site.contentWindow.performance.getEntriesByType('resource').map((resource) => resource.name);
+    assert(!files.some((file) => /\/features\.md$/.test(file)), 'The homepage still downloads the full feature catalog');
   }
 });
 
@@ -428,7 +418,6 @@ await check('Articles stay centered in the viewport without colliding with the c
       const sidebar = document.querySelector('.page-sidebar');
       const art = document.querySelector('.hero-art');
       const diagram = art.querySelector('.objy-architecture');
-      const more = document.querySelector('.feature-more');
       const picture = diagram.getBoundingClientRect();
       const copy = document.querySelector('.section-hero > .section-copy').getBoundingClientRect();
       assert(picture.top >= copy.bottom && Math.abs(picture.left + picture.width / 2 - width / 2) <= 1,
@@ -437,10 +426,6 @@ await check('Articles stay centered in the viewport without colliding with the c
       const ratio = width <= 640 ? 700 / 360 : 680 / 1000;
       assert(Math.abs(picture.height / picture.width - ratio) < .01, 'Architecture aspect ratio is incorrect');
       assert(!document.querySelector('.example-workspace, [data-section="storage-internals"]'), 'The previous examples or storage chapter are still present');
-      const link = more.getBoundingClientRect();
-      assert(link.top >= picture.bottom, 'More features overlaps the architecture');
-      assert(Math.abs(link.left + link.width / 2 - width / 2) <= 1, 'The detailed features link is not centered');
-      assert(more.querySelector('a').getAttribute('href').endsWith('#/features'), 'More features opens the wrong page');
       if (width > 1100) {
         assert(frame.getComputedStyle(sidebar).display !== 'none', 'Desktop chapter menu is missing');
         assert(sidebar.getBoundingClientRect().right < rect.left, 'Chapter menu overlaps the centered article');
@@ -538,10 +523,7 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       return heading.dataset.chapter === heading.id && links.some((link) =>
         new URLSearchParams(link.hash.split('?')[1]).get('id') === heading.id);
     }), 'A feature is missing from the chapter menu');
-    const examples = [...document.querySelectorAll('.catalog-feature pre code')];
-    assert(examples.length === 15 && examples.every((code) => code.textContent.trim().split('\n').length <= 7),
-      'Feature examples are missing or too long');
-    assert(examples.every((code) => code.querySelector('.token')), 'Feature examples lost syntax highlighting');
+    assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
     assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/features'),
       'Features navigation is not active');
     for (const width of [1920, 1280, 1101, 1100, 1001, 1000, 900, 761, 760, 390, 320]) {
@@ -561,20 +543,25 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
         assert(nav.left > brand.right && nav.right < actions.left,
           `${language} navigation overlaps header controls at ${width}px`);
       }
-      for (const [index, feature] of features.entries()) {
+      for (const feature of features) {
         const rect = feature.getBoundingClientRect();
         assert(rect.width >= 260 && rect.left >= 0 && rect.right <= viewport + 1,
           `${language} feature is too narrow or clipped at ${width}px`);
-        if (index) assert(rect.top >= features[index - 1].getBoundingClientRect().bottom,
-          `${language} features are not separate rows at ${width}px`);
-        const example = feature.querySelector(':scope > pre');
-        if (example) {
-          const box = example.getBoundingClientRect();
-          const copy = feature.querySelector('.catalog-copy').getBoundingClientRect();
-          assert(box.left >= rect.left && box.right <= rect.right + 1, 'Code example is clipped');
-          if (article.width >= 720) assert(box.left >= copy.right, 'Wide-screen examples are not beside their descriptions');
-          else assert(box.top >= copy.bottom, 'Small-screen examples overlap their descriptions');
-        }
+      }
+      for (const grid of document.querySelectorAll('.catalog-grid')) {
+        const columns = frame.getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+        const cards = [...grid.children];
+        cards.forEach((card, index) => {
+          const rect = card.getBoundingClientRect();
+          if (index % columns) {
+            const previous = cards[index - 1].getBoundingClientRect();
+            assert(Math.abs(rect.top - previous.top) <= 1 && rect.left >= previous.right,
+              'Feature cards do not share a row');
+          } else if (index) {
+            assert(rect.top >= Math.max(...cards.slice(index - columns, index).map((card) => card.getBoundingClientRect().bottom)) + 24,
+              'Feature card rows are too close');
+          }
+        });
       }
       if (width >= 1280) assert(article.height < 5200, `${language} feature page is too tall on desktop`);
     }
@@ -631,22 +618,20 @@ await check('Architecture artwork keeps both languages readable across desktop a
       const ratio = compact ? 700 / 360 : 680 / 1000;
       assert(Math.abs(box.height / box.width - ratio) < .01, 'Architecture is stretched or clipped');
       assert(document.documentElement.scrollWidth <= width + 1, `${language} architecture page overflows at ${width}px`);
-      const overview = document.querySelector('.section-feature-overview');
+      const overview = document.querySelector('.section-icon-cards');
       const available = overview.getBoundingClientRect().width;
-      const columns = available <= 540 ? 1 : available <= 900 ? 2 : 3;
-      for (const group of overview.querySelectorAll('.feature-columns')) {
-        assert(frame.getComputedStyle(group).gridTemplateColumns.split(' ').length === columns,
-          `Wrong feature column count at ${width}px`);
-        const cards = [...group.children];
-        const next = cards[columns]?.getBoundingClientRect();
-        if (next) assert(next.top >= Math.max(...cards.slice(0, columns).map((card) => card.getBoundingClientRect().bottom)) + 40,
-          `Feature rows are too close at ${width}px`);
-        for (const card of cards) {
-          const rect = card.getBoundingClientRect();
-          const icon = card.querySelector('img').getBoundingClientRect();
-          assert(rect.width > 200 && rect.left >= 0 && rect.right <= width, 'A feature column is clipped');
-          assert(Math.abs(icon.left + icon.width / 2 - rect.left - rect.width / 2) <= 1, 'A feature icon is not centered');
-        }
+      const columns = available <= 480 ? 1 : available <= 760 ? 2 : 4;
+      const group = overview.querySelector('.section-options');
+      assert(frame.getComputedStyle(group).gridTemplateColumns.split(' ').length === columns,
+        `Wrong use-case column count at ${width}px`);
+      const cases = [...group.children];
+      for (const [index, card] of cases.entries()) {
+        const rect = card.getBoundingClientRect();
+        const icon = card.querySelector('img').getBoundingClientRect();
+        assert(rect.width > 145 && rect.left >= 0 && rect.right <= width, 'A use-case column is clipped');
+        assert(Math.abs(icon.left + icon.width / 2 - rect.left - rect.width / 2) <= 1, 'A use-case icon is not centered');
+        if (index < columns) assert(Math.abs(rect.top - cases[0].getBoundingClientRect().top) <= 1,
+          'The use cases do not share a row');
       }
       for (const card of cards) {
         const rect = card.getBoundingClientRect();

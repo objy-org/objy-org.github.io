@@ -29,9 +29,9 @@ Live references, nested data, vectors, and files.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by the feature overview and a closing Quick Start section. The overview shows the icons, titles, and descriptions from `features.md` in columns, without its code examples. Its closing link opens the full catalog with examples. Preserve existing `:id=...` values when renaming headings.
+The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by four use cases and a closing Quick Start section. The use cases explain what people can build: AI agents and memory, connected devices, live dashboards, and application backends. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
 
-Edit the overview heading in `home.md`. Keep its link to the shared source: `[Explore features in detail →](/features.md "cards")`. The `"cards"` title tells the homepage to display that catalog in columns. Edit the link label to change the subtle link beneath the cards; edit `features.md` to change the feature content on both pages.
+Edit the use-case heading, descriptions, and icons directly in `home.md`. The section keeps `:id=object-capabilities` so existing links continue to work. Its menu label is Use cases; edit that label in `sidebar.md`.
 
 ## Code highlighting
 
@@ -49,7 +49,7 @@ Supported languages include `json`, `js`/`javascript`, `ts`/`typescript`, `sh`/`
 
 ```markdown
 [Documentation](/documentation.md)
-[Features](/?id=object-capabilities)
+[Use cases](/?id=object-capabilities)
 ```
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=object-capabilities` jumps to the heading with `:id=object-capabilities`.
@@ -58,7 +58,7 @@ The top-bar Get started now link opens `get-started.md`. Its five deployment opt
 
 A list containing only links becomes a row of action buttons in the hero or a closing section without an illustration. The first link is the primary action. A horizontal rule (`---`) separates a closing section’s footer links. All labels and destinations come from the Markdown.
 
-On the homepage, sections with `###` subheadings and no standalone illustration or tabbed code examples use the options layout: three columns on desktop, stacked on smaller screens. Bullet lists of links become buttons within each option.
+On the homepage, sections with `###` subheadings and no standalone illustration or tabbed code examples use the options layout. It detects up to four columns on desktop, two on tablets, and one on phones. An icon in each heading appears centered above its title and description. Bullet lists of links become buttons within each option.
 
 In `sidebar.md`, change homepage menu labels or move lines to change the menu order. To reorder page content, move a heading and the content below it together in `home.md`.
 
@@ -119,9 +119,9 @@ The same engine, embedded in browsers and Node.js.
 Connect objects and expand their references when reading.
 ```
 
-Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates compact feature sections automatically, on any local Markdown page. The left menu lists every feature under its group, and each ID supports direct links. Use short headings so they are easy to scan in the menu. Titles, descriptions, order, icon paths, and examples all come from Markdown. The homepage reuses the same titles, descriptions, and icons in columns; code examples and the group introductions appear only on the detailed page. Add the same IDs, icon paths, and code in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
+Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates a responsive grid of compact feature cards automatically, on any local Markdown page. The left menu lists every feature under its group, and each ID supports direct links. Use short headings so they are easy to scan in the menu. Titles, descriptions, order, and icon paths all come from Markdown. Add the same IDs and icon paths in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
 
-For features that benefit from an example, end the feature with one fenced `json` or `js` block. Keep it to seven lines or fewer. It appears beside the explanation on wide screens and underneath on smaller screens. Features without a useful code example need only their short description. Examples are independent fragments: `items` is an existing collection, and server operations assume an authenticated client. They display sample code without sending requests.
+Keep this page concise: one short description per feature, without fenced code examples. Link readers to the core or server documentation for implementation details.
 
 Keep capabilities in the correct group: the core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous.
 
@@ -163,21 +163,23 @@ The Architecture diagram table controls the API labels and three JSON examples i
 
 Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. Use the full Features page for explanations of storage and other capabilities.
 
-## Reuse a feature catalog on the homepage
+## Edit the homepage use cases
 
-The section under `:id=object-capabilities` uses an ordinary Markdown link with the title `"cards"`:
+Each use case is a `###` heading with an icon and a short description in `home.md`:
 
 ```markdown
-## Built around objects. :id=object-capabilities
+## What will you build? :id=object-capabilities
 
-[Explore features in detail →](/features.md "cards")
+### ![](assets/site/icons/use-cases/agents.svg) AI agents & memory :id=use-case-agents
+
+Store memories and embeddings together. Retrieve relevant context with vector search.
 ```
 
-The linked file uses the feature catalog format described above: `##` groups and icon-led `###` features. The homepage reads the current language's file, falling back to the default language if needed. It shows each feature's icon, title, and description in three columns on desktop, two on tablets, and one on phones. Code examples and group introductions stay on the detailed page. The link remains beneath the overview, and remains usable if the source cannot load. No second copy of feature text is needed.
+Keep all four use cases together for a single desktop row. Their icons are custom SVGs in `assets/site/icons/use-cases/`. Titles and descriptions stay editable in Markdown; the layout handles spacing and smaller screens. Keep the IDs and icon paths consistent across translations.
 
 ## Change section images
 
-The opening hero centers the illustration beneath its headline and description. Three tilted JSON cards overlap at their edges while keeping the snippets readable. They use a wide arrangement on desktop and a vertical stack on phones. The shared feature overview follows the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero centers the illustration beneath its headline and description. Three tilted JSON cards overlap at their edges while keeping the snippets readable. They use a wide arrangement on desktop and a vertical stack on phones. The four use cases follow the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 
