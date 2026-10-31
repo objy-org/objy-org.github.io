@@ -704,8 +704,8 @@ await check('The restored homepage hero stays large, translated, and centered on
     assert(document.querySelectorAll('#section-links a').length === 3, 'Homepage chapter links were not updated');
     const highlights = [...document.querySelectorAll('.hero-highlights li')];
     assert(highlights.map((item) => item.textContent.trim()).join('|') === (language === 'en' ?
-      'Flexible JSON|Live references|Runs everywhere|API & auth built in' :
-      'Flexibles JSON|Live-Referenzen|Läuft überall|API & Auth inklusive'), 'Hero highlights are missing or untranslated');
+      'Flexible JSON|OLAP + OLTP|Runs everywhere|API & auth built in' :
+      'Flexibles JSON|OLAP + OLTP|Läuft überall|API & Auth inklusive'), 'Hero highlights are missing or untranslated');
     assert(!document.querySelector('.section-hero .markdown-body > p'), 'The old hero subtitle is still present');
     for (const width of [1440, 1280, 761, 641, 640, 390, 320]) {
       site.style.width = `${width}px`;

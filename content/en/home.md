@@ -5,7 +5,7 @@
 > Build applications around fast objects.
 
 - ![](assets/site/icons/features/flexible-objects.svg) Flexible JSON
-- ![](assets/site/icons/features/live-references.svg) Live references
+- ![](assets/site/icons/features/query-aggregate.svg) OLAP + OLTP
 - ![](assets/site/icons/features/cross-runtime.svg) Runs everywhere
 - ![](assets/site/icons/features/authentication.svg) API & auth built in
 

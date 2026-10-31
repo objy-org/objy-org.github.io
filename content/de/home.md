@@ -5,7 +5,7 @@
 > Baue Anwendungsfälle rund um schnelle Objekte.
 
 - ![](assets/site/icons/features/flexible-objects.svg) Flexibles JSON
-- ![](assets/site/icons/features/live-references.svg) Live-Referenzen
+- ![](assets/site/icons/features/query-aggregate.svg) OLAP + OLTP
 - ![](assets/site/icons/features/cross-runtime.svg) Läuft überall
 - ![](assets/site/icons/features/authentication.svg) API & Auth inklusive
 
