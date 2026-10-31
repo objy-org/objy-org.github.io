@@ -15,17 +15,17 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 Speichere Erinnerungen und Embeddings gemeinsam. Finde den passenden Kontext per Vektorsuche.
 
-### ![](assets/site/icons/use-cases/devices.svg) Vernetzte Geräte :id=use-case-devices
+### ![](assets/site/icons/use-cases/analytics.svg) Analytics :id=use-case-analytics
 
-Bilde Geräte, Telemetrie und Live-Referenzen als Objekte ab, die sich mit deiner Hardware weiterentwickeln.
-
-### ![](assets/site/icons/use-cases/dashboards.svg) Live-Dashboards :id=use-case-dashboards
-
-Frage aktuelle Daten ab und aggregiere Kennzahlen im Arbeitsspeicher. Halte Diagramme und Betriebsansichten reaktionsschnell.
+Analysiere deine Daten mit schnellen Filtern und Aggregationen. Berechne Kennzahlen direkt aus deinen Objekten.
 
 ### ![](assets/site/icons/use-cases/apps.svg) Anwendungs-Backends :id=use-case-apps
 
 Baue Tools und SaaS-Anwendungen mit integrierten APIs, Authentifizierung, Benutzern und Berechtigungen.
+
+### ![](assets/site/icons/use-cases/anything.svg) Oder etwas ganz anderes... :id=use-case-anything
+
+Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
 ## Starte mit einem Knoten. :id=start-building
 

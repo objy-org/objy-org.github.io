@@ -29,7 +29,7 @@ Live references, nested data, vectors, and files.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by four use cases and a closing Quick Start section. The use cases explain what people can build: AI agents and memory, connected devices, live dashboards, and application backends. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
+The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by four use cases and a closing Quick Start section. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
 
 Edit the use-case heading, descriptions, and icons directly in `home.md`. The section keeps `:id=object-capabilities` so existing links continue to work. Its menu label is Use cases; edit that label in `sidebar.md`.
 

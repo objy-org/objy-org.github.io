@@ -15,17 +15,17 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 Store memories and embeddings together. Retrieve relevant context with vector search.
 
-### ![](assets/site/icons/use-cases/devices.svg) Connected devices :id=use-case-devices
+### ![](assets/site/icons/use-cases/analytics.svg) Analytics :id=use-case-analytics
 
-Model devices, telemetry, and live relationships as objects that evolve with your hardware.
-
-### ![](assets/site/icons/use-cases/dashboards.svg) Live dashboards :id=use-case-dashboards
-
-Query changing data and aggregate metrics in memory. Keep charts and operational views responsive.
+Explore your data with fast filters and aggregations. Calculate metrics directly from your objects.
 
 ### ![](assets/site/icons/use-cases/apps.svg) Application backends :id=use-case-apps
 
 Build tools and SaaS apps with APIs, authentication, users, and permissions already in place.
+
+### ![](assets/site/icons/use-cases/anything.svg) Or anything else... :id=use-case-anything
+
+Your objects. Your ideas. Build whatever comes next.
 
 ## Start with one node. :id=start-building
 

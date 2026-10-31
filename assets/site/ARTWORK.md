@@ -39,4 +39,4 @@ The former apps/agents hero, individual feature illustrations, and separate stor
 
 The documentation index and deployment page retain their custom SVG icons in `assets/site/icons/`. The Features page uses 21 distinct icons in `assets/site/icons/features/`. Their provenance is recorded above.
 
-The homepage uses four custom icons for AI agents and memory, connected devices, live dashboards, and application backends. Its headings, icon paths, and descriptions stay editable in `content/<language>/home.md`. The 21 feature icons remain on the separate Features page, which uses short descriptions without code examples.
+The homepage uses four custom icons for AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. Its headings, icon paths, and descriptions stay editable in `content/<language>/home.md`. The 21 feature icons remain on the separate Features page, which uses short descriptions without code examples.
