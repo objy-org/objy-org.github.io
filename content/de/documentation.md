@@ -8,11 +8,17 @@ Die Datenbank für Browser und Node.js.
 
 [Datenbank-Dokumentation](/content/database.md)
 
-## ![](assets/site/icons/api.svg) API :id=api
+## ![](assets/site/icons/server.svg) Server :id=server
+
+OBJY betreiben und skalieren.
+
+[Server-Dokumentation](/content/server.md)
+
+## ![](assets/site/icons/api.svg) REST API :id=api
 
 Mit Objekten über HTTP arbeiten.
 
-[API-Dokumentation](/content/api.md)
+[REST-API-Dokumentation](/content/api.md)
 
 ## ![](assets/site/icons/client.svg) JavaScript-Client :id=javascript-client
 

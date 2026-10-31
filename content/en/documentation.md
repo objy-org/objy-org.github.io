@@ -8,11 +8,17 @@ The database for browsers and Node.js.
 
 [Database documentation](/content/database.md)
 
-## ![](assets/site/icons/api.svg) API :id=api
+## ![](assets/site/icons/server.svg) Server :id=server
+
+Run and scale the database.
+
+[Server documentation](/content/server.md)
+
+## ![](assets/site/icons/api.svg) REST API :id=api
 
 Work with objects over HTTP.
 
-[API documentation](/content/api.md)
+[REST API documentation](/content/api.md)
 
 ## ![](assets/site/icons/client.svg) JavaScript client :id=javascript-client
 
