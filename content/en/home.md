@@ -11,25 +11,17 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 ## More than JSON. :id=abstract-objects
 
-Dynamic properties, nested data, unique identities, and live references. Model objects your way, and evolve them as your application grows.
-
 ![Two JSON objects: a device references a person in the people collection. An arrow connects the reference value person-42 to the matching object identity.](assets/site/abstract-objects.svg?v=2)
 
 ## CRUD, aggregations, vector search. One API. :id=simple-api
-
-Create, read, update, and delete. Query, aggregate, and search by vector through one API.
 
 ![Query, Vector, CRUD, and Aggregate share one API connection.](assets/site/simple-api.svg)
 
 ## Run anywhere. Scale out. :id=run-and-deploy
 
-Start in a browser or on a server. Distribute objects across a cluster as your data and workload grow.
-
 ![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
 
 ## Users & access. Built in. :id=users-and-access
-
-Users, authentication, permissions, and role-based access control. Define who can read, write, and administer.
 
 ![User identities connect to a login lock and an access-control shield.](assets/site/users-access.svg)
 

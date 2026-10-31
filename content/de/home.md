@@ -11,25 +11,17 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 ## Mehr als JSON. :id=abstract-objects
 
-Dynamische Eigenschaften, verschachtelte Daten, eindeutige IDs und Live-Referenzen. Modelliere Objekte passend zu deiner Anwendung und entwickle sie mit ihr weiter.
-
 ![Zwei JSON-Objekte: Ein Gerät referenziert eine Person in der Collection people. Ein Pfeil verbindet den Referenzwert person-42 mit der passenden Objekt-ID.](assets/site/abstract-objects.svg?v=2)
 
 ## CRUD, Aggregationen, Vektorsuche. Eine API. :id=simple-api
-
-Erstellen, lesen, ändern und löschen. Abfragen, aggregieren und per Vektorsuche finden – über eine API.
 
 ![Abfragen, Vektoren, CRUD und Aggregation teilen sich eine API-Verbindung.](assets/site/simple-api.svg)
 
 ## Läuft überall. Wächst mit. :id=run-and-deploy
 
-Starte im Browser oder auf einem Server. Verteile Objekte auf einen Cluster, wenn Datenmenge und Auslastung wachsen.
-
 ![Ein Browserfenster, ein einzelner Server und drei verbundene Server zeigen den Betrieb vom Browser bis zum Cluster.](assets/site/run-and-deploy.svg)
 
 ## Benutzer & Zugriff. Inklusive. :id=users-and-access
-
-Benutzer, Authentifizierung, Berechtigungen und rollenbasierter Zugriff. Lege fest, wer lesen, schreiben und administrieren darf.
 
 ![Benutzeridentitäten sind mit einem Anmeldeschloss und einem Schutzschild für Zugriffsrechte verbunden.](assets/site/users-access.svg)
 
