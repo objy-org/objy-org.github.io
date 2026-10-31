@@ -37,3 +37,17 @@ const objy = createDatabase();
 ```
 
 [Browser-Anleitung](/content/database.md?id=install-in-a-browser)
+
+## ![](assets/site/icons/database.svg) In Node.js einbetten :id=deploy-embedded
+
+```sh
+npm i @objy/db
+```
+
+```js
+import { createDatabase } from "@objy/db";
+const objy = createDatabase();
+await objy.createDatabase("app");
+```
+
+[Anleitung zum Einbetten](/content/database.md?id=install-in-nodejs)

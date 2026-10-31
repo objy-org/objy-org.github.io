@@ -436,7 +436,7 @@ await check('Deployment rows preserve both translations, chapter links, and mobi
     });
     const document = site.contentDocument;
     const rows = [...document.querySelectorAll('.accordion-row')];
-    assert(document.documentElement.lang === language && rows.length === 4, 'Wrong translation or missing deployment row');
+    assert(document.documentElement.lang === language && rows.length === 5, 'Wrong translation or missing deployment row');
     assert(rows[1].open && !rows[0].open, 'Deployment chapter link did not open its row');
     assert(document.querySelector('.page-sidebar').hidden && document.querySelector('.section-menu-toggle').hidden,
       'Deployment accordion still shows a chapter menu');
