@@ -137,6 +137,9 @@ await check('Icon subchapters form reusable catalogs without losing introduction
     'An illustrated introduction prevented the catalog from rendering or lost its content');
   assert(overview.querySelector('.document-art img').alt === 'A layered diagram' && overview.querySelector('blockquote'),
     'Illustrated content lost its image description or durability note');
+  assert(overview.firstElementChild.matches('h2') && !overview.querySelector('.document-illustration-copy h2') &&
+    illustrated.querySelectorAll('.document-chapter').length === 3,
+    'Illustrations and feature groups do not share the same chapter structure');
   const ordinary = htmlFragment(decorateDocument(markup.replace('<img src="third.svg" alt="third">', '')));
   assert(!ordinary.querySelector('.document-catalog') && ordinary.querySelectorAll('h3').length === 3 &&
     ordinary.querySelector('pre code'), 'Mixed ordinary chapters were converted or lost content');
@@ -617,6 +620,16 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       assert(document.documentElement.scrollWidth <= viewport + 1, `${language} catalog overflows at ${width}px`);
       assert(Math.abs(article.left + article.width / 2 - viewport / 2) <= 1,
         `${language} catalog is not centered at ${width}px`);
+      const chapters = [...document.querySelectorAll('.document-chapter')];
+      for (const [index, chapter] of chapters.entries()) {
+        const bounds = chapter.getBoundingClientRect();
+        const title = chapter.querySelector(':scope > h2').getBoundingClientRect();
+        assert(title.top >= bounds.top + 40 &&
+          Math.abs(bounds.left - article.left) <= 1 && Math.abs(bounds.width - article.width) <= 1,
+          'A major chapter is missing its heading space or full-width layout');
+        if (index) assert(bounds.top >= chapters[index - 1].getBoundingClientRect().bottom - 1,
+          'Feature chapters overlap');
+      }
       const architectureBox = objectDiagram.getBoundingClientRect();
       const phone = width <= 640;
       const layout = objectDiagram.querySelector(phone ? '.architecture-compact' : '.architecture-wide');
@@ -632,6 +645,8 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       }
       const copy = storage.querySelector('.document-illustration-copy').getBoundingClientRect();
       const art = storage.querySelector('.document-art').getBoundingClientRect();
+      const storageTitle = storage.querySelector(':scope > h2').getBoundingClientRect();
+      assert(storageTitle.bottom < Math.min(copy.top, art.top), 'The storage heading is not above its text and illustration');
       assert(art.left >= article.left - 1 && art.right <= article.right + 1 &&
         Math.abs(art.height / art.width - 740 / 660) < .01, 'The storage illustration is clipped or distorted');
       if (article.width <= 760) assert(art.top >= copy.bottom, 'Mobile storage text and graphic overlap');

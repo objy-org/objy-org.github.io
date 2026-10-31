@@ -127,6 +127,8 @@ Use `##` for groups and `###` for individual features. Give each feature one ico
 
 The first section contains the architecture diagram formerly shown on the homepage. A heading followed only by its standalone image makes a full-width illustrated chapter. The second section restores the original storage explanation and layered illustration from the homepage. Edit its heading, paragraph, three bullet points, optional S3 durability note, and image description directly in `features.md`. The graphic’s labels and sample object are centralized in the Storage diagram table of `labels.md`. Keep S3 durability explicitly optional.
 
+Each main `##` chapter gets generous vertical space and a consistent heading. Illustrated chapter headings sit above both the text and image. Spacing and typography separate the chapters automatically; do not add manual horizontal rules between them.
+
 Keep this page concise: one short description per feature, without fenced code examples. Link readers to the core or server documentation for implementation details.
 
 Keep capabilities in the correct group: the core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous.

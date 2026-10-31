@@ -49,25 +49,27 @@ export function decorateDocument(html) {
     for (const [index, { heading }] of sections.entries()) {
       if (!catalogs[index]) {
         const section = document.createElement('section');
-        section.className = 'document-illustration';
+        section.className = 'document-chapter document-illustration';
         if (heading.id) section.setAttribute('aria-labelledby', heading.id);
         heading.before(section);
         const copy = document.createElement('div');
         copy.className = 'document-illustration-copy';
-        copy.append(heading, ...sections[index].content.filter((node) => node !== illustrations[index]));
+        copy.append(...sections[index].content.filter((node) => node !== illustrations[index]));
         // A heading and image alone make a wide visual chapter; explanations
         // with lists or other content retain the text-and-image layout.
-        section.classList.toggle('document-illustration-wide', copy.children.length === 1);
+        section.classList.toggle('document-illustration-wide', !copy.childNodes.length);
         const figure = document.createElement('figure');
         figure.className = 'document-art';
         figure.append(illustrations[index].firstElementChild);
         illustrations[index].remove();
-        section.append(copy, figure);
+        section.append(heading);
+        if (copy.childNodes.length) section.append(copy);
+        section.append(figure);
         continue;
       }
       const { intro, entries } = catalogs[index];
       const section = document.createElement('section');
-      section.className = 'catalog-section';
+      section.className = 'document-chapter catalog-section';
       if (heading.id) section.setAttribute('aria-labelledby', heading.id);
       heading.before(section);
       section.append(heading, ...intro);
