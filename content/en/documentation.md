@@ -2,17 +2,17 @@
 
 Guides for building with objy.db.
 
-## ![](assets/site/icons/database.svg) Database :id=database
+## ![](assets/site/icons/database.svg) Embedded Database :id=database
 
 The database for browsers and Node.js.
 
-[Database documentation](/content/database.md)
+[Embedded Database documentation](/content/database.md)
 
-## ![](assets/site/icons/server.svg) Server :id=server
+## ![](assets/site/icons/server.svg) DB Server :id=server
 
 Run and scale the database.
 
-[Server documentation](/content/server.md)
+[DB Server documentation](/content/server.md)
 
 ## ![](assets/site/icons/api.svg) REST API :id=api
 

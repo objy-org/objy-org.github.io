@@ -67,7 +67,7 @@ await check('Documentation loads without downloading homepage illustrations', ()
   const document = site.contentDocument;
   const rows = [...document.querySelectorAll('.directory-link')];
   assert(rows.map((row) => row.querySelector('h2').textContent.trim()).join(',') ===
-    'Database,Server,REST API,JavaScript client', 'Directory order changed');
+    'Embedded Database,DB Server,REST API,JavaScript client', 'Directory order changed');
   assert(rows.every((row) => !row.querySelector('a') && row.querySelector('p')), 'Directory rows contain nested links or lost descriptions');
   assert(document.querySelector('.page-sidebar').hidden && document.querySelector('.section-menu-toggle').hidden,
     'The directory still has a chapter menu');
