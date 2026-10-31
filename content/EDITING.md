@@ -159,9 +159,9 @@ Add new `##` chapters after the hero to place full-width content beneath it. Ill
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Architecture diagram table controls all labels and JSON examples in the main illustration, including query types, objects, storage tiers, and the optional S3 layer. Keep Reference value matched with Person id, and Reference collection matched with Person collection. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
+The Architecture diagram table controls all labels and JSON examples in the main illustration, including query types, objects, storage tiers, and the optional S3 layer. The single device object uses Device id, Device name, Device status, and Device battery. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
-Keep S3 durability explicitly optional in the Durability label and image description. The three storage descriptions explain hot fields, efficient columns, and compressed bodies. These layers are internal; readers still work with complete objects.
+Keep S3 durability explicitly optional in the Durability label and image description. The Hot, Columns, and Compressed labels identify the three simple internal tiers. Readers still work with one complete object.
 
 ## Edit the interactive object example
 
@@ -186,7 +186,7 @@ Keep tab IDs consistent across translations, and keep code samples identical. Li
 
 ## Change section images
 
-The opening hero centers the architecture illustration beneath its headline and description. The wide layout shows three objects and three storage tiers; phones use two objects and vertically stacked storage rows. The Show more features link follows the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero centers the architecture illustration beneath its headline and description. Both layouts show one JSON object in front of a shifted storage plane with three colored tiers. The compact phone composition keeps those tier labels visible beneath the object. The Show more features link follows the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

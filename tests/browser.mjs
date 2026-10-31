@@ -419,7 +419,7 @@ await check('Articles stay centered in the viewport without colliding with the c
       assert(picture.top >= copy.bottom && Math.abs(picture.left + picture.width / 2 - width / 2) <= 1,
         'Architecture does not sit centered below the headline');
       assert(picture.width <= 1000 && picture.width > 250, 'Architecture size is incorrect');
-      const ratio = width <= 640 ? 1010 / 360 : 760 / 1000;
+      const ratio = width <= 640 ? 670 / 360 : 760 / 1000;
       assert(Math.abs(picture.height / picture.width - ratio) < .01, 'Architecture aspect ratio is incorrect');
       assert(!document.querySelector('.feature-grid, [data-section="storage-internals"]'), 'The previous visual overview is still present');
       const link = more.getBoundingClientRect();
@@ -596,6 +596,8 @@ await check('Architecture artwork keeps both languages readable across desktop a
     assert(diagram.querySelector('[data-copy="architecture-diagram.durability"]').textContent.toLowerCase().includes('optional'),
       'S3 durability is not clearly optional');
     assert(document.querySelectorAll('#section-links a').length === 3, 'Homepage chapter links were not updated');
+    assert(diagram.querySelectorAll('#objy-arch-storage .storage-tier').length === 3,
+      'The storage overview does not contain three simple tiers');
     for (const width of [1440, 1280, 761, 641, 640, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '900px';
@@ -605,9 +607,13 @@ await check('Architecture artwork keeps both languages readable across desktop a
       const phone = diagram.querySelector('.architecture-compact');
       assert((frame.getComputedStyle(wide).display === 'none') === compact &&
         (frame.getComputedStyle(phone).display !== 'none') === compact, 'Wrong architecture layout is visible');
+      const visible = compact ? phone : wide;
+      assert(visible.querySelectorAll('use[href="#objy-arch-object"]').length === 1 &&
+        visible.querySelectorAll('use[href="#objy-arch-storage"]').length === 1,
+        'Architecture must show one JSON object and one internal storage plane');
       const box = diagram.getBoundingClientRect();
       if (compact) assert(box.width <= 400, 'Phone architecture is unnecessarily stretched');
-      const ratio = compact ? 1010 / 360 : 760 / 1000;
+      const ratio = compact ? 670 / 360 : 760 / 1000;
       assert(Math.abs(box.height / box.width - ratio) < .01, 'Architecture is stretched or clipped');
       assert(document.documentElement.scrollWidth <= width + 1, `${language} architecture page overflows at ${width}px`);
       for (const label of (compact ? phone : wide).querySelectorAll('text')) {

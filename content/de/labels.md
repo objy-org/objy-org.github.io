@@ -53,23 +53,12 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Vector | Vektoren |
 | Storage | In-Memory-Speicher |
 | Hot | Heiße Felder |
-| Hot detail | Häufige Felder direkt im RAM |
 | Columns | Kompakte Spalten |
-| Columns detail | Schnelle Scans & Aggregation |
 | Compressed | Komprimierte Felder |
-| Compressed detail | Mehr Daten im Arbeitsspeicher |
 | Durability | S3-Sicherung (optional) |
 | Durability detail | Journale + Snapshots |
-| Reference label | Live-Referenz |
 | Device collection | devices |
 | Device id | `"_id": "drone-01",` |
-| Reference | `"operator": {` |
-| Reference type | `"type": "reference",` |
-| Reference collection | `"collection": "people",` |
-| Reference value | `"value": "person-42"` |
-| Person collection | people |
-| Person id | `"_id": "person-42",` |
-| Person name | `"name": "Alex"` |
-| Memory collection | memories |
-| Memory id | `"_id": "memory-01",` |
-| Memory vector | `"_vec": [0.2, 0.8]` |
+| Device name | `"name": "Survey drone",` |
+| Device status | `"status": "ready",` |
+| Device battery | `"battery": 87` |

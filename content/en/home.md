@@ -7,7 +7,7 @@
 Flexible JSON objects. Live references. Efficient storage.\
 Build your application on OBJY, with API, authentication, users, and permissions built in.
 
-![CRUD, queries, aggregation, and vector search flow into JSON objects, then hot fields, compact columns, and compressed bodies in memory. An optional S3 layer provides journals and snapshots.](assets/site/architecture.svg)
+![CRUD, queries, aggregation, and vector search lead to one JSON object. Three simple storage tiers sit behind it: hot fields, compact columns, and compressed bodies. Optional S3 durability sits below.](assets/site/architecture.svg)
 
 [Show more features →](/features.md)
 

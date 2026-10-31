@@ -53,23 +53,12 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Vector | Vector |
 | Storage | In-memory storage |
 | Hot | Hot fields |
-| Hot detail | Keep frequent fields ready |
 | Columns | Compact columns |
-| Columns detail | Fast scans & aggregation |
 | Compressed | Compressed bodies |
-| Compressed detail | Fit more data in memory |
 | Durability | Optional S3 durability |
 | Durability detail | Journals + snapshots |
-| Reference label | Live reference |
 | Device collection | devices |
 | Device id | `"_id": "drone-01",` |
-| Reference | `"operator": {` |
-| Reference type | `"type": "reference",` |
-| Reference collection | `"collection": "people",` |
-| Reference value | `"value": "person-42"` |
-| Person collection | people |
-| Person id | `"_id": "person-42",` |
-| Person name | `"name": "Alex"` |
-| Memory collection | memories |
-| Memory id | `"_id": "memory-01",` |
-| Memory vector | `"_vec": [0.2, 0.8]` |
+| Device name | `"name": "Survey drone",` |
+| Device status | `"status": "ready",` |
+| Device battery | `"battery": 87` |

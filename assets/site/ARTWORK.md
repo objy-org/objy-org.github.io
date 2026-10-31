@@ -28,9 +28,9 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 ## Architecture illustration
 
-`assets/site/architecture.svg` is the single homepage illustration, displayed beneath the headline and description. CRUD, Query, Aggregate, and Vector feed into JSON objects. Arrows then lead to a continuous storage layer with hot fields, compact columns, and compressed bodies. Two-way arrows connect that layer to a separate dashed optional S3 panel for journals and snapshots.
+`assets/site/architecture.svg` is the single homepage illustration, displayed beneath the headline and description. CRUD, Query, Aggregate, and Vector feed into one JSON object. A shifted storage plane sits behind and below it, with three broad tiers for hot fields, compact columns, and compressed bodies. The layered geometry adapts the earlier storage sketch from `3f1a306`. Two-way arrows connect that layer to a separate dashed optional S3 panel for journals and snapshots.
 
-The SVG uses a wide 1000 × 760 composition and a phone composition of 360 × 1010 below 641px. Device, person, memory, storage icon, and S3 definitions are shared where appropriate. Phones show two objects and vertically stacked storage rows to keep text readable. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `home.md`.
+The SVG uses a wide 1000 × 760 composition and a shorter phone composition of 360 × 670 below 641px. Both share one JSON face, a three-tier rear plane, and the S3 artwork. Tier labels stay visible beside or below the foreground object; the individual storage icons and explanatory captions have been removed. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `home.md`.
 
 The former apps/agents hero, individual feature illustrations, and separate storage illustration have been removed from the current branch. Their earlier versions remain recoverable in Git history.
 

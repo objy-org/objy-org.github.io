@@ -7,7 +7,7 @@
 Flexibles JSON. Live-Referenzen. Effiziente Speicherung.\
 Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benutzerverwaltung und Berechtigungen.
 
-![CRUD, Abfragen, Aggregation und Vektorsuche führen zu JSON-Objekten. Darunter liegen heiße Felder, kompakte Spalten und komprimierte Daten im RAM. Eine optionale S3-Ebene ergänzt Journale und Snapshots.](assets/site/architecture.svg)
+![CRUD, Abfragen, Aggregation und Vektorsuche führen zu einem JSON-Objekt. Dahinter liegen drei einfache Speicherebenen: heiße Felder, kompakte Spalten und komprimierte Daten. Darunter ist eine optionale S3-Sicherung.](assets/site/architecture.svg)
 
 [Mehr Features ansehen →](/features.md)
 
