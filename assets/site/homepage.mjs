@@ -38,6 +38,21 @@ async function decorateSection(section, options) {
     section.querySelector('.section-copy').prepend(eyebrow);
     quote.remove();
   }
+  // Icon-led Markdown lists give the hero a compact row of product highlights.
+  if (heading.tagName === 'H1') {
+    for (const list of body.querySelectorAll(':scope > ul')) {
+      if (![...list.children].every((item) => item.children.length === 1 &&
+        item.firstElementChild.tagName === 'IMG' && item.textContent.trim())) continue;
+      list.classList.add('hero-highlights');
+      list.setAttribute('role', 'list');
+      list.style.setProperty('--highlight-columns', Math.min(4, list.children.length));
+      list.style.setProperty('--highlight-compact-columns', Math.min(2, list.children.length));
+      for (const icon of list.querySelectorAll('img')) {
+        icon.alt = '';
+        icon.width = icon.height = 32;
+      }
+    }
+  }
   const embedded = await embedDocument(section, body, options.loadDocument);
   // A standalone Markdown image becomes the section's explanatory artwork.
   const image = body.querySelector(':scope > p > img:only-child');

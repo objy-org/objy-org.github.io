@@ -251,12 +251,18 @@ await check('Homepage layouts work with arbitrary chapter names', async () => {
     .map((name) => `<h2 id="${name}">${name}</h2>${image}`)
     .join('');
   const markup =
-    '<h1 id="top">Hello</h1><p>Intro</p>' + image + '<p><a href="all-features.md">See the full picture</a></p>' + illustrated +
+    '<h1 id="top">Hello</h1><p>Intro</p>' +
+    '<ul><li><img src="one.svg" alt="One">First highlight</li><li><img src="two.svg" alt="Two">Second highlight</li></ul>' +
+    image + '<p><a href="all-features.md">See the full picture</a></p>' + illustrated +
     '<h2 id="details">Details</h2><p>More to explore.</p>' +
     '<h2 id="choices">Choices</h2><h3 id="small">Small</h3><p>First choice</p><h3 id="large">Large</h3><p>Second choice</p>';
   const content = htmlFragment(await decorateHomepage(markup));
   assert(content.querySelectorAll('.detail-section').length === 4, 'Chapter count was hard-coded');
   assert(content.querySelector('.section-hero > .section-copy + .hero-art'), 'Hero artwork is not beneath the headline');
+  const highlights = content.querySelectorAll('.hero-highlights li');
+  assert(highlights.length === 2 && highlights[1].textContent === 'Second highlight' &&
+    [...highlights].every((item) => item.querySelector('img').alt === ''),
+    'Icon highlights lost their Markdown content or depend on a fixed count');
   const more = content.querySelector('.sections-root > .feature-more a');
   assert(more?.textContent === 'See the full picture' && more.getAttribute('href') === 'all-features.md',
     'The overview link was lost or hard-coded');
@@ -696,6 +702,11 @@ await check('The restored homepage hero stays large, translated, and centered on
     assert(diagram.getAttribute('viewBox') === '0 0 720 480' && !document.querySelector('.objy-architecture'),
       'The previous hero was not restored or the architecture remains on the homepage');
     assert(document.querySelectorAll('#section-links a').length === 3, 'Homepage chapter links were not updated');
+    const highlights = [...document.querySelectorAll('.hero-highlights li')];
+    assert(highlights.map((item) => item.textContent.trim()).join('|') === (language === 'en' ?
+      'Flexible JSON|Live references|Runs everywhere|API & auth built in' :
+      'Flexibles JSON|Live-Referenzen|Läuft überall|API & Auth inklusive'), 'Hero highlights are missing or untranslated');
+    assert(!document.querySelector('.section-hero .markdown-body > p'), 'The old hero subtitle is still present');
     for (const width of [1440, 1280, 761, 641, 640, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '900px';
@@ -703,6 +714,14 @@ await check('The restored homepage hero stays large, translated, and centered on
       const box = diagram.getBoundingClientRect();
       assert(box.width > 250 && Math.abs(box.height / box.width - 480 / 720) < .01, 'Hero artwork is stretched or too small');
       assert(document.documentElement.scrollWidth <= width + 1, `${language} homepage overflows at ${width}px`);
+      const list = document.querySelector('.hero-highlights').getBoundingClientRect();
+      const rows = new Set(highlights.map((item) => Math.round(item.getBoundingClientRect().top)));
+      assert(rows.size === (list.width <= 820 ? 2 : 1), 'The highlight row does not adapt evenly');
+      for (const item of highlights) {
+        const rect = item.getBoundingClientRect();
+        assert(rect.left >= list.left - 1 && rect.right <= list.right + 1 && item.querySelector('img').alt === '',
+          'A highlight is clipped or its decorative icon has redundant text');
+      }
       const overview = document.querySelector('.section-icon-cards');
       const available = overview.getBoundingClientRect().width;
       const columns = available <= 480 ? 1 : available <= 760 ? 2 : 4;

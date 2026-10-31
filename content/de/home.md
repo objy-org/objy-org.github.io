@@ -4,8 +4,10 @@
 
 > Baue Anwendungsfälle rund um schnelle Objekte.
 
-Flexibles JSON. Live-Referenzen. Effiziente Speicherung.\
-Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benutzerverwaltung und Berechtigungen.
+- ![](assets/site/icons/features/flexible-objects.svg) Flexibles JSON
+- ![](assets/site/icons/features/live-references.svg) Live-Referenzen
+- ![](assets/site/icons/features/cross-runtime.svg) Läuft überall
+- ![](assets/site/icons/features/authentication.svg) API & Auth inklusive
 
 ![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
 

@@ -31,6 +31,8 @@ Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual.
 
 The homepage tells the story through the large apps, AI agents, and objects illustration, followed by four use cases and the Get Started deployment options. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
 
+The short statements beneath the main headline are an ordinary bullet list in `home.md`. Begin each item with an icon image, then its text: `- ![](assets/site/icons/features/flexible-objects.svg) Flexible JSON`. Icon-led lists in the hero automatically become a centered highlights row, with two columns on smaller screens. Keep each statement short and update both languages.
+
 Edit the use-case heading, descriptions, and icons directly in `home.md`. The section keeps `:id=object-capabilities` so existing links continue to work. Its menu label is Use cases; edit that label in `sidebar.md`.
 
 ## Code highlighting

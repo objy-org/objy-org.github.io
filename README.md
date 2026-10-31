@@ -17,7 +17,7 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `documentation.md` | Documentation index and links to individual guides |
 | `features.md` | Icon-led catalog of database core and DB server features |
 
-Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first standalone hero image appears beneath the headline and introduction. A closing link-only paragraph can become a subtle centered link below that image. Later `##` chapters become full-width detail sections, with illustrated sections alternating text and artwork. Add a link in `sidebar.md` to include a homepage section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
+Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first standalone hero image appears beneath the headline and introduction. Icon-led bullet lists in the hero become a compact, centered row of highlights, with two columns on smaller screens. Each statement and icon path stays editable in `home.md`. A closing link-only paragraph can become a subtle centered link below that image. Later `##` chapters become full-width detail sections, with illustrated sections alternating text and artwork. Add a link in `sidebar.md` to include a homepage section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 

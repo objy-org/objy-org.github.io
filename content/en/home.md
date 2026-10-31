@@ -4,8 +4,10 @@
 
 > Build applications around fast objects.
 
-Flexible JSON objects. Live references. Efficient storage.\
-Build your application on OBJY, with API, authentication, users, and permissions built in.
+- ![](assets/site/icons/features/flexible-objects.svg) Flexible JSON
+- ![](assets/site/icons/features/live-references.svg) Live references
+- ![](assets/site/icons/features/cross-runtime.svg) Runs everywhere
+- ![](assets/site/icons/features/authentication.svg) API & auth built in
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
