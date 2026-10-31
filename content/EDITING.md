@@ -29,13 +29,13 @@ Live references, nested data, vectors, and files.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by the interactive object example and a closing Quick Start section. The subtle Show more features link below the diagram opens the full catalog, including storage and optional S3 durability. Preserve existing `:id=...` values when renaming headings.
+The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by the feature overview and a closing Quick Start section. The overview shows the icons, titles, and descriptions from `features.md` in columns, without its code examples. Its closing link opens the full catalog with examples. Preserve existing `:id=...` values when renaming headings.
 
-Edit the overview link as an ordinary link-only paragraph after the hero image, before the next `##` heading: `[Show more features →](/features.md)`. It appears centered beneath the illustration automatically.
+Edit the overview heading in `home.md`. Keep its link to the shared source: `[Explore features in detail →](/features.md "cards")`. The `"cards"` title tells the homepage to display that catalog in columns. Edit the link label to change the subtle link beneath the cards; edit `features.md` to change the feature content on both pages.
 
 ## Code highlighting
 
-Add a language name immediately after a code block's opening backticks. The site highlights these blocks automatically in local pages and live remote documentation, including the homepage's example tabs:
+Add a language name immediately after a code block's opening backticks. The site highlights these blocks automatically in local pages and live remote documentation, including tabbed homepage examples when present:
 
 ````markdown
 ```json
@@ -49,7 +49,7 @@ Supported languages include `json`, `js`/`javascript`, `ts`/`typescript`, `sh`/`
 
 ```markdown
 [Documentation](/documentation.md)
-[An object in action](/?id=object-capabilities)
+[Features](/?id=object-capabilities)
 ```
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=object-capabilities` jumps to the heading with `:id=object-capabilities`.
@@ -119,7 +119,7 @@ The same engine, embedded in browsers and Node.js.
 Connect objects and expand their references when reading.
 ```
 
-Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates compact feature sections automatically, on any local Markdown page. The left menu lists every feature under its group, and each ID supports direct links. Use short headings so they are easy to scan in the menu. Titles, descriptions, order, icon paths, and examples all come from Markdown. Add the same IDs, icon paths, and code in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
+Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates compact feature sections automatically, on any local Markdown page. The left menu lists every feature under its group, and each ID supports direct links. Use short headings so they are easy to scan in the menu. Titles, descriptions, order, icon paths, and examples all come from Markdown. The homepage reuses the same titles, descriptions, and icons in columns; code examples and the group introductions appear only on the detailed page. Add the same IDs, icon paths, and code in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
 
 For features that benefit from an example, end the feature with one fenced `json` or `js` block. Keep it to seven lines or fewer. It appears beside the explanation on wide screens and underneath on smaller screens. Features without a useful code example need only their short description. Examples are independent fragments: `items` is an existing collection, and server operations assume an authenticated client. They display sample code without sending requests.
 
@@ -163,30 +163,21 @@ The Architecture diagram table controls the API labels and three JSON examples i
 
 Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. Use the full Features page for explanations of storage and other capabilities.
 
-## Edit the interactive object example
+## Reuse a feature catalog on the homepage
 
-The object example lives in `home.md`, under `:id=object-capabilities`. It shows one code window with tabs above it. Each tab comes from a `###` heading followed by an optional source-label quote and one fenced code block:
+The section under `:id=object-capabilities` uses an ordinary Markdown link with the title `"cards"`:
 
-````markdown
-### Device :id=example-device
+```markdown
+## Built around objects. :id=object-capabilities
 
-> app / devices / drone-01
-
-```json
-{
-  "_id": "drone-01",
-  "name": "Survey drone"
-}
+[Explore features in detail →](/features.md "cards")
 ```
-````
 
-Keep at least two examples. To add another tab, add another `###` heading and code block in the same section. The heading names the tab, and the quote labels the code window. Keep explanations in the section introduction; each tab contains only its quote and code. Copy always copies the selected example. No JavaScript changes are needed to edit the examples or add another tab.
-
-Keep tab IDs consistent across translations, and keep code samples identical. Link directly to a tab with `/?id=example-memory`, for instance. These are illustrative examples and do not send requests to a database. The Query and Aggregation tabs use the JavaScript client and assume it is already authenticated. Use a `js` code fence for client operations and `json` for object data; the code window updates its format label automatically. The AI memory example shows `_vec` on insert; OBJY indexes it separately and hides it from ordinary reads. The file example shows a stored object after upload; the server creates its `_file` descriptor and key.
+The linked file uses the feature catalog format described above: `##` groups and icon-led `###` features. The homepage reads the current language's file, falling back to the default language if needed. It shows each feature's icon, title, and description in three columns on desktop, two on tablets, and one on phones. Code examples and group introductions stay on the detailed page. The link remains beneath the overview, and remains usable if the source cannot load. No second copy of feature text is needed.
 
 ## Change section images
 
-The opening hero centers the illustration beneath its headline and description. Three tilted JSON cards overlap at their edges while keeping the snippets readable. They use a wide arrangement on desktop and a vertical stack on phones. The Show more features link follows the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero centers the illustration beneath its headline and description. Three tilted JSON cards overlap at their edges while keeping the snippets readable. They use a wide arrangement on desktop and a vertical stack on phones. The shared feature overview follows the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

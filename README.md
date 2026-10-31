@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage introduces OBJY with a headline and one large illustration underneath, followed by an interactive object example and a closing Quick Start section. The diagram shows APIs above three overlapping JSON snippets: a person, an AI memory, and a connected device. All copy, example data, headings, and destinations are managed in Markdown in English and German. There is no build step.
+A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage introduces OBJY with a headline and one large illustration underneath, followed by a feature overview in columns and a closing Quick Start section. The diagram shows APIs above three overlapping JSON snippets: a person, an AI memory, and a connected device. All copy, example data, headings, and destinations are managed in Markdown in English and German. There is no build step.
 
 ## Editing
 
@@ -17,7 +17,7 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `documentation.md` | Documentation index and links to individual guides |
 | `features.md` | Icon-led catalog of database core and DB server features |
 
-Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first standalone hero image appears beneath the headline and introduction. A closing link-only paragraph becomes a subtle centered link below that image. Later `##` chapters become full-width detail sections, with illustrated sections alternating text and artwork. Add a link in `sidebar.md` to include a homepage section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
+Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. The first standalone hero image appears beneath the headline and introduction. A closing link-only paragraph can become a subtle centered link below that image. Later `##` chapters become full-width detail sections, with illustrated sections alternating text and artwork. Add a link in `sidebar.md` to include a homepage section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 
@@ -33,11 +33,11 @@ The top-bar Documentation link opens the selected language’s `documentation.md
 | `pages.mjs` | Local/remote loading, relative links/images, and translation fallback |
 | `languages.mjs` | Language registry, selection, and language URLs |
 | `markup.mjs` | Markdown label parsing, translation bindings, and HTML sanitization |
-| `homepage.mjs` | Homepage composition, illustration loading, and action-link layouts |
+| `homepage.mjs` | Homepage composition, illustration loading, shared feature columns, and action links |
 | `examples.mjs` | Markdown-driven object tabs, one code panel, and keyboard interaction |
 | `documents.mjs` | Markdown guide directories, deployment accordions, feature catalogs, and chapter deep links |
 
-Only the homepage module knows about the hero/detail layout. Options are detected from subheadings, and illustrated detail sections alternate automatically. Two or more H3 chapters, each containing an optional source-label quote and one code block, create tabs above a single shared code window. Other chapter content keeps its normal layout. Link-only lists become actions in the hero and closing section. The example tabs show a connected device, AI memory, a file object, a query, and aggregation through the JavaScript client. They display sample content without contacting a database.
+Only the homepage module knows about the hero/detail layout. Options are detected from subheadings, and illustrated detail sections alternate automatically. Two or more H3 chapters, each containing an optional source-label quote and one code block, create tabs above a single shared code window. Other chapter content keeps its normal layout. Link-only lists become actions in the hero and closing section. The homepage links to its shared feature source with `[Explore features in detail →](/features.md "cards")`. That link becomes an overview with icons, titles, and descriptions grouped in three columns on desktop, two on tablets, and one on phones. It reuses the document catalog renderer, omits code examples and guide introductions, and keeps the source link below the cards. Unavailable sources retain their ordinary link. The content stays centralized in the translated `features.md`; the detailed page retains its code examples.
 
 Docsify renders the Markdown and handles routes. The theme uses the curated `sidebar.md` menu on the homepage and automatically builds other pages’ menus from their rendered headings, including indented subchapters. It arranges homepage HTML into the hero and full-width details, moves the native sidebar into the layout, and binds labels from Markdown tables. The theme supplies the mobile menu and active-section indication.
 
@@ -75,7 +75,7 @@ For a route such as `#/guides/setup`, the site looks for `content/<selected-lang
 
 Run `node --test tests/*.test.mjs` with Node.js. The tests validate language selection, URL preservation, registry entries, translated label parity, section IDs, local links, documentation code examples, arbitrary Markdown routes, remote source loading and relative links, and page-loading fallback. All localized Markdown files are discovered recursively so new documentation pages are included in validation. No package installation or build is needed.
 
-With the preview running, open `http://127.0.0.1:8000/tests/browser.html` for browser regression checks covering safe markup, syntax highlighting with unchanged source and copied text, literal translation values, reusable homepage layouts, missing artwork, documentation loading without homepage images, object tabs, deep links, keyboard navigation, listener cleanup, Markdown action links, viewport centering, the responsive chapter menu, deployment accordions, feature catalogs, and header navigation in both languages from 320px to desktop. Also preview both languages on desktop and mobile when changing layout or translations.
+With the preview running, open `http://127.0.0.1:8000/tests/browser.html` for browser regression checks covering safe markup, syntax highlighting with unchanged source and copied text, literal translation values, reusable homepage layouts, missing artwork, documentation loading without homepage images, shared feature columns, reusable object tabs, deep links, keyboard navigation, listener cleanup, Markdown action links, viewport centering, the responsive chapter menu, deployment accordions, feature catalogs, and header navigation in both languages from 320px to desktop. Also preview both languages on desktop and mobile when changing layout or translations.
 
 ## Content sources
 

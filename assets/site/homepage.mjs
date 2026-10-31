@@ -1,5 +1,6 @@
 import { htmlFragment } from './markup.mjs';
 import { decorateExample } from './examples.mjs';
+import { decorateDocument } from './documents.mjs';
 
 const illustrationCache = new Map();
 
@@ -26,7 +27,42 @@ async function inlineIllustration(source) {
   return illustrationCache.get(url.href);
 }
 
-async function decorateSection(section) {
+async function decorateFeatureCards(section, body, loadCards) {
+  const link = body.querySelector(':scope > p > a[title="cards"]:only-child');
+  if (!link || !loadCards) return;
+  const html = await loadCards(link.getAttribute('href'));
+  if (!html) return; // Keep the ordinary Markdown link if its source is unavailable.
+  const catalog = htmlFragment(decorateDocument(html)).querySelector('.document-catalog');
+  if (!catalog) return;
+  const overview = document.createElement('div');
+  overview.className = 'feature-overview';
+  for (const group of catalog.querySelectorAll(':scope > .catalog-section')) {
+    const title = document.createElement('h3');
+    title.id = group.querySelector('h2').id;
+    title.textContent = group.querySelector('h2').textContent.trim();
+    const columns = document.createElement('div');
+    columns.className = 'feature-columns';
+    for (const feature of group.querySelectorAll(':scope > .catalog-feature')) {
+      feature.querySelectorAll('pre').forEach((example) => example.remove());
+      const heading = feature.querySelector('h3');
+      const compactHeading = document.createElement('h4');
+      compactHeading.id = heading.id;
+      compactHeading.textContent = heading.textContent.trim();
+      heading.replaceWith(compactHeading);
+      const icon = feature.querySelector(':scope > img');
+      icon.width = icon.height = 64;
+      columns.append(feature);
+    }
+    group.replaceChildren(title, columns);
+    overview.append(group);
+  }
+  section.classList.add('section-feature-overview');
+  link.parentElement.before(overview);
+  link.removeAttribute('title');
+  link.parentElement.classList.add('feature-more');
+}
+
+async function decorateSection(section, options) {
   const body = section.querySelector('.markdown-body');
   const heading = body.querySelector('h1, h2');
   section.setAttribute('aria-labelledby', heading.id);
@@ -39,6 +75,7 @@ async function decorateSection(section) {
     section.querySelector('.section-copy').prepend(eyebrow);
     quote.remove();
   }
+  await decorateFeatureCards(section, body, options.loadCards);
   // A standalone Markdown image becomes the section's explanatory artwork.
   const image = body.querySelector(':scope > p > img:only-child');
   if (image) {
@@ -99,7 +136,7 @@ async function decorateSection(section) {
   }
 }
 
-export async function decorateHomepage(html) {
+export async function decorateHomepage(html, options = {}) {
   const template = htmlFragment(html);
   const sections = [];
   let current;
@@ -118,7 +155,7 @@ export async function decorateHomepage(html) {
   }
   if (sections[0]?.dataset.section !== 'top')
     throw new Error('home.md: keep the # headline with :id=top first.');
-  await Promise.all(sections.map(decorateSection));
+  await Promise.all(sections.map((section) => decorateSection(section, options)));
   const [hero, ...details] = sections;
   // A closing link-only paragraph follows the hero artwork, keeping its copy and
   // destination editable in Markdown without turning it into a large CTA.

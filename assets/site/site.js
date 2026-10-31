@@ -305,7 +305,25 @@ function objyTheme(hook, vm) {
     let content = decorateDocument(clean);
     if (!loadError && path === '/' && page) {
       try {
-        content = await decorateHomepage(clean);
+        content = await decorateHomepage(clean, {
+          async loadCards(href) {
+            const url = new URL(href, location.href);
+            if (url.origin !== location.origin) return null;
+            const route = url.hash.startsWith('#/') ? url.hash.slice(1).split('?')[0] :
+              url.pathname.slice(new URL('./', document.baseURI).pathname.length);
+            try {
+              const source = await pages.loadMarkdown(pages.markdownFiles(
+                route, language.code, languageRegistry.defaultLanguage,
+                languageRegistry.languages.map((entry) => entry.code),
+              ));
+              if (!source || page !== currentPage || path !== vm.route.path) return null;
+              return sanitizeMarkup(vm.compiler.compile(source.markdown));
+            } catch (error) {
+              console.warn('Feature cards could not load:', error);
+              return null;
+            }
+          },
+        });
       } catch (error) {
         console.error('OBJY theme could not format this page:', error);
       }

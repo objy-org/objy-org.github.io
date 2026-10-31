@@ -1,3 +1,3 @@
 - [Architecture](/?id=top)
-- [An object in action](/?id=object-capabilities)
+- [Features](/?id=object-capabilities)
 - [Get started](/?id=start-building)

@@ -34,8 +34,8 @@ The SVG uses a wide 1000 × 680 composition and a vertical phone composition of 
 
 The former apps/agents hero, individual feature illustrations, and separate storage illustration have been removed from the current branch. Their earlier versions remain recoverable in Git history.
 
-## Page icons and object example
+## Page icons and feature overview
 
 The documentation index and deployment page retain their custom SVG icons in `assets/site/icons/`. The Features page uses 21 distinct icons in `assets/site/icons/features/`. Their provenance is recorded above.
 
-The object example uses selectable Markdown chapters and code blocks. Its labels, source labels, and sample data remain editable in `content/<language>/home.md`.
+The homepage reuses the catalog's icons, titles, and descriptions in a column layout. All 21 features stay editable in `content/<language>/features.md`; the code examples appear only on the detailed Features page.
