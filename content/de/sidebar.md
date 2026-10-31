@@ -1,4 +1,3 @@
-- [Mit Objekten bauen](/?id=top)
-- [Das steckt drin](/?id=abstract-objects)
+- [Architektur](/?id=top)
 - [Ein Objekt in Aktion](/?id=object-capabilities)
-- [Speicheraufbau](/?id=storage-internals)
+- [Loslegen](/?id=start-building)

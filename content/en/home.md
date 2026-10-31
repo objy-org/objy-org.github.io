@@ -7,19 +7,7 @@
 Flexible JSON objects. Live references. Efficient storage.\
 Build your application on OBJY, with API, authentication, users, and permissions built in.
 
-![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
-
-## Model anything. Connect your objects. :id=abstract-objects
-
-![Two JSON objects: a device references a person in the people collection. An arrow connects the reference value person-42 to the matching object identity.](assets/site/abstract-objects.svg?v=2)
-
-## Create. Query. Aggregate. Search. :id=simple-api
-
-![Query, Vector, CRUD, and Aggregate share one API connection.](assets/site/simple-api.svg)
-
-## Run anywhere. Scale across machines. :id=run-and-deploy
-
-![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
+![CRUD, queries, aggregation, and vector search flow into JSON objects, then hot fields, compact columns, and compressed bodies in memory. An optional S3 layer provides journals and snapshots.](assets/site/architecture.svg)
 
 [Show more features →](/features.md)
 
@@ -118,20 +106,6 @@ await devices.search({
   }
 });
 ```
-
-## Objects outside. Smart storage inside. :id=storage-internals
-
-Work with complete objects. Internally, OBJY splits them into blocks for fast access and efficient storage.
-
-- **Hot fields:** Frequently used data stays uncompressed in memory.
-- **Compact columns:** Selected values sit together for efficient scans and aggregation.
-- **Compressed fields:** Keep more data in memory. Expand it when you read.
-
-> **Fast in memory. Optional S3 durability.**
->
-> Enable S3-backed journals and snapshots to preserve your objects for recovery.
-
-![A complete JSON object sits in front of three in-memory storage tiers. Persist and recover arrows connect them to optional S3 durability through journals and snapshots.](assets/site/storage-internals.svg?v=2)
 
 ## Start with one node. :id=start-building
 

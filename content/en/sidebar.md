@@ -1,4 +1,3 @@
-- [Build with objects](/?id=top)
-- [What you get](/?id=abstract-objects)
+- [Architecture](/?id=top)
 - [An object in action](/?id=object-capabilities)
-- [Storage internals](/?id=storage-internals)
+- [Get started](/?id=start-building)

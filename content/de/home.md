@@ -7,19 +7,7 @@
 Flexibles JSON. Live-Referenzen. Effiziente Speicherung.\
 Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benutzerverwaltung und Berechtigungen.
 
-![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
-
-## Alles modellieren. Objekte verbinden. :id=abstract-objects
-
-![Zwei JSON-Objekte: Ein Gerät referenziert eine Person in der Collection people. Ein Pfeil verbindet den Referenzwert person-42 mit der passenden Objekt-ID.](assets/site/abstract-objects.svg?v=2)
-
-## Erstellen. Abfragen. Aggregieren. Suchen. :id=simple-api
-
-![Abfragen, Vektoren, CRUD und Aggregation teilen sich eine API-Verbindung.](assets/site/simple-api.svg)
-
-## Läuft überall. Skaliert über mehrere Maschinen. :id=run-and-deploy
-
-![Ein Browserfenster, ein einzelner Server und drei verbundene Server zeigen den Betrieb vom Browser bis zum Cluster.](assets/site/run-and-deploy.svg)
+![CRUD, Abfragen, Aggregation und Vektorsuche führen zu JSON-Objekten. Darunter liegen heiße Felder, kompakte Spalten und komprimierte Daten im RAM. Eine optionale S3-Ebene ergänzt Journale und Snapshots.](assets/site/architecture.svg)
 
 [Mehr Features ansehen →](/features.md)
 
@@ -118,20 +106,6 @@ await devices.search({
   }
 });
 ```
-
-## Außen JSON, innen effiziente Speicherung :id=storage-internals
-
-Arbeite mit vollständigen Objekten. Intern teilt OBJY sie für schnellen Zugriff und effiziente Speicherung in Blöcke auf.
-
-- **Heiße Felder:** Häufig genutzte Daten bleiben unkomprimiert im Arbeitsspeicher.
-- **Kompakte Spalten:** Ausgewählte Werte liegen zusammen – für effiziente Scans und Aggregation.
-- **Komprimierte Felder:** Halte mehr Daten im Arbeitsspeicher und entpacke sie beim Lesen.
-
-> **Schnell im RAM. Optional dauerhaft in S3.**
->
-> Aktiviere S3-Journale und Snapshots, um deine Objekte für die Wiederherstellung zu sichern.
-
-![Ein vollständiges JSON-Objekt liegt vor drei Speicherebenen im RAM. Pfeile zum Sichern und Wiederherstellen verbinden sie mit einer optionalen S3-Sicherung aus Journalen und Snapshots.](assets/site/storage-internals.svg?v=2)
 
 ## Starte mit einem Knoten. :id=start-building
 

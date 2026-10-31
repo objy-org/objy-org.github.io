@@ -22,16 +22,16 @@ The switcher at the top right remembers the visitor's choice. A URL with `?lang=
 Edit the words in `home.md`. Keep the heading's `:id=...` suffix so menu links keep working:
 
 ```markdown
-## More than JSON. :id=abstract-objects
+## Your world. As objects. :id=object-capabilities
 
-Give anything a shape with flexible properties.
+Live references, nested data, vectors, and files.
 ```
 
-Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Consecutive `##` sections with standalone images immediately after the hero create the feature grid. The first section without an illustration starts the full-width details; later illustrated sections stay full-width. This structure controls the grouping, rather than a fixed feature count. Use `###` for smaller headings within a section.
+Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The three homepage feature sections cover object features, the API, and deployment. A subtle Show more features link below the row opens the full catalog, which also explains users and access control. The interactive object example follows them, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
+The homepage tells the story through one architecture illustration, followed by the interactive object example and a closing Quick Start section. Storage and optional S3 durability are covered in the architecture instead of a separate chapter. The subtle Show more features link below the diagram opens the full catalog. Preserve existing `:id=...` values when renaming headings.
 
-Edit the overview link as an ordinary link-only paragraph after the final feature image, before the next `##` heading: `[Show more features →](/features.md)`. It appears centered beneath the entire feature row automatically.
+Edit the overview link as an ordinary link-only paragraph after the hero image, before the next `##` heading: `[Show more features →](/features.md)`. It appears centered beneath the illustration automatically.
 
 ## Code highlighting
 
@@ -49,10 +49,10 @@ Supported languages include `json`, `js`/`javascript`, `ts`/`typescript`, `sh`/`
 
 ```markdown
 [Documentation](/documentation.md)
-[More than JSON](/?id=abstract-objects)
+[An object in action](/?id=object-capabilities)
 ```
 
-The words inside `[]` are the label. The destination goes inside `()`. `/?id=abstract-objects` jumps to the heading with `:id=abstract-objects`.
+The words inside `[]` are the label. The destination goes inside `()`. `/?id=object-capabilities` jumps to the heading with `:id=object-capabilities`.
 
 The top-bar Get started now link opens `get-started.md`. Its five deployment options are Run locally, Run a cluster, Bring your own cloud, Run in the browser, and Embed in Node.js. Each is an expandable row with a large colored icon and title; its commands or buttons appear directly underneath when opened. Keep an icon in each `##` heading, then start its content with a fenced code block or a link-only paragraph/list. This Markdown structure enables the accordion without a chapter menu. Link-only bullet lists become buttons. Finish each option with its guide link, and keep the page and chapter IDs so shared links open the right row. All titles, code, providers, and destinations stay editable in Markdown. Documentation retains its clickable directory layout.
 
@@ -153,15 +153,15 @@ Then add its menu entry to `sidebar.md`:
 - [Your new section](/?id=new-section)
 ```
 
-Keep the illustrated feature sections together immediately after the hero. Append new `##` sections after those to add full-width content below it. On narrower screens, the columns and each section’s text and image stack vertically.
+Add new `##` chapters after the hero to place full-width content beneath it. Illustrated detail sections alternate text and artwork on desktop and stack on smaller screens.
 
 ## Change labels
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Application diagram table controls the Apps, AI agents, and APIs labels in the hero illustration. The Object diagram table controls both JSON objects, collection names, and the reference label in the objects illustration. Keep Reference value and Target identity matched, and keep Reference collection matched with Target collection. Keep these lines short so they fit and preserve the JSON punctuation. The Storage diagram table controls the labels and JSON example in the larger 3D storage illustration. The API diagram table controls the short operation labels in the Simple API illustration. The scalability illustration has no editable labels. Their shapes, colors, and layout are managed separately by a developer.
+The Architecture diagram table controls all labels and JSON examples in the main illustration, including query types, objects, storage tiers, and the optional S3 layer. Keep Reference value matched with Person id, and Reference collection matched with Person collection. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
-The storage section’s S3 callout is an ordinary Markdown blockquote below the three bullets in `home.md`; its first paragraph is bold. The accompanying Persist, Recover, and optional S3 labels live in the Storage diagram table. Keep S3 durability explicitly optional in both the callout and illustration when editing them.
+Keep S3 durability explicitly optional in the Durability label and image description. The three storage descriptions explain hot fields, efficient columns, and compressed bodies. These layers are internal; readers still work with complete objects.
 
 ## Edit the interactive object example
 
@@ -186,7 +186,7 @@ Keep tab IDs consistent across translations, and keep code samples identical. Li
 
 ## Change section images
 
-Each feature has a standalone image in `home.md`. The three features form one row on desktop and tablets, and one column on phones, with each headline above its centered image. The overview link spans the whole row below the images. After the interactive object example, the storage section uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
+The opening hero centers the architecture illustration beneath its headline and description. The wide layout shows three objects and three storage tiers; phones use two objects and vertically stacked storage rows. The Show more features link follows the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 
@@ -199,7 +199,7 @@ Shared images in `assets/` are relative to the site root. Other relative image p
 ## Add a language
 
 1. Copy `content/en/` to a new folder named after the language code, such as `content/fr/`.
-2. Translate `home.md`, `sidebar.md`, `labels.md`, `get-started.md`, and `documentation.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
+2. Translate `home.md`, `sidebar.md`, `labels.md`, `get-started.md`, `documentation.md`, and `features.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
 3. Add an entry to `content/languages.json`, for example `{ "code": "fr", "name": "Français", "short": "FR" }`. The code must match the folder. The language appears in the switcher automatically; no HTML or JavaScript changes are needed.
 4. Preview `/?lang=fr`, `/?lang=fr#/get-started`, `/?lang=fr#/documentation`, and `/?lang=fr#/content/database`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
 5. Run `node --test tests/*.test.mjs` to check for missing files, labels, anchors, or broken local links.

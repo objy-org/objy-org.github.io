@@ -43,56 +43,33 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Unavailable description | This Markdown page could not be loaded. Check the link or try again. |
 | Back home | Back to the homepage |
 
-## Application diagram
+## Architecture diagram
 
 | Location | Text |
 | --- | --- |
-| Apps | Apps |
-| Agents | AI agents |
-| Apis | APIs |
-
-## Object diagram
-
-| Location | Text |
-| --- | --- |
-| Source collection | devices |
-| Identity | `"_id": "drone-01",` |
-| Reference | `"operator": {` |
-| Reference type | `"type": "reference",` |
-| Reference collection | `"collection": "people",` |
-| Reference value | `"value": "person-42"` |
-| Connection | Live reference |
-| Target collection | people |
-| Target identity | `"_id": "person-42",` |
-| Target name | `"name": "Alex"` |
-
-## Storage diagram
-
-| Location | Text |
-| --- | --- |
-| Outside | The object you work with |
-| Format | JSON |
-| Json identity | `"_id": "bike-001",` |
-| Json name | `"name": "City bike",` |
-| Json price | `"price": 199,` |
-| Json notes | `"notes": "Everyday rides"` |
-| Inside | Inside objy.db |
-| Memory | IN MEMORY |
-| Hot | Hot fields |
-| Columns | Compact columns |
-| Compressed | Compressed fields |
-| Reads | One object in. One object out. |
-| Persist | Persist |
-| Recover | Recover |
-| Durability | Optional S3 durability |
-| Durability detail | Journals + snapshots |
-
-## API diagram
-
-| Location | Text |
-| --- | --- |
-| Interface | API |
 | Crud | CRUD |
 | Query | Query |
 | Aggregate | Aggregate |
 | Vector | Vector |
+| Storage | In-memory storage |
+| Hot | Hot fields |
+| Hot detail | Keep frequent fields ready |
+| Columns | Compact columns |
+| Columns detail | Fast scans & aggregation |
+| Compressed | Compressed bodies |
+| Compressed detail | Fit more data in memory |
+| Durability | Optional S3 durability |
+| Durability detail | Journals + snapshots |
+| Reference label | Live reference |
+| Device collection | devices |
+| Device id | `"_id": "drone-01",` |
+| Reference | `"operator": {` |
+| Reference type | `"type": "reference",` |
+| Reference collection | `"collection": "people",` |
+| Reference value | `"value": "person-42"` |
+| Person collection | people |
+| Person id | `"_id": "person-42",` |
+| Person name | `"name": "Alex"` |
+| Memory collection | memories |
+| Memory id | `"_id": "memory-01",` |
+| Memory vector | `"_vec": [0.2, 0.8]` |

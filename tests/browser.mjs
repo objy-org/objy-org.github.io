@@ -238,26 +238,22 @@ await check('Markdown code highlighting preserves source text and safe markup ac
 await check('Homepage layouts work with arbitrary chapter names', async () => {
   const image =
     '<p><img alt="Sample" src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22/%3E"></p>';
-  const features = ['one', 'two', 'three', 'four']
+  const illustrated = ['one', 'two']
     .map((name) => `<h2 id="${name}">${name}</h2>${image}`)
     .join('');
   const markup =
-    '<h1 id="top">Hello</h1>' + features + '<p><a href="all-features.md">See the full picture</a></p>' +
+    '<h1 id="top">Hello</h1><p>Intro</p>' + image + '<p><a href="all-features.md">See the full picture</a></p>' + illustrated +
     '<h2 id="details">Details</h2><p>More to explore.</p>' +
-    '<h2 id="first-detail">First detail</h2>' +
-    image +
-    '<h2 id="second-detail">Second detail</h2>' +
-    image +
     '<h2 id="choices">Choices</h2><h3 id="small">Small</h3><p>First choice</p><h3 id="large">Large</h3><p>Second choice</p>';
   const content = htmlFragment(await decorateHomepage(markup));
-  assert(content.querySelectorAll('.feature-grid > section').length === 4, 'Feature count was hard-coded');
-  assert(content.querySelector('.feature-grid').style.getPropertyValue('--feature-columns') === '3', 'Features did not support three columns');
+  assert(content.querySelectorAll('.detail-section').length === 4, 'Chapter count was hard-coded');
+  assert(content.querySelector('.section-hero > .section-copy + .hero-art'), 'Hero artwork is not beneath the headline');
   const more = content.querySelector('.sections-root > .feature-more a');
   assert(more?.textContent === 'See the full picture' && more.getAttribute('href') === 'all-features.md',
     'The overview link was lost or hard-coded');
-  assert(!content.querySelector('.feature-grid .feature-more'), 'The overview link stayed inside a card');
+  assert(!content.querySelector('.section-hero .feature-more'), 'The overview link moved above the artwork');
   assert(
-    content.querySelector('.art-first')?.dataset.section === 'second-detail',
+    content.querySelector('.art-first')?.dataset.section === 'two',
     'Illustrations did not alternate',
   );
   assert(
@@ -380,7 +376,7 @@ await check('Copy uses the selected object and survives same-page navigation', a
     tabs[1].click();
     document.querySelector('.example-code .copy-button').click();
     assert(JSON.parse(copied)._id === 'memory-01', 'Copy did not use the selected object');
-    await navigate('#/?id=storage-internals');
+    await navigate('#/?id=start-building');
     site.contentDocument.querySelector('[data-example-tab]').click();
     copied = null;
     site.contentDocument.querySelector('.example-code .copy-button').click();
@@ -415,20 +411,20 @@ await check('Articles stay centered in the viewport without colliding with the c
       const document = site.contentDocument;
       const menu = document.querySelector('.section-menu-toggle');
       const sidebar = document.querySelector('.page-sidebar');
-      const cards = [...document.querySelectorAll('.feature-grid > .page-section')];
+      const art = document.querySelector('.hero-art');
+      const diagram = art.querySelector('.objy-architecture');
       const more = document.querySelector('.feature-more');
-      const positions = cards.map((card) => card.getBoundingClientRect());
-      assert(cards.length === 3 && !document.querySelector('[data-section="users-and-access"]'), 'Homepage feature selection is incorrect');
-      if (width > 760) {
-        assert(positions.every((position) => Math.abs(position.top - positions[0].top) <= 1),
-          `Features do not share one row at ${width}px`);
-        const artwork = cards.map((card) => card.querySelector('.section-art').getBoundingClientRect());
-        assert(artwork.every((position) => Math.abs(position.top - artwork[0].top) <= 1),
-          `Feature artwork is not aligned at ${width}px`);
-      }
+      const picture = diagram.getBoundingClientRect();
+      const copy = document.querySelector('.section-hero > .section-copy').getBoundingClientRect();
+      assert(picture.top >= copy.bottom && Math.abs(picture.left + picture.width / 2 - width / 2) <= 1,
+        'Architecture does not sit centered below the headline');
+      assert(picture.width <= 1000 && picture.width > 250, 'Architecture size is incorrect');
+      const ratio = width <= 640 ? 1010 / 360 : 760 / 1000;
+      assert(Math.abs(picture.height / picture.width - ratio) < .01, 'Architecture aspect ratio is incorrect');
+      assert(!document.querySelector('.feature-grid, [data-section="storage-internals"]'), 'The previous visual overview is still present');
       const link = more.getBoundingClientRect();
-      assert(link.top >= Math.max(...positions.map((position) => position.bottom)), 'More features overlaps the cards');
-      assert(Math.abs(link.left + link.width / 2 - width / 2) <= 1, 'More features is not centered below the row');
+      assert(link.top >= picture.bottom, 'More features overlaps the architecture');
+      assert(Math.abs(link.left + link.width / 2 - width / 2) <= 1, 'More features is not centered below the illustration');
       assert(more.querySelector('a').getAttribute('href').endsWith('#/features'), 'More features opens the wrong page');
       if (width > 1100) {
         assert(frame.getComputedStyle(sidebar).display !== 'none', 'Desktop chapter menu is missing');
@@ -575,6 +571,51 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
     target.click();
     await changed;
     assert(frame.location.hash.endsWith('id=live-references'), 'Feature menu link did not navigate');
+  }
+});
+
+await check('Architecture artwork keeps both languages readable across desktop and phone layouts', async () => {
+  for (const language of ['en', 'de']) {
+    site.src = `../?lang=${language}#/?id=top`;
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        const document = site.contentDocument;
+        if (document?.documentElement.lang === language && document.querySelector('.objy-architecture')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Architecture did not load'));
+        setTimeout(ready, 16);
+      };
+      ready();
+    });
+    const frame = site.contentWindow;
+    const document = site.contentDocument;
+    await document.fonts.ready;
+    const diagram = document.querySelector('.objy-architecture');
+    const query = diagram.querySelector('[data-copy="architecture-diagram.query"]').textContent;
+    assert(query === (language === 'en' ? 'Query' : 'Abfragen'), 'Query labels were not translated');
+    assert(diagram.querySelector('[data-copy="architecture-diagram.durability"]').textContent.toLowerCase().includes('optional'),
+      'S3 durability is not clearly optional');
+    assert(document.querySelectorAll('#section-links a').length === 3, 'Homepage chapter links were not updated');
+    for (const width of [1440, 1280, 761, 641, 640, 390, 320]) {
+      site.style.width = `${width}px`;
+      site.style.height = '900px';
+      await new Promise((resolve) => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+      const compact = width <= 640;
+      const wide = diagram.querySelector('.architecture-wide');
+      const phone = diagram.querySelector('.architecture-compact');
+      assert((frame.getComputedStyle(wide).display === 'none') === compact &&
+        (frame.getComputedStyle(phone).display !== 'none') === compact, 'Wrong architecture layout is visible');
+      const box = diagram.getBoundingClientRect();
+      if (compact) assert(box.width <= 400, 'Phone architecture is unnecessarily stretched');
+      const ratio = compact ? 1010 / 360 : 760 / 1000;
+      assert(Math.abs(box.height / box.width - ratio) < .01, 'Architecture is stretched or clipped');
+      assert(document.documentElement.scrollWidth <= width + 1, `${language} architecture page overflows at ${width}px`);
+      for (const label of (compact ? phone : wide).querySelectorAll('text')) {
+        const rect = label.getBoundingClientRect();
+        assert(rect.left >= box.left - 1 && rect.right <= box.right + 1,
+          `${language} architecture label is clipped at ${width}px: ${label.textContent}`);
+      }
+    }
   }
 });
 

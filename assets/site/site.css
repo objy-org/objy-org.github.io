@@ -295,7 +295,7 @@ body > main > .sidebar-toggle,
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 40px;
   padding: var(--hero-top-space) 0 64px;
   text-align: center;
 }
@@ -326,12 +326,12 @@ body > main > .sidebar-toggle,
 }
 .hero-art {
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;
   min-width: 0;
   margin: 0 auto;
 }
-.hero-art img,
-.hero-art svg {
+.hero-art > img,
+.hero-art > svg {
   display: block;
   width: 100%;
   height: auto;
@@ -390,16 +390,13 @@ body > main > .sidebar-toggle,
   padding-left: 20px;
   border-left: 2px solid var(--accent);
 }
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(var(--feature-columns, 3), minmax(0, 1fr));
-  column-gap: clamp(24px, 3vw, 56px);
-  row-gap: 88px;
-  padding: 48px 0 72px;
+.section-hero:has(+ .feature-more) {
+  padding-bottom: 16px;
 }
-.feature-grid:has(+ .feature-more) {
-  padding-bottom: 28px;
+@media (max-width: 640px) {
+  .section-hero .hero-art { max-width: 400px; }
 }
+
 .feature-more {
   margin: 0 0 64px;
   text-align: center;
@@ -416,47 +413,6 @@ body > main > .sidebar-toggle,
 .feature-more a:hover {
   color: var(--accent);
 }
-.feature-grid > .page-section {
-  display: grid;
-  grid-template-rows: subgrid;
-  grid-row: span 2;
-  row-gap: 28px;
-  min-width: 0;
-  padding: 0;
-}
-.feature-grid .section-copy {
-  width: 100%;
-  max-width: 430px;
-  justify-self: center;
-}
-.feature-grid h2 {
-  color: #d4d1cc;
-  font-size: clamp(24px, 2vw, 30px);
-  line-height: 1.25;
-  letter-spacing: -0.8px;
-  margin-bottom: 20px;
-}
-.feature-grid .section-art {
-  max-width: 320px;
-  margin-inline: auto;
-}
-.feature-grid .section-copy p {
-  font-size: 16px;
-  line-height: 1.9;
-  margin-top: 16px;
-  max-width: 430px;
-}
-.feature-grid .section-copy .eyebrow {
-  font-size: 13px;
-  line-height: 1.6;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  margin: 0 0 18px;
-  min-height: 3.2em;
-}
-.feature-grid .section-copy p:has(a) {
-  margin-top: 28px;
-}
 .section-art {
   width: 100%;
   max-width: 400px;
@@ -464,8 +420,8 @@ body > main > .sidebar-toggle,
   align-self: start;
   justify-self: center;
 }
-.section-art svg,
-.section-art img {
+.section-art > svg,
+.section-art > img {
   display: block;
   width: 100%;
   height: auto;
@@ -1203,24 +1159,9 @@ pre code .token.italic {
     grid-row: auto;
   }
 
-  .feature-grid {
-    row-gap: 72px;
-    padding: 36px 0 64px;
-  }
-  .feature-grid h2,
-  .feature-grid .section-copy .eyebrow {
-    min-height: 0;
-  }
-  .feature-grid h2 {
-    font-size: 24px;
-  }
   .section-art {
     max-width: 440px;
     margin: 0 auto;
-  }
-  .feature-grid .section-copy,
-  .feature-grid .section-copy p {
-    max-width: 600px;
   }
   .page-layout {
     padding: 0 26px;
@@ -1338,7 +1279,7 @@ pre code .token.italic {
     max-width: 540px;
   }
   .hero-art {
-    max-width: 420px;
+    max-width: 100%;
   }
   .page-section {
     padding: 48px 0;
@@ -1348,17 +1289,6 @@ pre code .token.italic {
   }
   .section-copy p {
     font-size: 17px;
-  }
-  .feature-grid {
-    grid-template-columns: 1fr;
-    padding: 32px 0 56px;
-    row-gap: 56px;
-  }
-  .feature-grid > .page-section {
-    gap: 24px;
-  }
-  .feature-grid h2 {
-    font-size: 32px;
   }
   .detail-section {
     gap: 44px;
