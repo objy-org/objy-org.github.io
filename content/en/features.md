@@ -1,4 +1,4 @@
-# Flexible JSON. Versatile APIs. :id=features
+# Flexible JSON. Versatile APIs.<br> Fast, thanks to in-memory storage. :id=features
 
 Fast, flexible data is just the beginning. Explore what OBJY brings to your application, from the in-memory engine to a distributed backend.
 

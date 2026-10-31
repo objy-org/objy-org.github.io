@@ -587,7 +587,8 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       links[1].hash.endsWith('id=database-core') && links[2].hash.endsWith('id=db-server'),
       'The feature menu should contain storage and the two main groups');
     assert(document.querySelector('.document-catalog > h1').textContent === (language === 'en' ?
-      'Flexible JSON. Versatile APIs.' : 'Flexibles JSON. Vielseitige APIs.'), 'The Features title was not updated');
+      'Flexible JSON. Versatile APIs. Fast, thanks to in-memory storage.' :
+      'Flexibles JSON. Vielseitige APIs. Schnell dank In-Memory-Speicherung.'), 'The Features title was not updated');
     assert(features.every((feature) => !feature.querySelector('h3').hasAttribute('data-chapter')),
       'Individual features still participate in chapter navigation');
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
