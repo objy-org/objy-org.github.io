@@ -11,6 +11,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Header, controls, metadata, diagram labels | [labels.md](en/labels.md) | [labels.md](de/labels.md) |
 | Get started and deployment options | [get-started.md](en/get-started.md) | [get-started.md](de/get-started.md) |
 | Documentation index | [documentation.md](en/documentation.md) | [documentation.md](de/documentation.md) |
+| Feature catalog, descriptions, and icons | [features.md](en/features.md) | [features.md](de/features.md) |
 
 Edit the file in the language you want to change. Database, server, and REST API documentation are loaded live from `objy-org/objy`; JavaScript client documentation comes from `objy-org/objy-client`. The shared Markdown includes are listed below.
 
@@ -101,6 +102,24 @@ The top-bar Documentation link opens `content/en/documentation.md` or `content/d
 To add another guide, add a `##` heading with an icon, a short explanation, and one Markdown link to each language’s index. Keep each explanation and destination in separate paragraphs. The site combines these into one fully clickable row, in Markdown order. The index hides the chapter menu; individual guides still generate theirs automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
 An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/database.svg) Database :id=database`. Keep its alternative text empty because the adjacent heading already names the chapter. A directory row with one destination shows that icon, the chapter title, its description, and an arrow. The separate link label stays in the Markdown source but is not repeated on screen. For multiple destinations, use a bullet list containing only links; those labels appear as separate text links under the description. The layout works with any chapter name or number of entries. Pages with additional chapter content keep the ordinary Markdown layout and chapter menu.
+
+## Edit the feature catalog
+
+The top-bar Features link opens `features.md`. It separates the shared database core from DB server features. Each feature is a `###` heading with its own icon, followed by its description:
+
+```markdown
+## Database core :id=database-core
+
+The same engine, embedded in browsers and Node.js.
+
+### ![](assets/site/icons/features/live-references.svg) Live references, without copies :id=live-references
+
+Connect objects and expand their references when reading.
+```
+
+Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates the responsive catalog automatically, on any local Markdown page. The left menu lists the groups; individual feature IDs still support direct links. Titles, descriptions, order, and icon paths all come from Markdown. Add the same IDs and icon paths in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
+
+Keep capabilities in the correct group: the core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous.
 
 ## Include live documentation
 

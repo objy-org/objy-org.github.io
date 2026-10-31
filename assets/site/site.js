@@ -32,7 +32,8 @@ function mountSidebar(vm) {
   document.querySelector('.section-menu-toggle').hidden = directory;
   nav.classList.toggle('chapter-links', Boolean(documentPage));
   if (documentPage) {
-    const headings = [...documentPage.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')];
+    const headings = [...documentPage.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')]
+      .filter((heading) => !heading.closest('.catalog-card'));
     const title = headings[0];
     const chapters = title?.tagName === 'H1' && headings.length > 1 ? headings.slice(1) : headings;
     const firstLevel = Math.min(...chapters.map((heading) => Number(heading.tagName.slice(1))));

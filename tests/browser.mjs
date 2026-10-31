@@ -107,6 +107,32 @@ await check('Directory link groups preserve every destination without nesting li
   assert(!guide.querySelector('.document-directory'), 'A list with additional instructions was hidden');
 });
 
+await check('Icon subchapters form reusable catalogs without losing introductions, links, or rich content', () => {
+  const entry = (id) => `<h3 id="${id}"><a href="#/example?id=${id}"><img src="${id}.svg" alt="${id}">${id}</a></h3>` +
+    `<p>About ${id}.</p>`;
+  const markup = '<h1 id="catalog">Catalog</h1><p>Introduction.</p>' +
+    '<h2 id="alpha">Alpha</h2><p><a href="alpha.md">Read more</a></p>' + entry('first') + entry('second') +
+    '<pre><code>Important example</code></pre>' +
+    '<h2 id="beta">Beta</h2><p>Group introduction.</p>' + entry('third') + '<ul><li>Extra detail</li></ul>';
+  const catalog = htmlFragment(decorateDocument(markup));
+  const sections = [...catalog.querySelectorAll('.catalog-section')];
+  const cards = [...catalog.querySelectorAll('.catalog-card')];
+  assert(sections.length === 2 && cards.length === 3, 'Catalog names or counts were hard-coded');
+  assert(sections[0].getAttribute('aria-labelledby') === 'alpha', 'Group lost its accessible heading');
+  assert(sections[0].querySelector(':scope > p a').getAttribute('href') === 'alpha.md', 'Group introduction was lost');
+  assert(sections[1].querySelector(':scope > p').textContent === 'Group introduction.', 'Group copy moved into a card');
+  assert(catalog.querySelectorAll('[role="listitem"]').length === 3 &&
+    catalog.querySelectorAll('.catalog-grid[role="list"]').length === 2, 'Catalog lost list semantics');
+  assert(cards[1].querySelector('pre code').textContent === 'Important example' &&
+    cards[2].querySelector('li').textContent === 'Extra detail', 'Richer card content was discarded');
+  assert(cards.every((card) => card.firstElementChild.matches('img[width="64"][height="64"]') &&
+    card.firstElementChild.alt === '' && !card.querySelector('h3 img')), 'Icons repeat the title or remain inside the heading');
+  assert(cards[2].querySelector('h3 a').getAttribute('href') === '#/example?id=third', 'Feature deep link was removed');
+  const ordinary = htmlFragment(decorateDocument(markup.replace('<img src="third.svg" alt="third">', '')));
+  assert(!ordinary.querySelector('.document-catalog') && ordinary.querySelectorAll('h3').length === 3 &&
+    ordinary.querySelector('pre code'), 'Mixed ordinary chapters were converted or lost content');
+});
+
 await check('Icon chapters with commands or actions become accessible inline accordions with working deep links', () => {
   const fixture = document.createElement('div');
   fixture.append(htmlFragment(decorateDocument(
@@ -455,6 +481,57 @@ await check('Deployment rows preserve both translations, chapter links, and mobi
         }
       }
     }
+  }
+});
+
+await check('Feature catalogs keep translations, chapter navigation, and the shared header responsive', async () => {
+  for (const language of ['en', 'de']) {
+    site.src = `../?lang=${language}#/features`;
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        const document = site.contentDocument;
+        if (document?.documentElement.lang === language && document.querySelector('.document-catalog')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Feature catalog did not load'));
+        setTimeout(ready, 16);
+      };
+      ready();
+    });
+    const frame = site.contentWindow;
+    const document = site.contentDocument;
+    const cards = [...document.querySelectorAll('.catalog-card')];
+    assert(cards.length === 21 && new Set(cards.map((card) => card.querySelector('img').src)).size === 21,
+      'A feature or distinct icon is missing');
+    assert(document.querySelectorAll('#section-links a').length === 2 &&
+      !document.querySelector('.catalog-card [data-chapter]'), 'Every card was added to the chapter menu');
+    assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/features'),
+      'Features navigation is not active');
+    for (const width of [1920, 1280, 1101, 1100, 1001, 1000, 900, 761, 760, 390, 320]) {
+      site.style.width = `${width}px`;
+      site.style.height = '900px';
+      await new Promise((resolve) => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+      const viewport = document.documentElement.clientWidth;
+      const article = document.querySelector('.document-catalog').getBoundingClientRect();
+      assert(document.documentElement.scrollWidth <= viewport + 1, `${language} catalog overflows at ${width}px`);
+      assert(Math.abs(article.left + article.width / 2 - viewport / 2) <= 1,
+        `${language} catalog is not centered at ${width}px`);
+      const brand = document.querySelector('.header-brand').getBoundingClientRect();
+      const nav = document.querySelector('.header-links').getBoundingClientRect();
+      const actions = document.querySelector('.header-actions').getBoundingClientRect();
+      assert(nav.left >= 0 && nav.right <= viewport + 1, `${language} navigation is clipped at ${width}px`);
+      if (nav.top < brand.bottom && nav.bottom > brand.top) {
+        assert(nav.left > brand.right && nav.right < actions.left,
+          `${language} navigation overlaps header controls at ${width}px`);
+      }
+      for (const card of cards) {
+        const rect = card.getBoundingClientRect();
+        assert(rect.width >= 260 && rect.left >= 0 && rect.right <= viewport + 1,
+          `${language} feature card is too narrow or clipped at ${width}px`);
+      }
+    }
+    frame.location.hash = '#/features?id=s3-durability';
+    await new Promise((resolve) => frame.addEventListener('hashchange', resolve, { once: true }));
+    assert(document.getElementById('s3-durability')?.closest('.catalog-card'), 'Individual feature anchor disappeared');
   }
 });
 

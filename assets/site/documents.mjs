@@ -12,9 +12,22 @@ function unwrapHeadingLinks(heading) {
   heading.querySelectorAll('a').forEach((anchor) => anchor.replaceWith(...anchor.childNodes));
 }
 
+function catalogEntries(content) {
+  const headings = content.filter((node) => node.tagName === 'H3');
+  if (!headings.length) return null;
+  const entries = headings.map((heading, index) => {
+    const start = content.indexOf(heading) + 1;
+    const end = index + 1 < headings.length ? content.indexOf(headings[index + 1]) : content.length;
+    const body = content.slice(start, end);
+    const icons = heading.querySelectorAll('img');
+    return icons.length === 1 && body.length ? { heading, body, icon: icons[0] } : null;
+  });
+  return entries.every(Boolean) ? { intro: content.slice(0, content.indexOf(headings[0])), entries } : null;
+}
+
 // An index is a sequence of icon headings, descriptions, and links or link-only lists.
-// Icon chapters starting with code or actions expand in place. Other guides keep
-// their normal content and chapter navigation.
+// Icon chapters starting with code or actions expand in place. Chapters with icon
+// subheadings form a catalog. Other guides keep their normal chapter navigation.
 export function decorateDocument(html) {
   const article = document.createElement('div');
   article.className = 'document-page';
@@ -29,6 +42,34 @@ export function decorateDocument(html) {
     const icon = heading.querySelector('img');
     return { heading, content, icon };
   });
+  const catalogs = sections.map(({ content }) => catalogEntries(content));
+  if (catalogs.length && catalogs.every(Boolean)) {
+    for (const [index, { heading }] of sections.entries()) {
+      const { intro, entries } = catalogs[index];
+      const section = document.createElement('section');
+      section.className = 'catalog-section';
+      if (heading.id) section.setAttribute('aria-labelledby', heading.id);
+      heading.before(section);
+      section.append(heading, ...intro);
+      const grid = document.createElement('div');
+      grid.className = 'catalog-grid';
+      grid.setAttribute('role', 'list');
+      for (const { heading: title, body, icon } of entries) {
+        const card = document.createElement('div');
+        card.className = 'catalog-card';
+        card.setAttribute('role', 'listitem');
+        icon.alt = '';
+        icon.width = 64;
+        icon.height = 64;
+        icon.loading = 'lazy';
+        card.append(icon, title, ...body);
+        grid.append(card);
+      }
+      section.append(grid);
+    }
+    article.classList.add('document-catalog');
+    return article.outerHTML;
+  }
   if (sections.length && sections.every(({ heading, content, icon }) =>
     icon && heading.querySelectorAll('img').length === 1 && content.length &&
     (content[0].tagName === 'PRE' || destinationLinks(content[0])))) {
