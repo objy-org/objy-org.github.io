@@ -1,6 +1,6 @@
 # OBJY website
 
-A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage has a large illustrated hero, four features in a two-by-two grid, an interactive object example, storage internals, and a closing Quick Start section. All copy, example data, headings, and destinations are managed in Markdown in English and German. The separate Get started page covers local and cluster setup, bring your own cloud, browser deployment, and embedding in Node.js. There is no build step.
+A Docsify 5 site with a dark theme, centered top navigation, and a chapter menu fixed to the far left. The homepage has a large illustrated hero, three features in one row with a subtle link to the feature catalog, an interactive object example, storage internals, and a closing Quick Start section. All copy, example data, headings, and destinations are managed in Markdown in English and German. The separate Get started page covers local and cluster setup, bring your own cloud, browser deployment, and embedding in Node.js. There is no build step.
 
 ## Editing
 
@@ -17,7 +17,7 @@ All translations are centralized in `content/<language>/`, currently `en` and `d
 | `documentation.md` | Documentation index and links to individual guides |
 | `features.md` | Icon-led catalog of database core and DB server features |
 
-Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. Consecutive illustrated `##` sections after the hero create the feature grid. The first section without an illustration starts the full-width detail sections; later illustrations remain details. The grid adapts to the number of features, up to two columns on desktop and tablets, and one on mobile. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
+Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations. Consecutive illustrated `##` sections after the hero create the feature grid. The first section without an illustration starts the full-width detail sections; later illustrations remain details. The grid adapts to the number of features, up to three columns on desktop and tablets, and one on mobile. A link-only paragraph at the end of the last feature becomes a centered link beneath the entire grid. Add a link in `sidebar.md` to include a section in the menu. Routine editorial changes require no HTML, CSS, or JavaScript.
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 

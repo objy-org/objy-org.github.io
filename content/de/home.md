@@ -21,9 +21,7 @@ Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benut
 
 ![Ein Browserfenster, ein einzelner Server und drei verbundene Server zeigen den Betrieb vom Browser bis zum Cluster.](assets/site/run-and-deploy.svg)
 
-## Benutzer verwalten. Zugriff steuern. :id=users-and-access
-
-![Benutzeridentitäten sind mit einem Anmeldeschloss und einem Schutzschild für Zugriffsrechte verbunden.](assets/site/users-access.svg)
+[Mehr Features ansehen →](/features.md)
 
 ## Deine Welt. Als Objekte. :id=object-capabilities
 

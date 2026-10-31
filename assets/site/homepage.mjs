@@ -127,6 +127,15 @@ export async function decorateHomepage(html) {
   const count = boundary === -1 ? content.length : boundary;
   const features = content.slice(0, count);
   const details = content.slice(count);
+  // A final link-only paragraph after the feature illustrations belongs to the
+  // whole overview, rather than to the last card.
+  const footer = features.at(-1)?.querySelector('.markdown-body > p:last-child');
+  const more = footer?.children.length === 1 && footer.firstElementChild.tagName === 'A' &&
+    footer.textContent.trim() === footer.firstElementChild.textContent.trim() ? footer : null;
+  if (more) {
+    more.classList.add('feature-more');
+    more.remove();
+  }
   details.forEach((section) => section.classList.add('detail-section'));
   details
     .filter((section) => section.classList.contains('section-illustrated'))
@@ -134,7 +143,7 @@ export async function decorateHomepage(html) {
       section.classList.toggle('art-first', index % 2 === 1);
     });
   const featureGrid = features.length
-    ? `<div class="feature-grid" style="--feature-columns:${Math.min(2, features.length)}">${features.map((section) => section.outerHTML).join('')}</div>`
+    ? `<div class="feature-grid" style="--feature-columns:${Math.min(3, features.length)}">${features.map((section) => section.outerHTML).join('')}</div>`
     : '';
-  return `<div class="sections-root">${hero.outerHTML}${featureGrid}${details.map((section) => section.outerHTML).join('')}</div>`;
+  return `<div class="sections-root">${hero.outerHTML}${featureGrid}${more?.outerHTML || ''}${details.map((section) => section.outerHTML).join('')}</div>`;
 }

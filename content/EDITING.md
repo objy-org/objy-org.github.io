@@ -29,7 +29,9 @@ Give anything a shape with flexible properties.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Consecutive `##` sections with standalone images immediately after the hero create the feature grid. The first section without an illustration starts the full-width details; later illustrated sections stay full-width. This structure controls the grouping, rather than a fixed feature count. Use `###` for smaller headings within a section.
 
-Keep each section focused on one idea and use concrete examples. The four feature sections cover object features, the API, deployment, and built-in users and access control. The interactive object example follows them, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
+Keep each section focused on one idea and use concrete examples. The three homepage feature sections cover object features, the API, and deployment. A subtle Show more features link below the row opens the full catalog, which also explains users and access control. The interactive object example follows them, then Storage internals and a closing Quick Start section. Preserve their `:id=...` values when renaming headings. Illustrated detail sections alternate text and artwork automatically on desktop; their names do not control the layout.
+
+Edit the overview link as an ordinary link-only paragraph after the final feature image, before the next `##` heading: `[Show more features →](/features.md)`. It appears centered beneath the entire feature row automatically.
 
 ## Code highlighting
 
@@ -182,7 +184,7 @@ Keep tab IDs consistent across translations, and keep code samples identical. Li
 
 ## Change section images
 
-Each feature has a standalone image in `home.md`. The four features form two rows of two columns on desktop and tablets, and one column on phones, with each text block above its image. After the interactive object example, the storage section uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
+Each feature has a standalone image in `home.md`. The three features form one row on desktop and tablets, and one column on phones, with each headline above its centered image. The overview link spans the whole row below the images. After the interactive object example, the storage section uses text beside a larger image. Narrower screens stack the columns and section content vertically in Markdown order. The opening hero centers the apps, AI agents, and APIs illustration above its headline.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

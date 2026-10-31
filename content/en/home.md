@@ -21,9 +21,7 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 ![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
 
-## Manage users. Control access. :id=users-and-access
-
-![User identities connect to a login lock and an access-control shield.](assets/site/users-access.svg)
+[Show more features →](/features.md)
 
 ## Your world. As objects. :id=object-capabilities
 

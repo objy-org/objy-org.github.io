@@ -242,7 +242,7 @@ await check('Homepage layouts work with arbitrary chapter names', async () => {
     .map((name) => `<h2 id="${name}">${name}</h2>${image}`)
     .join('');
   const markup =
-    '<h1 id="top">Hello</h1>' + features +
+    '<h1 id="top">Hello</h1>' + features + '<p><a href="all-features.md">See the full picture</a></p>' +
     '<h2 id="details">Details</h2><p>More to explore.</p>' +
     '<h2 id="first-detail">First detail</h2>' +
     image +
@@ -251,7 +251,11 @@ await check('Homepage layouts work with arbitrary chapter names', async () => {
     '<h2 id="choices">Choices</h2><h3 id="small">Small</h3><p>First choice</p><h3 id="large">Large</h3><p>Second choice</p>';
   const content = htmlFragment(await decorateHomepage(markup));
   assert(content.querySelectorAll('.feature-grid > section').length === 4, 'Feature count was hard-coded');
-  assert(content.querySelector('.feature-grid').style.getPropertyValue('--feature-columns') === '2', 'Features did not use the two-column layout');
+  assert(content.querySelector('.feature-grid').style.getPropertyValue('--feature-columns') === '3', 'Features did not support three columns');
+  const more = content.querySelector('.sections-root > .feature-more a');
+  assert(more?.textContent === 'See the full picture' && more.getAttribute('href') === 'all-features.md',
+    'The overview link was lost or hard-coded');
+  assert(!content.querySelector('.feature-grid .feature-more'), 'The overview link stayed inside a card');
   assert(
     content.querySelector('.art-first')?.dataset.section === 'second-detail',
     'Illustrations did not alternate',
@@ -411,6 +415,21 @@ await check('Articles stay centered in the viewport without colliding with the c
       const document = site.contentDocument;
       const menu = document.querySelector('.section-menu-toggle');
       const sidebar = document.querySelector('.page-sidebar');
+      const cards = [...document.querySelectorAll('.feature-grid > .page-section')];
+      const more = document.querySelector('.feature-more');
+      const positions = cards.map((card) => card.getBoundingClientRect());
+      assert(cards.length === 3 && !document.querySelector('[data-section="users-and-access"]'), 'Homepage feature selection is incorrect');
+      if (width > 760) {
+        assert(positions.every((position) => Math.abs(position.top - positions[0].top) <= 1),
+          `Features do not share one row at ${width}px`);
+        const artwork = cards.map((card) => card.querySelector('.section-art').getBoundingClientRect());
+        assert(artwork.every((position) => Math.abs(position.top - artwork[0].top) <= 1),
+          `Feature artwork is not aligned at ${width}px`);
+      }
+      const link = more.getBoundingClientRect();
+      assert(link.top >= Math.max(...positions.map((position) => position.bottom)), 'More features overlaps the cards');
+      assert(Math.abs(link.left + link.width / 2 - width / 2) <= 1, 'More features is not centered below the row');
+      assert(more.querySelector('a').getAttribute('href').endsWith('#/features'), 'More features opens the wrong page');
       if (width > 1100) {
         assert(frame.getComputedStyle(sidebar).display !== 'none', 'Desktop chapter menu is missing');
         assert(sidebar.getBoundingClientRect().right < rect.left, 'Chapter menu overlaps the centered article');

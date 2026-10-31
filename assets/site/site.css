@@ -392,10 +392,29 @@ body > main > .sidebar-toggle,
 }
 .feature-grid {
   display: grid;
-  grid-template-columns: repeat(var(--feature-columns, 2), minmax(0, 1fr));
-  column-gap: clamp(40px, 6vw, 88px);
+  grid-template-columns: repeat(var(--feature-columns, 3), minmax(0, 1fr));
+  column-gap: clamp(24px, 3vw, 56px);
   row-gap: 88px;
   padding: 48px 0 72px;
+}
+.feature-grid:has(+ .feature-more) {
+  padding-bottom: 28px;
+}
+.feature-more {
+  margin: 0 0 64px;
+  text-align: center;
+}
+.feature-more a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 6px 12px;
+  color: var(--muted);
+  font-size: 15px;
+  text-decoration: none;
+}
+.feature-more a:hover {
+  color: var(--accent);
 }
 .feature-grid > .page-section {
   display: grid;
@@ -1160,21 +1179,15 @@ pre code .token.italic {
   }
 
   .feature-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     row-gap: 72px;
     padding: 36px 0 64px;
-  }
-  .feature-grid > .page-section {
-    grid-template-rows: auto auto;
-    grid-row: auto;
-    gap: 28px;
   }
   .feature-grid h2,
   .feature-grid .section-copy .eyebrow {
     min-height: 0;
   }
   .feature-grid h2 {
-    font-size: 28px;
+    font-size: 24px;
   }
   .section-art {
     max-width: 440px;
