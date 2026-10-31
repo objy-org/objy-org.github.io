@@ -119,7 +119,9 @@ The same engine, embedded in browsers and Node.js.
 Connect objects and expand their references when reading.
 ```
 
-Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates the responsive catalog automatically, on any local Markdown page. The left menu lists the groups; individual feature IDs still support direct links. Titles, descriptions, order, and icon paths all come from Markdown. Add the same IDs and icon paths in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
+Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates compact feature sections automatically, on any local Markdown page. The left menu lists every feature under its group, and each ID supports direct links. Use short headings so they are easy to scan in the menu. Titles, descriptions, order, icon paths, and examples all come from Markdown. Add the same IDs, icon paths, and code in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
+
+For features that benefit from an example, end the feature with one fenced `json` or `js` block. Keep it to seven lines or fewer. It appears beside the explanation on wide screens and underneath on smaller screens. Features without a useful code example need only their short description. Examples are independent fragments: `items` is an existing collection, and server operations assume an authenticated client. They display sample code without sending requests.
 
 Keep capabilities in the correct group: the core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous.
 

@@ -786,12 +786,13 @@ body > main > .sidebar-toggle,
 }
 .document-page.document-catalog {
   max-width: 1120px;
-  padding: 76px 0 100px;
+  padding: 64px 0 80px;
+  container-type: inline-size;
 }
 .document-catalog.document-page > h1 {
   max-width: 800px;
   margin: 0 auto;
-  font-size: clamp(34px, 4.2vw, 52px);
+  font-size: clamp(32px, 3.6vw, 46px);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: -1.7px;
@@ -805,7 +806,7 @@ body > main > .sidebar-toggle,
   text-align: center;
 }
 .catalog-section {
-  margin-top: 80px;
+  margin-top: 56px;
 }
 .catalog-section > h2 {
   margin: 0 0 12px;
@@ -814,43 +815,67 @@ body > main > .sidebar-toggle,
 }
 .catalog-section > p {
   max-width: 660px;
-  margin: 0 0 36px;
+  margin: 0 0 24px;
   font-size: 16px;
 }
 .catalog-section a {
   text-decoration-color: #6c5b56;
 }
-.catalog-grid {
+.catalog-feature {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
-  gap: 32px 40px;
-}
-.catalog-card {
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
   min-width: 0;
-  padding: 26px 0 12px;
+  padding: 28px 0;
   border-top: 1px solid var(--line);
 }
-.catalog-card > img {
+.catalog-feature > img {
   display: block;
-  width: 64px;
-  height: 64px;
-  margin-bottom: 22px;
+  width: 48px;
+  height: 48px;
 }
-.catalog-card h3 {
-  margin: 0 0 12px;
+.catalog-copy { min-width: 0; }
+.catalog-feature h3 {
+  margin: 0 0 8px;
   color: #dedbd5;
-  font-size: 21px;
+  font-size: 22px;
   font-weight: 600;
   line-height: 1.45;
   letter-spacing: -.4px;
 }
-.catalog-card p {
+.catalog-feature p {
   margin: 0;
   font-size: 16px;
-  line-height: 1.8;
+  line-height: 1.7;
 }
-.catalog-card p + p {
+.catalog-feature p + p {
   margin-top: 12px;
+}
+.catalog-feature > pre {
+  grid-column: 1 / -1;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 40px 18px 18px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.catalog-feature pre code { font-size: inherit; }
+.page-layout:has(.document-catalog) .sidebar-inner {
+  padding-top: 28px;
+}
+.page-layout:has(.document-catalog) #section-links li {
+  margin-bottom: 2px;
+}
+@container (min-width: 720px) {
+  .catalog-feature:has(> pre) {
+    grid-template-columns: 48px minmax(0, .9fr) minmax(0, 1.1fr);
+  }
+  .catalog-feature > pre {
+    grid-column: 3;
+    grid-row: 1;
+  }
 }
 .document-directory {
   max-width: 820px;

@@ -51,21 +51,25 @@ export function decorateDocument(html) {
       if (heading.id) section.setAttribute('aria-labelledby', heading.id);
       heading.before(section);
       section.append(heading, ...intro);
-      const grid = document.createElement('div');
-      grid.className = 'catalog-grid';
-      grid.setAttribute('role', 'list');
       for (const { heading: title, body, icon } of entries) {
-        const card = document.createElement('div');
-        card.className = 'catalog-card';
-        card.setAttribute('role', 'listitem');
+        const feature = document.createElement('section');
+        feature.className = 'catalog-feature';
+        if (title.id) feature.setAttribute('aria-labelledby', title.id);
+        const copy = document.createElement('div');
+        copy.className = 'catalog-copy';
+        // A closing example can sit beside its explanation without changing the
+        // reading order. Richer Markdown stays together in the copy column.
+        const example = body.at(-1)?.tagName === 'PRE' && body.filter((node) => node.tagName === 'PRE').length === 1
+          ? body.pop() : null;
         icon.alt = '';
-        icon.width = 64;
-        icon.height = 64;
+        icon.width = 48;
+        icon.height = 48;
         icon.loading = 'lazy';
-        card.append(icon, title, ...body);
-        grid.append(card);
+        copy.append(title, ...body);
+        feature.append(icon, copy);
+        if (example) feature.append(example);
+        section.append(feature);
       }
-      section.append(grid);
     }
     article.classList.add('document-catalog');
     return article.outerHTML;

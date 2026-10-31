@@ -1,95 +1,211 @@
 # Objekte im Mittelpunkt. :id=features
 
-Schnelle, flexible Daten sind erst der Anfang. Entdecke, was OBJY deiner Anwendung bietet — von der In-Memory-Engine bis zum verteilten Backend.
+Entdecke die Engine und die Dienste drumherum. Ein Feature nach dem anderen.
 
 ## Datenbankkern :id=database-core
 
-Dieselbe Engine, eingebettet in Browser und Node.js. [Zur Core-Dokumentation](/content/database.md).
+Dieselbe Engine in Browser und Node.js. Beispiele nutzen eine vorhandene Collection `items`. [Core-Dokumentation](/content/database.md).
 
-### ![](assets/site/icons/features/flexible-objects.svg) Objekte ohne starre Schemas :id=flexible-objects
+### ![](assets/site/icons/features/flexible-objects.svg) Flexible Objekte :id=flexible-objects
 
-Kombiniere verschachtelte Eigenschaften, Arrays und unterschiedliche Datentypen. Deine Objekte wachsen mit deiner Anwendung.
+Verschachtelte Eigenschaften, Arrays und unterschiedliche Strukturen in einer Collection. Ohne starres Schema.
 
-### ![](assets/site/icons/features/live-references.svg) Live-Referenzen statt Kopien :id=live-references
+```json
+{
+  "name": "Survey drone",
+  "battery": 87,
+  "capabilities": ["mapping", "thermal"]
+}
+```
 
-Verbinde Objekte und löse ihre Referenzen beim Lesen auf. Gespeichert wird die Beziehung, ohne das referenzierte Objekt zu duplizieren.
+### ![](assets/site/icons/features/live-references.svg) Live-Referenzen :id=live-references
 
-### ![](assets/site/icons/features/in-memory.svg) Objekte mit In-Memory-Geschwindigkeit :id=in-memory
+Verbinde Objekte ohne gespeicherte Kopien. Beim Lesen lässt sich das aktuelle referenzierte Objekt unter `.object` einblenden.
 
-Arbeite direkt mit Objekten im Arbeitsspeicher. Im zentralen Datenpfad sind keine Lesezugriffe auf die Festplatte nötig.
+```json
+{
+  "operator": {
+    "type": "reference",
+    "collection": "people",
+    "value": "person-42"
+  }
+}
+```
 
-### ![](assets/site/icons/features/hot-compressed.svg) Häufige Felder direkt. Den Rest komprimiert. :id=hot-compressed
+### ![](assets/site/icons/features/in-memory.svg) In-Memory-Geschwindigkeit :id=in-memory
 
-Halte häufig genutzte Felder im Speicher direkt zugänglich und komprimiere den Rest jedes Objekts.
+Objekte und ihre Indizes liegen im Arbeitsspeicher. Der Kern liest direkt aus dem JavaScript-Heap.
 
-### ![](assets/site/icons/features/columns.svg) Innen Spalten. Außen Objekte. :id=compact-columns
+### ![](assets/site/icons/features/hot-compressed.svg) Smarte Komprimierung :id=hot-compressed
 
-Kompakte Spalten beschleunigen numerische Aggregationen. Beim Lesen erhältst du dieselben Daten als vollständige Objekte zurück.
+Halte häufig genutzte Felder direkt zugänglich. Der Rest wird über Collection-Metadaten komprimiert und beim Lesen entpackt.
 
-### ![](assets/site/icons/features/shared-values.svg) Gleiche Werte, smarter gespeichert :id=shared-values
+```json
+{
+  "tiering": {
+    "mode": "compressedMemory",
+    "keep": ["name", "status"]
+  }
+}
+```
 
-Gemeinsame Wörterbücher reduzieren den Speicherbedarf von Werten, die immer wieder vorkommen.
+### ![](assets/site/icons/features/columns.svg) Kompakte Spalten :id=compact-columns
 
-### ![](assets/site/icons/features/metadata.svg) Speicher über Metadaten steuern :id=collection-metadata
+Speichere ausgewählte Werte in kompakten Spalten für schnelle numerische Aggregationen. Beim Lesen erhältst du vollständige Objekte.
 
-Konfiguriere Indizes, Spalten und Komprimierung pro Collection. Deine Objekte bleiben dabei einfach zu verwenden.
+```json
+{ "columns": ["score"] }
+```
 
-### ![](assets/site/icons/features/vector-search.svg) Bedeutung finden mit Vektorsuche :id=vector-search
+### ![](assets/site/icons/features/shared-values.svg) Gemeinsame Wörterbücher :id=shared-values
 
-Durchsuche die von deiner Anwendung bereitgestellten Embeddings mit einem integrierten HNSW-Index, direkt neben deinen Objektdaten.
+Wiederholte Werte teilen sich intern Wörterbucheinträge. Das spart Speicher, ohne deine Objekte zu verändern.
 
-### ![](assets/site/icons/features/query-aggregate.svg) Abfragen. Gruppieren. Zusammenrechnen. :id=query-aggregation
+### ![](assets/site/icons/features/metadata.svg) Collection-Metadaten :id=collection-metadata
 
-Filtere und sortiere Objekte, gruppiere deine Daten und berechne Anzahl, Summe oder Durchschnitt mit derselben Engine.
+Lege Indizes, Spalten und Komprimierung pro Collection fest. Deine Objektdaten bleiben davon getrennt.
 
-### ![](assets/site/icons/features/bulk-operations.svg) Für ein Objekt. Oder viele. :id=bulk-operations
+```json
+{
+  "indexes": ["status"],
+  "columns": ["score"]
+}
+```
 
-Einzelne und gebündelte Schreibvorgänge nutzen denselben Ausführungspfad. Batches gehören so ganz natürlich zur Arbeit mit Objekten.
+### ![](assets/site/icons/features/vector-search.svg) Vektorsuche :id=vector-search
 
-### ![](assets/site/icons/features/cross-runtime.svg) Eine Engine für beide Welten :id=cross-runtime
+Bringe eigene Embeddings in `_vec` mit. Durchsuche sie per integriertem HNSW-Index neben deinen Objektdaten.
 
-Nutze dieselbe Datenbank-API im Browser und in Node.js. Die Engine läuft dort, wo deine Anwendung läuft.
+```js
+await items.search({
+  $vector: {
+    vector: [0.2, 0.8],
+    limit: 5
+  }
+});
+```
+
+### ![](assets/site/icons/features/query-aggregate.svg) Abfragen & Aggregationen :id=query-aggregation
+
+Filtere und sortiere Objekte. Gruppiere Daten und berechne Anzahl, Summe oder Durchschnitt mit derselben Engine.
+
+```js
+await items.search({
+  status: 'active',
+  $aggregate: {
+    fields: { total: { $sum: 'score' } }
+  }
+});
+```
+
+### ![](assets/site/icons/features/bulk-operations.svg) Bulk-Operationen :id=bulk-operations
+
+Schreibe einzelne Objekte oder Batches über denselben Speicherpfad. Bulk-Operationen gehören direkt zur Engine.
+
+```js
+await items.insertMany([
+  { _id: 'one', score: 9 },
+  { _id: 'two', score: 4 }
+]);
+```
+
+### ![](assets/site/icons/features/cross-runtime.svg) Browser & Node.js :id=cross-runtime
+
+Bette dieselbe Datenbank-Engine in Browser und Node.js ein. Die API bleibt in beiden Umgebungen gleich.
+
+```js
+import { createDatabase } from '@objy/db';
+const objy = createDatabase();
+```
 
 ## DB Server :id=db-server
 
-Ergänze den Kern um Anwendungsdienste, verteilten Betrieb und optionale Persistenz. [Zur Server-Dokumentation](/content/server.md).
+APIs, Sicherheit und Skalierung rund um den Kern. Client-Beispiele setzen eine authentifizierte Verbindung voraus. [Server-Dokumentation](/content/server.md).
 
-### ![](assets/site/icons/features/rest-client.svg) Verbinden über REST oder JavaScript :id=rest-client
+### ![](assets/site/icons/features/rest-client.svg) REST & JavaScript :id=rest-client
 
-Greife aus Apps und Diensten über die REST API oder den JavaScript-Client auf die Datenbank zu.
+Verbinde Apps und Dienste über HTTP, direkt oder mit dem schlanken Paket `@objy/client`.
 
-### ![](assets/site/icons/features/authentication.svg) Benutzer und Authentifizierung inklusive :id=authentication
+```js
+import { createClient } from '@objy/client';
+const client = createClient({
+  url: 'http://localhost:8080'
+});
+```
 
-Verwalte Benutzeridentitäten und authentifizierte Sitzungen direkt in deinem Datenbank-Backend.
+### ![](assets/site/icons/features/authentication.svg) Benutzer & Anmeldung :id=authentication
 
-### ![](assets/site/icons/features/permissions.svg) Zugriff bis zum einzelnen Objekt :id=object-permissions
+Verwalte Benutzer und Sitzungen im Datenbank-Backend. Die Anmeldung erfolgt über eine Collection mit aktivierter Authentifizierung.
 
-Kombiniere Collection-Berechtigungen, Rollen und Regeln pro Objekt, um den Zugriff auf deine Daten zu steuern.
+```js
+await client.login({
+  database: 'app',
+  username: 'alex',
+  password: 'your-password'
+});
+```
 
-### ![](assets/site/icons/features/files.svg) Auch Dateien sind Objekte :id=file-objects
+### ![](assets/site/icons/features/permissions.svg) Objektberechtigungen :id=object-permissions
 
-Speichere Dateimetadaten als Objekte und die Dateiinhalte in S3, geschützt durch dieselben Objektberechtigungen.
+Kombiniere Collection-Rechte, Admin-Rollen und abfragebasierte Objektregeln. Diese Benutzerregel erlaubt Zugriff auf eigene Objekte.
 
-### ![](assets/site/icons/features/hooks.svg) Deine Logik bei jeder Operation :id=operation-hooks
+```json
+{
+  "permissions": [{
+    "name": "Own objects",
+    "query": { "ownerId": "alex" },
+    "perm": "crud"
+  }]
+}
+```
 
-Ergänze mit Server-Hooks eigenes Verhalten beim Erstellen, Lesen, Ändern und Löschen von Objekten.
+### ![](assets/site/icons/features/files.svg) Dateien als Objekte :id=file-objects
 
-### ![](assets/site/icons/features/sharding.svg) Objekte über Maschinen verteilen :id=object-sharding
+Metadaten liegen im Objekt, die Datei in S3. Dieselben Objektberechtigungen schützen auch die Datei.
 
-Verteile Objekte per Sharding auf mehrere Knoten. So kann deine Datenbank über mehrere Maschinen laufen.
+```js
+await items.insertFile(
+  { name: 'notes.txt' },
+  new Blob(['Hello OBJY']),
+  { filename: 'notes.txt' }
+);
+```
 
-### ![](assets/site/icons/features/replication.svg) Replikate, die wieder aufholen :id=replication-recovery
+### ![](assets/site/icons/features/hooks.svg) Hooks für Operationen :id=operation-hooks
 
-Asynchrone Replikation hält Kopien auf anderen Knoten vor. Nach Unterbrechungen können Replikate wieder aufholen.
+Ergänze serverseitig registriertes Verhalten bei Objektoperationen. Aktiviere die registrierten Hooks über Collection-Metadaten.
+
+```json
+{
+  "hooks": {
+    "use": ["audit", "timestamps"]
+  }
+}
+```
+
+### ![](assets/site/icons/features/sharding.svg) Objekt-Sharding :id=object-sharding
+
+Verteile Objekte auf mehrere Maschinen. Anfragen können jeden Knoten erreichen und werden zum zuständigen Shard weitergeleitet.
+
+### ![](assets/site/icons/features/replication.svg) Asynchrone Replikation :id=replication-recovery
+
+Halte Kopien auf anderen Knoten. Replikate holen nach Unterbrechungen wieder auf; die Replikation erfolgt asynchron.
 
 ### ![](assets/site/icons/features/s3-durability.svg) Optionale S3-Persistenz :id=s3-durability
 
-Aktiviere ein lokales Write-Ahead-Log, S3-Journale und Snapshots, um Daten dauerhaft zu speichern und nach einem Neustart wiederherzustellen.
+Ergänze lokales Write-Ahead-Log, S3-Journale und Snapshots für Persistenz und Wiederherstellung. Aktiviere sie bei Bedarf für dein Deployment.
 
-### ![](assets/site/icons/features/streaming-import.svg) Daten rein. Batch für Batch. :id=streaming-import
+### ![](assets/site/icons/features/streaming-import.svg) Streaming-Importe :id=streaming-import
 
-Importiere NDJSON in begrenzten Batches, ohne die gesamte Quelldatei auf einmal in den Arbeitsspeicher zu laden.
+Streame NDJSON in begrenzten Batches. Importiere ein Iterable, ohne vorher ein riesiges Array im Speicher aufzubauen.
 
-### ![](assets/site/icons/features/cluster-console.svg) Den Cluster im Blick :id=cluster-console
+```js
+await items.import(async function* () {
+  yield { _id: 'one', score: 9 };
+  yield { _id: 'two', score: 4 };
+});
+```
 
-Prüfe Speicher, Replikation, Betriebsbereitschaft und Topologie in der Administrationskonsole.
+### ![](assets/site/icons/features/cluster-console.svg) Cluster-Konsole :id=cluster-console
+
+Behalte Speicher, Replikation, Betriebsbereitschaft und Topologie in der Administrationskonsole des Servers im Blick.

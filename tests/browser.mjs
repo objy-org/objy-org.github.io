@@ -116,18 +116,18 @@ await check('Icon subchapters form reusable catalogs without losing introduction
     '<h2 id="beta">Beta</h2><p>Group introduction.</p>' + entry('third') + '<ul><li>Extra detail</li></ul>';
   const catalog = htmlFragment(decorateDocument(markup));
   const sections = [...catalog.querySelectorAll('.catalog-section')];
-  const cards = [...catalog.querySelectorAll('.catalog-card')];
-  assert(sections.length === 2 && cards.length === 3, 'Catalog names or counts were hard-coded');
+  const features = [...catalog.querySelectorAll('.catalog-feature')];
+  assert(sections.length === 2 && features.length === 3, 'Catalog names or counts were hard-coded');
   assert(sections[0].getAttribute('aria-labelledby') === 'alpha', 'Group lost its accessible heading');
   assert(sections[0].querySelector(':scope > p a').getAttribute('href') === 'alpha.md', 'Group introduction was lost');
   assert(sections[1].querySelector(':scope > p').textContent === 'Group introduction.', 'Group copy moved into a card');
-  assert(catalog.querySelectorAll('[role="listitem"]').length === 3 &&
-    catalog.querySelectorAll('.catalog-grid[role="list"]').length === 2, 'Catalog lost list semantics');
-  assert(cards[1].querySelector('pre code').textContent === 'Important example' &&
-    cards[2].querySelector('li').textContent === 'Extra detail', 'Richer card content was discarded');
-  assert(cards.every((card) => card.firstElementChild.matches('img[width="64"][height="64"]') &&
-    card.firstElementChild.alt === '' && !card.querySelector('h3 img')), 'Icons repeat the title or remain inside the heading');
-  assert(cards[2].querySelector('h3 a').getAttribute('href') === '#/example?id=third', 'Feature deep link was removed');
+  assert(features.every((feature) => feature.tagName === 'SECTION' &&
+    feature.getAttribute('aria-labelledby') === feature.querySelector('h3').id), 'Features lost their accessible sections');
+  assert(features[1].querySelector(':scope > pre code').textContent === 'Important example' &&
+    features[2].querySelector('li').textContent === 'Extra detail', 'Richer feature content was discarded');
+  assert(features.every((feature) => feature.firstElementChild.matches('img[width="48"][height="48"]') &&
+    feature.firstElementChild.alt === '' && !feature.querySelector('h3 img')), 'Icons repeat the title or remain inside the heading');
+  assert(features[2].querySelector('h3 a').getAttribute('href') === '#/example?id=third', 'Feature deep link was removed');
   const ordinary = htmlFragment(decorateDocument(markup.replace('<img src="third.svg" alt="third">', '')));
   assert(!ordinary.querySelector('.document-catalog') && ordinary.querySelectorAll('h3').length === 3 &&
     ordinary.querySelector('pre code'), 'Mixed ordinary chapters were converted or lost content');
@@ -518,11 +518,19 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
     });
     const frame = site.contentWindow;
     const document = site.contentDocument;
-    const cards = [...document.querySelectorAll('.catalog-card')];
-    assert(cards.length === 21 && new Set(cards.map((card) => card.querySelector('img').src)).size === 21,
+    const features = [...document.querySelectorAll('.catalog-feature')];
+    assert(features.length === 21 && new Set(features.map((feature) => feature.querySelector('img').src)).size === 21,
       'A feature or distinct icon is missing');
-    assert(document.querySelectorAll('#section-links a').length === 2 &&
-      !document.querySelector('.catalog-card [data-chapter]'), 'Every card was added to the chapter menu');
+    const links = [...document.querySelectorAll('#section-links a')];
+    assert(links.length === 23 && features.every((feature) => {
+      const heading = feature.querySelector('h3');
+      return heading.dataset.chapter === heading.id && links.some((link) =>
+        new URLSearchParams(link.hash.split('?')[1]).get('id') === heading.id);
+    }), 'A feature is missing from the chapter menu');
+    const examples = [...document.querySelectorAll('.catalog-feature pre code')];
+    assert(examples.length === 15 && examples.every((code) => code.textContent.trim().split('\n').length <= 7),
+      'Feature examples are missing or too long');
+    assert(examples.every((code) => code.querySelector('.token')), 'Feature examples lost syntax highlighting');
     assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/features'),
       'Features navigation is not active');
     for (const width of [1920, 1280, 1101, 1100, 1001, 1000, 900, 761, 760, 390, 320]) {
@@ -542,15 +550,31 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
         assert(nav.left > brand.right && nav.right < actions.left,
           `${language} navigation overlaps header controls at ${width}px`);
       }
-      for (const card of cards) {
-        const rect = card.getBoundingClientRect();
+      for (const [index, feature] of features.entries()) {
+        const rect = feature.getBoundingClientRect();
         assert(rect.width >= 260 && rect.left >= 0 && rect.right <= viewport + 1,
-          `${language} feature card is too narrow or clipped at ${width}px`);
+          `${language} feature is too narrow or clipped at ${width}px`);
+        if (index) assert(rect.top >= features[index - 1].getBoundingClientRect().bottom,
+          `${language} features are not separate rows at ${width}px`);
+        const example = feature.querySelector(':scope > pre');
+        if (example) {
+          const box = example.getBoundingClientRect();
+          const copy = feature.querySelector('.catalog-copy').getBoundingClientRect();
+          assert(box.left >= rect.left && box.right <= rect.right + 1, 'Code example is clipped');
+          if (article.width >= 720) assert(box.left >= copy.right, 'Wide-screen examples are not beside their descriptions');
+          else assert(box.top >= copy.bottom, 'Small-screen examples overlap their descriptions');
+        }
       }
+      if (width >= 1280) assert(article.height < 5200, `${language} feature page is too tall on desktop`);
     }
     frame.location.hash = '#/features?id=s3-durability';
     await new Promise((resolve) => frame.addEventListener('hashchange', resolve, { once: true }));
-    assert(document.getElementById('s3-durability')?.closest('.catalog-card'), 'Individual feature anchor disappeared');
+    assert(document.getElementById('s3-durability')?.closest('.catalog-feature'), 'Individual feature anchor disappeared');
+    const target = links.find((link) => link.hash.endsWith('id=live-references'));
+    const changed = new Promise((resolve) => frame.addEventListener('hashchange', resolve, { once: true }));
+    target.click();
+    await changed;
+    assert(frame.location.hash.endsWith('id=live-references'), 'Feature menu link did not navigate');
   }
 });
 
