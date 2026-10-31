@@ -92,3 +92,7 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Apps | Apps |
 | Agents | AI agents |
 | Apis | APIs |
+| Json identity | `"_id": "item-01",` |
+| Json name | `"name": "Orbit",` |
+| Json tags | `"tags": ["new", "blue"],` |
+| Json vector | `"_vec": [0.2, 0.8, 0.4]` |

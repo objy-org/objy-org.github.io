@@ -19,7 +19,7 @@ Reviewed on 2026-10-27. This records the assets currently used by the site, rath
 | All 21 `assets/site/icons/features/*.svg` catalog icons | Custom SVG geometry created for the feature catalog on 2026-10-31. Each capability has a distinct drawing in the site's coral, lavender, blue, or sage palette. No external artwork, icon font, or third-party icon library is used. |
 | All four `assets/site/icons/use-cases/*.svg` homepage icons | Custom SVG geometry created for this website on 2026-10-31 in the existing coral, lavender, blue, and sage palette. No downloaded artwork, icon font, or third-party library is used. |
 | `assets/site/architecture.svg` | Custom SVG geometry created for the architecture overview on 2026-10-31. No downloaded icons, external artwork, or third-party icon library is used. |
-| `assets/site/applications-objects.svg` | Restored byte-for-byte from `ff07780`. Custom SVG artwork made for the OBJY website, with apps, AI agents, APIs, and floating JSON shapes. No external icon library or third-party artwork is used. |
+| `assets/site/applications-objects.svg` | Custom SVG artwork revised on 2026-10-31 from the earlier apps-and-objects composition. A dominant layered object database connects to smaller application, agent, API, and object-node drawings. No external icon library or third-party artwork is used. |
 | `assets/site/storage-internals.svg` | Restored byte-for-byte from `ff07780`. Custom OBJY website SVG based on the earlier stacked storage sketch, with an optional S3 durability layer. No external icon library or third-party artwork is used. |
 | `assets/site/branding/objy-db-mark-white.svg` and `.png` | Custom white-on-transparent OBJY DB mark created for this project. The PNG is a raster export of the matching SVG; neither includes third-party artwork. |
 | `logo.png` and `favicon.png` | Existing OBJY brand assets restored byte-for-byte from `e62ff79`. The user confirmed in this project on 2026-10-27 that OBJY owns or has permission to use the existing logo and favicon. The original README references [OBJY's MIT license](https://github.com/objy-org/objy/blob/master/LICENSE.md); a copy of that notice is retained in `assets/vendor/objy.LICENSE`. |
@@ -31,7 +31,9 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 ## Homepage hero
 
-`assets/site/applications-objects.svg` restores the 720 × 480 illustration from `ff07780`. Apps, a small team of AI agents, and an API endpoint share floating JSON objects and an array through sweeping arrows. It appears beneath the homepage headline, enlarged to a maximum width of 1300px and filling the available width on phones. Its subtle motion respects reduced-motion preferences. Labels come from the Application diagram table in each language’s `labels.md`; its image path and description live in `home.md`.
+`assets/site/applications-objects.svg` puts a large, layered OBJY object database at the center. Its JSON shows an ID, a name, an array, and a vector. Smaller app, agent, and API icons connect through precise paths; two quieter object nodes suggest scale. The existing coral, lavender, blue, and sage palette remains, with restrained perspective and moving connection pulses. Reduced-motion preferences hide the pulses.
+
+The SVG shares its geometry and translated text between a 720 × 480 desktop layout and a 420 × 560 phone layout. The phone composition keeps the database large and places endpoints beneath it. The hero remains capped at 1300px. Labels and JSON lines come from the Application diagram table in each language’s `labels.md`; its image path and accessible description live in `home.md`. The previous illustration remains available in Git history.
 
 ## Architecture illustration
 

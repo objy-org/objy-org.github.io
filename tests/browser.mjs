@@ -462,7 +462,8 @@ await check('Articles stay centered in the viewport without colliding with the c
         'Hero artwork does not sit centered below the headline');
       assert(picture.width <= 1300 && picture.width > 250, 'Hero artwork size is incorrect');
       if (width >= 1920) assert(picture.width > 1000, 'The restored hero artwork was not enlarged');
-      assert(Math.abs(picture.height / picture.width - 480 / 720) < .01, 'Hero artwork is stretched');
+      const ratio = width <= 640 ? 560 / 420 : 480 / 720;
+      assert(Math.abs(picture.height / picture.width - ratio) < .01, 'Hero artwork is stretched');
       assert(!document.querySelector('.example-workspace, [data-section="storage-internals"]'), 'The previous examples or storage chapter are still present');
       if (width > 1100) {
         assert(frame.getComputedStyle(sidebar).display !== 'none', 'Desktop chapter menu is missing');
@@ -680,7 +681,7 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
   }
 });
 
-await check('The restored homepage hero stays large, translated, and centered on desktop and phones', async () => {
+await check('The object database hero stays large, translated, and centered on desktop and phones', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/?id=top`;
     await new Promise((resolve, reject) => {
@@ -699,8 +700,15 @@ await check('The restored homepage hero stays large, translated, and centered on
     const diagram = document.querySelector('.hero-art > svg');
     const agents = diagram.querySelector('[data-copy="application-diagram.agents"]').textContent;
     assert(agents === (language === 'en' ? 'AI agents' : 'KI-Agenten'), 'Hero labels were not translated');
-    assert(diagram.getAttribute('viewBox') === '0 0 720 480' && !document.querySelector('.objy-architecture'),
-      'The previous hero was not restored or the architecture remains on the homepage');
+    assert(diagram.classList.contains('objy-object-engine') && !document.querySelector('.objy-architecture'),
+      'The object database hero is missing or the architecture remains on the homepage');
+    const json = [...diagram.querySelectorAll('.engine-json text')].map((line) => line.textContent).join('\n');
+    const object = JSON.parse(json);
+    assert(object._id === 'item-01' && object.tags[0] === (language === 'en' ? 'new' : 'neu') && object._vec.length === 3,
+      'The central object example is invalid or untranslated');
+    assert(diagram.querySelectorAll('.object-engine-pulse animateMotion').length === 6 &&
+      [...diagram.querySelectorAll('mpath')].every((path) => diagram.querySelector(path.getAttribute('href'))),
+      'A connection pulse lost its path');
     assert(document.querySelectorAll('#section-links a').length === 3, 'Homepage chapter links were not updated');
     const highlights = [...document.querySelectorAll('.hero-highlights li')];
     assert(highlights.map((item) => item.textContent.trim()).join('|') === (language === 'en' ?
@@ -712,7 +720,14 @@ await check('The restored homepage hero stays large, translated, and centered on
       site.style.height = '900px';
       await new Promise((resolve) => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
       const box = diagram.getBoundingClientRect();
-      assert(box.width > 250 && Math.abs(box.height / box.width - 480 / 720) < .01, 'Hero artwork is stretched or too small');
+      const ratio = width <= 640 ? 560 / 420 : 480 / 720;
+      assert(box.width > 250 && Math.abs(box.height / box.width - ratio) < .01, 'Hero artwork is stretched or too small');
+      const layout = diagram.querySelector(width <= 640 ? '.object-engine-compact' : '.object-engine-wide');
+      assert(frame.getComputedStyle(layout).display !== 'none' && layout.querySelectorAll('.engine-scale-nodes use').length === 2,
+        'The responsive database composition is missing');
+      const database = layout.querySelector('.engine-database').getBoundingClientRect();
+      assert(database.width > box.width * .43 && database.left >= box.left - 1 && database.right <= box.right + 1 &&
+        database.top >= box.top - 1 && database.bottom <= box.bottom + 1, 'The central database is too small or clipped');
       assert(document.documentElement.scrollWidth <= width + 1, `${language} homepage overflows at ${width}px`);
       const list = document.querySelector('.hero-highlights').getBoundingClientRect();
       const rows = new Set(highlights.map((item) => Math.round(item.getBoundingClientRect().top)));
@@ -737,10 +752,17 @@ await check('The restored homepage hero stays large, translated, and centered on
         if (index < columns) assert(Math.abs(rect.top - cases[0].getBoundingClientRect().top) <= 1,
           'The use cases do not share a row');
       }
-      for (const label of diagram.querySelectorAll('text')) {
-        const rect = label.getBoundingClientRect();
-        assert(rect.left >= box.left - 1 && rect.right <= box.right + 1,
-          `${language} hero label is clipped at ${width}px: ${label.textContent}`);
+      // Shared definitions have no screen rectangle; measure the visible uses
+      // and each JSON line's local bounds instead.
+      for (const endpoint of layout.querySelectorAll(':scope > use:not(.engine-database)')) {
+        const rect = endpoint.getBoundingClientRect();
+        assert(rect.left >= box.left - 1 && rect.right <= box.right + 1 &&
+          rect.top >= box.top - 1 && rect.bottom <= box.bottom + 1,
+          `${language} hero endpoint is clipped at ${width}px`);
+      }
+      for (const line of diagram.querySelectorAll('.engine-json text')) {
+        const rect = line.getBBox();
+        assert(rect.x >= 20 && rect.x + rect.width <= 280, `${language} JSON overflows the object card: ${line.textContent}`);
       }
     }
   }

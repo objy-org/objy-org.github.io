@@ -165,7 +165,7 @@ Add new `##` chapters after the hero to place full-width content beneath it. Ill
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Application diagram table controls the Apps, AI agents, and APIs labels in the homepage hero. The Architecture diagram table controls the API labels and three JSON examples in the first Features illustration. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
+The Application diagram table controls the Apps, AI agents, and APIs labels and the central JSON example in the homepage hero. Keep its four JSON lines short and preserve valid JSON punctuation. The Architecture diagram table controls the API labels and three JSON examples in the first Features illustration. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
 Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. Use the full Features page for explanations of storage and other capabilities.
 
@@ -185,7 +185,7 @@ Keep all four use cases together for a single desktop row. Their icons are custo
 
 ## Change section images
 
-The opening hero centers the restored apps-and-objects illustration beneath its headline and description. It can grow to 1300px and fills the available width on phones. The Features page opens with the overlapping JSON architecture diagram; storage internals follows with its original graphic. The four use cases follow the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero centers a layered object database beneath its headline and icon statements. Smaller apps, AI agents, APIs, and object nodes surround it. It can grow to 1300px; on phones, the endpoint icons move beneath the enlarged database. The four use cases follow the image. The Features page opens with the overlapping JSON architecture diagram; storage internals follows with its original graphic. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

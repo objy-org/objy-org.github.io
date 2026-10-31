@@ -9,7 +9,7 @@
 - ![](assets/site/icons/features/cross-runtime.svg) Läuft überall
 - ![](assets/site/icons/features/authentication.svg) API & Auth inklusive
 
-![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
+![Eine geschichtete OBJY-Datenbank mit einem JSON-Objekt im Zentrum, verbunden mit Apps, KI-Agenten, APIs und kleineren Objektknoten.](assets/site/applications-objects.svg)
 
 ## Was wirst du bauen? :id=object-capabilities
 

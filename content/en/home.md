@@ -9,7 +9,7 @@
 - ![](assets/site/icons/features/cross-runtime.svg) Runs everywhere
 - ![](assets/site/icons/features/authentication.svg) API & auth built in
 
-![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
+![A layered OBJY database with a JSON object at its center, connected to apps, AI agents, APIs, and smaller object nodes.](assets/site/applications-objects.svg)
 
 ## What will you build? :id=object-capabilities
 

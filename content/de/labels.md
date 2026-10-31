@@ -92,3 +92,7 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Apps | Apps |
 | Agents | KI-Agenten |
 | Apis | APIs |
+| Json identity | `"_id": "item-01",` |
+| Json name | `"name": "Orbit",` |
+| Json tags | `"tags": ["neu", "blau"],` |
+| Json vector | `"_vec": [0.2, 0.8, 0.4]` |
