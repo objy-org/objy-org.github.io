@@ -29,7 +29,7 @@ Live references, nested data, vectors, and files.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-The homepage tells the story through three overlapping JSON snippets beneath the API labels, followed by four use cases and the Get Started deployment options. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
+The homepage tells the story through the large apps, AI agents, and objects illustration, followed by four use cases and the Get Started deployment options. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
 
 Edit the use-case heading, descriptions, and icons directly in `home.md`. The section keeps `:id=object-capabilities` so existing links continue to work. Its menu label is Use cases; edit that label in `sidebar.md`.
 
@@ -121,9 +121,9 @@ The same engine, embedded in browsers and Node.js.
 Connect objects and expand their references when reading.
 ```
 
-Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates a responsive grid of compact feature cards automatically, on any local Markdown page. The left menu lists Storage Internals, Database Core, and DB Server, without listing individual features. Each feature keeps its ID for direct links. Titles, descriptions, order, and icon paths all come from Markdown. Add the same IDs and icon paths in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
+Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates a responsive grid of compact feature cards automatically, on any local Markdown page. The left menu lists Architecture, Storage Internals, Database Core, and DB Server, without listing individual features. Each feature keeps its ID for direct links. Titles, descriptions, order, and icon paths all come from Markdown. Add the same IDs and icon paths in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
 
-The first section restores the original storage explanation and layered illustration from the homepage. Edit its heading, paragraph, three bullet points, optional S3 durability note, and image description directly in `features.md`. The graphic’s labels and sample object are centralized in the Storage diagram table of `labels.md`. Keep S3 durability explicitly optional.
+The first section contains the architecture diagram formerly shown on the homepage. A heading followed only by its standalone image makes a full-width illustrated chapter. The second section restores the original storage explanation and layered illustration from the homepage. Edit its heading, paragraph, three bullet points, optional S3 durability note, and image description directly in `features.md`. The graphic’s labels and sample object are centralized in the Storage diagram table of `labels.md`. Keep S3 durability explicitly optional.
 
 Keep this page concise: one short description per feature, without fenced code examples. Link readers to the core or server documentation for implementation details.
 
@@ -163,7 +163,7 @@ Add new `##` chapters after the hero to place full-width content beneath it. Ill
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Architecture diagram table controls the API labels and three JSON examples in the main illustration. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
+The Application diagram table controls the Apps, AI agents, and APIs labels in the homepage hero. The Architecture diagram table controls the API labels and three JSON examples in the first Features illustration. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
 Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. Use the full Features page for explanations of storage and other capabilities.
 
@@ -183,7 +183,7 @@ Keep all four use cases together for a single desktop row. Their icons are custo
 
 ## Change section images
 
-The opening hero centers the illustration beneath its headline and description. Three tilted JSON cards overlap at their edges while keeping the snippets readable. They use a wide arrangement on desktop and a vertical stack on phones. The four use cases follow the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero centers the restored apps-and-objects illustration beneath its headline and description. It can grow to 1300px and fills the available width on phones. The Features page opens with the overlapping JSON architecture diagram; storage internals follows with its original graphic. The four use cases follow the image. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

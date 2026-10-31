@@ -326,7 +326,7 @@ body > main > .sidebar-toggle,
 }
 .hero-art {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1300px;
   min-width: 0;
   margin: 0 auto;
 }
@@ -392,9 +392,6 @@ body > main > .sidebar-toggle,
 }
 .section-hero:has(+ .feature-more) {
   padding-bottom: 16px;
-}
-@media (max-width: 640px) {
-  .section-hero .hero-art { max-width: 400px; }
 }
 
 .feature-more {
@@ -832,6 +829,12 @@ body > main > .sidebar-toggle,
   margin: 0 auto;
 }
 .document-art > :is(img, svg) { display: block; width: 100%; height: auto; }
+.document-illustration-wide {
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+.document-illustration-wide .document-illustration-copy { text-align: center; }
+.document-illustration-wide .document-art { max-width: 1000px; }
 @container (max-width: 760px) {
   .document-illustration { grid-template-columns: 1fr; gap: 32px; }
   .document-art { max-width: 520px; }

@@ -2,6 +2,10 @@
 
 Schnelle, flexible Daten sind erst der Anfang. Entdecke, was OBJY deiner Anwendung bietet — von der In-Memory-Engine bis zum verteilten Backend.
 
+## Architektur :id=architecture
+
+![CRUD, Abfragen, Aggregation und Vektorsuche über drei überlappenden JSON-Beispielen: eine Person, eine KI-Erinnerung und ein vernetztes Gerät.](assets/site/architecture.svg)
+
 ## Außen JSON, innen effiziente Speicherung :id=storage-internals
 
 Arbeite mit vollständigen Objekten. Intern teilt OBJY sie für schnellen Zugriff und effiziente Speicherung in Blöcke auf.

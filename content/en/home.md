@@ -7,7 +7,7 @@
 Flexible JSON objects. Live references. Efficient storage.\
 Build your application on OBJY, with API, authentication, users, and permissions built in.
 
-![CRUD, queries, aggregation, and vector search above three overlapping JSON snippets: a person, an AI memory, and a connected device.](assets/site/architecture.svg)
+![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
 ## What will you build? :id=object-capabilities
 

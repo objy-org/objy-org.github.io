@@ -19,6 +19,7 @@ Reviewed on 2026-10-27. This records the assets currently used by the site, rath
 | All 21 `assets/site/icons/features/*.svg` catalog icons | Custom SVG geometry created for the feature catalog on 2026-10-31. Each capability has a distinct drawing in the site's coral, lavender, blue, or sage palette. No external artwork, icon font, or third-party icon library is used. |
 | All four `assets/site/icons/use-cases/*.svg` homepage icons | Custom SVG geometry created for this website on 2026-10-31 in the existing coral, lavender, blue, and sage palette. No downloaded artwork, icon font, or third-party library is used. |
 | `assets/site/architecture.svg` | Custom SVG geometry created for the architecture overview on 2026-10-31. No downloaded icons, external artwork, or third-party icon library is used. |
+| `assets/site/applications-objects.svg` | Restored byte-for-byte from `ff07780`. Custom SVG artwork made for the OBJY website, with apps, AI agents, APIs, and floating JSON shapes. No external icon library or third-party artwork is used. |
 | `assets/site/storage-internals.svg` | Restored byte-for-byte from `ff07780`. Custom OBJY website SVG based on the earlier stacked storage sketch, with an optional S3 durability layer. No external icon library or third-party artwork is used. |
 | `assets/site/branding/objy-db-mark-white.svg` and `.png` | Custom white-on-transparent OBJY DB mark created for this project. The PNG is a raster export of the matching SVG; neither includes third-party artwork. |
 | `logo.png` and `favicon.png` | Existing OBJY brand assets restored byte-for-byte from `e62ff79`. The user confirmed in this project on 2026-10-27 that OBJY owns or has permission to use the existing logo and favicon. The original README references [OBJY's MIT license](https://github.com/objy-org/objy/blob/master/LICENSE.md); a copy of that notice is retained in `assets/vendor/objy.LICENSE`. |
@@ -28,13 +29,15 @@ The old third-party-looking raster illustrations under the historical `icons/` f
 
 No missing third-party icon attribution was found in this review. The brand-rights confirmation above comes from the user; repository history alone is not proof of ownership. Live documentation can change independently, so newly introduced remote images need their own provenance check.
 
+## Homepage hero
+
+`assets/site/applications-objects.svg` restores the 720 × 480 illustration from `ff07780`. Apps, a small team of AI agents, and an API endpoint share floating JSON objects and an array through sweeping arrows. It appears beneath the homepage headline, enlarged to a maximum width of 1300px and filling the available width on phones. Its subtle motion respects reduced-motion preferences. Labels come from the Application diagram table in each language’s `labels.md`; its image path and description live in `home.md`.
+
 ## Architecture illustration
 
-`assets/site/architecture.svg` is the single homepage illustration, displayed beneath the headline and description. CRUD, Query, Aggregate, and Vector appear above three overlapping JSON cards: a person, an AI memory with a vector, and a connected device. The tilted cards retain the layered geometry of the earlier storage sketch, with no storage internals or durability panel.
+`assets/site/architecture.svg` is now the first section on the Features page. CRUD, Query, Aggregate, and Vector appear above three overlapping JSON cards: a person, an AI memory with a vector, and a connected device. The tilted cards retain their existing geometry, without storage internals or a durability panel.
 
-The SVG uses a wide 1000 × 680 composition and a vertical phone composition of 360 × 700 below 641px. Both reuse the same card frame and three snippet definitions. The overlaps sit at card edges so the JSON stays readable. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `home.md`.
-
-The former apps/agents hero and individual homepage feature illustrations remain recoverable in Git history. The storage illustration has been restored for the Features page.
+The SVG uses a wide 1000 × 680 composition and a vertical phone composition of 360 × 700 below 641px. Both reuse the same card frame and three snippet definitions. The overlaps sit at card edges so the JSON stays readable. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `features.md`. An image-only Markdown chapter displays the diagram at full width; the storage section below keeps its text-and-image layout.
 
 ## Page icons and use cases
 
@@ -44,4 +47,4 @@ The homepage uses four custom icons for AI agents and memory, analytics, applica
 
 ## Storage illustration
 
-The first section of `features.md` restores the former homepage storage section and its original 660 × 740 SVG. A complete JSON object overlaps a rear plane with hot fields, compact columns, and compressed fields. Persist and Recover arrows connect it to optional S3 journals and snapshots. The shared illustration loader inlines the SVG so every label can come from the Storage diagram table in each language’s `labels.md`. The text, bullet points, durability note, and alternative description are restored from the corresponding homepage Markdown.
+The section following Architecture in `features.md` restores the former homepage storage section and its original 660 × 740 SVG. A complete JSON object overlaps a rear plane with hot fields, compact columns, and compressed fields. Persist and Recover arrows connect it to optional S3 journals and snapshots. The shared illustration loader inlines the SVG so every label can come from the Storage diagram table in each language’s `labels.md`. The text, bullet points, durability note, and alternative description are restored from the corresponding homepage Markdown.

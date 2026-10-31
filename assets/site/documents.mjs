@@ -55,6 +55,9 @@ export function decorateDocument(html) {
         const copy = document.createElement('div');
         copy.className = 'document-illustration-copy';
         copy.append(heading, ...sections[index].content.filter((node) => node !== illustrations[index]));
+        // A heading and image alone make a wide visual chapter; explanations
+        // with lists or other content retain the text-and-image layout.
+        section.classList.toggle('document-illustration-wide', copy.children.length === 1);
         const figure = document.createElement('figure');
         figure.className = 'document-art';
         figure.append(illustrations[index].firstElementChild);

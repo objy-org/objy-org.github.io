@@ -84,3 +84,11 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Recover | Wiederherstellen |
 | Durability | S3-Sicherung (optional) |
 | Durability detail | Journale + Snapshots |
+
+## Application diagram
+
+| Location | Text |
+| --- | --- |
+| Apps | Apps |
+| Agents | KI-Agenten |
+| Apis | APIs |

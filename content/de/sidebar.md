@@ -1,3 +1,3 @@
-- [Architektur](/?id=top)
+- [Überblick](/?id=top)
 - [Anwendungsfälle](/?id=object-capabilities)
 - [Loslegen](/?id=start-building)

@@ -84,3 +84,11 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Recover | Recover |
 | Durability | Optional S3 durability |
 | Durability detail | Journals + snapshots |
+
+## Application diagram
+
+| Location | Text |
+| --- | --- |
+| Apps | Apps |
+| Agents | AI agents |
+| Apis | APIs |

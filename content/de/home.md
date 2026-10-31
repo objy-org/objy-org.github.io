@@ -7,7 +7,7 @@
 Flexibles JSON. Live-Referenzen. Effiziente Speicherung.\
 Baue deine Anwendung auf OBJY – mit integrierter API, Authentifizierung, Benutzerverwaltung und Berechtigungen.
 
-![CRUD, Abfragen, Aggregation und Vektorsuche über drei überlappenden JSON-Beispielen: eine Person, eine KI-Erinnerung und ein vernetztes Gerät.](assets/site/architecture.svg)
+![Apps, KI-Agenten und APIs tauschen über geschwungene Pfeile JSON-Objekte und Arrays aus.](assets/site/applications-objects.svg)
 
 ## Was wirst du bauen? :id=object-capabilities
 

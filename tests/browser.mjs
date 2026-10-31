@@ -449,14 +449,14 @@ await check('Articles stay centered in the viewport without colliding with the c
       const menu = document.querySelector('.section-menu-toggle');
       const sidebar = document.querySelector('.page-sidebar');
       const art = document.querySelector('.hero-art');
-      const diagram = art.querySelector('.objy-architecture');
+      const diagram = art.querySelector(':scope > svg');
       const picture = diagram.getBoundingClientRect();
       const copy = document.querySelector('.section-hero > .section-copy').getBoundingClientRect();
       assert(picture.top >= copy.bottom && Math.abs(picture.left + picture.width / 2 - width / 2) <= 1,
-        'Architecture does not sit centered below the headline');
-      assert(picture.width <= 1000 && picture.width > 250, 'Architecture size is incorrect');
-      const ratio = width <= 640 ? 700 / 360 : 680 / 1000;
-      assert(Math.abs(picture.height / picture.width - ratio) < .01, 'Architecture aspect ratio is incorrect');
+        'Hero artwork does not sit centered below the headline');
+      assert(picture.width <= 1300 && picture.width > 250, 'Hero artwork size is incorrect');
+      if (width >= 1920) assert(picture.width > 1000, 'The restored hero artwork was not enlarged');
+      assert(Math.abs(picture.height / picture.width - 480 / 720) < .01, 'Hero artwork is stretched');
       assert(!document.querySelector('.example-workspace, [data-section="storage-internals"]'), 'The previous examples or storage chapter are still present');
       if (width > 1100) {
         assert(frame.getComputedStyle(sidebar).display !== 'none', 'Desktop chapter menu is missing');
@@ -571,9 +571,9 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
     assert(features.length === 21 && new Set(features.map((feature) => feature.querySelector('img').src)).size === 21,
       'A feature or distinct icon is missing');
     const links = [...document.querySelectorAll('#section-links a')];
-    assert(links.length === 3 && links[0].hash.endsWith('id=storage-internals') &&
-      links[1].hash.endsWith('id=database-core') && links[2].hash.endsWith('id=db-server'),
-      'The feature menu should contain storage internals and the two main groups');
+    assert(links.length === 4 && links[0].hash.endsWith('id=architecture') &&
+      links[1].hash.endsWith('id=storage-internals') && links[2].hash.endsWith('id=database-core') &&
+      links[3].hash.endsWith('id=db-server'), 'The feature menu should contain architecture, storage, and the two main groups');
     assert(features.every((feature) => !feature.querySelector('h3').hasAttribute('data-chapter')),
       'Individual features still participate in chapter navigation');
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
@@ -581,7 +581,15 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       'Features navigation is not active');
     assert(document.querySelectorAll('.header-links a').length === 3 &&
       !document.querySelector('.header-links a[href$="#/get-started"]'), 'Get Started is still in the top bar');
-    const storage = document.querySelector('.document-illustration');
+    const storage = document.getElementById('storage-internals').closest('.document-illustration');
+    const architecture = document.getElementById('architecture').closest('.document-illustration');
+    assert(architecture.classList.contains('document-illustration-wide') && architecture.nextElementSibling === storage,
+      'The architecture diagram is not the first illustrated chapter');
+    const objectDiagram = architecture.querySelector('.objy-architecture');
+    assert(objectDiagram && objectDiagram.querySelectorAll('defs .object-snippet').length === 3,
+      'The original architecture diagram was not moved to Features');
+    assert(objectDiagram.querySelector('[data-copy="architecture-diagram.query"]').textContent ===
+      (language === 'en' ? 'Query' : 'Abfragen'), 'The architecture diagram is not translated');
     assert(storage.querySelector('h2').id === 'storage-internals' &&
       storage.nextElementSibling.matches('.catalog-section'), 'Storage internals is not above the feature catalog');
     assert(storage.querySelectorAll('.document-illustration-copy li').length === 3 &&
@@ -602,6 +610,19 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       assert(document.documentElement.scrollWidth <= viewport + 1, `${language} catalog overflows at ${width}px`);
       assert(Math.abs(article.left + article.width / 2 - viewport / 2) <= 1,
         `${language} catalog is not centered at ${width}px`);
+      const architectureBox = objectDiagram.getBoundingClientRect();
+      const phone = width <= 640;
+      const layout = objectDiagram.querySelector(phone ? '.architecture-compact' : '.architecture-wide');
+      assert(frame.getComputedStyle(layout).display !== 'none' &&
+        layout.querySelectorAll('.object-stack > use').length === 3, 'The architecture objects are missing from the visible layout');
+      assert(Math.abs(architectureBox.height / architectureBox.width - (phone ? 700 / 360 : 680 / 1000)) < .01 &&
+        architectureBox.left >= article.left - 1 && architectureBox.right <= article.right + 1,
+        'The moved architecture diagram is stretched or clipped');
+      for (const label of layout.querySelectorAll('text')) {
+        const rect = label.getBoundingClientRect();
+        assert(rect.left >= architectureBox.left - 1 && rect.right <= architectureBox.right + 1,
+          'An architecture label is clipped');
+      }
       const copy = storage.querySelector('.document-illustration-copy').getBoundingClientRect();
       const art = storage.querySelector('.document-art').getBoundingClientRect();
       assert(art.left >= article.left - 1 && art.right <= article.right + 1 &&
@@ -636,7 +657,11 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
           }
         });
       }
-      if (width >= 1280) assert(article.height < 5200, `${language} feature page is too tall on desktop`);
+      if (width >= 1280) {
+        const groups = [...document.querySelectorAll('.catalog-section')];
+        const height = groups.at(-1).getBoundingClientRect().bottom - groups[0].getBoundingClientRect().top;
+        assert(height < 4200, `${language} feature cards are too tall on desktop`);
+      }
     }
     frame.location.hash = '#/features?id=s3-durability';
     await new Promise((resolve) => frame.addEventListener('hashchange', resolve, { once: true }));
@@ -649,15 +674,15 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
   }
 });
 
-await check('Architecture artwork keeps both languages readable across desktop and phone layouts', async () => {
+await check('The restored homepage hero stays large, translated, and centered on desktop and phones', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/?id=top`;
     await new Promise((resolve, reject) => {
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.objy-architecture')) return resolve();
-        if (Date.now() > deadline) return reject(new Error('Architecture did not load'));
+        if (document?.documentElement.lang === language && document.querySelector('.hero-art [data-copy="application-diagram.agents"]')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Hero artwork did not load'));
         setTimeout(ready, 16);
       };
       ready();
@@ -665,32 +690,19 @@ await check('Architecture artwork keeps both languages readable across desktop a
     const frame = site.contentWindow;
     const document = site.contentDocument;
     await document.fonts.ready;
-    const diagram = document.querySelector('.objy-architecture');
-    const query = diagram.querySelector('[data-copy="architecture-diagram.query"]').textContent;
-    assert(query === (language === 'en' ? 'Query' : 'Abfragen'), 'Query labels were not translated');
+    const diagram = document.querySelector('.hero-art > svg');
+    const agents = diagram.querySelector('[data-copy="application-diagram.agents"]').textContent;
+    assert(agents === (language === 'en' ? 'AI agents' : 'KI-Agenten'), 'Hero labels were not translated');
+    assert(diagram.getAttribute('viewBox') === '0 0 720 480' && !document.querySelector('.objy-architecture'),
+      'The previous hero was not restored or the architecture remains on the homepage');
     assert(document.querySelectorAll('#section-links a').length === 3, 'Homepage chapter links were not updated');
-    assert(diagram.querySelectorAll('defs .object-snippet').length === 3,
-      'The illustration does not contain three distinct JSON snippets');
-    assert(!diagram.querySelector('[id*="storage"], [id*="s3"], [data-copy*="durability"]'),
-      'Storage internals or S3 are still present in the illustration');
     for (const width of [1440, 1280, 761, 641, 640, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '900px';
       await new Promise((resolve) => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
-      const compact = width <= 640;
-      const wide = diagram.querySelector('.architecture-wide');
-      const phone = diagram.querySelector('.architecture-compact');
-      assert((frame.getComputedStyle(wide).display === 'none') === compact &&
-        (frame.getComputedStyle(phone).display !== 'none') === compact, 'Wrong architecture layout is visible');
-      const visible = compact ? phone : wide;
-      const cards = visible.querySelectorAll('.object-stack > use');
-      assert(cards.length === 3 && new Set([...cards].map((card) => card.getAttribute('href'))).size === 3,
-        'The illustration must show three different objects');
       const box = diagram.getBoundingClientRect();
-      if (compact) assert(box.width <= 400, 'Phone architecture is unnecessarily stretched');
-      const ratio = compact ? 700 / 360 : 680 / 1000;
-      assert(Math.abs(box.height / box.width - ratio) < .01, 'Architecture is stretched or clipped');
-      assert(document.documentElement.scrollWidth <= width + 1, `${language} architecture page overflows at ${width}px`);
+      assert(box.width > 250 && Math.abs(box.height / box.width - 480 / 720) < .01, 'Hero artwork is stretched or too small');
+      assert(document.documentElement.scrollWidth <= width + 1, `${language} homepage overflows at ${width}px`);
       const overview = document.querySelector('.section-icon-cards');
       const available = overview.getBoundingClientRect().width;
       const columns = available <= 480 ? 1 : available <= 760 ? 2 : 4;
@@ -706,16 +718,10 @@ await check('Architecture artwork keeps both languages readable across desktop a
         if (index < columns) assert(Math.abs(rect.top - cases[0].getBoundingClientRect().top) <= 1,
           'The use cases do not share a row');
       }
-      for (const card of cards) {
-        const rect = card.getBoundingClientRect();
-        assert(rect.left >= box.left - 1 && rect.right <= box.right + 1 &&
-          rect.top >= box.top - 1 && rect.bottom <= box.bottom + 1,
-        `${language} object card is clipped at ${width}px`);
-      }
-      for (const label of (compact ? phone : wide).querySelectorAll('text')) {
+      for (const label of diagram.querySelectorAll('text')) {
         const rect = label.getBoundingClientRect();
         assert(rect.left >= box.left - 1 && rect.right <= box.right + 1,
-          `${language} architecture label is clipped at ${width}px: ${label.textContent}`);
+          `${language} hero label is clipped at ${width}px: ${label.textContent}`);
       }
     }
   }
