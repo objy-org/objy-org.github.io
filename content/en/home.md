@@ -9,19 +9,19 @@ Build your application on OBJY, with API, authentication, users, and permissions
 
 ![Apps, AI agents, and APIs share floating JSON objects and arrays through sweeping arrows.](assets/site/applications-objects.svg)
 
-## More than JSON. :id=abstract-objects
+## Flexible JSON objects. Live references. :id=abstract-objects
 
 ![Two JSON objects: a device references a person in the people collection. An arrow connects the reference value person-42 to the matching object identity.](assets/site/abstract-objects.svg?v=2)
 
-## CRUD, aggregations, vector search. One API. :id=simple-api
+## CRUD, queries, aggregation, and vectors. One API. :id=simple-api
 
 ![Query, Vector, CRUD, and Aggregate share one API connection.](assets/site/simple-api.svg)
 
-## Run anywhere. Scale out. :id=run-and-deploy
+## Run in browsers, on servers, and across clusters. :id=run-and-deploy
 
 ![A browser window, a single server, and three connected servers show deployment from the browser to a horizontally scaled cluster.](assets/site/run-and-deploy.svg)
 
-## Users & access. Built in. :id=users-and-access
+## Users, authentication, and permissions. Built in. :id=users-and-access
 
 ![User identities connect to a login lock and an access-control shield.](assets/site/users-access.svg)
 
