@@ -1,8 +1,6 @@
-# Objekte im Mittelpunkt. :id=features
+# Flexibles JSON. Vielseitige APIs. :id=features
 
 Schnelle, flexible Daten sind erst der Anfang. Entdecke, was OBJY deiner Anwendung bietet — von der In-Memory-Engine bis zum verteilten Backend.
-
-## Architektur :id=architecture
 
 ![CRUD, Abfragen, Aggregation und Vektorsuche über drei überlappenden JSON-Beispielen: eine Person, eine KI-Erinnerung und ein vernetztes Gerät.](assets/site/architecture.svg)
 

@@ -46,6 +46,20 @@ export function decorateDocument(html) {
   const illustrations = sections.map(({ content }) => !content.some((node) => node.tagName === 'H3') &&
     content.find((node) => node.tagName === 'P' && node.children.length === 1 && node.firstElementChild.tagName === 'IMG'));
   if (catalogs.some(Boolean) && catalogs.every((catalog, index) => catalog || illustrations[index])) {
+    // A standalone introductory image belongs to the page title, without
+    // requiring an extra chapter heading or navigation entry.
+    const leadImages = [...article.querySelectorAll(':scope > p > img:only-child')].filter((image) =>
+      image.compareDocumentPosition(headings[0]) & Node.DOCUMENT_POSITION_FOLLOWING);
+    for (const image of leadImages) {
+      const paragraph = image.parentElement;
+      const lead = document.createElement('div');
+      lead.className = 'document-lead-art';
+      const figure = document.createElement('figure');
+      figure.className = 'document-art';
+      figure.append(image);
+      lead.append(figure);
+      paragraph.replaceWith(lead);
+    }
     for (const [index, { heading }] of sections.entries()) {
       if (!catalogs[index]) {
         const section = document.createElement('section');

@@ -833,6 +833,8 @@ body > main > .sidebar-toggle,
   line-height: 1.8;
   text-align: center;
 }
+.document-lead-art { margin: 48px 0 16px; }
+.document-lead-art .document-art { max-width: 1000px; }
 .document-chapter {
   margin: 0;
   padding: 56px 0 64px;

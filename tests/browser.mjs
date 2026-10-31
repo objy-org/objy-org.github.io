@@ -110,7 +110,7 @@ await check('Directory link groups preserve every destination without nesting li
 await check('Icon subchapters form reusable catalogs without losing introductions, links, or rich content', () => {
   const entry = (id) => `<h3 id="${id}"><a href="#/example?id=${id}"><img src="${id}.svg" alt="${id}">${id}</a></h3>` +
     `<p>About ${id}.</p>`;
-  const markup = '<h1 id="catalog">Catalog</h1><p>Introduction.</p>' +
+  const markup = '<h1 id="catalog">Catalog</h1><p>Introduction.</p><p><img src="overview.svg" alt="Overview"></p>' +
     '<h2 id="alpha">Alpha</h2><p><a href="alpha.md">Read more</a></p>' + entry('first') + entry('second') +
     '<pre><code>Important example</code></pre>' +
     '<h2 id="beta">Beta</h2><p>Group introduction.</p>' + entry('third') + '<ul><li>Extra detail</li></ul>';
@@ -118,6 +118,8 @@ await check('Icon subchapters form reusable catalogs without losing introduction
   const sections = [...catalog.querySelectorAll('.catalog-section')];
   const features = [...catalog.querySelectorAll('.catalog-feature')];
   assert(sections.length === 2 && features.length === 3, 'Catalog names or counts were hard-coded');
+  assert(catalog.querySelector('.document-lead-art .document-art img')?.alt === 'Overview' &&
+    !catalog.querySelector('.document-lead-art h2'), 'The introductory image needs an unnecessary chapter heading');
   assert(sections[0].getAttribute('aria-labelledby') === 'alpha', 'Group lost its accessible heading');
   assert(sections[0].querySelector(':scope > p a').getAttribute('href') === 'alpha.md', 'Group introduction was lost');
   assert(sections[1].querySelector(':scope > p').textContent === 'Group introduction.', 'Group copy moved into a card');
@@ -581,9 +583,11 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
     assert(features.length === 21 && new Set(features.map((feature) => feature.querySelector('img').src)).size === 21,
       'A feature or distinct icon is missing');
     const links = [...document.querySelectorAll('#section-links a')];
-    assert(links.length === 4 && links[0].hash.endsWith('id=architecture') &&
-      links[1].hash.endsWith('id=storage-internals') && links[2].hash.endsWith('id=database-core') &&
-      links[3].hash.endsWith('id=db-server'), 'The feature menu should contain architecture, storage, and the two main groups');
+    assert(links.length === 3 && links[0].hash.endsWith('id=storage-internals') &&
+      links[1].hash.endsWith('id=database-core') && links[2].hash.endsWith('id=db-server'),
+      'The feature menu should contain storage and the two main groups');
+    assert(document.querySelector('.document-catalog > h1').textContent === (language === 'en' ?
+      'Flexible JSON. Versatile APIs.' : 'Flexibles JSON. Vielseitige APIs.'), 'The Features title was not updated');
     assert(features.every((feature) => !feature.querySelector('h3').hasAttribute('data-chapter')),
       'Individual features still participate in chapter navigation');
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
@@ -592,9 +596,9 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
     assert(document.querySelectorAll('.header-links a').length === 3 &&
       !document.querySelector('.header-links a[href$="#/get-started"]'), 'Get Started is still in the top bar');
     const storage = document.getElementById('storage-internals').closest('.document-illustration');
-    const architecture = document.getElementById('architecture').closest('.document-illustration');
-    assert(architecture.classList.contains('document-illustration-wide') && architecture.nextElementSibling === storage,
-      'The architecture diagram is not the first illustrated chapter');
+    const architecture = document.querySelector('.document-lead-art');
+    assert(!document.getElementById('architecture') && architecture.nextElementSibling === storage,
+      'The architecture diagram should introduce the page without its own chapter heading');
     const objectDiagram = architecture.querySelector('.objy-architecture');
     assert(objectDiagram && objectDiagram.querySelectorAll('defs .object-snippet').length === 3,
       'The original architecture diagram was not moved to Features');

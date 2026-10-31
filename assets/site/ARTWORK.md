@@ -37,9 +37,9 @@ The SVG shares its geometry and translated text between a 720 × 480 desktop lay
 
 ## Architecture illustration
 
-`assets/site/architecture.svg` is now the first section on the Features page. CRUD, Query, Aggregate, and Vector appear above three overlapping JSON cards: a person, an AI memory with a vector, and a connected device. The tilted cards retain their existing geometry, without storage internals or a durability panel.
+`assets/site/architecture.svg` introduces the Features page beneath its title, without an Architecture heading. CRUD, Query, Aggregate, and Vector appear above three overlapping JSON cards: a person, an AI memory with a vector, and a connected device. The tilted cards retain their existing geometry, without storage internals or a durability panel.
 
-The SVG uses a wide 1000 × 680 composition and a vertical phone composition of 360 × 700 below 641px. Both reuse the same card frame and three snippet definitions. The overlaps sit at card edges so the JSON stays readable. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `features.md`. An image-only Markdown chapter displays the diagram at full width; the storage section below keeps its text-and-image layout.
+The SVG uses a wide 1000 × 680 composition and a vertical phone composition of 360 × 700 below 641px. Both reuse the same card frame and three snippet definitions. The overlaps sit at card edges so the JSON stays readable. All labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `features.md`. A standalone image in the Markdown introduction displays the diagram at full width; the storage chapter below keeps its text-and-image layout.
 
 ## Page icons and use cases
 
@@ -49,4 +49,4 @@ The homepage uses four custom icons for AI agents and memory, analytics, applica
 
 ## Storage illustration
 
-The section following Architecture in `features.md` restores the former homepage storage section and its original 660 × 740 SVG. A complete JSON object overlaps a rear plane with hot fields, compact columns, and compressed fields. Persist and Recover arrows connect it to optional S3 journals and snapshots. The shared illustration loader inlines the SVG so every label can come from the Storage diagram table in each language’s `labels.md`. The text, bullet points, durability note, and alternative description are restored from the corresponding homepage Markdown.
+The first chapter in `features.md` restores the former homepage storage section and its original 660 × 740 SVG. A complete JSON object overlaps a rear plane with hot fields, compact columns, and compressed fields. Persist and Recover arrows connect it to optional S3 journals and snapshots. The shared illustration loader inlines the SVG so every label can come from the Storage diagram table in each language’s `labels.md`. The text, bullet points, durability note, and alternative description are restored from the corresponding homepage Markdown.
