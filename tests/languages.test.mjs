@@ -51,12 +51,12 @@ test('language URLs take priority, with safe defaults for unsupported languages'
 });
 
 test('switching language preserves document, anchor, deployment path, and other query parameters', () => {
-  const href = 'https://example.org/objy/?campaign=test&lang=en#/content/server?id=run-a-cluster';
+  const href = 'https://example.org/objy/?campaign=test&lang=en#/content/operations?id=server';
   const url = new URL(withLanguage(href, 'de'));
   assert.equal(url.pathname, '/objy/');
   assert.equal(url.searchParams.get('campaign'), 'test');
   assert.equal(url.searchParams.get('lang'), 'de');
-  assert.equal(url.hash, '#/content/server?id=run-a-cluster');
+  assert.equal(url.hash, '#/content/operations?id=server');
   assert.equal(url.searchParams.getAll('lang').length, 1);
 });
 

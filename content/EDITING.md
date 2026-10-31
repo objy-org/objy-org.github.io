@@ -12,7 +12,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Get started and deployment options | [get-started.md](en/get-started.md) | [get-started.md](de/get-started.md) |
 | Documentation index | [documentation.md](en/documentation.md) | [documentation.md](de/documentation.md) |
 
-Edit the file in the language you want to change. Server, client, and API documentation are loaded live from the database repository through the shared Markdown includes listed below.
+Edit the file in the language you want to change. The database README, operations guide, client documentation, and API reference are loaded live from `objy-org/objy` through the shared Markdown includes listed below.
 
 The switcher at the top right remembers the visitor's choice. A URL with `?lang=de` or `?lang=en` explicitly selects that language. Internal links keep the selected language automatically.
 
@@ -96,7 +96,7 @@ Markdown files at the repository root work too. The site first checks the select
 
 ## Manage the documentation index
 
-The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. These Markdown files list the available guides: Server documentation links to [the shared server page](server.md), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md). Browser documentation links directly to the README’s Run in a Browser chapter at `/content/server.md?id=run-in-a-browser`.
+The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Server documentation opens the Server chapter of [the shared operations page](operations.md?id=server), JavaScript client documentation links to [the shared client page](client.md), and API documentation links to [the shared API page](api.md). Browser documentation opens the main README’s Browser chapter at `/content/server.md?id=browser`. Local and cloud setup use the README’s Server and Cluster chapter at `/content/server.md?id=server-and-cluster`; cluster setup uses `/content/operations.md?id=server`.
 
 To add another guide, add a `##` heading with an icon, a short explanation, and one Markdown link to each language’s index. Keep each explanation and destination in separate paragraphs. The site combines these into one fully clickable row, in Markdown order. The index hides the chapter menu; individual guides still generate theirs automatically. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
@@ -104,13 +104,13 @@ An image inside a `##` heading becomes a small chapter icon, for example `## ![]
 
 ## Include live documentation
 
-The server page, `content/server.md`, contains only a remote include:
+The existing shared README page, `content/server.md`, contains only a remote include:
 
 ```markdown
-[Server documentation](https://raw.githubusercontent.com/objy-org/objy.db/refs/heads/main/README.md ':include')
+[Server documentation](https://raw.githubusercontent.com/objy-org/objy/refs/heads/main/README.md ':include')
 ```
 
-The README is fetched from GitHub when readers open Server documentation. The client page, `content/client.md`, uses the same pattern to load `client/README.md` from the database repository, and `content/api.md` loads `API.md`. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
+The README is fetched from GitHub when readers open that page. `content/operations.md` loads `OPERATIONS.md` for server and cluster operation. The client page, `content/client.md`, loads `client/README.md`, and `content/api.md` loads `API.md`. All sources live in `objy-org/objy`. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
 
 To use a different source, edit the URL in `content/server.md`. Keep each remote page as a single include so relative Markdown links and images resolve from the remote file. Linked Markdown files also open inside the site with their own chapter menus. The source must be a public raw Markdown URL that allows browser requests. Source caching can delay updates; failed loads show the standard page-unavailable message.
 
@@ -183,7 +183,7 @@ Shared images in `assets/` are relative to the site root. Other relative image p
 
 The registry's `defaultLanguage` controls the default for new visitors. Unknown URL language codes fall back to that default. Missing UI labels also fall back to the default language, but translate every label before releasing a new language. Translate the core files before registering a language. Additional Markdown pages can fall back to the default language until their translations are ready.
 
-Use language-neutral links such as `/content/server.md?id=quick-start` and `/get-started.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
+Use language-neutral links such as `/content/server.md?id=server-and-cluster`, `/content/operations.md?id=server`, and `/get-started.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
 
 ## Review and publish
 

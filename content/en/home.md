@@ -147,9 +147,9 @@ Work with complete objects. Internally, OBJY splits them into blocks for fast ac
 
 Get OBJY running, create your first object, and build from there.
 
-- [Read the Quick Start →](/content/server.md?id=quick-start)
-- [Explore cluster setup](/content/server.md?id=run-a-cluster)
+- [Read the Quick Start →](/content/server.md?id=server-and-cluster)
+- [Explore cluster setup](/content/operations.md?id=server)
 
 ---
 
-[OBJY · Build around objects.](/?id=top) · [View on GitHub ↗](https://github.com/objy-org/objy.db)
+[OBJY · Build around objects.](/?id=top) · [View on GitHub ↗](https://github.com/objy-org/objy)

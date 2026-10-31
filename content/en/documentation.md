@@ -6,7 +6,7 @@ Guides for building with objy.db.
 
 Run and configure OBJY.
 
-[Server documentation](/content/server.md)
+[Server documentation](/content/operations.md?id=server)
 
 ## ![](assets/site/icons/api.svg) API :id=api
 
@@ -18,7 +18,7 @@ Work with objects over HTTP.
 
 Run the database inside your application.
 
-[Browser documentation](/content/server.md?id=run-in-a-browser)
+[Browser documentation](/content/server.md?id=browser)
 
 ## ![](assets/site/icons/client.svg) JavaScript client :id=javascript-client
 

@@ -20,7 +20,7 @@ Use ordinary Markdown. Preserve Docsify's `:id=...` suffixes across translations
 
 `content/languages.json` registers languages and the default. To add a language, copy an existing folder, translate its Markdown files, and add a registry entry. The switcher is built from the registry. See the editing guide for the complete workflow.
 
-The top-bar Documentation link opens the selected language’s `documentation.md` index. Its entries link to Server documentation at `content/server.md`, JavaScript client documentation at `content/client.md`, and API documentation at `content/api.md`. The Browser entry jumps to `content/server.md?id=run-in-a-browser` in the live README. These shared Markdown includes point to the live objy.db README, client README, and API reference. Add other guides as Markdown headings and links in each index. Both languages use the same English remote sources; the index and website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
+The top-bar Documentation link opens the selected language’s `documentation.md` index. Its Server entry opens the Server chapter of `content/operations.md`, which loads `OPERATIONS.md`. JavaScript client documentation uses `content/client.md`, and API documentation uses `content/api.md`. The Browser entry jumps to `content/server.md?id=browser`; that shared page retains its existing route and loads the main README. All four includes use the canonical `objy-org/objy` repository. Add other guides as Markdown headings and links in each index. Both languages use the same English remote sources; the index and website controls remain localized. Remote Markdown links and images resolve against their source, and linked documents keep the site layout and automatic chapter menus.
 
 ## Implementation
 
@@ -60,7 +60,7 @@ Open `http://127.0.0.1:8000/`. HTTP is required for Docsify to load Markdown. Fo
 
 ## Routes
 
-Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. Get started opens at `/?lang=de#/get-started`, with deployment chapters generated from its Markdown. The documentation index opens at `/?lang=de#/documentation`; its Server documentation link opens `/?lang=de#/content/server`. The Run locally and Cluster setup links open the live server documentation at its Quick Start and Run a Cluster chapters. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
+Sections use standard Docsify hashes with a page-level language parameter: `/?lang=de#/?id=abstract-objects`. Get started opens at `/?lang=de#/get-started`, with deployment chapters generated from its Markdown. The documentation index opens at `/?lang=de#/documentation`; its Server documentation link opens `/?lang=de#/content/operations?id=server`. Local and cloud setup links open the README’s Server and Cluster chapter at `/content/server?id=server-and-cluster`; cluster setup opens the Server chapter of the operations guide. Browser links use `/content/server?id=browser`. Existing links without a language parameter use the saved preference or the default language. The explicit URL language wins over the saved preference. Unknown languages use the default. Switching preserves the route and section; preferences remain optional if browser storage is unavailable.
 
 Metadata, the document’s `lang` attribute, controls, alt text, and SVG labels follow the selected language. All document headings keep stable IDs across translations. Code examples and API keys remain unchanged.
 
@@ -75,6 +75,8 @@ Run `node --test tests/*.test.mjs` with Node.js. The tests validate language sel
 With the preview running, open `http://127.0.0.1:8000/tests/browser.html` for browser regression checks covering safe markup, syntax highlighting with unchanged source and copied text, literal translation values, reusable homepage layouts, missing artwork, documentation loading without homepage images, object tabs, deep links, keyboard navigation, listener cleanup, Markdown action links, viewport centering, the responsive chapter menu, and deployment accordions in both languages from 320px to desktop. Also preview both languages on desktop and mobile when changing layout or translations.
 
 ## Content sources
+
+Documentation links were checked against `objy-org/objy` at `801ea3977b36f254e2d078a7defafd8080f439ca`. The shared pages load its live `README.md`, `OPERATIONS.md`, `API.md`, and `client/README.md`. Browser examples use the universal `@objy/db` package.
 
 The database descriptions were checked against the sibling `spread-db` repository (`eb221e0`), particularly `README.md`, `API.md`, and the storage implementation. The `objy-db-installer` README and `objydb-terraform` describe deployment and planned resize/restore workflows. These are implementation references, not runtime dependencies of the website.
 

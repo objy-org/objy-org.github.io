@@ -78,7 +78,7 @@ test('route changes can cancel in-flight page requests', async () => {
   );
 });
 
-const remoteReadme = 'https://raw.githubusercontent.com/objy-org/objy.db/refs/heads/main/README.md';
+const remoteReadme = 'https://raw.githubusercontent.com/objy-org/objy/refs/heads/main/README.md';
 
 test('a standalone remote include loads its source and revalidates it on each visit', async () => {
   const controller = new AbortController();

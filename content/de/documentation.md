@@ -6,7 +6,7 @@ Anleitungen für die Arbeit mit objy.db.
 
 OBJY betreiben und konfigurieren.
 
-[Server-Dokumentation](/content/server.md)
+[Server-Dokumentation](/content/operations.md?id=server)
 
 ## ![](assets/site/icons/api.svg) API :id=api
 
@@ -18,7 +18,7 @@ Mit Objekten über HTTP arbeiten.
 
 Die Datenbank direkt in deiner Anwendung ausführen.
 
-[Browser-Dokumentation](/content/server.md?id=run-in-a-browser)
+[Browser-Dokumentation](/content/server.md?id=browser)
 
 ## ![](assets/site/icons/client.svg) JavaScript-Client :id=javascript-client
 
