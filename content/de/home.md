@@ -29,9 +29,21 @@ Baue Tools und SaaS-Anwendungen mit integrierten APIs, Authentifizierung, Benutz
 
 Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
-## Loslegen. :id=start-building
+## Für deine Anwendung gemacht. :id=feature-highlights
 
-[Startoptionen](/get-started.md "embed")
+### ![](assets/site/icons/features/hot-compressed.svg) Effiziente Speicherung :id=highlight-storage
+
+Heiße Felder, komprimierte Objekte und kompakte Spalten nutzen den Arbeitsspeicher effizient.
+
+### ![](assets/site/icons/features/query-aggregate.svg) Starke Operationen :id=highlight-operations
+
+CRUD, Abfragen, Aggregationen und Vektorsuche über eine API.
+
+### ![](assets/site/icons/features/permissions.svg) Anwendungsdienste inklusive :id=highlight-application
+
+Benutzer, Authentifizierung, Berechtigungen und APIs sind bereits integriert.
+
+[Alle Features entdecken →](/features.md)
 
 ---
 

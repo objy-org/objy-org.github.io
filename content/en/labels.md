@@ -21,6 +21,7 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Skip link | Skip to content |
 | Product link | [OBJY](#/?id=top) |
 | Features link | [Features](#/features) |
+| Get started link | [Get started](#/get-started) |
 | Documentation link | [Documentation](#/documentation) |
 | Source link | [GitHub](https://github.com/objy-org) |
 

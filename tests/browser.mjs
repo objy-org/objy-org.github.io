@@ -292,35 +292,18 @@ await check('A missing illustration falls back to the image without losing page 
   assert(content.querySelector('.hero-art img'), 'Image fallback missing');
 });
 
-await check('Homepage Markdown embeds reuse document layouts and retain a link when unavailable', async () => {
-  const markup = '<h1 id="top">Hello</h1><h2 id="options">Options</h2>' +
-    '<p><a href="other-options.md" title="embed">Read options</a></p><hr><p>Footer</p>';
-  const source = '<h1 id="source">Source title</h1><h2 id="local"><img src="local.svg">Local</h2>' +
-    '<pre><code>objy run</code></pre><p><a href="guide.md">Guide</a></p>';
-  let requested;
-  const content = htmlFragment(await decorateHomepage(markup, {
-    loadDocument: async (href) => { requested = href; return source; },
-  }));
-  assert(requested === 'other-options.md', 'The embed source was hard-coded');
-  const embedded = content.querySelector('.section-document-embed .embedded-document');
-  assert(embedded.matches('.document-accordion') && !embedded.classList.contains('document-page'),
-    'The embed lost its layout or would replace the homepage menu');
-  assert(content.querySelectorAll('h1').length === 1 && embedded.querySelector('summary h3#local'),
-    'Embedded headings were not nested beneath their homepage section');
-  assert(embedded.querySelector('code').textContent === 'objy run' && content.querySelector('.section-footer').textContent === 'Footer',
-    'The command or homepage footer was lost');
-  const fallback = htmlFragment(await decorateHomepage(markup, { loadDocument: async () => null }));
-  assert(fallback.querySelector('a[href="other-options.md"]') && !fallback.querySelector('.embedded-document'),
-    'The unavailable embed lost its original link');
-});
-
 await check('Icon subchapters become reusable homepage columns with their own accessible headings', async () => {
   const home = '<h1 id="top">Hello</h1><h2 id="overview">Overview</h2>' +
     ['alpha', 'beta', 'gamma'].map((id) => `<h3 id="${id}"><a class="anchor"><img src="icons/${id}.svg">${id}</a></h3>` +
-      `<p>About ${id}.</p>`).join('');
+      `<p>About ${id}.</p>`).join('') +
+    '<p><a href="features.md">Explore more</a></p><hr><p><a href="https://example.com">Footer</a></p>';
   const content = htmlFragment(await decorateHomepage(home));
   const group = content.querySelector('.section-icon-cards .section-options');
   const cards = [...group.children];
+  assert(group.nextElementSibling.matches('.feature-more') &&
+    group.nextElementSibling.querySelector('a').getAttribute('href') === 'features.md' &&
+    content.querySelector('.section-cards > .section-footer a').textContent === 'Footer' &&
+    !group.querySelector('hr, footer, .feature-more'), 'The overview link or footer was trapped inside a card');
   assert(cards.length === 3 && group.style.getPropertyValue('--option-columns') === '3', 'Option count was hard-coded');
   cards.forEach((card, index) => {
     const title = card.querySelector('h3');
@@ -402,7 +385,7 @@ await check('Homepage actions and footer are derived from Markdown links', async
   assert(content.querySelector('.section-footer a').textContent === 'GitHub', 'Markdown footer missing');
 });
 
-await check('The homepage has four localized use cases instead of the feature catalog', async () => {
+await check('The homepage has four use cases and three feature highlights with a link to the full catalog', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/?id=object-capabilities`;
     await new Promise((resolve, reject) => {
@@ -419,7 +402,17 @@ await check('The homepage has four localized use cases instead of the feature ca
     const source = await fetch(`../content/${language}/home.md`).then((response) => response.text());
     const expected = [...source.matchAll(/^### !\[\]\(([^)]+)\) (.+) :id=(\S+)/gm)];
     const cards = [...document.querySelectorAll('.section-options > .section-option')];
-    assert(cards.length === expected.length && cards.length === 4, 'The homepage does not show four use cases');
+    assert(cards.length === expected.length && cards.length === 7, 'The homepage does not show its four use cases and three feature highlights');
+    const useCases = document.querySelector('[data-section="object-capabilities"]');
+    const overview = document.querySelector('[data-section="feature-highlights"]');
+    assert(useCases.querySelectorAll('.section-option').length === 4 && useCases.nextElementSibling === overview &&
+      overview.querySelectorAll('.section-option').length === 3, 'The feature highlights are not directly below the use cases');
+    assert(overview.querySelector('.feature-more a').getAttribute('href').endsWith('#/features') &&
+      !overview.querySelector('.section-options .feature-more') && overview.querySelector(':scope > .section-footer'),
+      'The full-features link or homepage footer is missing or trapped in a card');
+    const start = document.querySelector('.header-links a[href$="#/get-started"]');
+    assert(start?.textContent === (language === 'en' ? 'Get started' : 'Loslegen') &&
+      !document.querySelector('.accordion-row, [data-section="start-building"]'), 'Deployment options remain on the homepage or their navigation link is missing');
     cards.forEach((card, index) => {
       const title = card.querySelector('h3');
       assert(title.textContent.trim() === expected[index][2] && title.id === expected[index][3], 'A use-case translation changed');
@@ -432,7 +425,7 @@ await check('The homepage has four localized use cases instead of the feature ca
     assert(document.querySelector('#section-links a[href$="id=object-capabilities"]').textContent ===
       (language === 'en' ? 'Use cases' : 'Anwendungsfälle'), 'The use-case chapter link was not updated');
     const files = site.contentWindow.performance.getEntriesByType('resource').map((resource) => resource.name);
-    assert(!files.some((file) => /\/features\.md$/.test(file)), 'The homepage still downloads the full feature catalog');
+    assert(!files.some((file) => /\/(?:features|get-started)\.md$/.test(file)), 'The homepage downloads the full feature catalog or deployment options');
   }
 });
 
@@ -506,59 +499,44 @@ await check('Articles stay centered in the viewport without colliding with the c
   }
 });
 
-await check('Homepage and Get Started share deployment content, translations, and accordion behavior', async () => {
+await check('Get Started keeps its deployment options, translations, deep links, and accordion behavior', async () => {
   for (const language of ['en', 'de']) {
-    let expected;
-    for (const route of ['/get-started', '/']) {
-      site.src = `../?lang=${language}#${route}?id=deploy-cluster`;
-      await new Promise((resolve, reject) => {
-        const deadline = Date.now() + 5000;
-        const ready = () => {
-          const document = site.contentDocument;
-          if (document?.documentElement.lang === language && document.querySelector(route === '/' ?
-            '.section-document-embed .document-accordion' : '.document-page.document-accordion')) return resolve();
-          if (Date.now() > deadline) return reject(new Error('Deployment options did not load'));
-          setTimeout(ready, 16);
-        };
-        ready();
-      });
-      const document = site.contentDocument;
-      const rows = [...document.querySelectorAll('.accordion-row')];
-      assert(rows.length === 5, 'A deployment option is missing');
-      assert(rows[1].open && !rows[0].open, `${language} ${route}: deployment chapter link did not open its row (${rows.map((row) => row.open)})`);
-      const standalone = route === '/get-started';
-      assert(document.querySelector('.page-sidebar').hidden === standalone &&
-        document.querySelector('.section-menu-toggle').hidden === standalone, 'The wrong chapter menu is shown');
-      const snapshot = rows.map((row) => ({
-        id: row.querySelector('summary [id]').id,
-        title: row.querySelector('summary').textContent.trim(),
-        icon: row.querySelector('img').getAttribute('src'),
-        code: [...row.querySelectorAll('pre code')].map((code) => code.textContent),
-        links: [...row.querySelectorAll('.accordion-body a')].map((link) => [link.textContent, link.getAttribute('href')]),
-      }));
-      if (standalone) expected = JSON.stringify(snapshot);
-      else {
-        assert(JSON.stringify(snapshot) === expected, 'Homepage deployment content differs from Get Started');
-        assert(document.querySelectorAll('h1').length === 1 && rows.every((row) => row.querySelector('summary > h3')),
-          'Embedded heading levels do not fit the homepage');
-        assert(document.querySelector('.section-footer a'), 'Embedding removed the homepage footer');
-      }
-      for (const width of [1280, 760, 390, 320]) {
-        site.style.width = `${width}px`;
-        site.style.height = '1000px';
-        for (const row of rows) {
-          if (!row.open) row.querySelector('summary').click();
-          assert(rows.filter((item) => item.open).length === 1, 'More than one deployment row is open');
-          assert(document.documentElement.scrollWidth <= width + 1, `${language} deployment options overflow at ${width}px`);
-          const icon = row.querySelector('img').getBoundingClientRect();
-          assert(icon.width === 64, 'Deployment icon is not 64px');
-          for (const action of row.querySelectorAll('.accordion-body a')) {
-            const rect = action.getBoundingClientRect();
-            assert(rect.left >= 0 && rect.right <= width + 1, `${language} action is clipped at ${width}px`);
-          }
-          for (const pre of row.querySelectorAll('pre')) assert(pre.querySelectorAll('.copy-button').length === 1,
-            'An embedded command has missing or duplicate copy controls');
+    site.src = `../?lang=${language}#/get-started?id=deploy-cluster`;
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        const document = site.contentDocument;
+        if (document?.documentElement.lang === language && document.querySelector('.document-page.document-accordion')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Deployment options did not load'));
+        setTimeout(ready, 16);
+      };
+      ready();
+    });
+    const document = site.contentDocument;
+    const rows = [...document.querySelectorAll('.accordion-row')];
+    assert(rows.length === 5, 'A deployment option is missing');
+    assert(rows[1].open && !rows[0].open, 'The deployment chapter link did not open its row');
+    assert(document.querySelector('.page-sidebar').hidden && document.querySelector('.section-menu-toggle').hidden,
+      'Get Started should not show a chapter menu');
+    assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/get-started'),
+      'Get Started navigation is not active');
+    assert(rows[0].querySelector('code').textContent.includes('npm i -g @objy/server') &&
+      rows[1].querySelector('code').textContent.includes('npm i -g @objy/server'), 'CLI installation instructions are missing');
+    for (const width of [1280, 760, 390, 320]) {
+      site.style.width = `${width}px`;
+      site.style.height = '1000px';
+      for (const row of rows) {
+        if (!row.open) row.querySelector('summary').click();
+        assert(rows.filter((item) => item.open).length === 1, 'More than one deployment row is open');
+        assert(document.documentElement.scrollWidth <= width + 1, `${language} deployment options overflow at ${width}px`);
+        const icon = row.querySelector('img').getBoundingClientRect();
+        assert(icon.width === 64, 'Deployment icon is not 64px');
+        for (const action of row.querySelectorAll('.accordion-body a')) {
+          const rect = action.getBoundingClientRect();
+          assert(rect.left >= 0 && rect.right <= width + 1, `${language} action is clipped at ${width}px`);
         }
+        for (const pre of row.querySelectorAll('pre')) assert(pre.querySelectorAll('.copy-button').length === 1,
+          'A command has missing or duplicate copy controls');
       }
     }
   }
@@ -594,8 +572,8 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
     assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/features'),
       'Features navigation is not active');
-    assert(document.querySelectorAll('.header-links a').length === 3 &&
-      !document.querySelector('.header-links a[href$="#/get-started"]'), 'Get Started is still in the top bar');
+    assert(document.querySelectorAll('.header-links a').length === 4 &&
+      document.querySelector('.header-links a[href$="#/get-started"]'), 'Get Started is missing from the top bar');
     const storage = document.getElementById('storage-internals').closest('.document-illustration');
     const architecture = document.querySelector('.document-lead-art');
     assert(!document.getElementById('architecture') && architecture.nextElementSibling === storage,
@@ -757,20 +735,21 @@ await check('The object database hero stays large, translated, and centered on d
         assert(rect.left >= list.left - 1 && rect.right <= list.right + 1 && item.querySelector('img').alt === '',
           'A highlight is clipped or its decorative icon has redundant text');
       }
-      const overview = document.querySelector('.section-icon-cards');
-      const available = overview.getBoundingClientRect().width;
-      const columns = available <= 480 ? 1 : available <= 760 ? 2 : 4;
-      const group = overview.querySelector('.section-options');
-      assert(frame.getComputedStyle(group).gridTemplateColumns.split(' ').length === columns,
-        `Wrong use-case column count at ${width}px`);
-      const cases = [...group.children];
-      for (const [index, card] of cases.entries()) {
-        const rect = card.getBoundingClientRect();
-        const icon = card.querySelector('img').getBoundingClientRect();
-        assert(rect.width > 145 && rect.left >= 0 && rect.right <= width, 'A use-case column is clipped');
-        assert(Math.abs(icon.left + icon.width / 2 - rect.left - rect.width / 2) <= 1, 'A use-case icon is not centered');
-        if (index < columns) assert(Math.abs(rect.top - cases[0].getBoundingClientRect().top) <= 1,
-          'The use cases do not share a row');
+      for (const overview of document.querySelectorAll('.section-icon-cards')) {
+        const available = overview.getBoundingClientRect().width;
+        const group = overview.querySelector('.section-options');
+        const columns = available <= 480 ? 1 : available <= 760 ? 2 : Number(group.style.getPropertyValue('--option-columns'));
+        assert(frame.getComputedStyle(group).gridTemplateColumns.split(' ').length === columns,
+          `Wrong homepage card column count at ${width}px`);
+        const cases = [...group.children];
+        for (const [index, card] of cases.entries()) {
+          const rect = card.getBoundingClientRect();
+          const icon = card.querySelector('img').getBoundingClientRect();
+          assert(rect.width > 145 && rect.left >= 0 && rect.right <= width, 'A homepage column is clipped');
+          assert(Math.abs(icon.left + icon.width / 2 - rect.left - rect.width / 2) <= 1, 'A homepage icon is not centered');
+          if (index < columns) assert(Math.abs(rect.top - cases[0].getBoundingClientRect().top) <= 1,
+            'The homepage cards do not share a row');
+        }
       }
       // Shared definitions have no screen rectangle; measure the visible uses
       // and each JSON line's local bounds instead.

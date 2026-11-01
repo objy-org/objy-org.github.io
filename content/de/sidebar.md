@@ -1,3 +1,3 @@
 - [Überblick](/?id=top)
 - [Anwendungsfälle](/?id=object-capabilities)
-- [Loslegen](/?id=start-building)
+- [Features](/?id=feature-highlights)

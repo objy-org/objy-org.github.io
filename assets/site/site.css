@@ -537,6 +537,13 @@ body > main > .sidebar-toggle,
 .section-cards h2 {
   text-align: center;
 }
+.section-cards .section-copy .feature-more {
+  margin: 40px auto 0;
+  font-size: 15px;
+}
+.section-cards .section-footer { text-align: center; }
+.section-copy .feature-more a { color: var(--muted); }
+.section-copy .feature-more a:hover { color: var(--accent); }
 .section-cards .markdown-body > p {
   max-width: 680px;
   margin: 24px auto 0;
@@ -1161,35 +1168,6 @@ body > main > .sidebar-toggle,
   .accordion-body { padding: 0 0 28px; }
   .accordion-body li { flex: 1 1 100px; }
   .document-accordion .accordion-body li a { width: 100%; }
-}
-.section-document-embed.detail-section {
-  display: block;
-}
-.section-document-embed.detail-section .section-copy {
-  max-width: none;
-}
-.section-document-embed > .section-copy > .markdown-body > h2 {
-  text-align: center;
-}
-.section-document-embed .embedded-document {
-  max-width: 796px;
-  margin: 0 auto;
-  padding: 0;
-}
-.section-document-embed .embedded-document .accordion-body p {
-  font-size: 14px;
-  line-height: 1.9;
-  margin: 0;
-}
-.section-document-embed .embedded-document .accordion-body ul {
-  margin: 0 0 20px;
-  font-size: 14px;
-}
-.section-document-embed .embedded-document .accordion-body li {
-  margin: 0;
-}
-.section-document-embed .section-footer {
-  text-align: center;
 }
 
 code {

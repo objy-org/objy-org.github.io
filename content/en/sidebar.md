@@ -1,3 +1,3 @@
 - [Overview](/?id=top)
 - [Use cases](/?id=object-capabilities)
-- [Get started](/?id=start-building)
+- [Features](/?id=feature-highlights)
