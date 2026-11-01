@@ -1,14 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="objy-architecture" width="100%" fill="none" font-family="Montserrat, Arial, sans-serif">
   <style>
-    .objy-architecture { aspect-ratio: 1000 / 680; }
+    .objy-architecture { aspect-ratio: 1000 / 780; }
     .objy-architecture .architecture-compact { display: none; }
     @media (max-width: 640px) {
-      .objy-architecture { aspect-ratio: 360 / 700; }
+      .objy-architecture { aspect-ratio: 360 / 900; }
       .objy-architecture .architecture-wide { display: none; }
       .objy-architecture .architecture-compact { display: block; }
     }
   </style>
   <defs>
+    <g id="objy-arch-hot" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+      <path d="M3 5h16M3 12h12M3 19h16"/>
+      <circle cx="23" cy="5" r="1.5" fill="currentColor" stroke="none"/>
+      <circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>
+      <circle cx="23" cy="19" r="1.5" fill="currentColor" stroke="none"/>
+    </g>
+    <g id="objy-arch-columns" stroke="currentColor" stroke-width="1.5">
+      <rect x="2" y="2" width="5" height="20" rx="1"/>
+      <rect x="11" y="2" width="5" height="20" rx="1"/>
+      <rect x="20" y="2" width="5" height="20" rx="1"/>
+    </g>
+    <g id="objy-arch-compressed" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="9" y="5" width="9" height="14" rx="1"/>
+      <path d="M1 12h5m-3-3 3 3-3 3m23-3h-5m3-3-3 3 3 3"/>
+    </g>
     <g id="objy-arch-card" stroke="currentColor" stroke-linejoin="round">
       <path d="M400 0l10 9v240l-10-9Z" fill="#302f2b"/>
       <path d="M0 240l10 9h400l-10-9Z" fill="#21221f"/>
@@ -53,7 +68,7 @@
       </g>
     </g>
   </defs>
-  <svg class="architecture-wide" viewBox="0 0 1000 680" width="100%" height="100%" aria-hidden="true">
+  <svg class="architecture-wide" viewBox="0 0 1000 780" width="100%" height="100%" aria-hidden="true">
     <g transform="translate(80 22)">
       <rect x=".7" y=".7" width="190.6" height="64.6" rx="12" fill="#262626" stroke="#41413d"/>
       <g transform="translate(15 20.0) scale(0.85)" stroke="#c5dca5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -91,12 +106,34 @@
       <path d="M176 88v25h648V88m-432 0v25m216-25v25M500 113v35m-5-5 5 5 5-5"/>
     </g>
     <g class="object-stack">
-      <use href="#objy-arch-person" transform="matrix(1 -.08 0 1 80 210)"/>
-      <use href="#objy-arch-memory" transform="matrix(1 -.08 0 1 510 190)"/>
-      <use href="#objy-arch-device" transform="matrix(1 -.08 0 1 295 415)"/>
+      <use href="#objy-arch-person" transform="matrix(.9 -.072 0 .9 130 198)"/>
+      <use href="#objy-arch-memory" transform="matrix(.9 -.072 0 .9 510 156)"/>
+      <use href="#objy-arch-device" transform="matrix(.9 -.072 0 .9 320 346)"/>
+    </g>
+    <path d="M500 565v15m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g class="storage-panel">
+      <path d="m920 588 8 7v150l-8-7M80 738l8 7h840" fill="#242424" stroke="#454641" stroke-linejoin="round"/>
+      <rect x="80" y="588" width="840" height="150" rx="6" fill="#242424" stroke="#454641"/>
+      <text x="100" y="619" font-size="14" fill="#b2afaa" data-copy="storage-diagram.inside">Inside objy.db</text>
+      <text x="900" y="619" text-anchor="end" font-size="12" fill="#b2afaa" data-copy="storage-diagram.memory">IN MEMORY</text>
+      <g class="storage-tier" transform="translate(100 636)">
+        <rect width="252" height="76" rx="4" fill="#2a3025" stroke="#647352"/>
+        <use href="#objy-arch-hot" transform="translate(16 26)" color="#bdd2a5"/>
+        <text x="56" y="45" font-size="17" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
+      </g>
+      <g class="storage-tier" transform="translate(374 636)">
+        <rect width="252" height="76" rx="4" fill="#302724" stroke="#8a6a5c"/>
+        <use href="#objy-arch-columns" transform="translate(16 26)" color="#e4b29d"/>
+        <text x="56" y="45" font-size="17" fill="#e4b29d" data-copy="storage-diagram.columns">Compact columns</text>
+      </g>
+      <g class="storage-tier" transform="translate(648 636)">
+        <rect width="252" height="76" rx="4" fill="#2b2631" stroke="#74608a"/>
+        <use href="#objy-arch-compressed" transform="translate(16 26)" color="#cfb5ee"/>
+        <text x="56" y="45" font-size="17" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed fields</text>
+      </g>
     </g>
   </svg>
-  <svg class="architecture-compact" viewBox="0 0 360 700" width="100%" height="100%" aria-hidden="true">
+  <svg class="architecture-compact" viewBox="0 0 360 900" width="100%" height="100%" aria-hidden="true">
     <g transform="translate(24 14)">
       <rect x=".7" y=".7" width="150.6" height="50.6" rx="12" fill="#262626" stroke="#41413d"/>
       <g transform="translate(15 13.0) scale(0.65)" stroke="#c5dca5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -135,6 +172,27 @@
       <use href="#objy-arch-person" transform="matrix(.72 -.0576 0 .72 20 196)"/>
       <use href="#objy-arch-memory" transform="matrix(.72 -.0576 0 .72 52 352)"/>
       <use href="#objy-arch-device" transform="matrix(.72 -.0576 0 .72 20 508)"/>
+    </g>
+    <path d="M180 688v17m-4-4 4 4 4-4" stroke="#74746c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g class="storage-panel">
+      <rect x="20" y="716" width="320" height="160" rx="5" fill="#242424" stroke="#454641"/>
+      <text x="34" y="739" font-size="12" fill="#b2afaa" data-copy="storage-diagram.inside">Inside objy.db</text>
+      <text x="326" y="739" text-anchor="end" font-size="10" fill="#b2afaa" data-copy="storage-diagram.memory">IN MEMORY</text>
+      <g class="storage-tier" transform="translate(34 751)">
+        <rect width="292" height="30" rx="3" fill="#2a3025" stroke="#647352"/>
+        <use href="#objy-arch-hot" transform="translate(12 5) scale(.8)" color="#bdd2a5"/>
+        <text x="48" y="21" font-size="15" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
+      </g>
+      <g class="storage-tier" transform="translate(34 791)">
+        <rect width="292" height="30" rx="3" fill="#302724" stroke="#8a6a5c"/>
+        <use href="#objy-arch-columns" transform="translate(12 5) scale(.8)" color="#e4b29d"/>
+        <text x="48" y="21" font-size="15" fill="#e4b29d" data-copy="storage-diagram.columns">Compact columns</text>
+      </g>
+      <g class="storage-tier" transform="translate(34 831)">
+        <rect width="292" height="30" rx="3" fill="#2b2631" stroke="#74608a"/>
+        <use href="#objy-arch-compressed" transform="translate(12 5) scale(.8)" color="#cfb5ee"/>
+        <text x="48" y="21" font-size="15" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed fields</text>
+      </g>
     </g>
   </svg>
 </svg>

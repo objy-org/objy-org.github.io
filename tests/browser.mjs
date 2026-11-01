@@ -443,6 +443,12 @@ await check('Nested homepage catalogs retain their overview, illustrations, feat
     catalog.querySelector('.document-illustration > h3').id === 'storage' &&
     content.querySelector('.section-feature-catalog > .section-footer').textContent === 'Footer' &&
     !catalog.querySelector('footer, hr'), 'The overview, storage chapter, or footer was lost');
+  const combined = htmlFragment(await decorateHomepage(markup.replace('<p><img src="storage.svg" alt="Storage"></p>', '')));
+  assert(combined.querySelectorAll('.document-art').length === 1 &&
+    combined.querySelector('.document-explanation > h3').id === 'storage' &&
+    combined.querySelector('.document-explanation-copy').textContent === 'Explanation.' &&
+    combined.querySelectorAll('.catalog-feature').length === 3,
+    'A text explanation beneath the overview broke the catalog or added a second image');
 });
 
 await check('Icon subchapters become reusable homepage columns with their own accessible headings', async () => {
@@ -570,8 +576,8 @@ await check('The homepage keeps its illustrated overview and complete localized 
       assert(title?.id === id && title.textContent.trim() === text && feature.querySelector('img').src.endsWith(icon) &&
         feature.querySelector('p').textContent.trim() === description, 'A feature differs from its source Markdown');
     });
-    assert(overview.querySelectorAll('h3').length === 3 && overview.querySelectorAll('.document-art').length === 2 &&
-      !overview.querySelector('h1, pre'), 'The two large illustrated sections or original heading levels are missing');
+    assert(overview.querySelectorAll('h3').length === 3 && overview.querySelectorAll('.document-art').length === 1 &&
+      !overview.querySelector('h1, pre'), 'The combined overview or original heading levels are missing');
     const start = document.querySelector('.header-links a[href$="#/get-started"]');
     assert(start?.textContent === (language === 'en' ? 'Get started' : 'Loslegen') &&
       !document.querySelector('.accordion-row, [data-section="start-building"]'), 'Deployment options remain on the homepage or their navigation link is missing');
@@ -756,7 +762,7 @@ await check('The homepage feature area keeps its illustrations, translations, an
     assert(document.querySelectorAll('.header-links a').length === 3 &&
       document.querySelector('.header-links a[href$="#/get-started"]') &&
       !document.querySelector('.header-links a[href$="id=feature-highlights"]'), 'The top bar should contain only OBJY, Get Started, and Documentation');
-    const storage = document.getElementById('storage-internals').closest('.document-illustration');
+    const storage = document.getElementById('storage-internals').closest('.document-explanation');
     const architecture = document.querySelector('.document-lead-art');
     assert(!document.getElementById('architecture') && architecture.nextElementSibling === storage,
       'The architecture diagram should introduce the page without its own chapter heading');
@@ -767,15 +773,13 @@ await check('The homepage feature area keeps its illustrations, translations, an
       (language === 'en' ? 'Query' : 'Abfragen'), 'The architecture diagram is not translated');
     assert(storage.querySelector('h3').id === 'storage-internals' &&
       storage.nextElementSibling.matches('.catalog-section'), 'Storage internals is not above the feature catalog');
-    assert(storage.querySelectorAll('.document-illustration-copy li').length === 3 &&
+    assert(storage.querySelectorAll('.document-explanation-copy li').length === 3 &&
       storage.querySelector('blockquote').textContent.toLowerCase().includes('optional'),
       'The restored storage explanation lost a tier or its optional durability note');
-    const diagram = storage.querySelector('.document-art svg');
-    assert(diagram?.getAttribute('viewBox') === '0 0 660 740', 'The original storage illustration was not restored');
-    assert(diagram.querySelector('[data-copy="storage-diagram.hot"]').textContent ===
-      (language === 'en' ? 'Hot fields' : 'Heiße Felder'), 'The storage illustration was not translated');
-    assert(diagram.querySelector('[data-copy="storage-diagram.durability"]').textContent.toLowerCase().includes('optional'),
-      'The diagram no longer identifies S3 durability as optional');
+    assert(!storage.querySelector('img, svg') && architecture.querySelectorAll('.document-art').length === 1,
+      'The storage explanation still has a separate illustration');
+    assert(objectDiagram.querySelector('[data-copy="storage-diagram.hot"]').textContent ===
+      (language === 'en' ? 'Hot fields' : 'Heiße Felder'), 'The integrated storage labels are not translated');
     for (const width of [1920, 1280, 1101, 1100, 1001, 1000, 900, 761, 760, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '900px';
@@ -793,7 +797,7 @@ await check('The homepage feature area keeps its illustrations, translations, an
       for (const [index, chapter] of chapters.entries()) {
         const bounds = chapter.getBoundingClientRect();
         const title = chapter.querySelector(':scope > h3').getBoundingClientRect();
-        assert(title.top >= bounds.top + 40 &&
+        assert(title.top >= bounds.top + (chapter.matches('.document-explanation') ? 24 : 40) &&
           Math.abs(bounds.left - article.left) <= 1 && Math.abs(bounds.width - article.width) <= 1,
           'A major chapter is missing its heading space or full-width layout');
         if (index) assert(bounds.top >= chapters[index - 1].getBoundingClientRect().bottom - 1,
@@ -804,7 +808,7 @@ await check('The homepage feature area keeps its illustrations, translations, an
       const layout = objectDiagram.querySelector(phone ? '.architecture-compact' : '.architecture-wide');
       assert(frame.getComputedStyle(layout).display !== 'none' &&
         layout.querySelectorAll('.object-stack > use').length === 3, 'The architecture objects are missing from the visible layout');
-      assert(Math.abs(architectureBox.height / architectureBox.width - (phone ? 700 / 360 : 680 / 1000)) < .01 &&
+      assert(Math.abs(architectureBox.height / architectureBox.width - (phone ? 900 / 360 : 780 / 1000)) < .01 &&
         architectureBox.left >= article.left - 1 && architectureBox.right <= article.right + 1,
         'The moved architecture diagram is stretched or clipped');
       for (const label of layout.querySelectorAll('text')) {
@@ -812,14 +816,23 @@ await check('The homepage feature area keeps its illustrations, translations, an
         assert(rect.left >= architectureBox.left - 1 && rect.right <= architectureBox.right + 1,
           'An architecture label is clipped');
       }
-      const copy = storage.querySelector('.document-illustration-copy').getBoundingClientRect();
-      const art = storage.querySelector('.document-art').getBoundingClientRect();
-      const storageTitle = storage.querySelector(':scope > h3').getBoundingClientRect();
-      assert(storageTitle.bottom < Math.min(copy.top, art.top), 'The storage heading is not above its text and illustration');
-      assert(art.left >= article.left - 1 && art.right <= article.right + 1 &&
-        Math.abs(art.height / art.width - 740 / 660) < .01, 'The storage illustration is clipped or distorted');
-      if (article.width <= 760) assert(art.top >= copy.bottom, 'Mobile storage text and graphic overlap');
-      else assert(art.left >= copy.right, 'Desktop storage text and graphic overlap');
+      const panel = layout.querySelector('.storage-panel').getBoundingClientRect();
+      const objectBounds = layout.querySelector('.object-stack').getBoundingClientRect();
+      assert(layout.querySelectorAll('.storage-tier').length === 3 && panel.top > objectBounds.bottom &&
+        panel.bottom < architectureBox.bottom, 'Storage is not one compact layer below the JSON objects');
+      for (const tier of layout.querySelectorAll('.storage-tier')) {
+        const box = tier.querySelector('rect').getBoundingClientRect();
+        const label = tier.querySelector('text').getBoundingClientRect();
+        assert(label.left > box.left && label.right < box.right && label.top > box.top && label.bottom < box.bottom,
+          'A storage label is clipped inside its block');
+      }
+      assert(storage.getBoundingClientRect().top >= architectureBox.bottom &&
+        storage.querySelector('.document-explanation-copy').getBoundingClientRect().top >
+        storage.querySelector('h3').getBoundingClientRect().bottom,
+        'The storage explanation is not below the combined illustration');
+      const tiers = [...storage.querySelectorAll('li')].map(item => item.getBoundingClientRect());
+      if (article.width >= 800) assert(tiers.every(tier => Math.abs(tier.top - tiers[0].top) < 1),
+        'The three storage explanations do not share a row on desktop');
       const brand = document.querySelector('.header-brand').getBoundingClientRect();
       const nav = document.querySelector('.header-links').getBoundingClientRect();
       const actions = document.querySelector('.header-actions').getBoundingClientRect();

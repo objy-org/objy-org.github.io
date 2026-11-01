@@ -33,7 +33,7 @@ Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
 Arbeite mit flexiblen JSON-Objekten. Nutze Abfragen, Aggregationen und Vektorsuche über eine API. Betreibe OBJY eingebettet in deiner Anwendung oder verteilt in einem Cluster.
 
-![CRUD, Abfragen, Aggregation und Vektorsuche über drei überlappenden JSON-Beispielen: eine Person, eine KI-Erinnerung und ein vernetztes Gerät.](assets/site/architecture.svg)
+![CRUD, Abfragen, Aggregation und Vektorsuche greifen auf drei überlappende JSON-Objekte zu. Darunter enthält eine gemeinsame Speicherebene im RAM heiße Felder, kompakte Spalten und komprimierte Felder.](assets/site/architecture.svg)
 
 ### Außen JSON, innen effiziente Speicherung :id=storage-internals
 
@@ -46,9 +46,6 @@ Speichere mehr Daten im Arbeitsspeicher und arbeite mit einfachen Objekten. OBJY
 > **Schnell im RAM. Optional dauerhaft in S3.**
 >
 > Aktiviere S3-Journale und Snapshots, um deine Objekte für die Wiederherstellung zu sichern.
-
-![Ein vollständiges JSON-Objekt liegt vor drei Speicherebenen im RAM. Pfeile zum Sichern und Wiederherstellen verbinden sie mit einer optionalen S3-Sicherung aus Journalen und Snapshots.](assets/site/storage-internals.svg)
-
 
 ### Datenbankkern :id=database-core
 

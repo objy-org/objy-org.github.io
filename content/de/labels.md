@@ -69,22 +69,11 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 
 | Location | Text |
 | --- | --- |
-| Outside | Dein Objekt |
-| Format | JSON |
-| Json identity | `"_id": "bike-001",` |
-| Json name | `"name": "City bike",` |
-| Json price | `"price": 199,` |
-| Json notes | `"notes": "Everyday rides"` |
 | Inside | In objy.db |
 | Memory | IM RAM |
 | Hot | Heiße Felder |
 | Columns | Kompakte Spalten |
 | Compressed | Komprimiert |
-| Reads | Ein Objekt rein. Ein Objekt raus. |
-| Persist | Sichern |
-| Recover | Wiederherstellen |
-| Durability | S3-Sicherung (optional) |
-| Durability detail | Journale + Snapshots |
 
 ## Application diagram
 

@@ -33,7 +33,7 @@ Your objects. Your ideas. Build whatever comes next.
 
 Work with flexible JSON objects. Query, aggregate, and search vectors through one API. Run embedded in your application or across a cluster.
 
-![CRUD, queries, aggregation, and vector search above three overlapping JSON snippets: a person, an AI memory, and a connected device.](assets/site/architecture.svg)
+![CRUD, queries, aggregation, and vector search connect to three overlapping JSON objects. Beneath them, one in-memory storage layer contains hot fields, compact columns, and compressed fields.](assets/site/architecture.svg)
 
 ### Objects outside. Smart storage inside. :id=storage-internals
 
@@ -46,9 +46,6 @@ Keep more data in memory while keeping your objects simple. OBJY combines direct
 > **Fast in memory. Optional S3 durability.**
 >
 > Enable S3-backed journals and snapshots to preserve your objects for recovery.
-
-![A complete JSON object sits in front of three in-memory storage tiers. Persist and recover arrows connect them to optional S3 durability through journals and snapshots.](assets/site/storage-internals.svg)
-
 
 ### Database core :id=database-core
 

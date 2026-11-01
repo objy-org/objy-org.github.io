@@ -45,7 +45,9 @@ export function decorateDocument(html) {
   const catalogs = sections.map(({ content }) => catalogEntries(content));
   const illustrations = sections.map(({ content }) => !content.some((node) => node.tagName === 'H3') &&
     content.find((node) => node.tagName === 'P' && node.children.length === 1 && node.firstElementChild.tagName === 'IMG'));
-  if (catalogs.some(Boolean) && catalogs.every((catalog, index) => catalog || illustrations[index])) {
+  const explanations = sections.map(({ content }) => content.length &&
+    !content.some(node => /^H[1-6]$/.test(node.tagName)));
+  if (catalogs.some(Boolean) && catalogs.every((catalog, index) => catalog || illustrations[index] || explanations[index])) {
     // A standalone introductory image belongs to the page title, without
     // requiring an extra chapter heading or navigation entry.
     const leadImages = [...article.querySelectorAll(':scope > p > img:only-child')].filter((image) =>
@@ -63,12 +65,19 @@ export function decorateDocument(html) {
     for (const [index, { heading }] of sections.entries()) {
       if (!catalogs[index]) {
         const section = document.createElement('section');
-        section.className = 'document-chapter document-illustration';
+        const illustrated = Boolean(illustrations[index]);
+        section.className = `document-chapter ${illustrated ? 'document-illustration' : 'document-explanation'}`;
         if (heading.id) section.setAttribute('aria-labelledby', heading.id);
         heading.before(section);
         const copy = document.createElement('div');
-        copy.className = 'document-illustration-copy';
+        copy.className = illustrated ? 'document-illustration-copy' : 'document-explanation-copy';
         copy.append(...sections[index].content.filter((node) => node !== illustrations[index]));
+        section.append(heading);
+        if (!illustrated) {
+          copy.querySelectorAll(':scope > ul').forEach(list => list.setAttribute('role', 'list'));
+          section.append(copy);
+          continue;
+        }
         // A heading and image alone make a wide visual chapter; explanations
         // with lists or other content retain the text-and-image layout.
         section.classList.toggle('document-illustration-wide', !copy.childNodes.length);
@@ -76,7 +85,6 @@ export function decorateDocument(html) {
         figure.className = 'document-art';
         figure.append(illustrations[index].firstElementChild);
         illustrations[index].remove();
-        section.append(heading);
         if (copy.childNodes.length) section.append(copy);
         section.append(figure);
         continue;
