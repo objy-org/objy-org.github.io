@@ -971,8 +971,10 @@ body > main > .sidebar-toggle,
   font-size: 18px;
   text-align: center;
 }
-.document-guide .document-chapter { counter-increment: lesson; }
-.document-guide .document-chapter > h2::before {
+.document-guide > .document-chapter,
+.document-guide-group { counter-increment: lesson; }
+.document-guide > .document-chapter > h2::before,
+.document-guide-group > h2::before {
   content: counter(lesson, decimal-leading-zero);
   margin-right: 16px;
   color: var(--accent);
@@ -980,6 +982,28 @@ body > main > .sidebar-toggle,
   letter-spacing: 0;
   vertical-align: middle;
 }
+.document-guide-group { margin-top: 64px; }
+.document-guide-group > h2 {
+  margin: 0;
+  font-size: clamp(32px, 3.2vw, 40px);
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -1px;
+}
+.document-guide-group > p { max-width: 760px; font-size: 18px; line-height: 1.8; }
+.document-guide-group .document-chapter { padding: 40px 0 48px; }
+.document-guide-group .document-chapter:first-of-type { margin-top: 0; }
+.document-guide-group .document-chapter > h3 {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-size: clamp(25px, 2.6vw, 30px);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -.6px;
+  scroll-margin-top: 48px;
+}
+.document-guide .document-text > h3 { margin-bottom: 24px; }
+.document-guide .document-text .document-illustration-copy { max-width: 760px; }
 .document-guide .document-illustration-copy > :first-child { margin-top: 0; }
 .document-guide .document-illustration-copy > :last-child { margin-bottom: 0; }
 .document-guide .document-illustration-copy > p:last-child { font-size: 14px; }

@@ -213,8 +213,12 @@ The redesign is on `codex/objy-brand-website`. That branch does not automaticall
 
 ## Edit Learn
 
-Open `content/en/learn.md` or `content/de/learn.md`. The five `##` chapters explain objects, references, collections, operations, and memory with the Orbit project and its owner Alex. Their headings automatically become the left menu; keep matching `:id=...` values across translations. A standalone image in every chapter enables the illustrated guide layout. Text and artwork alternate sides on desktop and stack on phones.
+Open `content/en/learn.md` or `content/de/learn.md`. The two `##` chapters are Database and Server. Use simple `###` topic headings beneath them: collections, objects, properties, references, queries, storage, API, users and permissions, clusters, and persistence. Their headings automatically become the left menu, with topics indented beneath their parent chapter. Keep matching `:id=...` values across translations.
 
-Keep each chapter short: one idea, one illustration, an optional fenced example, and links to deeper documentation. Keep code identical across translations. The reference example stores its descriptor; `owner.object` is the expanded read view. The metadata example describes collection settings, not fields inside an object. Edit the image path and accessible description in the page Markdown. Diagram labels, names, and the illustrated JSON example live in the Learn diagrams table of `labels.md`. Keep the sample data consistent with the page’s prose and fenced examples in both languages; preserve JSON punctuation.
+The shared guide renderer supports a mixture of illustrated topics and ordinary prose, lists, or code. Keep at least one standalone image in each main chapter. Text and artwork alternate sides on desktop and stack on phones. Headings and whitespace separate the chapters; do not add manual divider lines.
+
+Use the same bike (`bike-01` in `bikes`) and owner Alex (`person-42` in `people`) throughout. The reference example shows `owner.object` as an expanded read view. Collection metadata configures storage rather than becoming fields on the bike. Ownership describes a relationship; user permissions separately control access. Keep S3 persistence explicitly optional and replication asynchronous.
+
+Keep code identical across translations. Image paths and accessible descriptions live in the page Markdown. Diagram labels, names, and illustrated JSON lines live in the Learn diagrams table of `labels.md`; keep their values consistent with the prose and fenced examples. Preserve JSON punctuation.
 
 The top-bar Learn link is translated in the Navigation table of `labels.md`. No separate page registration or chapter-menu file is required.

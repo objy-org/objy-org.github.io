@@ -103,16 +103,27 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Hot | Heiße Felder |
 | Columns | Spalten |
 | Compressed | Komprimiert |
-| Project collection | `projects` |
-| Project label | `projects / project-01` |
+| Bike collection | `bikes` |
+| Bike label | `bikes / bike-01` |
 | Person label | `people / person-42` |
-| Project name | `Orbit` |
+| Bike name | `Bike` |
 | Person name | `Alex` |
-| Project summary | `{ Orbit }` |
-| Project identity | `"_id": "project-01"` |
+| Bike summary | `{ Bike }` |
+| Bike identity | `"_id": "bike-01"` |
 | Reference read | `owner.object.name → "Alex"` |
-| Object id | `  "_id": "project-01",` |
-| Object name | `  "name": "Orbit",` |
-| Object status | `  "status": "active",` |
-| Object score | `  "score": 42,` |
-| Object tags | `  "tags": ["launch", "team"]` |
+| Object id | `  "_id": "bike-01",` |
+| Object name | `  "name": "City bike",` |
+| Object available | `  "available": true,` |
+| Object price | `  "price": 15,` |
+| Object tags | `  "tags": ["city", "electric"]` |
+| Application | Anwendung |
+| Server | Server |
+| Api auth | API + Auth |
+| Database | Datenbank |
+| Node a | Knoten A |
+| Node b | Knoten B |
+| Node c | Knoten C |
+| Node d | Knoten D |
+| Shard 1 | Shard 1 |
+| Shard 2 | Shard 2 |
+| Replica | Replikat |

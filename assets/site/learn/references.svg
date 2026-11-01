@@ -10,8 +10,8 @@
   </style>
   <svg class="learn-references-wide" viewBox="0 0 560 360" width="100%" height="100%" aria-hidden="true">
 <rect x="20" y="118" width="218" height="126" rx="8" fill="#302724" stroke="#8a6a5c"/>
-<text x="44" y="153" font-size="16" fill="#c4b8ac" data-copy="learn-diagrams.project-label">projects / project-01</text>
-<text x="44" y="199" font-size="28" fill="#e4b29d" data-copy="learn-diagrams.project-name">Orbit</text>
+<text x="44" y="153" font-size="16" fill="#c4b8ac" data-copy="learn-diagrams.bike-label">bikes / bike-01</text>
+<text x="44" y="199" font-size="28" fill="#e4b29d" data-copy="learn-diagrams.bike-name">Bike</text>
 <rect x="334" y="48" width="206" height="126" rx="8" fill="#282a25" stroke="#71815f"/>
 <text x="358" y="83" font-size="16" fill="#b7c2aa" data-copy="learn-diagrams.person-label">people / person-42</text>
 <text x="358" y="129" font-size="28" fill="#c5dca5" data-copy="learn-diagrams.person-name">Alex</text>
@@ -24,8 +24,8 @@
   </svg>
   <svg class="learn-references-compact" viewBox="0 0 360 368" width="100%" height="100%" aria-hidden="true">
 <rect x="16" y="16" width="232" height="98" rx="6" fill="#302724" stroke="#8a6a5c"/>
-<text x="36" y="45" font-size="14" fill="#c4b8ac" data-copy="learn-diagrams.project-label">projects / project-01</text>
-<text x="36" y="83" font-size="26" fill="#e4b29d" data-copy="learn-diagrams.project-name">Orbit</text>
+<text x="36" y="45" font-size="14" fill="#c4b8ac" data-copy="learn-diagrams.bike-label">bikes / bike-01</text>
+<text x="36" y="83" font-size="26" fill="#e4b29d" data-copy="learn-diagrams.bike-name">Bike</text>
 <path d="M132 114v28h96v17m-5-5 5 5 5-5" stroke="#b0b39e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
 <text x="288" y="140" font-size="14" fill="#e4b29d" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">owner</text>
 <rect x="112" y="166" width="232" height="98" rx="6" fill="#282a25" stroke="#71815f"/>

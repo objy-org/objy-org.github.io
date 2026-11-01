@@ -3,13 +3,13 @@
 <rect x="86" y="32" width="388" height="320" rx="8" fill="#252922" stroke="#627054"/>
 <rect x="70" y="44" width="388" height="320" rx="8" fill="#282a25" stroke="#71815f"/>
 <path d="M70 92h388" stroke="#526047"/>
-<text x="94" y="75" font-size="17" fill="#c5dca5" data-copy="learn-diagrams.project-collection">projects</text>
+<text x="94" y="75" font-size="17" fill="#c5dca5" data-copy="learn-diagrams.bike-collection">bikes</text>
 <text x="434" y="75" font-size="13" fill="#aaa99f" text-anchor="end">JSON</text>
 <text x="94" y="128" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{</text>
-<text x="94" y="160" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-id">  &quot;_id&quot;: &quot;project-01&quot;,</text>
-<text x="94" y="192" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-name">  &quot;name&quot;: &quot;Orbit&quot;,</text>
-<text x="94" y="224" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-status">  &quot;status&quot;: &quot;active&quot;,</text>
-<text x="94" y="256" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-score">  &quot;score&quot;: 42,</text>
-<text x="94" y="288" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-tags">  &quot;tags&quot;: [&quot;launch&quot;, &quot;team&quot;]</text>
+<text x="94" y="160" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-id">  &quot;_id&quot;: &quot;bike-01&quot;,</text>
+<text x="94" y="192" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-name">  &quot;name&quot;: &quot;City bike&quot;,</text>
+<text x="94" y="224" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-available">  &quot;available&quot;: true,</text>
+<text x="94" y="256" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-price">  &quot;price&quot;: 15,</text>
+<text x="94" y="288" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.object-tags">  &quot;tags&quot;: [&quot;city&quot;, &quot;electric&quot;]</text>
 <text x="94" y="320" font-size="19" fill="#c5dca5" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">}</text>
 </svg>

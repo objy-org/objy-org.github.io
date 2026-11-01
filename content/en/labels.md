@@ -103,16 +103,27 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Hot | Hot fields |
 | Columns | Columns |
 | Compressed | Compressed |
-| Project collection | `projects` |
-| Project label | `projects / project-01` |
+| Bike collection | `bikes` |
+| Bike label | `bikes / bike-01` |
 | Person label | `people / person-42` |
-| Project name | `Orbit` |
+| Bike name | `Bike` |
 | Person name | `Alex` |
-| Project summary | `{ Orbit }` |
-| Project identity | `"_id": "project-01"` |
+| Bike summary | `{ Bike }` |
+| Bike identity | `"_id": "bike-01"` |
 | Reference read | `owner.object.name → "Alex"` |
-| Object id | `  "_id": "project-01",` |
-| Object name | `  "name": "Orbit",` |
-| Object status | `  "status": "active",` |
-| Object score | `  "score": 42,` |
-| Object tags | `  "tags": ["launch", "team"]` |
+| Object id | `  "_id": "bike-01",` |
+| Object name | `  "name": "City bike",` |
+| Object available | `  "available": true,` |
+| Object price | `  "price": 15,` |
+| Object tags | `  "tags": ["city", "electric"]` |
+| Application | Application |
+| Server | Server |
+| Api auth | API + auth |
+| Database | Database |
+| Node a | Node A |
+| Node b | Node B |
+| Node c | Node C |
+| Node d | Node D |
+| Shard 1 | Shard 1 |
+| Shard 2 | Shard 2 |
+| Replica | Replica |

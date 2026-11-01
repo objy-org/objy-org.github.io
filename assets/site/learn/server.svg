@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" class="learn-server" width="100%" fill="none" font-family="Montserrat, Arial, sans-serif">
+<style>
+.learn-server { aspect-ratio: 560 / 320; }
+.learn-server-compact { display: none; }
+@media (max-width: 640px) {
+  .learn-server { aspect-ratio: 360 / 360; }
+  .learn-server-wide { display: none; }
+  .learn-server-compact { display: block; }
+}
+</style>
+<svg class="learn-server-wide" viewBox="0 0 560 320" width="100%" height="100%" aria-hidden="true">
+<rect x="16" y="84" width="148" height="98" rx="7" fill="#26282d" stroke="#66879c"/>
+<path d="M16 108h148" stroke="#66879c"/>
+<text x="90" y="151" font-size="17" fill="#a9d0eb" data-copy="learn-diagrams.application" text-anchor="middle">Application</text>
+<path d="M174 133h38m-6-6 6 6-6 6" stroke="#aaa99f" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="192" y="111" font-size="12" fill="#aaa99f" text-anchor="middle">HTTP</text>
+<rect x="226" y="20" width="318" height="278" rx="7" fill="#262626" stroke="#53534c"/>
+<text x="248" y="55" font-size="23" fill="#dedbd5" data-copy="learn-diagrams.server">Server</text>
+<rect x="244" y="82" width="282" height="56" rx="7" fill="#2b2631" stroke="#74608a"/>
+<text x="385" y="117" font-size="19" fill="#cfb5ee" data-copy="learn-diagrams.api-auth" text-anchor="middle">API + auth</text>
+<path d="M385 146v20m-5-5 5 5 5-5" stroke="#aaa99f" stroke-width="1.5"/>
+<rect x="244" y="178" width="282" height="100" rx="7" fill="#252922" stroke="#71815f"/>
+<text x="385" y="219" font-size="25" fill="#c5dca5" data-copy="learn-diagrams.database" text-anchor="middle">Database</text>
+<text x="385" y="251" font-size="14" fill="#b7c2aa" data-copy="storage-diagram.memory" text-anchor="middle">IN MEMORY</text>
+</svg>
+<svg class="learn-server-compact" viewBox="0 0 360 360" width="100%" height="100%" aria-hidden="true">
+<rect x="20" y="12" width="320" height="54" rx="7" fill="#26282d" stroke="#66879c"/>
+<text x="180" y="46" font-size="20" fill="#a9d0eb" data-copy="learn-diagrams.application" text-anchor="middle">Application</text>
+<path d="M180 74v29m-5-5 5 5 5-5" stroke="#aaa99f" stroke-width="1.7"/>
+<text x="210" y="96" font-size="13" fill="#aaa99f">HTTP</text>
+<rect x="20" y="118" width="320" height="224" rx="7" fill="#262626" stroke="#53534c"/>
+<text x="38" y="150" font-size="22" fill="#dedbd5" data-copy="learn-diagrams.server">Server</text>
+<rect x="36" y="166" width="288" height="50" rx="7" fill="#2b2631" stroke="#74608a"/>
+<text x="180" y="198" font-size="19" fill="#cfb5ee" data-copy="learn-diagrams.api-auth" text-anchor="middle">API + auth</text>
+<path d="M180 220v17m-5-5 5 5 5-5" stroke="#aaa99f" stroke-width="1.5"/>
+<rect x="36" y="246" width="288" height="80" rx="7" fill="#252922" stroke="#71815f"/>
+<text x="180" y="281" font-size="23" fill="#c5dca5" data-copy="learn-diagrams.database" text-anchor="middle">Database</text>
+<text x="180" y="308" font-size="13" fill="#b7c2aa" data-copy="storage-diagram.memory" text-anchor="middle">IN MEMORY</text>
+</svg>
+</svg>

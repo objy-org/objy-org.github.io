@@ -42,6 +42,7 @@ function decorateIllustratedChapter({ heading, content }, image) {
   image.remove();
   if (copy.childNodes.length) section.append(copy);
   section.append(figure);
+  return section;
 }
 
 // An index is a sequence of icon headings, descriptions, and links or link-only lists.
@@ -120,6 +121,49 @@ export function decorateDocument(html) {
       section.append(grid);
     }
     article.classList.add('document-catalog');
+    return article.outerHTML;
+  }
+  // H2 chapters can group simple H3 topics, mixing diagrams with prose and code.
+  const groups = sections.map(({ heading, content }) => {
+    const topics = content.filter(node => node.tagName === 'H3');
+    return {
+      heading,
+      intro: content.slice(0, content.indexOf(topics[0])),
+      topics: topics.map((title, index) => {
+        const start = content.indexOf(title) + 1;
+        const end = topics[index + 1] ? content.indexOf(topics[index + 1]) : content.length;
+        const body = content.slice(start, end);
+        const image = body.find(node => node.tagName === 'P' && node.children.length === 1 && node.firstElementChild.tagName === 'IMG');
+        return { heading: title, content: body, image };
+      }),
+    };
+  });
+  if (groups.length && groups.every(group => group.topics.some(topic => topic.image) &&
+    group.topics.every(topic => topic.content.length && !topic.heading.querySelector('img') &&
+      !topic.content.some(node => /^H[1-6]$/.test(node.tagName))))) {
+    article.classList.add('document-guide', 'document-guide-grouped');
+    for (const group of groups) {
+      const chapter = document.createElement('section');
+      chapter.className = 'document-guide-group';
+      if (group.heading.id) chapter.setAttribute('aria-labelledby', group.heading.id);
+      group.heading.before(chapter);
+      chapter.append(group.heading, ...group.intro);
+      for (const topic of group.topics) {
+        if (topic.image) {
+          const illustrated = decorateIllustratedChapter(topic, topic.image);
+          chapter.append(illustrated);
+        } else {
+          const section = document.createElement('section');
+          section.className = 'document-chapter document-text';
+          if (topic.heading.id) section.setAttribute('aria-labelledby', topic.heading.id);
+          const copy = document.createElement('div');
+          copy.className = 'document-illustration-copy';
+          copy.append(...topic.content);
+          section.append(topic.heading, copy);
+          chapter.append(section);
+        }
+      }
+    }
     return article.outerHTML;
   }
   // A guide with an image in each chapter gets a visual reading layout.
