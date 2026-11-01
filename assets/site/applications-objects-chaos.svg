@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="objy-object-engine objy-scale-engine objy-chaos-engine" width="100%" fill="none" font-family="Montserrat, Arial, sans-serif">
   <style>
-    .objy-scale-engine { aspect-ratio: 720 / 480; }
+    .objy-scale-engine { aspect-ratio: 900 / 520; }
     .objy-scale-engine .object-engine-compact { display: none; }
     @media (max-width: 640px) {
-      .objy-scale-engine { aspect-ratio: 420 / 560; }
+      .objy-scale-engine { aspect-ratio: 420 / 640; }
       .objy-scale-engine .object-engine-wide { display: none; }
       .objy-scale-engine .object-engine-compact { display: block; }
     }
@@ -12,234 +12,464 @@
     }
   </style>
   <defs>
-    <!-- Every repeated brace pair is one object. No cards or field contents. -->
-    <g id="objy-scale-object" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round">
+    <g id="objy-scale-object" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
       <path d="M4 0H3q-2 0-2 2v3Q1 7-1 7q2 0 2 2v3q0 2 2 2h1m5-14h1q2 0 2 2v3q0 2 2 2-2 0-2 2v3q0 2-2 2H9"/>
     </g>
     <g id="objy-scale-field">
-      <!-- One flat scatter: identical upright glyphs, size, opacity, and spacing rules. -->
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(62.76 -12.68) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(141.89 81.63) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(362.07 83.72) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(228.70 -26.17) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(42.83 76.50) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(177.93 168.85) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(365.91 173.61) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(3.61 150.03) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(145.77 -8.14) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(188.49 242.49) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(296.84 128.02) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(293.55 5.42) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(302.05 68.95) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(236.02 128.66) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(12.74 204.08) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(81.77 125.92) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(124.64 229.32) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(92.17 55.59) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(193.13 48.43) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(368.20 128.81) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(129.29 127.80) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(74.88 223.70) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(188.83 114.09) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(130.16 173.52) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(242.57 20.79) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(237.49 233.92) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(224.72 179.37) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(40.58 31.75) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(145.53 34.04) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(104.21 -16.38) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(320.09 180.24) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(188.43 -0.34) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(41.84 137.39) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(107.54 18.16) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(171.94 207.93) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(209.11 80.68) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(91.29 91.74) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(47.15 172.66) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(329.75 128.73) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(301.26 37.52) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(21.12 107.08) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(259.95 -11.09) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(261.04 98.29) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(174.54 79.53) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(75.79 20.06) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(267.02 156.56) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(273.28 217.04) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(315.63 96.87) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(207.85 210.14) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(45.59 213.08) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(266.81 126.27) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(158.54 140.90) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(157.67 235.82) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(51.26 110.14) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(243.29 206.93) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(107.57 201.74) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(333.80 65.08) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(204.36 141.64) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(271.73 36.93) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(17.75 177.21) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(271.66 70.30) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(201.13 -26.13) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(157.77 114.21) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(118.55 44.22) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(145.28 204.57) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(305.38 155.39) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(215.66 21.84) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(288.33 99.45) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(189.60 24.77) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(232.09 153.47) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(82.05 151.21) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(230.17 -2.36) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(76.04 199.99) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(334.52 151.81) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(236.14 93.13) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(116.97 102.45) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(148.15 57.92) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(175.14 -25.08) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(368.17 106.50) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(59.98 54.10) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(367.22 151.39) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(222.52 44.35) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(154.50 180.41) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(105.47 142.84) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(248.86 178.24) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(267.68 12.64) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(246.42 42.95) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(212.45 239.24) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(213.36 115.07) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(50.11 9.01) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(118.20 69.95) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(298.79 204.16) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(132.10 151.59) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(202.32 182.92) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(296.30 177.83) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(4.85 128.72) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(170.62 52.46) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(342.06 105.49) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(106.45 175.98) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(152.56 12.87) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(67.41 78.34) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(98.70 223.60) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(199.47 162.94) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(341.44 178.90) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(83.99 0.76) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(49.25 194.02) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(71.22 103.65) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(181.00 137.61) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(37.31 56.86) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(208.42 0.71) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(24.22 158.24) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(83.60 -20.19) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(104.53 122.28) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(123.98 -13.43) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(339.96 84.52) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(62.94 145.17) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(126.39 194.71) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(179.06 188.81) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(281.02 -14.60) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(96.52 73.37) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(138.09 101.32) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(131.05 11.58) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(44.53 155.26) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(165.71 -5.31) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(170.89 25.51) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(223.07 63.01) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(98.59 37.25) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(156.46 -25.92) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(156.92 158.22) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(103.42 0.33) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(215.71 98.22) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(63.55 37.42) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(226.11 213.07) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(189.98 215.09) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(350.19 128.38) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(22.90 139.44) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(64.91 171.24) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(106.46 159.36) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(255.01 225.85) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(49.04 93.48) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(189.22 97.17) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(285.35 158.84) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(201.69 64.08) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(235.19 111.75) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(278.94 52.76) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(321.61 113.23) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(169.23 95.83) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(127.59 212.72) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(304.52 53.11) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(317.44 196.82) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(58.73 125.51) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(225.81 195.51) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(319.15 81.27) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(118.36 85.60) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(248.56 154.75) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(24.87 124.03) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(81.81 36.31) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(155.05 220.29) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(30.96 194.94) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(91.77 20.74) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(246.37 4.60) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(295.23 20.93) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(350.89 145.33) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(313.80 130.40) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(287.68 83.96) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(173.31 110.84) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(254.87 -26.29) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(281.87 116.09) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(158.62 74.31) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(192.20 82.15) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(275.35 141.48) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(279.22 201.85) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(128.30 27.35) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(220.19 136.89) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(263.45 52.29) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(215.49 159.85) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(251.47 127.46) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(167.63 9.57) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(30.65 91.41) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(265.71 171.57) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(173.99 153.84) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(261.22 201.80) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(173.65 231.67) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(350.46 160.24) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(101.33 106.76) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(76.62 54.61) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(210.16 224.68) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(2.42 187.11) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(29.52 213.53) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(91.34 206.19) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(254.84 84.09) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(298.50 141.31) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(81.69 75.60) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(141.10 -23.26) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(305.07 112.12) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(65.20 185.35) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(153.97 100.29) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(133.14 65.42) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(186.41 62.95) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(144.06 131.10) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(256.36 111.97) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(316.72 66.95) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(241.43 192.01) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(3.42 168.63) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(302.44 83.00) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(224.20 79.07) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(59.88 211.88) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(207.30 41.15) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(65.77 2.93) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(273.34 83.52) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(143.06 114.57) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(59.88 22.86) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(133.36 49.44) scale(.9)" color="#bdbbb2" opacity=".74"/>
-      <g class="connected-object connected-apps" color="#edb49a">
-        <use class="field-object" href="#objy-scale-object" transform="translate(82.15 175.70) scale(.9)" opacity=".74"/>
+      <g id="objy-scale-field-wide" class="object-field" data-layout="wide">
+        <!-- Brackets surround the endpoints, with clear islands for icons and labels. -->
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(17.17 398.61) rotate(-6.52) scale(1.049) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(883.50 275.13) rotate(-1.93) scale(1.066) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(84.21 157.46) rotate(-6.16) scale(0.977) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(267.32 473.06) rotate(-7.91) scale(1.214) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(557.62 499.12) rotate(2.29) scale(1.029) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(729.21 301.41) rotate(1.43) scale(1.274) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(230.79 74.51) rotate(-1.57) scale(1.123) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(415.64 468.98) rotate(3.94) scale(1.201) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(869.19 395.80) rotate(9.64) scale(0.950) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(213.79 200.70) rotate(2.18) scale(1.269) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(18.38 277.80) rotate(4.36) scale(1.032) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(355.87 350.76) rotate(7.15) scale(1.111) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(138.84 414.06) rotate(-0.69) scale(1.237) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(664.37 479.54) rotate(-8.94) scale(1.011) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(624.99 17.04) rotate(-7.40) scale(1.056) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(247.98 360.92) rotate(3.86) scale(1.257) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(751.34 194.84) rotate(0.24) scale(1.100) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(457.31 194.26) rotate(9.62) scale(1.024) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(521.30 19.17) rotate(-2.09) scale(1.025) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(661.26 171.37) rotate(9.44) scale(1.040) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(658.54 388.51) rotate(-9.50) scale(1.088) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(479.20 105.91) rotate(5.55) scale(1.226) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(140.35 58.76) rotate(-1.13) scale(1.027) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(850.54 187.84) rotate(0.61) scale(0.953) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(516.60 421.59) rotate(-2.68) scale(1.105) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(576.16 199.48) rotate(-4.85) scale(0.970) translate(-6.5 -7)" stroke-width="1.85" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(364.18 153.26) rotate(4.89) scale(1.147) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(665.46 93.41) rotate(5.67) scale(0.994) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(646.18 289.99) rotate(8.76) scale(1.038) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(437.02 275.51) rotate(-1.11) scale(1.127) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(808.97 287.28) rotate(7.88) scale(0.959) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(258.83 278.25) rotate(-4.04) scale(1.251) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(435.69 395.17) rotate(4.11) scale(1.107) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(580.79 414.68) rotate(0.93) scale(0.959) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(342.94 439.64) rotate(-3.98) scale(1.274) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(491.38 502.66) rotate(0.60) scale(1.132) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(158.31 128.74) rotate(8.03) scale(1.155) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(292.56 154.45) rotate(6.14) scale(0.995) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(456.48 28.72) rotate(5.66) scale(1.164) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(65.60 216.06) rotate(-6.65) scale(0.965) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(48.64 340.28) rotate(-9.33) scale(1.124) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(145.32 191.86) rotate(-0.89) scale(0.979) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(498.49 256.62) rotate(0.82) scale(1.043) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(882.00 336.67) rotate(8.88) scale(1.061) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(437.14 334.66) rotate(-0.27) scale(1.111) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(202.76 425.12) rotate(-7.48) scale(1.166) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(392.62 17.09) rotate(2.72) scale(1.053) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(77.27 447.54) rotate(7.60) scale(1.223) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(643.95 230.47) rotate(-7.63) scale(1.234) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(230.77 134.55) rotate(-8.51) scale(1.049) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(277.07 215.15) rotate(-7.66) scale(1.053) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(749.02 245.50) rotate(7.05) scale(1.237) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(329.69 291.10) rotate(-1.68) scale(1.262) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(516.19 205.37) rotate(-2.33) scale(1.213) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(358.68 494.79) rotate(9.87) scale(1.269) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(402.67 212.42) rotate(-6.26) scale(1.049) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(91.25 108.06) rotate(-4.87) scale(1.144) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(680.92 26.24) rotate(6.66) scale(1.084) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(610.52 479.80) rotate(6.71) scale(1.074) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(334.43 21.25) rotate(1.25) scale(1.093) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(72.43 286.89) rotate(-6.07) scale(1.002) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(572.72 35.01) rotate(-8.33) scale(1.261) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(301.71 103.72) rotate(-2.80) scale(1.090) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(423.63 134.18) rotate(-9.91) scale(1.126) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(261.23 416.57) rotate(-8.51) scale(1.216) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(822.29 236.71) rotate(-3.64) scale(1.183) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(87.87 392.16) rotate(2.29) scale(0.952) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(200.40 474.57) rotate(0.97) scale(1.253) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(219.32 26.07) rotate(-3.95) scale(0.972) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(145.94 463.71) rotate(9.77) scale(0.984) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(468.01 441.15) rotate(5.09) scale(1.096) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(383.94 293.42) rotate(5.26) scale(0.968) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(194.36 370.51) rotate(-1.73) scale(1.030) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(660.69 339.47) rotate(-6.69) scale(0.991) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(523.35 159.56) rotate(-7.05) scale(0.966) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(302.89 349.73) rotate(9.26) scale(1.086) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(694.03 241.72) rotate(-2.37) scale(0.965) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(534.74 377.90) rotate(-7.47) scale(0.999) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(874.87 229.94) rotate(-5.58) scale(1.224) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(618.61 100.23) rotate(-2.28) scale(1.007) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(614.84 149.69) rotate(0.94) scale(1.053) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(562.29 455.06) rotate(4.10) scale(0.980) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(625.05 436.31) rotate(8.94) scale(1.120) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(487.53 376.22) rotate(2.63) scale(1.192) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(184.76 71.50) rotate(1.47) scale(1.097) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(391.48 401.07) rotate(-5.35) scale(0.978) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(514.53 61.84) rotate(-9.09) scale(1.279) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(333.12 395.63) rotate(1.50) scale(1.131) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(525.91 110.07) rotate(6.61) scale(1.181) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(333.64 62.06) rotate(0.15) scale(0.977) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(151.33 371.32) rotate(8.48) scale(1.268) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(469.26 149.86) rotate(2.53) scale(1.168) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(430.60 80.48) rotate(-0.59) scale(1.130) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(617.89 62.15) rotate(9.98) scale(1.040) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(564.09 239.04) rotate(-8.55) scale(1.004) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(710.56 203.14) rotate(8.92) scale(1.092) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(260.57 319.31) rotate(-4.53) scale(1.070) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(447.78 237.12) rotate(-4.79) scale(1.213) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(335.15 194.78) rotate(-8.42) scale(1.179) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(388.20 257.19) rotate(-9.49) scale(1.162) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(574.66 162.31) rotate(6.70) scale(1.117) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(383.43 112.69) rotate(-7.28) scale(1.117) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(686.77 283.32) rotate(-5.68) scale(0.982) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(517.24 463.32) rotate(-5.30) scale(1.093) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(303.04 252.41) rotate(9.30) scale(1.152) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(477.18 311.42) rotate(4.18) scale(1.246) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(579.09 82.91) rotate(7.22) scale(1.074) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(341.06 101.26) rotate(0.14) scale(1.069) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(807.79 198.30) rotate(-5.74) scale(1.244) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(770.10 305.78) rotate(-5.83) scale(1.222) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(397.87 345.50) rotate(1.37) scale(1.100) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(106.04 200.80) rotate(-9.32) scale(1.003) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(604.95 271.13) rotate(0.03) scale(1.156) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(845.90 289.06) rotate(-3.25) scale(1.032) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(656.20 129.31) rotate(-0.10) scale(0.966) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(617.93 395.64) rotate(4.30) scale(0.956) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(472.78 65.86) rotate(4.44) scale(1.134) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(622.25 185.40) rotate(5.86) scale(1.200) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(52.88 406.38) rotate(-5.80) scale(1.108) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(602.75 235.40) rotate(-6.43) scale(0.968) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(407.93 174.62) rotate(-1.73) scale(1.216) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(452.55 499.41) rotate(-4.04) scale(1.108) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(67.24 252.65) rotate(-4.94) scale(1.190) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(255.85 181.09) rotate(-2.42) scale(0.999) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(305.17 451.07) rotate(-3.51) scale(1.218) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(666.77 429.56) rotate(9.78) scale(1.015) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(525.77 295.25) rotate(-7.73) scale(1.002) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(842.96 349.81) rotate(-4.99) scale(0.969) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(306.75 486.35) rotate(-3.12) scale(1.174) translate(-6.5 -7)" stroke-width="1.85" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(146.80 91.02) rotate(3.03) scale(1.233) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(121.55 147.07) rotate(3.68) scale(0.973) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(410.66 435.21) rotate(-4.99) scale(0.976) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(195.17 145.39) rotate(-6.75) scale(1.182) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(656.73 61.31) rotate(2.16) scale(1.101) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(180.97 38.98) rotate(7.58) scale(1.192) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(788.69 232.79) rotate(6.55) scale(1.112) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(328.14 148.58) rotate(-1.00) scale(1.138) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(411.08 502.25) rotate(-8.55) scale(1.171) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(528.88 242.07) rotate(-1.95) scale(0.979) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(370.34 192.65) rotate(-3.92) scale(1.149) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(194.46 103.34) rotate(3.31) scale(1.051) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(297.92 395.72) rotate(5.11) scale(1.121) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(379.12 441.35) rotate(-0.83) scale(1.160) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(490.13 18.07) rotate(8.45) scale(1.077) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(265.10 102.48) rotate(5.99) scale(0.959) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(453.37 364.01) rotate(-8.21) scale(1.260) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(73.21 187.08) rotate(-3.12) scale(1.043) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(112.63 455.92) rotate(-7.60) scale(1.157) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(179.00 191.49) rotate(2.42) scale(1.069) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(423.38 35.04) rotate(5.38) scale(1.108) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(258.60 245.63) rotate(4.69) scale(0.969) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(549.25 409.14) rotate(-1.78) scale(1.144) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(293.02 296.78) rotate(8.57) scale(0.982) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(40.08 309.05) rotate(-3.10) scale(1.067) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(232.30 456.04) rotate(6.43) scale(1.042) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(693.48 314.34) rotate(0.97) scale(1.252) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(234.76 104.34) rotate(-8.34) scale(1.086) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(522.99 496.50) rotate(8.69) scale(0.951) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(481.64 407.48) rotate(-4.78) scale(1.144) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(814.36 317.03) rotate(-1.16) scale(1.007) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(301.49 185.74) rotate(9.54) scale(1.089) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(438.27 163.76) rotate(-9.87) scale(0.977) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(591.54 449.05) rotate(-6.06) scale(0.981) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(171.05 416.13) rotate(9.51) scale(1.112) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(227.08 392.44) rotate(-2.44) scale(1.204) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(475.70 470.60) rotate(-7.03) scale(1.240) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(677.44 209.26) rotate(4.25) scale(1.068) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(440.47 304.11) rotate(0.18) scale(1.082) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(51.22 373.20) rotate(-0.47) scale(1.028) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(117.92 371.57) rotate(4.81) scale(1.206) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(163.60 159.79) rotate(-3.17) scale(1.172) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(359.85 321.67) rotate(-5.60) scale(1.191) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(226.11 165.56) rotate(4.97) scale(1.101) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(881.79 304.24) rotate(-1.16) scale(1.100) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(32.99 246.81) rotate(-9.25) scale(1.113) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(328.99 321.44) rotate(5.83) scale(1.206) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(485.39 345.71) rotate(-9.79) scale(1.069) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(846.90 317.97) rotate(-1.34) scale(1.017) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(881.61 367.10) rotate(7.49) scale(1.016) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(445.56 468.30) rotate(-7.02) scale(1.209) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(482.67 225.34) rotate(-6.48) scale(1.277) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(371.93 46.91) rotate(7.50) scale(1.214) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(121.36 120.01) rotate(8.42) scale(1.246) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(400.92 372.22) rotate(0.51) scale(1.209) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(468.02 266.28) rotate(-4.01) scale(1.251) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(17.49 365.56) rotate(-6.75) scale(0.969) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(548.74 198.05) rotate(-1.02) scale(1.203) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(768.11 276.65) rotate(3.93) scale(0.978) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(547.44 80.74) rotate(9.75) scale(1.088) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(363.99 398.86) rotate(7.18) scale(1.212) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(118.17 172.48) rotate(8.61) scale(0.967) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(643.58 261.19) rotate(-8.50) scale(1.017) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(262.20 152.59) rotate(5.50) scale(1.177) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(109.28 418.40) rotate(-2.24) scale(1.103) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(717.13 269.91) rotate(8.13) scale(1.062) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(437.85 439.47) rotate(-8.65) scale(1.047) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(305.24 222.63) rotate(0.85) scale(1.192) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(435.98 106.28) rotate(-7.14) scale(1.057) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(487.15 191.33) rotate(-1.11) scale(0.989) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(353.90 262.70) rotate(-8.21) scale(1.109) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(534.89 268.97) rotate(0.96) scale(1.181) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(249.51 214.14) rotate(-4.67) scale(1.247) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(410.13 313.37) rotate(7.95) scale(1.193) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(499.58 282.80) rotate(0.18) scale(1.164) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(365.75 16.41) rotate(-1.39) scale(1.123) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(275.86 444.91) rotate(1.14) scale(1.264) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(795.12 262.25) rotate(9.07) scale(1.025) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(496.74 161.56) rotate(-5.88) scale(1.104) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(264.35 389.72) rotate(5.67) scale(1.259) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(598.92 124.62) rotate(1.01) scale(1.103) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(46.79 433.76) rotate(-7.40) scale(1.181) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(418.90 246.69) rotate(1.05) scale(1.271) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(387.85 475.47) rotate(-8.68) scale(1.174) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(45.35 282.84) rotate(-0.33) scale(1.147) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(231.52 429.22) rotate(9.25) scale(1.126) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(429.86 207.17) rotate(3.10) scale(1.149) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(653.22 30.64) rotate(3.97) scale(1.161) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(19.87 339.11) rotate(8.40) scale(1.175) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(776.51 198.10) rotate(9.51) scale(1.253) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(289.42 323.34) rotate(-4.05) scale(1.258) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(174.21 443.48) rotate(-5.53) scale(1.258) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(80.42 416.61) rotate(3.52) scale(1.175) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(374.81 225.90) rotate(0.81) scale(1.108) translate(-6.5 -7)" stroke-width="1.85" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(69.23 310.70) rotate(-2.64) scale(1.272) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(607.28 297.01) rotate(7.08) scale(1.112) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(720.03 240.88) rotate(4.66) scale(1.008) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(111.75 82.05) rotate(-8.39) scale(1.162) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(592.17 391.43) rotate(-8.43) scale(0.983) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(855.61 256.65) rotate(-1.08) scale(1.169) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(496.72 135.18) rotate(9.20) scale(1.218) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(357.57 288.55) rotate(5.39) scale(1.206) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(843.13 376.56) rotate(-2.18) scale(1.001) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(668.90 256.69) rotate(-2.74) scale(1.128) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(543.52 135.79) rotate(1.12) scale(1.047) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(351.03 467.16) rotate(7.89) scale(0.961) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <g class="connected-object connected-apps" color="#edb49a"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(345.00 235.00) rotate(0.00) scale(1.200) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
+        <g class="connected-object connected-agents" color="#cfb5ee"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(570.00 120.00) rotate(0.00) scale(1.200) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
+        <g class="connected-object connected-apis" color="#c5dca5"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(565.00 280.00) rotate(0.00) scale(1.200) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
+        <g class="node-anchor-object connected-node-a" color="#aebfc9"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(385.00 75.00) rotate(0.00) scale(1.200) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
+        <g class="node-anchor-object connected-node-b" color="#aebfc9"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(518.00 332.00) rotate(0.00) scale(1.200) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
       </g>
-      <g class="connected-object connected-agents" color="#cfb5ee">
-        <use class="field-object" href="#objy-scale-object" transform="translate(244.15 67.70) scale(.9)" opacity=".74"/>
+      <g id="objy-scale-field-compact" class="object-field" data-layout="compact">
+        <!-- Brackets surround the endpoints, with clear islands for icons and labels. -->
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(16.51 525.08) rotate(9.37) scale(0.958) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(293.25 20.28) rotate(-7.22) scale(0.910) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(396.09 240.09) rotate(8.31) scale(1.103) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(400.27 494.46) rotate(-7.36) scale(0.876) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(216.07 624.61) rotate(-0.58) scale(1.010) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(23.19 284.86) rotate(8.85) scale(0.828) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(372.00 371.75) rotate(-6.37) scale(1.083) translate(-6.5 -7)" stroke-width="1.85" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(138.02 18.44) rotate(-8.10) scale(0.889) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(121.28 463.19) rotate(6.50) scale(0.864) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(262.91 311.01) rotate(-1.40) scale(0.940) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(237.06 119.28) rotate(-7.83) scale(0.990) translate(-6.5 -7)" stroke-width="1.85" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(118.32 563.20) rotate(-1.89) scale(1.050) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(309.77 577.82) rotate(-5.17) scale(1.064) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(298.43 213.46) rotate(9.36) scale(1.023) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(125.31 209.13) rotate(7.45) scale(0.915) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(38.87 441.34) rotate(-9.39) scale(1.024) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(31.66 206.97) rotate(7.90) scale(0.933) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(216.57 38.78) rotate(-5.47) scale(0.932) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(134.49 379.29) rotate(-3.34) scale(0.864) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(294.75 417.43) rotate(7.01) scale(1.123) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(92.11 288.91) rotate(-5.26) scale(0.822) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(239.06 539.15) rotate(0.84) scale(1.101) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(41.39 138.90) rotate(0.17) scale(0.842) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(170.33 139.89) rotate(-0.92) scale(1.123) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(372.80 306.84) rotate(-2.40) scale(0.990) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(194.40 351.71) rotate(0.67) scale(0.990) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(399.37 436.49) rotate(8.95) scale(1.130) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(316.71 298.50) rotate(-1.23) scale(0.986) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(156.53 71.12) rotate(9.32) scale(1.059) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(253.66 361.36) rotate(-4.15) scale(0.995) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(314.88 355.74) rotate(1.51) scale(0.941) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(222.54 261.52) rotate(-8.72) scale(0.978) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(97.68 75.72) rotate(-3.52) scale(0.994) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(171.50 426.54) rotate(-5.15) scale(1.127) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(70.99 496.67) rotate(6.37) scale(0.821) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(171.42 487.50) rotate(-1.05) scale(0.981) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(328.03 66.67) rotate(2.90) scale(0.836) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(66.98 546.49) rotate(7.41) scale(1.073) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(168.55 608.01) rotate(5.35) scale(0.891) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(243.30 167.75) rotate(1.48) scale(0.835) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(121.34 508.06) rotate(2.05) scale(1.012) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(281.45 65.53) rotate(-2.72) scale(1.055) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(79.13 224.47) rotate(9.32) scale(1.022) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(143.58 337.09) rotate(1.45) scale(1.115) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(262.25 601.80) rotate(-5.79) scale(1.010) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(347.63 214.90) rotate(7.55) scale(1.099) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(153.16 253.05) rotate(-9.86) scale(0.954) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(345.57 418.10) rotate(7.68) scale(0.897) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(272.74 267.19) rotate(-9.83) scale(1.062) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(210.57 306.49) rotate(-7.66) scale(0.865) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(76.89 178.51) rotate(3.44) scale(0.841) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(124.22 165.05) rotate(0.76) scale(1.112) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(169.88 205.22) rotate(1.16) scale(0.820) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(254.09 215.00) rotate(-9.96) scale(0.965) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(20.90 483.41) rotate(-6.68) scale(1.108) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(317.73 259.01) rotate(-4.31) scale(1.088) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(219.51 77.88) rotate(-7.39) scale(0.837) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(79.23 451.90) rotate(5.02) scale(0.839) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(208.62 585.24) rotate(-6.21) scale(0.854) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(177.00 31.36) rotate(-4.02) scale(0.844) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(169.87 386.52) rotate(1.99) scale(0.949) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(38.30 172.08) rotate(-7.81) scale(0.828) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(209.29 163.01) rotate(-6.70) scale(1.035) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(29.88 243.28) rotate(5.56) scale(0.938) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(256.96 23.98) rotate(3.94) scale(0.882) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(215.17 446.79) rotate(-5.74) scale(0.875) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(357.57 254.16) rotate(-6.51) scale(1.065) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(125.96 287.81) rotate(-6.21) scale(0.989) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(101.81 40.09) rotate(9.60) scale(0.995) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(131.76 595.94) rotate(-3.91) scale(1.032) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(257.25 419.30) rotate(-8.95) scale(0.885) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(59.26 285.56) rotate(-5.86) scale(1.039) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(117.23 243.52) rotate(3.05) scale(0.990) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(357.62 338.39) rotate(0.52) scale(1.056) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(127.64 432.99) rotate(0.25) scale(1.060) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(170.14 106.59) rotate(2.99) scale(0.841) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(383.40 204.95) rotate(4.82) scale(0.921) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(138.93 105.70) rotate(5.76) scale(1.034) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(168.30 175.26) rotate(-9.68) scale(0.845) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(208.31 383.73) rotate(-9.97) scale(1.102) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(404.16 275.78) rotate(-2.28) scale(0.834) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(72.01 129.65) rotate(3.35) scale(0.862) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(257.71 569.85) rotate(1.61) scale(0.886) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(167.79 577.51) rotate(-0.86) scale(1.098) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(188.21 264.69) rotate(-2.69) scale(0.966) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(201.88 106.46) rotate(-8.57) scale(1.019) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(181.06 458.05) rotate(7.99) scale(1.129) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(84.78 580.14) rotate(-6.12) scale(1.077) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(378.98 403.03) rotate(-9.85) scale(0.966) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(403.71 332.86) rotate(-2.37) scale(0.981) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(190.22 67.71) rotate(2.89) scale(0.828) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(329.64 387.95) rotate(7.50) scale(1.055) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(232.72 508.48) rotate(-0.69) scale(0.873) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(284.12 362.65) rotate(1.00) scale(0.943) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(66.45 255.30) rotate(-3.63) scale(1.043) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(136.69 136.47) rotate(3.51) scale(0.904) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(403.79 373.53) rotate(1.77) scale(0.888) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(250.02 63.42) rotate(7.94) scale(0.995) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(316.67 327.21) rotate(3.91) scale(0.937) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(239.93 388.13) rotate(4.60) scale(0.935) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(400.81 467.54) rotate(8.29) scale(1.056) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(222.04 335.67) rotate(-8.46) scale(0.876) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(49.75 470.49) rotate(-8.89) scale(1.108) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(141.13 405.68) rotate(4.28) scale(0.894) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(175.46 322.19) rotate(8.29) scale(0.974) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(277.52 388.01) rotate(7.98) scale(1.112) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(246.77 445.73) rotate(-0.29) scale(0.914) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(193.82 235.83) rotate(-4.32) scale(0.976) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(134.20 535.33) rotate(7.53) scale(0.985) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(127.60 78.13) rotate(7.03) scale(1.049) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(44.91 511.00) rotate(-1.19) scale(0.849) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(320.57 35.49) rotate(-5.74) scale(0.968) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(224.61 234.52) rotate(6.25) scale(1.000) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(343.52 305.31) rotate(6.01) scale(0.906) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(236.41 308.96) rotate(-9.05) scale(0.916) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(287.68 338.30) rotate(-7.03) scale(1.107) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(258.27 335.76) rotate(-6.70) scale(0.918) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(399.17 299.23) rotate(-5.67) scale(0.924) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(96.65 533.99) rotate(9.84) scale(1.085) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(39.21 552.04) rotate(-7.04) scale(0.909) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(78.11 154.72) rotate(-3.65) scale(0.875) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(372.13 281.69) rotate(2.48) scale(0.967) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(290.92 607.41) rotate(7.58) scale(0.896) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(148.51 459.97) rotate(6.05) scale(0.948) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(143.51 44.06) rotate(3.42) scale(1.035) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(95.95 478.44) rotate(4.53) scale(1.032) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(236.05 145.83) rotate(2.00) scale(1.118) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(206.74 137.02) rotate(2.78) scale(1.050) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(345.97 281.14) rotate(4.65) scale(0.902) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(98.82 100.08) rotate(1.19) scale(1.071) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(233.11 584.55) rotate(2.14) scale(0.882) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(200.41 411.55) rotate(-4.51) scale(0.916) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(261.54 240.67) rotate(-5.05) scale(0.881) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(289.12 292.99) rotate(3.38) scale(1.116) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(336.70 562.95) rotate(2.84) scale(1.085) translate(-6.5 -7)" stroke-width="1.85" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(281.62 563.08) rotate(-9.43) scale(0.845) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(235.72 190.70) rotate(0.54) scale(0.824) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(243.53 90.97) rotate(6.47) scale(1.116) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(91.80 266.54) rotate(8.34) scale(1.013) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(288.64 239.38) rotate(4.91) scale(0.891) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(193.95 187.48) rotate(0.68) scale(0.874) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(165.75 228.31) rotate(2.46) scale(0.924) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(339.95 363.42) rotate(-2.25) scale(1.003) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(145.99 484.85) rotate(-1.02) scale(0.841) translate(-6.5 -7)" stroke-width="1.85" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(168.28 361.81) rotate(-5.06) scale(1.051) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(82.14 200.07) rotate(7.62) scale(0.963) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(289.96 42.41) rotate(2.86) scale(1.126) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(322.47 416.80) rotate(-8.26) scale(0.910) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(96.61 503.83) rotate(7.52) scale(1.079) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(196.80 488.45) rotate(-3.32) scale(0.886) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(191.85 610.10) rotate(-7.26) scale(0.874) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(101.65 432.94) rotate(2.91) scale(0.956) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(246.57 282.52) rotate(-8.05) scale(0.918) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(246.10 481.52) rotate(-6.13) scale(0.840) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(223.66 359.66) rotate(-6.21) scale(0.878) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(121.62 486.45) rotate(-6.19) scale(1.103) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(136.41 311.25) rotate(4.66) scale(0.962) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(229.19 15.40) rotate(4.82) scale(0.867) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(144.10 512.56) rotate(-4.52) scale(0.834) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(187.87 290.50) rotate(3.93) scale(0.875) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(54.92 209.92) rotate(2.08) scale(0.943) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(211.91 283.59) rotate(-7.93) scale(0.923) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(322.67 207.75) rotate(-5.92) scale(1.095) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(301.95 390.57) rotate(-2.98) scale(0.994) translate(-6.5 -7)" stroke-width="1.85" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(371.88 226.97) rotate(-8.59) scale(1.114) translate(-6.5 -7)" stroke-width="1.85" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(142.42 565.46) rotate(-7.81) scale(0.972) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(317.62 236.01) rotate(8.37) scale(1.098) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(101.90 167.29) rotate(-7.82) scale(1.064) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(69.12 522.18) rotate(-7.64) scale(0.881) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(147.45 200.94) rotate(3.77) scale(0.853) translate(-6.5 -7)" stroke-width="1.85" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(404.50 402.27) rotate(3.62) scale(0.897) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(295.07 314.60) rotate(5.67) scale(1.079) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(149.02 432.38) rotate(9.66) scale(1.130) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(254.35 623.89) rotate(1.80) scale(1.081) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(403.13 353.82) rotate(4.15) scale(1.049) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(307.09 65.84) rotate(0.98) scale(0.981) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(90.97 557.18) rotate(6.21) scale(0.889) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(379.83 335.59) rotate(2.58) scale(0.932) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(66.53 431.82) rotate(3.57) scale(0.837) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(189.59 211.12) rotate(5.02) scale(0.864) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(125.65 266.41) rotate(6.72) scale(0.850) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(143.79 231.68) rotate(-9.65) scale(1.031) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(206.02 14.43) rotate(0.17) scale(0.835) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(234.67 560.26) rotate(1.96) scale(0.959) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(108.16 586.23) rotate(0.46) scale(0.862) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(145.50 359.19) rotate(0.84) scale(1.090) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(52.35 231.45) rotate(-3.08) scale(0.883) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(28.16 263.38) rotate(-0.41) scale(1.007) translate(-6.5 -7)" stroke-width="1.1" color="#c5b3a9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(287.61 586.83) rotate(6.45) scale(0.935) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(161.45 274.30) rotate(8.51) scale(0.947) translate(-6.5 -7)" stroke-width="1.85" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(198.33 328.69) rotate(-4.53) scale(1.010) translate(-6.5 -7)" stroke-width="1.1" color="#aebfc9" opacity=".74"/>
+        <use class="field-object scatter-object bold-object" href="#objy-scale-object" transform="translate(73.70 475.88) rotate(-2.44) scale(0.870) translate(-6.5 -7)" stroke-width="1.85" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(147.15 172.68) rotate(-4.82) scale(1.087) translate(-6.5 -7)" stroke-width="1.1" color="#b6c2ab" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(215.56 186.66) rotate(4.79) scale(1.062) translate(-6.5 -7)" stroke-width="1.1" color="#c0b4cc" opacity=".74"/>
+        <use class="field-object scatter-object" href="#objy-scale-object" transform="translate(39.79 529.95) rotate(-4.09) scale(0.988) translate(-6.5 -7)" stroke-width="1.1" color="#bdbbb2" opacity=".74"/>
+        <g class="connected-object connected-apps" color="#edb49a"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(163.00 295.00) rotate(0.00) scale(0.950) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
+        <g class="connected-object connected-agents" color="#cfb5ee"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(211.00 210.00) rotate(0.00) scale(0.950) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
+        <g class="connected-object connected-apis" color="#c5dca5"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(225.00 414.00) rotate(0.00) scale(0.950) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
+        <g class="node-anchor-object connected-node-a" color="#aebfc9"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(105.00 125.00) rotate(0.00) scale(0.950) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
+        <g class="node-anchor-object connected-node-b" color="#aebfc9"><use class="field-object bold-object" href="#objy-scale-object" transform="translate(221.00 480.00) rotate(0.00) scale(0.950) translate(-6.5 -7)" stroke-width="1.85" opacity=".74"/></g>
       </g>
-      <g class="connected-object connected-apis" color="#c5dca5">
-        <use class="field-object" href="#objy-scale-object" transform="translate(272.15 186.70) scale(.9)" opacity=".74"/>
-      </g>
+    </g>
+
+    <g id="objy-engine-node" stroke="#627689" stroke-width="1.1" stroke-linejoin="round">
+      <rect x="14" width="62" height="48" rx="4" fill="#22272b"/>
+      <rect x="7" y="7" width="62" height="48" rx="4" fill="#25292d"/>
+      <rect y="14" width="62" height="48" rx="4" fill="#262b2f"/>
+      <path d="M0 28h62" opacity=".5"/>
+      <path d="M22 36h-3v4l-3 3 3 3v4h3m18-14h3v4l3 3-3 3v4h-3" stroke="#a1b9cb"/>
     </g>
 
     <g id="objy-engine-apps" stroke-linecap="round" stroke-linejoin="round">
@@ -266,37 +496,47 @@
     </g>
   </defs>
 
-  <svg class="object-engine-wide" viewBox="0 0 720 480" width="100%" height="100%" aria-hidden="true">
-    <g stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-      <path id="objy-scale-wide-app-link" d="M135 244h46q14 0 14 14v38h58" stroke="#b18d76"/>
-      <path id="objy-scale-wide-agent-link" d="M584 95h-47q-14 0-14 14v65q0 14-14 14h-80" stroke="#aa91c1"/>
-      <path id="objy-scale-wide-api-link" d="M628 363v-28q0-14-14-14H485q-14 0-14-14h-14" stroke="#9eaf88"/>
+  <svg class="object-engine-wide" viewBox="0 0 900 520" width="100%" height="100%" aria-hidden="true">
+    <use class="engine-object-field" href="#objy-scale-field-wide"/>
+    <g stroke-width="1.3" stroke-linecap="round">
+      <path id="objy-scale-wide-app-link" d="M212 273C270 273 270 235 336 235" stroke="#b18d76"/>
+      <path id="objy-scale-wide-agent-link" d="M712 95C650 95 650 120 579 120" stroke="#aa91c1"/>
+      <path id="objy-scale-wide-api-link" d="M756 353C756 300 650 280 574 280" stroke="#9eaf88"/>
+      <path d="M308 60Q350 60 385 75M568 344Q539 344 518 332" stroke="#8299ad" opacity=".65"/>
     </g>
-    <use class="engine-object-field" href="#objy-scale-field" transform="translate(172 114)"/>
-    <use class="engine-endpoint" href="#objy-engine-apps" transform="translate(28 206)"/>
-    <use class="engine-endpoint" href="#objy-engine-agents" transform="translate(572 60)"/>
-    <use class="engine-endpoint" href="#objy-engine-apis" transform="translate(572 360)"/>
+    <g class="engine-scale-nodes" opacity=".8">
+      <use href="#objy-engine-node" transform="translate(255 35) scale(.7)"/>
+      <use href="#objy-engine-node" transform="translate(568 322) scale(.72)"/>
+    </g>
+    <use class="engine-endpoint" href="#objy-engine-apps" transform="translate(105 235)"/>
+    <use class="engine-endpoint" href="#objy-engine-agents" transform="translate(700 60)"/>
+    <use class="engine-endpoint" href="#objy-engine-apis" transform="translate(700 350)"/>
     <g class="object-engine-pulse">
       <circle r="2.5" fill="#e0b39a"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#objy-scale-wide-app-link"/></animateMotion></circle>
-      <circle r="2.5" fill="#c9b2df"><animateMotion dur="6s" begin="-2s" repeatCount="indefinite"><mpath href="#objy-scale-wide-agent-link"/></animateMotion></circle>
-      <circle r="2.5" fill="#c1d3ab"><animateMotion dur="5.5s" begin="-3s" repeatCount="indefinite"><mpath href="#objy-scale-wide-api-link"/></animateMotion></circle>
+      <circle r="2.5" fill="#c9b2df"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#objy-scale-wide-agent-link"/></animateMotion></circle>
+      <circle r="2.5" fill="#c1d3ab"><animateMotion dur="5.5s" repeatCount="indefinite"><mpath href="#objy-scale-wide-api-link"/></animateMotion></circle>
     </g>
   </svg>
 
-  <svg class="object-engine-compact" viewBox="0 0 420 560" width="100%" height="100%" aria-hidden="true">
-    <g stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
-      <path id="objy-scale-phone-app-link" d="M64 416v-34q0-14 14-14h9q14 0 14-14V227" stroke="#b18d76"/>
-      <path id="objy-scale-phone-agent-link" d="M202 416v-40q0-14 14-14h40q14 0 14-14V126" stroke="#aa91c1"/>
-      <path id="objy-scale-phone-api-link" d="M342 416v-34q0-14-14-14h-9q-14 0-14-14V238" stroke="#9eaf88"/>
+  <svg class="object-engine-compact" viewBox="0 0 420 640" width="100%" height="100%" aria-hidden="true">
+    <use class="engine-object-field" href="#objy-scale-field-compact"/>
+    <g stroke-width="1.3" stroke-linecap="round">
+      <path id="objy-scale-phone-app-link" d="M110 348C135 348 135 295 156 295" stroke="#b18d76"/>
+      <path id="objy-scale-phone-agent-link" d="M278 120C240 120 250 210 218 210" stroke="#aa91c1"/>
+      <path id="objy-scale-phone-api-link" d="M316 448C316 414 275 414 232 414" stroke="#9eaf88"/>
+      <path d="M75 84Q98 84 105 125M188 510Q188 485 221 480" stroke="#8299ad" opacity=".65"/>
     </g>
-    <use class="engine-object-field" href="#objy-scale-field" transform="translate(20 45)"/>
-    <use class="engine-endpoint" href="#objy-engine-apps" transform="translate(16 416) scale(.86)"/>
-    <use class="engine-endpoint" href="#objy-engine-agents" transform="translate(154 416) scale(.86)"/>
-    <use class="engine-endpoint" href="#objy-engine-apis" transform="translate(294 416) scale(.86)"/>
+    <g class="engine-scale-nodes" opacity=".8">
+      <use href="#objy-engine-node" transform="translate(28 65) scale(.62)"/>
+      <use href="#objy-engine-node" transform="translate(165 510) scale(.62)"/>
+    </g>
+    <use class="engine-endpoint" href="#objy-engine-apps" transform="translate(18 315) scale(.86)"/>
+    <use class="engine-endpoint" href="#objy-engine-agents" transform="translate(268 90) scale(.86)"/>
+    <use class="engine-endpoint" href="#objy-engine-apis" transform="translate(268 445) scale(.86)"/>
     <g class="object-engine-pulse">
       <circle r="2.5" fill="#e0b39a"><animateMotion dur="5s" repeatCount="indefinite"><mpath href="#objy-scale-phone-app-link"/></animateMotion></circle>
-      <circle r="2.5" fill="#c9b2df"><animateMotion dur="6s" begin="-2s" repeatCount="indefinite"><mpath href="#objy-scale-phone-agent-link"/></animateMotion></circle>
-      <circle r="2.5" fill="#c1d3ab"><animateMotion dur="5.5s" begin="-3s" repeatCount="indefinite"><mpath href="#objy-scale-phone-api-link"/></animateMotion></circle>
+      <circle r="2.5" fill="#c9b2df"><animateMotion dur="6s" repeatCount="indefinite"><mpath href="#objy-scale-phone-agent-link"/></animateMotion></circle>
+      <circle r="2.5" fill="#c1d3ab"><animateMotion dur="5.5s" repeatCount="indefinite"><mpath href="#objy-scale-phone-api-link"/></animateMotion></circle>
     </g>
   </svg>
 </svg>
