@@ -46,8 +46,8 @@ function decorateIllustratedChapter({ heading, content }, image) {
 }
 
 // An index is a sequence of icon headings, descriptions, and links or link-only lists.
-// Icon chapters starting with code or actions expand in place. Chapters with icon
-// subheadings form a catalog. Other guides keep their normal chapter navigation.
+// Icon chapters starting with code or actions form a setup guide. Chapters with
+// icon subheadings form a catalog. All guides keep their normal chapter navigation.
 export function decorateDocument(html) {
   const article = document.createElement('div');
   article.className = 'document-page';
@@ -174,36 +174,23 @@ export function decorateDocument(html) {
   }
   if (sections.length && sections.every(({ heading, content, icon }) =>
     icon && heading.querySelectorAll('img').length === 1 && content.length &&
-    (content[0].tagName === 'PRE' || destinationLinks(content[0])))) {
-    const list = document.createElement('div');
-    list.className = 'accordion-list';
-    headings[0].before(list);
-    for (const [index, { heading, content, icon }] of sections.entries()) {
-      const row = document.createElement('details');
-      row.className = 'accordion-row';
-      row.name = 'document-accordion';
-      row.open = index === 0;
-      const summary = document.createElement('summary');
-      summary.setAttribute('aria-labelledby', heading.id);
-      unwrapHeadingLinks(heading);
+    (content.some(node => node.tagName === 'PRE') || destinationLinks(content[0])))) {
+    for (const { heading, content, icon } of sections) {
+      const section = document.createElement('section');
+      section.className = 'setup-section';
+      if (heading.id) section.setAttribute('aria-labelledby', heading.id);
+      heading.before(section);
+      heading.dataset.chapterIcon = icon.getAttribute('src');
       icon.remove();
-      icon.alt = '';
-      const title = document.createElement('span');
-      title.append(...heading.childNodes);
-      const indicator = document.createElement('span');
-      indicator.className = 'accordion-indicator';
-      indicator.setAttribute('aria-hidden', 'true');
-      heading.replaceChildren(icon, title, indicator);
-      summary.append(heading);
       const body = document.createElement('div');
-      body.className = 'accordion-body';
-      body.setAttribute('role', 'region');
-      body.setAttribute('aria-labelledby', heading.id);
+      body.className = 'setup-copy';
       body.append(...content);
-      row.append(summary, body);
-      list.append(row);
+      for (const node of content) {
+        if (node.tagName === 'UL' && destinationLinks(node)) node.classList.add('setup-actions');
+      }
+      section.append(heading, body);
     }
-    article.classList.add('document-accordion');
+    article.classList.add('document-setup');
     return article.outerHTML;
   }
 
@@ -257,16 +244,4 @@ export function decorateDocument(html) {
   }
   article.classList.add('document-directory');
   return article.outerHTML;
-}
-
-export function wireDocuments(signal, root = document) {
-  const openChapter = () => {
-    const id = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
-    if (!id) return;
-    const chapter = [...root.querySelectorAll('.document-accordion [id]')].find((node) => node.id === id);
-    const row = chapter?.closest('.accordion-row');
-    if (row) row.open = true;
-  };
-  openChapter();
-  window.addEventListener('hashchange', openChapter, { signal });
 }

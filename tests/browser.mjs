@@ -2,8 +2,8 @@
 import { createCopy, htmlFragment, sanitizeMarkup } from '../assets/site/markup.mjs';
 import { decorateHomepage } from '../assets/site/homepage.mjs';
 import { wireExamples } from '../assets/site/examples.mjs';
-import { decorateDocument, wireDocuments } from '../assets/site/documents.mjs';
-import { documentationIndex, createDocumentationTree } from '../assets/site/navigation.mjs';
+import { decorateDocument } from '../assets/site/documents.mjs';
+import { documentationIndex, createDocumentationTree, documentChapters, chapterLinks } from '../assets/site/navigation.mjs';
 
 const results = document.getElementById('results');
 let failures = 0;
@@ -279,48 +279,35 @@ await check('Icon subchapters form reusable catalogs without losing introduction
     ordinary.querySelector('pre code'), 'Mixed ordinary chapters were converted or lost content');
 });
 
-await check('Icon chapters with commands or actions become accessible inline accordions with working deep links', () => {
+await check('Icon chapters keep their content visible and generate ordinary Markdown chapters', () => {
   const fixture = document.createElement('div');
   fixture.append(htmlFragment(decorateDocument(
     '<h1 id="start">Start</h1>' +
     '<h2 id="alpha"><a class="anchor"><img src="local.svg" alt="">Alpha</a></h2>' +
-    '<pre><code class="lang-sh"><span class="token function">objy</span> run</code></pre>' +
+    '<p>Run this command.</p><pre><code class="lang-sh"><span class="token function">objy</span> run</code></pre>' +
     '<p><a href="guide.md?id=first">Guide</a></p>' +
     '<h2 id="beta"><img src="cloud.svg" alt="">Beta</h2>' +
     '<ul><li><a href="https://example.com/cloud">Provider</a></li></ul>' +
     '<h2 id="gamma"><img src="browser.svg" alt="">Gamma</h2>' +
     '<pre><code>const db = createDatabase();</code></pre>',
   )));
-  document.body.append(fixture);
-  const previousUrl = location.href;
-  const controller = new AbortController();
-  try {
-    const rows = [...fixture.querySelectorAll('.accordion-row')];
-    assert(rows.length === 3 && rows[0].open, 'Row count or initial expansion is incorrect');
-    assert(rows.every((row) => row.querySelector('summary > h2') &&
-      row.querySelector('.accordion-body') && row.name === 'document-accordion'), 'Rows lost native accordion structure');
-    assert(fixture.querySelector('.accordion-body .token.function'), 'Code highlighting was lost');
-    assert(fixture.querySelector('.accordion-body code').textContent === 'objy run', 'Code source changed');
-    assert(fixture.querySelector('.accordion-body a').getAttribute('href') === 'guide.md?id=first', 'Guide destination changed');
-    assert(!fixture.querySelector('summary a') && fixture.querySelector('summary img').alt === '',
-      'Summary contains an extra link or repeats the icon label');
-    history.replaceState(null, '', '#/example?id=gamma');
-    wireDocuments(controller.signal, fixture);
-    assert(rows[2].open && !rows[0].open, 'Initial chapter link did not open its row exclusively');
-    history.replaceState(null, '', '#/example?id=beta');
-    window.dispatchEvent(new HashChangeEvent('hashchange'));
-    assert(rows[1].open && !rows[2].open, 'Changed chapter link did not select its row');
-    rows[1].querySelector('summary').click();
-    assert(!rows.some((row) => row.open), 'An open row could not collapse');
-    controller.abort();
-    history.replaceState(null, '', '#/example?id=alpha');
-    window.dispatchEvent(new HashChangeEvent('hashchange'));
-    assert(!rows.some((row) => row.open), 'Chapter listeners survived cleanup');
-  } finally {
-    controller.abort();
-    history.replaceState(null, '', previousUrl);
-    fixture.remove();
-  }
+  const sections = [...fixture.querySelectorAll('.setup-section')];
+  assert(sections.length === 3 && !fixture.querySelector('details, summary'), 'Setup chapters are missing or collapsed');
+  assert(sections.every(section => section.querySelector(':scope > h2[data-chapter-icon]') &&
+    section.querySelector('.setup-copy') && section.getAttribute('aria-labelledby') === section.querySelector('h2').id),
+    'Chapters lost their navigation icon or accessible heading');
+  assert(!fixture.querySelector('img'), 'Navigation icons remain in the section headings');
+  assert(fixture.querySelector('.setup-copy .token.function'), 'Code highlighting was lost');
+  assert(fixture.querySelector('.setup-copy code').textContent === 'objy run', 'Code source changed');
+  assert(fixture.querySelector('.setup-copy a').getAttribute('href') === 'guide.md?id=first', 'Guide destination changed');
+  assert(fixture.querySelector('.setup-actions a').textContent === 'Provider', 'Provider action was lost');
+  const chapters = documentChapters(fixture.querySelector('.document-page'));
+  assert(JSON.stringify(chapters.map(({ id, title }) => ({ id, title }))) ===
+    JSON.stringify([{ id: 'alpha', title: 'Alpha' }, { id: 'beta', title: 'Beta' }, { id: 'gamma', title: 'Gamma' }]),
+    'Chapter navigation is not generated from the Markdown headings');
+  const menu = chapterLinks(chapters, '/example', (route, query) => `#${route}?${new URLSearchParams(query)}`);
+  assert(menu.querySelectorAll('a > img').length === 3 && menu.querySelector('a > img').getAttribute('src') === 'local.svg' &&
+    menu.querySelector('a > span').textContent === 'Alpha', 'Markdown icons were not moved to the chapter menu');
 });
 
 await check('Markdown HTML removes scripts, event handlers, unsafe URLs, and fake site bindings', () => {
@@ -580,7 +567,7 @@ await check('The homepage keeps its illustrated overview and complete localized 
       !overview.querySelector('h1, pre'), 'The combined overview or original heading levels are missing');
     const start = document.querySelector('.header-links a[href$="#/get-started"]');
     assert(start?.textContent === (language === 'en' ? 'Get started' : 'Loslegen') &&
-      !document.querySelector('.accordion-row, [data-section="start-building"]'), 'Deployment options remain on the homepage or their navigation link is missing');
+      !document.querySelector('.setup-section, [data-section="start-building"]'), 'Deployment options remain on the homepage or their navigation link is missing');
     cards.forEach((card, index) => {
       const title = card.querySelector('h3');
       assert(title.textContent.trim() === expected[index][2] && title.id === expected[index][3], 'A use-case translation changed');
@@ -674,44 +661,73 @@ await check('Articles stay centered in the viewport without colliding with the c
   }
 });
 
-await check('Get Started keeps its deployment options, translations, deep links, and accordion behavior', async () => {
+await check('Get Started has five visible Markdown sections, translated chapter navigation, and working jumps', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/get-started?id=deploy-cluster`;
     await new Promise((resolve, reject) => {
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.document-page.document-accordion')) return resolve();
+        if (document?.documentElement.lang === language && document.querySelector('.document-page.document-setup') &&
+          document.querySelector('#section-links a[href$="id=deploy-cluster"]')) return resolve();
         if (Date.now() > deadline) return reject(new Error('Deployment options did not load'));
         setTimeout(ready, 16);
       };
       ready();
     });
     const document = site.contentDocument;
-    const rows = [...document.querySelectorAll('.accordion-row')];
-    assert(rows.length === 5, 'A deployment option is missing');
-    assert(rows[1].open && !rows[0].open, 'The deployment chapter link did not open its row');
-    assert(document.querySelector('.page-sidebar').hidden && document.querySelector('.section-menu-toggle').hidden,
-      'Get Started should not show a chapter menu');
+    const frame = site.contentWindow;
+    const sections = [...document.querySelectorAll('.setup-section')];
+    const links = [...document.querySelectorAll('#section-links a')];
+    assert(sections.length === 5 && links.length === sections.length && !document.querySelector('.document-setup details'),
+      'Deployment options are missing, collapsed, or absent from the chapter menu');
+    assert(!document.querySelector('.page-sidebar').hidden && !document.querySelector('.section-menu-toggle').hidden,
+      'Get Started hides its chapter menu');
+    assert(links.every((link, index) => link.textContent === sections[index].querySelector('h2').textContent.trim()),
+      'Chapter labels do not follow the translated Markdown headings');
+    assert(!document.querySelector('.document-setup img') && links.every(link => link.querySelector('img[width="20"][height="20"]')),
+      'Deployment icons must appear only in the left menu, at the same size as Documentation');
     assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/get-started'),
       'Get Started navigation is not active');
-    assert(rows[0].querySelector('code').textContent.includes('npm i -g @objy/server') &&
-      rows[1].querySelector('code').textContent.includes('npm i -g @objy/server'), 'CLI installation instructions are missing');
+    assert(sections[0].querySelector('code').textContent.includes('npm i -g @objy/server') &&
+      sections[1].querySelector('code').textContent.includes('npm i -g @objy/server'), 'CLI installation instructions are missing');
     for (const width of [1280, 760, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '1000px';
-      for (const row of rows) {
-        if (!row.open) row.querySelector('summary').click();
-        assert(rows.filter((item) => item.open).length === 1, 'More than one deployment row is open');
+      await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+      for (const section of sections) {
         assert(document.documentElement.scrollWidth <= width + 1, `${language} deployment options overflow at ${width}px`);
-        const icon = row.querySelector('img').getBoundingClientRect();
-        assert(icon.width === 64, 'Deployment icon is not 64px');
-        for (const action of row.querySelectorAll('.accordion-body a')) {
+        for (const action of section.querySelectorAll('.setup-copy a')) {
           const rect = action.getBoundingClientRect();
           assert(rect.left >= 0 && rect.right <= width + 1, `${language} action is clipped at ${width}px`);
         }
-        for (const pre of row.querySelectorAll('pre')) assert(pre.querySelectorAll('.copy-button').length === 1,
+        for (const pre of section.querySelectorAll('pre')) assert(pre.querySelectorAll('.copy-button').length === 1,
           'A command has missing or duplicate copy controls');
+      }
+      for (const id of ['bring-your-own-cloud', 'deploy-embedded', 'deploy-quick-start']) {
+        if (width <= 760) document.querySelector('.section-menu-toggle').click();
+        document.querySelector(`#section-links a[href$="id=${id}"]`).click();
+        await new Promise((resolve, reject) => {
+          const deadline = Date.now() + 5000;
+          let previousTop;
+          let stable = 0;
+          const ready = () => {
+            const top = document.getElementById(id).getBoundingClientRect().top;
+            stable = previousTop === top ? stable + 1 : 0;
+            previousTop = top;
+            if (frame.location.hash === `#/get-started?id=${id}` &&
+              document.querySelector(`#section-links a[href$="id=${id}"][aria-current="location"]`) &&
+              top >= document.querySelector('.site-header').getBoundingClientRect().bottom && top < frame.innerHeight && stable >= 3) return resolve();
+            if (Date.now() > deadline) return reject(new Error(`Deployment chapter jump failed: ${language}, ${width}px, ${id}`));
+            frame.requestAnimationFrame(ready);
+          };
+          ready();
+        });
+        const top = document.getElementById(id).getBoundingClientRect().top;
+        assert(top >= 0 && top < frame.innerHeight,
+          `Selected deployment heading is not visible: ${language}, ${width}px, ${id}, top=${top}`);
+        if (width <= 760) assert(document.querySelector('.section-menu-toggle').getAttribute('aria-expanded') === 'false',
+          'Selecting a deployment chapter leaves the mobile menu open');
       }
     }
   }

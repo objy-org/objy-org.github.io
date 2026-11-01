@@ -5,6 +5,19 @@ export const routePath = (href) => decodeURI(href.split('#/').pop().split('?')[0
 
 const anchor = (href) => new URLSearchParams(href.split('?')[1] || '').get('id');
 
+function navigationLabel(link, title, source) {
+  if (source) {
+    const icon = document.createElement('img');
+    icon.src = source;
+    icon.alt = '';
+    icon.width = icon.height = 20;
+    link.append(icon);
+  }
+  const label = document.createElement('span');
+  label.textContent = title;
+  link.append(label);
+}
+
 export function documentChapters(article) {
   const headings = [...article.querySelectorAll(article.matches('.document-catalog') ?
     'h1[id], h2[id]' : 'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]')];
@@ -12,7 +25,8 @@ export function documentChapters(article) {
   const firstLevel = Math.min(...headings.map(heading => Number(heading.tagName.slice(1))));
   return headings.map(heading => {
     heading.dataset.chapter = heading.id;
-    return { id: heading.id, title: heading.textContent.trim(), depth: Number(heading.tagName.slice(1)) - firstLevel };
+    return { id: heading.id, title: heading.textContent.trim(), depth: Number(heading.tagName.slice(1)) - firstLevel,
+      icon: heading.dataset.chapterIcon };
   });
 }
 
@@ -21,7 +35,8 @@ export function chapterLinks(chapters, route, toURL) {
   for (const chapter of chapters) {
     const item = document.createElement('li');
     const link = document.createElement('a');
-    link.textContent = chapter.title;
+    navigationLabel(link, chapter.title, chapter.icon);
+    if (chapter.icon) link.className = 'chapter-icon-link';
     link.href = toURL(route, { id: chapter.id });
     item.style.setProperty('--chapter-depth', Math.min(3, chapter.depth));
     if (chapter.depth) item.classList.add('subchapter');
@@ -143,16 +158,7 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
         link.className = 'documentation-guide';
         link.href = entry.href;
         if (selected === entry) link.setAttribute('aria-current', 'page');
-        if (entry.icon) {
-          const icon = document.createElement('img');
-          icon.src = entry.icon;
-          icon.alt = '';
-          icon.width = icon.height = 20;
-          link.append(icon);
-        }
-        const title = document.createElement('span');
-        title.textContent = entry.title;
-        link.append(title);
+        navigationLabel(link, entry.title, entry.icon);
         summary.append(link);
         details.append(summary);
         const guide = visited.get(entry.key);

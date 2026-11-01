@@ -2,7 +2,7 @@ import * as i18n from './languages.mjs';
 import * as pages from './pages.mjs';
 import { createCopy, readMarkdown, sanitizeMarkup } from './markup.mjs';
 import { decorateHomepage } from './homepage.mjs';
-import { decorateDocument, wireDocuments } from './documents.mjs';
+import { decorateDocument } from './documents.mjs';
 import { wireExamples } from './examples.mjs';
 import { inlineDocumentIllustrations } from './illustrations.mjs';
 import { chapterLinks, documentChapters, documentationIndex, createDocumentationTree, routePath } from './navigation.mjs';
@@ -37,7 +37,7 @@ function mountSidebar(vm) {
   const documentPage = document.querySelector('.document-page');
   const tree = documentPage && isDocumentationRoute(vm.route.path) &&
     documentationNavigation?.mount(nav, documentPage, vm.route.path, currentPage);
-  const directory = documentPage?.matches('.document-directory, .document-accordion') || false;
+  const directory = documentPage?.matches('.document-directory') || false;
   sidebar.hidden = directory && !tree;
   document.querySelector('.section-menu-toggle').hidden = directory && !tree;
   nav.dataset.copyAria = tree ? 'navigation.documentation-navigation-label' : 'navigation.section-navigation-label';
@@ -84,7 +84,6 @@ function wireNavigation() {
   navigationEvents = new AbortController();
   const signal = navigationEvents.signal;
   wireExamples(signal);
-  wireDocuments(signal);
   document.querySelector('.skip-link').addEventListener(
     'click',
     (event) => {
