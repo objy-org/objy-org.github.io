@@ -5,6 +5,7 @@ import { decorateHomepage } from './homepage.mjs';
 import { decorateDocument, wireDocuments } from './documents.mjs';
 import { wireExamples } from './examples.mjs';
 import { inlineDocumentIllustrations } from './illustrations.mjs';
+import { chapterLinks, documentChapters, documentationIndex, createDocumentationTree, routePath } from './navigation.mjs';
 
 /* Editorial content lives in content/<language>/*.md. */
 let copy;
@@ -14,6 +15,12 @@ let languageRegistry;
 let homepageSidebar;
 let currentPage;
 let redirectedAnchor;
+let documentationNavigation;
+
+function isDocumentationRoute(route) {
+  return ![...document.querySelectorAll('.header-links a:not([data-navigation-fallback])')]
+    .some(link => routePath(link.hash) === routePath(route));
+}
 
 function mountSidebar(vm) {
   const sidebar = document.querySelector('aside.sidebar');
@@ -27,33 +34,17 @@ function mountSidebar(vm) {
   }
   nav.id = 'section-links';
   nav.setAttribute('role', 'navigation');
-  nav.dataset.copyAria = 'navigation.section-navigation-label';
   const documentPage = document.querySelector('.document-page');
+  const tree = documentPage && isDocumentationRoute(vm.route.path) &&
+    documentationNavigation?.mount(nav, documentPage, vm.route.path, currentPage);
   const directory = documentPage?.matches('.document-directory, .document-accordion') || false;
-  sidebar.hidden = directory;
-  document.querySelector('.section-menu-toggle').hidden = directory;
+  sidebar.hidden = directory && !tree;
+  document.querySelector('.section-menu-toggle').hidden = directory && !tree;
+  nav.dataset.copyAria = tree ? 'navigation.documentation-navigation-label' : 'navigation.section-navigation-label';
   nav.classList.toggle('chapter-links', Boolean(documentPage));
-  if (documentPage) {
-    const selector = documentPage.matches('.document-catalog') ? 'h1[id], h2[id]' :
-      'h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]';
-    const headings = [...documentPage.querySelectorAll(selector)];
-    const title = headings[0];
-    const chapters = title?.tagName === 'H1' && headings.length > 1 ? headings.slice(1) : headings;
-    const firstLevel = Math.min(...chapters.map((heading) => Number(heading.tagName.slice(1))));
-    const list = document.createElement('ul');
-    for (const heading of chapters) {
-      const item = document.createElement('li');
-      const link = document.createElement('a');
-      link.textContent = heading.textContent;
-      link.href = vm.router.toURL(vm.route.path, { id: heading.id });
-      item.style.setProperty('--chapter-depth', Math.min(3, Number(heading.tagName.slice(1)) - firstLevel));
-      if (Number(heading.tagName.slice(1)) > firstLevel) item.classList.add('subchapter');
-      heading.dataset.chapter = heading.id;
-      item.append(link);
-      list.append(item);
-    }
-    nav.replaceChildren(list);
-  } else {
+  if (!tree && documentPage) {
+    nav.replaceChildren(chapterLinks(documentChapters(documentPage), vm.route.path, vm.router.toURL.bind(vm.router)));
+  } else if (!tree) {
     nav.replaceChildren(readMarkdown(homepageSidebar));
     nav.querySelectorAll('a').forEach((link) => {
       const href = link.getAttribute('href');
@@ -112,6 +103,7 @@ function wireNavigation() {
   ];
   if (!nav || !menu) return;
   const links = [...nav.querySelectorAll('a')];
+  documentationNavigation?.wire(nav, document.querySelector('.document-page'), signal);
   const contentTop = (section) =>
     section.hasAttribute('data-chapter')
       ? section.getBoundingClientRect().top
@@ -189,7 +181,8 @@ function wireNavigation() {
       }
     }
     links.forEach((link) => {
-      if (anchorId(link) === current) link.setAttribute('aria-current', 'location');
+      if (link.matches('.documentation-guide')) return;
+      if (anchorId(link) === current && routePath(link.hash) === routePath(location.hash)) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
     scheduled = 0;
@@ -247,6 +240,7 @@ function wireCopyButtons() {
 
 function objyTheme(hook, vm) {
   let contentReady;
+  let documentationReady;
   let loadError;
   // Docsify supplies Prism. Load local grammars before the first Markdown render;
   // HTTP embeds JSON and Markdown embeds YAML, so their dependencies go first.
@@ -275,8 +269,44 @@ function objyTheme(hook, vm) {
       // New UI labels fall back to the default until their translation is supplied.
       ({ copy, bindCopy } = createCopy(files.slice(0, labelFiles.length)));
       homepageSidebar = files[labelFiles.length];
+      bindCopy(document.querySelector('.site-header'));
       await document.fonts.ready;
     }));
+
+  const loadDocumentation = () => (documentationReady ||= (async () => {
+    const indexRoute = document.querySelector('[data-navigation-fallback]').hash.slice(1).split('?')[0];
+    const source = routePath(vm.route.path) === routePath(indexRoute) && currentPage ||
+      await pages.loadMarkdown(pages.markdownFiles(indexRoute, language.code, languageRegistry.defaultLanguage,
+        languageRegistry.languages.map(entry => entry.code)));
+    if (!source) return;
+    const base = new URL('./', document.baseURI);
+    const entries = documentationIndex(sanitizeMarkup(marked(source.markdown, { renderer: new marked.Renderer() })),
+      (href, image = false) => {
+        let target = pages.contentLink(href, source.file, image, base);
+        if (image) return target;
+        if (/^https?:.*\.(?:md|markdown)(?:[?#]|$)/i.test(target)) target = pages.remoteRoute(target);
+        return vm.router.toURL(target, null, indexRoute);
+      });
+    await Promise.all(entries.map(async entry => {
+      const files = pages.markdownFiles(entry.path, language.code, languageRegistry.defaultLanguage,
+        languageRegistry.languages.map(item => item.code));
+      if (entry.path.startsWith('/remote/')) entry.sources = files;
+      else {
+        try {
+          // Read tiny local include wrappers, without downloading unselected guides.
+          const wrapper = await pages.loadMarkdown(files, { followIncludes: false });
+          entry.sources = wrapper ? [wrapper.file, pages.markdownInclude(wrapper.markdown)].filter(Boolean) : [];
+        } catch (error) {
+          console.warn('Documentation source could not be indexed:', error);
+        }
+      }
+    }));
+    if (entries.length)
+      documentationNavigation = createDocumentationTree(entries, indexRoute, vm.router.toURL.bind(vm.router));
+  })().catch(error => {
+    documentationReady = null;
+    console.warn('Documentation navigation could not load:', error);
+  }));
 
   hook.beforeEach(async (markdown, next) => {
     const page = currentPage;
@@ -290,6 +320,7 @@ function objyTheme(hook, vm) {
     let error;
     try {
       await Promise.all([loadContent(), syntaxReady]);
+      if (isDocumentationRoute(path)) await loadDocumentation();
     } catch (failure) {
       error = failure;
       contentReady = null;

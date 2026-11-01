@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { markdownFiles, loadMarkdown, remoteRoute, remoteLink, contentLink } from '../assets/site/pages.mjs';
+import { markdownFiles, loadMarkdown, markdownInclude, remoteRoute, remoteLink, contentLink } from '../assets/site/pages.mjs';
 
 const resolve = (route, language = 'de') => markdownFiles(route, language, 'en', ['en', 'de']);
 
@@ -79,6 +79,22 @@ test('route changes can cancel in-flight page requests', async () => {
 });
 
 const remoteReadme = 'https://raw.githubusercontent.com/objy-org/objy/refs/heads/main/README.md';
+
+test('navigation can read include destinations without downloading remote guides', async () => {
+  const markdown = `[Guide](${remoteReadme} ':include')\n`;
+  const calls = [];
+  const result = await loadMarkdown(['content/guide.md'], {
+    followIncludes: false,
+    fetchFile: async file => {
+      calls.push(file);
+      return new Response(markdown);
+    },
+  });
+  assert.deepEqual(calls, ['content/guide.md']);
+  assert.equal(markdownInclude(result.markdown), remoteReadme);
+  assert.equal(markdownInclude('# Ordinary guide\n\n' + markdown), null);
+  assert.equal(markdownInclude("[Unsafe](javascript:alert ':include')"), null);
+});
 
 test('a standalone remote include loads its source and revalidates it on each visit', async () => {
   const controller = new AbortController();

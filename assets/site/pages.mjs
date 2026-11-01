@@ -58,7 +58,11 @@ export function markdownFiles(route, language, defaultLanguage, languageCodes) {
   return [...new Set([`content/${language}/${path}`, `content/${defaultLanguage}/${path}`, path])];
 }
 
-export async function loadMarkdown(files, { signal, fetchFile = fetch } = {}) {
+export function markdownInclude(markdown) {
+  return markdown.trim().match(/^\[[^\]\r\n]*\]\((https?:\/\/[^\s)]+)\s+(['"]):include\2\)$/)?.[1] || null;
+}
+
+export async function loadMarkdown(files, { signal, fetchFile = fetch, followIncludes = true } = {}) {
   for (const file of files) {
     signal?.throwIfAborted();
     const remote = isRemote(file);
@@ -71,9 +75,8 @@ export async function loadMarkdown(files, { signal, fetchFile = fetch } = {}) {
     if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);
     const markdown = await response.text();
     // A page consisting of one remote include keeps its source for relative links/images.
-    const include =
-      !remote && markdown.trim().match(/^\[[^\]\r\n]*\]\((https?:\/\/[^\s)]+)\s+(['"]):include\2\)$/);
-    if (include) return loadMarkdown([include[1]], { signal, fetchFile });
+    const include = !remote && markdownInclude(markdown);
+    if (include && followIncludes) return loadMarkdown([include], { signal, fetchFile });
     return { file: remote ? response.url || file : file, markdown };
   }
   return null;

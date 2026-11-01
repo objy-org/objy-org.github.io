@@ -3,6 +3,7 @@ import { createCopy, htmlFragment, sanitizeMarkup } from '../assets/site/markup.
 import { decorateHomepage } from '../assets/site/homepage.mjs';
 import { wireExamples } from '../assets/site/examples.mjs';
 import { decorateDocument, wireDocuments } from '../assets/site/documents.mjs';
+import { documentationIndex, createDocumentationTree } from '../assets/site/navigation.mjs';
 
 const results = document.getElementById('results');
 let failures = 0;
@@ -69,8 +70,139 @@ await check('Documentation loads without downloading homepage illustrations', ()
   assert(rows.map((row) => row.querySelector('h2').textContent.trim()).join(',') ===
     'Embedded Database,DB Server,REST API,JavaScript client', 'Directory order changed');
   assert(rows.every((row) => !row.querySelector('a') && row.querySelector('p')), 'Directory rows contain nested links or lost descriptions');
-  assert(document.querySelector('.page-sidebar').hidden && document.querySelector('.section-menu-toggle').hidden,
-    'The directory still has a chapter menu');
+  assert(!document.querySelector('.page-sidebar').hidden && !document.querySelector('.section-menu-toggle').hidden &&
+    document.querySelectorAll('.documentation-guide').length === rows.length,
+    'The documentation root tree is missing from the index');
+  assert(!files.some(file => /^https:\/\/raw\.githubusercontent\.com\//.test(file)),
+    'Unselected remote guides were downloaded on the index');
+});
+
+await check('Documentation trees derive arbitrary roots, retain sibling guides, and reveal nested deep links', async () => {
+  const toURL = (route, query) => `#${route.replace(/\.md$/, '')}${query ? `?${new URLSearchParams(query)}` : ''}`;
+  const index = '<h1>Handbook</h1>' +
+    '<h2><img src="alpha.svg">Alpha :id=alpha</h2><p>First guide.</p><p><a href="/handbook/alpha.md">Read Alpha</a></p>' +
+    '<h2>Beta :id=beta</h2><p><a href="/handbook/beta.md">Read Beta</a></p>' +
+    '<h2>Gamma</h2><p><a href="/handbook/gamma.md">Read Gamma</a></p>' +
+    '<h2>Elsewhere</h2><p><a href="https://example.com/">External</a></p>';
+  const entries = documentationIndex(sanitizeMarkup(index), (href, image) => image ? href : toURL(href));
+  entries[1].sources = ['https://example.com/live/beta.md'];
+  assert(entries.map(entry => entry.title).join('|') === 'Alpha|Beta|Gamma', 'Index entries were hard-coded or lost their Markdown labels');
+  const tree = createDocumentationTree(entries, '/handbook', toURL);
+  const nav = document.createElement('nav');
+  const article = document.createElement('article');
+  article.className = 'document-page';
+  article.innerHTML = '<h1 id="title">Alpha</h1><h2 id="install">Install</h2>' +
+    '<h3 id="browser">Browser</h3><h4 id="advanced">Advanced</h4><h2 id="usage">Usage</h2>';
+  document.body.append(nav, article);
+  const previousUrl = location.href;
+  let controller = new AbortController();
+  try {
+    history.replaceState(null, '', '#/handbook/alpha?id=advanced');
+    tree.mount(nav, article, '/handbook/alpha', { file: 'alpha.md' });
+    tree.wire(nav, article, controller.signal);
+    nav.addEventListener('click', event => event.preventDefault(), { signal: controller.signal });
+    const roots = [...nav.querySelectorAll('.documentation-branch')];
+    assert(roots.length === 3 && roots[0].open && !roots[1].open && !roots[2].open, 'Selecting a guide lost or expanded its siblings');
+    assert(roots[0].querySelectorAll('details[open]').length === 2 &&
+      roots[0].querySelector('[data-chapter-id="advanced"]').hash.endsWith('id=advanced'), 'Nested chapter ancestry did not expand for a deep link');
+    assert(nav.querySelectorAll('.documentation-guide[aria-current="page"]').length === 1 &&
+      article.querySelectorAll('[data-chapter]').length === 4, 'Guide selection or chapter tracking was lost');
+    const parent = roots[0].querySelector('details');
+    parent.open = false;
+    parent.querySelector('summary > a').click();
+    assert(parent.open, 'Following a chapter did not open its child chapters');
+    controller.abort();
+    controller = new AbortController();
+    article.innerHTML = '<h1 id="beta">Beta</h1><h2 id="commands">Commands</h2>';
+    history.replaceState(null, '', '#/handbook/beta');
+    tree.mount(nav, article, '/handbook/beta', { file: 'https://example.com/live/beta.md' });
+    tree.wire(nav, article, controller.signal);
+    assert(nav.querySelectorAll('.documentation-guide').length === 3 &&
+      nav.querySelector('.documentation-branch[open] .documentation-guide').textContent === 'Beta', 'Switching guides replaced the root tree');
+    assert(nav.querySelectorAll('.documentation-chapter-link').length === 5, 'Previously visited chapter lists were discarded');
+    const fresh = createDocumentationTree(entries, '/handbook', toURL);
+    assert(fresh.mount(nav, article, '/remote/opaque-source', { file: 'https://example.com/live/beta.md' }) &&
+      nav.querySelector('.documentation-branch[open] .documentation-guide').textContent === 'Beta', 'A directly opened remote source lost its root');
+    assert(!fresh.mount(nav, article, '/unrelated', { file: 'other.md' }), 'An unrelated document adopted the documentation tree');
+  } finally {
+    controller.abort();
+    history.replaceState(null, '', previousUrl);
+    nav.remove();
+    article.remove();
+  }
+});
+
+await check('Live documentation keeps all roots across guide changes, deep links, languages, and mobile navigation', async () => {
+  const waitFor = async predicate => new Promise((resolve, reject) => {
+    const deadline = Date.now() + 15000;
+    const ready = () => {
+      try {
+        if (predicate()) return resolve();
+      } catch (error) {
+        return reject(error);
+      }
+      if (Date.now() > deadline) return reject(new Error('The documentation tree did not finish loading'));
+      setTimeout(ready, 16);
+    };
+    ready();
+  });
+  const openRoot = async (index, language = 'en') => {
+    const link = site.contentDocument.querySelectorAll('.documentation-guide')[index];
+    const target = link.hash.split('?')[0];
+    link.click();
+    await waitFor(() => site.contentDocument.documentElement.lang === language &&
+      site.contentWindow.location.hash.split('?')[0] === target &&
+      site.contentDocument.querySelectorAll('.documentation-guide')[index]?.getAttribute('aria-current') === 'page' &&
+      site.contentDocument.querySelector('.documentation-branch[open] .documentation-chapter-link'));
+  };
+  for (let index = 0; index < 4; index++) {
+    await openRoot(index);
+    const document = site.contentDocument;
+    const roots = [...document.querySelectorAll('.documentation-branch')];
+    assert(roots.length === 4 && roots.filter(root => root.open).length === 1 && roots[index].open,
+      'A guide replaced the root tree or left another root expanded');
+    assert(document.querySelector('.header-links [aria-current="page"]').hash === '#/documentation', 'A guide lost Documentation header selection');
+    assert(roots[index].querySelectorAll('.documentation-chapter-link').length ===
+      document.querySelectorAll('.document-page [data-chapter]').length, 'A live chapter is missing from its guide branch');
+  }
+  await openRoot(2);
+  const document = site.contentDocument;
+  const frame = site.contentWindow;
+  const subchapter = document.querySelector('.document-page h3[id]');
+  const branch = document.querySelector('.documentation-branch[open]');
+  const target = [...branch.querySelectorAll('[data-chapter-id]')].find(link => link.dataset.chapterId === subchapter.id);
+  target.click();
+  await waitFor(() => frame.location.hash.endsWith(`id=${encodeURIComponent(subchapter.id)}`) && target.closest('details').open);
+  assert(target.closest('details').open, 'A nested API chapter stayed collapsed');
+  const article = document.querySelector('.document-page');
+  branch.querySelector('summary').click();
+  assert(!branch.open && document.querySelector('.document-page') === article, 'Collapsing a guide changed its article');
+  branch.querySelector('.documentation-guide').click();
+  await waitFor(() => document.querySelector('.documentation-branch').parentElement.parentElement.querySelectorAll('.documentation-guide').length === 4);
+  assert(branch.open, 'Clicking the current guide did not expand it');
+  for (const width of [1920, 1280, 1100, 390, 320]) {
+    site.style.width = `${width}px`;
+    site.style.height = '900px';
+    await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+    const bounds = document.querySelector('.document-page').getBoundingClientRect();
+    assert(document.documentElement.scrollWidth <= width + 1 && Math.abs(bounds.left + bounds.width / 2 - width / 2) <= 1,
+      `Documentation overflows or shifts off center at ${width}px`);
+    const menu = document.querySelector('.section-menu-toggle');
+    const sidebar = document.querySelector('.page-sidebar');
+    if (width <= 1100) {
+      menu.click();
+      assert(frame.getComputedStyle(sidebar).display !== 'none' && sidebar.querySelectorAll('.documentation-guide').length === 4,
+        'The mobile drawer lost its documentation roots');
+      menu.click();
+    } else assert(sidebar.getBoundingClientRect().right <= bounds.left, 'The documentation tree overlaps its article');
+  }
+  site.src = '../?lang=de#/content/database?id=install-in-a-browser';
+  await waitFor(() => site.contentDocument?.documentElement?.lang === 'de' &&
+    site.contentDocument.querySelector('.documentation-branch[open] [data-chapter-id="install-in-a-browser"]'));
+  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 4 &&
+    site.contentDocument.querySelector('#section-links').getAttribute('aria-label') === 'Dokumentationsnavigation' &&
+    site.contentDocument.querySelectorAll('.documentation-guide')[3].textContent === 'JavaScript-Client',
+    'A direct German guide link lost the translated root tree');
 });
 
 await check('Document directories follow Markdown structure and preserve richer guides', () => {
@@ -525,8 +657,8 @@ await check('Articles stay centered in the viewport without colliding with the c
       await resize(width);
       checkCenter('.document-page');
       const document = site.contentDocument;
-      assert(frame.getComputedStyle(document.querySelector('.page-sidebar')).display === 'none', 'Directory chapter menu is visible');
-      assert(frame.getComputedStyle(document.querySelector('.section-menu-toggle')).display === 'none', 'Directory menu toggle is visible');
+      assert(document.querySelectorAll('.documentation-guide').length === 4, 'The documentation root tree is missing');
+      assert(!document.querySelector('.section-menu-toggle').hidden, 'Documentation menu control is hidden');
       const last = document.querySelector('.directory-list > :last-child').getBoundingClientRect();
       if (width >= 1280) assert(last.bottom <= frame.innerHeight, 'The guides do not fit together on desktop');
     }

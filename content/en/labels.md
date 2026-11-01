@@ -16,6 +16,7 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Home label | OBJY home |
 | Main navigation label | Main navigation |
 | Section navigation label | On this page |
+| Documentation navigation label | Documentation navigation |
 | Mobile menu | Menu |
 | Language menu | Change language |
 | Skip link | Skip to content |
