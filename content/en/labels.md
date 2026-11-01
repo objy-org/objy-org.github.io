@@ -83,21 +83,16 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 
 | Location | Text |
 | --- | --- |
-| Read | Read → |
-| Collection | Collection |
 | Bike collection | `bikes` |
 | Bike label | `bikes / bike-01` |
 | Person label | `people / person-42` |
-| Bike name | `Bike` |
-| Person name | `Alex` |
 | Bike summary | `{ Bike }` |
-| Bike identity | `"_id": "bike-01"` |
 | Reference read | `owner.object.name → "Alex"` |
-| Object id | `  "_id": "bike-01",` |
-| Object name | `  "name": "City bike",` |
-| Object available | `  "available": true,` |
-| Object price | `  "price": 15,` |
-| Object tags | `  "tags": ["city", "electric"]` |
+| Object id | `"_id": "bike-01",` |
+| Object name | `"name": "City bike",` |
+| Object available | `"available": true,` |
+| Object price | `"price": 15,` |
+| Object tags | `"tags": ["city", "electric"]` |
 | Application | Application |
 | Server | Server |
 | Api auth | API + auth |
@@ -111,3 +106,17 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Replica | Replica |
 | Vector query | Query vector |
 | Vector matches | Similar bikes |
+| Database name | `app` |
+| People collection | `people` |
+| Reference owner | `"owner": {` |
+| Reference type | `"type": "reference",` |
+| Reference collection | `"collection": "people",` |
+| Reference value | `"value": "person-42",` |
+| Reference object | `"object": {` |
+| Resolved id | `"_id": "person-42",` |
+| Resolved name | `"name": "Alex"` |
+| Source id | `"_id": "person-42",` |
+| Source name | `"name": "Alex"` |
+| Hot field | `available` |
+| Column field | `price` |
+| Compressed fields | `tags, location` |

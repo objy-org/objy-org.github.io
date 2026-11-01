@@ -1,14 +1,19 @@
 # OBJY verstehen. :id=learn
 
-Ein Fahrrad, sein Besitzer und die Datenbank dahinter.
+Starte mit einem Fahrrad. Verbinde seinen Besitzer. Baue darauf auf.
 
 ## ![](assets/site/icons/database.svg) Datenbank :id=database
 
-Arbeite mit JSON-Objekten direkt im Arbeitsspeicher, im Browser und in Node.js.
+**Direkt in deiner Anwendung.** `@objy/db` läuft im Browser oder in deinem Node.js-Prozess. Du arbeitest mit Collections von JSON-Objekten, direkt im Arbeitsspeicher.
 
 ### Collections :id=collections
 
-Collections gruppieren Objekte: `bikes` für Fahrräder, `people` für Besitzer. Ihre Metadaten steuern Indizes und Speicherung.
+Erstelle die Datenbank `app` und gruppiere zusammengehörige Objekte: Fahrräder in `bikes`, Besitzer in `people`. Jede Collection hat eigene Einstellungen für Indizes und Speicherung.
+
+![Die Datenbank app verzweigt sich in die Collections bikes und people. Beide enthalten eigenständige JSON-Objekte.](assets/site/learn/collections.svg)
+
+<details>
+<summary>Datenbank und Collections anlegen</summary>
 
 ```js
 import { createDatabase } from "@objy/db";
@@ -20,83 +25,93 @@ await app.createCollection("people");
 const bikes = app.collection("bikes");
 ```
 
-![Die Collection bikes enthält ein Fahrrad und weitere Objekte mit gemeinsamen Einstellungen für Indizes, Spalten und Komprimierung.](assets/site/learn/collections.svg)
+</details>
 
 [Datenbank einrichten](/content/database.md?id=use-the-same-database-api)
 
 ### Objekte :id=objects
 
-Objekte beschreiben Dinge in deiner App. Jedes hat eine eindeutige `_id` innerhalb seiner Collection; bei Bedarf erzeugt OBJY sie. Die Eigenschaften dürfen sich unterscheiden, ohne festes Schema.
+Ein Fahrrad ist ein Objekt mit einer `_id` und deinen eigenen Eigenschaften. Die ID ist innerhalb der Collection eindeutig; bei Bedarf erzeugt OBJY sie.
 
-![Ein Fahrradobjekt mit ID, Name, Verfügbarkeit, Preis und Tags.](assets/site/learn/objects.svg)
+Zahlen, Wahrheitswerte, Arrays und verschachtelte Objekte behalten ihren Typ. Objekte derselben Collection dürfen unterschiedliche Eigenschaften haben.
+
+![Ein einfaches JSON-Fahrradobjekt: Die ID identifiziert es, seine Eigenschaften beschreiben es.](assets/site/learn/objects.svg)
 
 [Objektmodell](/content/api.md?id=objects)
 
 ### Eigenschaften :id=properties
 
-Speichere Text, Zahlen, Wahrheitswerte, Arrays, verschachtelte Objekte oder `null`. Mit `insert` fügst du ein Objekt hinzu, mit `patch` änderst du Felder.
+Füge das Fahrrad ein und ändere anschließend nur seinen Standort. `$set` unterstützt Punktpfade für verschachtelte Felder; `$unset` entfernt eine Eigenschaft.
 
 ```js
 await bikes.insert({
-  _id: "bike-01",
-  name: "City bike",
-  available: true,
-  price: 15,
-  tags: ["city", "electric"]
+  _id: "bike-01", name: "City bike",
+  available: true, price: 15
 });
 await bikes.patch("bike-01", {
   $set: { "location.city": "Berlin" }
 });
 ```
 
-Punktpfade ändern verschachtelte Felder. `replace` ersetzt ein Objekt, `remove` löscht es. Bulk-Methoden verarbeiten viele Objekte.
+Mit `replace` ersetzt du das ganze Objekt, mit `remove` löschst du es. Bulk-Methoden verarbeiten viele Objekte.
 
-[Objekte schreiben und ändern](/content/database.md?id=bulk-is-the-native-path)
+[Schreiboperationen](/content/database.md?id=bulk-is-the-native-path)
 
 ### Referenzen :id=references
 
-Der `owner` des Fahrrads zeigt auf Alex in `people`. Beim Auflösen erscheinen seine aktuellen Daten unter `owner.object`:
+Der `owner` des Fahrrads zeigt auf Alex in `people`. Gespeichert werden die Collection und ID des Ziels. Beim Lesen löst OBJY die Referenz unter `owner.object` in Alex’ aktuelle Daten auf.
 
-```json
-{
-  "_id": "bike-01",
-  "owner": {
-    "type": "reference",
-    "collection": "people",
-    "value": "person-42",
-    "object": { "_id": "person-42", "name": "Alex" }
-  }
-}
+![Das Fahrrad enthält eine owner-Referenz. Unter object erscheinen Alex’ Daten aus der separaten Collection people; das blasse Alex-Objekt zeigt die Quelle.](assets/site/learn/references.svg)
+
+<details>
+<summary>Das Fahrrad mit Alex verbinden</summary>
+
+```js
+await app.collection("people").insert({
+  _id: "person-42", name: "Alex"
+});
+await bikes.patch("bike-01", {
+  $set: { owner: {
+    type: "reference",
+    collection: "people",
+    value: "person-42"
+  } }
+});
 ```
 
-Gespeichert werden `type`, `collection` und `value`; `object` ist die aufgelöste Leseansicht. Spätere Lesezugriffe können Alex’ Änderungen zeigen. Die Referenztiefe begrenzt, wie weit OBJY Beziehungen folgt.
+</details>
 
-![Das Fahrrad referenziert seinen Besitzer Alex. Beim Lesen enthält owner.object Alex' Daten.](assets/site/learn/references.svg)
+`owner.object` ist die aufgelöste Ansicht. Die Referenz zeigt weiterhin auf Alex, wenn sich seine Daten ändern.
 
-[Referenzen speichern und lesen](/content/api.md?id=live-references)
+[Referenzen und Lesetiefe](/content/api.md?id=live-references)
 
 ### Abfragen :id=operations
 
-Finde verfügbare Fahrräder oder berechne ihren Durchschnittspreis. Abfragen unterstützen auch Sortierung und Seiteneinteilung:
+Finde verfügbare Fahrräder oder berechne ihren Durchschnittspreis. Die erste Operation liefert Objekte, die zweite berechnet ein Ergebnis über diese Objekte.
 
 ```js
 await bikes.find({ available: true });
+
 await bikes.search({
+  available: true,
   $aggregate: {
     fields: { averagePrice: { $avg: "price" } }
   }
 });
 ```
 
-![CRUD, Abfragen, Aggregation und Vektorsuche arbeiten mit demselben Fahrradobjekt.](assets/site/learn/apis.svg)
-
-[Abfragen](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation) · [Vektoren](/content/api.md?id=vector-search)
+[Filter und Sortierung](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation)
 
 ### Vektoren und HNSW :id=vectors
 
-Ein Vektor beschreibt Merkmale als Zahlen. Speichere ein Embedding in `_vec`, um ähnliche Objekte zu finden. Deine App erzeugt Embeddings aus Text, Bildern oder anderen Daten.
+Finde Fahrräder mit ähnlichen Merkmalen. Deine App erzeugt ein Embedding und speichert dessen Zahlen unter `_vec`.
 
-**HNSW** durchsucht einen Graphen mit mehreren Ebenen im RAM: erst große Sprünge, dann nahe Treffer. So findet OBJY schnell näherungsweise die nächsten Nachbarn.
+Der **HNSW-Index** durchsucht einen Graphen im RAM: Große Sprünge grenzen den Bereich ein, nahe Verbindungen führen zu ähnlichen Objekten.
+
+![Eine hervorgehobene Suche springt durch dünn vernetzte HNSW-Ebenen und erkundet anschließend benachbarte Fahrradvektoren.](assets/site/learn/vectors.svg)
+
+<details>
+<summary>Vektor speichern und ähnliche Fahrräder finden</summary>
 
 ```js
 await bikes.patch("bike-01", {
@@ -104,28 +119,28 @@ await bikes.patch("bike-01", {
 });
 await bikes.ready();
 const similar = await bikes.search({
-  $vector: {
-    vector: [0.21, 0.79, 0.4],
-    limit: 3
-  }
+  $vector: { vector: [0.21, 0.79, 0.4], limit: 3 }
 });
 ```
 
-Die kurzen Vektoren dienen als Beispiel. Nutze dasselbe Embedding-Modell für Daten und Suche. `ready()` wartet auf den Index; Ergebnisse enthalten den Ähnlichkeitswert `_score`.
+</details>
 
-![Eine Suchanfrage folgt einer hervorgehobenen Route durch drei HNSW-Graphebenen. Wenige obere Verbindungen führen in eine dichtere Nachbarschaft von Fahrradvektoren und schließlich zu ähnlichen Fahrrädern.](assets/site/learn/vectors.svg)
+Nutze dasselbe Embedding-Modell für Objekte und Abfragen. Die kurzen Vektoren oben dienen als Beispiel; `ready()` wartet auf den Index.
 
-[Vektorsuche-API](/content/api.md?id=vector-search) · [HNSW-Hintergrund](https://arxiv.org/abs/1603.09320)
+[Vektorsuche](/content/api.md?id=vector-search)
 
 ### Speicherung :id=memory
 
-Objekte liegen im RAM. OBJY verteilt ihre Felder intern auf Speicherblöcke und setzt beim Lesen vollständige Objekte zusammen.
+Du liest vollständige Objekte. Collection-Metadaten bestimmen intern, wie ihre Felder den Arbeitsspeicher nutzen:
 
-- **Heiße Felder:** direkter Zugriff auf häufig genutzte Daten.
-- **Spalten:** kompakte Werte für schnelle Aggregationen.
-- **Komprimierte Felder:** weniger Speicher für seltener genutzte Daten.
+- **Heiße Felder:** häufig gelesene Werte bleiben direkt zugänglich.
+- **Spalten:** Werte wie `price` werden kompakt für Aggregationen gespeichert.
+- **Komprimierung:** seltener benötigte Objektdaten brauchen weniger Platz.
 
-Collection-Metadaten bestimmen, welche Felder indiziert, als Spalten gespeichert oder direkt zugänglich bleiben:
+![Ein einfaches Fahrradobjekt fließt in einen RAM-Riegel mit heißen Feldern, kompakten Spalten und komprimierten Daten.](assets/site/learn/memory.svg)
+
+<details>
+<summary>Indizes und Speichereinstellungen wählen</summary>
 
 ```json
 {
@@ -138,43 +153,46 @@ Collection-Metadaten bestimmen, welche Felder indiziert, als Spalten gespeichert
 }
 ```
 
-Eingebettete Daten bleiben bis zum Schließen der Seite oder des Prozesses erhalten. Der Server ergänzt optionale Persistenz für Neustarts.
+</details>
 
-![Die Daten des Fahrrads sind im RAM in heiße Felder, Spalten und komprimierte Felder aufgeteilt.](assets/site/learn/memory.svg)
+Schreibvorgänge sind sofort sichtbar. Indizes und Spalten können im Hintergrund fertig aufgebaut werden. Eingebettete Daten leben so lange wie die Seite oder der Prozess.
 
-[Speichereinstellungen](/content/database.md?id=shape-the-workload-with-metadata) · [Arbeitsspeicher und Lebensdauer](/content/database.md?id=memory-is-the-database)
+[Speicherung und Indizes](/content/database.md?id=shape-the-workload-with-metadata)
 
 ## ![](assets/site/icons/server.svg) Server :id=server
 
-Nutze die Datenbank gemeinsam über ein Netzwerk, mit Authentifizierung, Berechtigungen, Clustering und optionaler Persistenz.
+**Gemeinsam für deine Anwendungen.** `@objy/server` ergänzt denselben Datenbankkern um Netzwerkzugriff, Benutzer, Berechtigungen, Clustering und Persistenz.
 
 ### API :id=server-api
 
-Verbinde dich über REST oder den JavaScript-Client. Der Server prüft den Zugriff, bevor er Objektoperationen ausführt.
+Deine App sendet eine Anfrage über REST oder den JavaScript-Client. Der Server prüft Token und Berechtigungen und führt die Operation auf der Datenbank aus.
+
+![Eine Anwendung schickt eine Anfrage durch API und Zugriffsprüfung an denselben In-Memory-Datenbankkern.](assets/site/learn/server.svg)
+
+<details>
+<summary>Das Fahrrad über REST lesen</summary>
 
 ```http
 GET /api/app/bikes/object/bike-01
 Authorization: Bearer <accessToken>
 ```
 
-![Eine Anwendung sendet eine HTTP-Anfrage an den Server. API und Authentifizierung stehen vor der In-Memory-Datenbank.](assets/site/learn/server.svg)
+</details>
 
 [REST API](/content/api.md) · [JavaScript-Client](/content/client.md)
 
 ### Benutzer und Berechtigungen :id=users-permissions
 
-Benutzer erhalten beim Anmelden Zugriffstoken. Collection-Freigaben und Objektregeln steuern den Zugriff; eine Besitzerreferenz allein gewährt keine Rechte.
+Beim Anmelden erhält ein Benutzer ein Zugriffstoken. Collection-Freigaben und Objektregeln bestimmen, welche Daten er nutzen darf.
 
-Diese Benutzerregel erlaubt das Lesen (`r`) und Ändern (`u`) von Alex’ Fahrrädern:
+Diese Regel erlaubt Alex, Fahrräder mit seiner ID in `owner.value` zu lesen (`r`) und zu ändern (`u`). Eine Referenz allein gewährt keinen Zugriff.
 
 ```json
 {
-  "permissions": [
-    {
-      "query": { "owner.value": "person-42" },
-      "perm": "ru"
-    }
-  ]
+  "permissions": [{
+    "query": { "owner.value": "person-42" },
+    "perm": "ru"
+  }]
 }
 ```
 
@@ -182,23 +200,25 @@ Diese Benutzerregel erlaubt das Lesen (`r`) und Ändern (`u`) von Alex’ Fahrr�
 
 ### Cluster :id=clusters
 
-Ein Cluster verteilt Daten auf Knoten und leitet Anfragen an den Knoten weiter, der das Objekt hält.
+Über eine Maschine hinaus wachsen, mit zwei unterschiedlichen Bausteinen:
 
-- **Sharding:** verteilt Daten auf Maschinen; Abfragen führen Ergebnisse der benötigten Shards zusammen.
-- **Replikation:** hält zusätzliche Kopien, die asynchron aktualisiert werden.
+- **Shards** verteilen die Objekte auf Knoten.
+- **Replikate** halten zusätzliche Kopien eines Shards auf anderen Knoten.
 
-![Zwei Shards liegen auf unterschiedlichen Knoten, mit je einem zusätzlichen Replikat auf einem weiteren Knoten.](assets/site/learn/cluster.svg)
+Anfragen können jeden öffentlichen Knoten erreichen; das Routing findet den zuständigen Besitzer. Replikate werden asynchron aktualisiert.
 
-[Cluster einrichten](/content/server.md?id=form-a-cluster) · [Routing und Replikation](/content/server.md?id=route-and-replicate)
+![Zwei Objekt-Shards liegen auf unterschiedlichen Maschinen, jeweils mit einem zusätzlichen Replikat auf einer weiteren Maschine.](assets/site/learn/cluster.svg)
+
+[Cluster einrichten](/content/server.md?id=form-a-cluster)
 
 ### Persistenz :id=persistence
 
-Aktiviere Persistenz, um Daten nach einem Neustart wiederherzustellen:
+Entscheide, was einen Neustart übersteht:
 
-- **Lokales WAL:** protokolliert Schreibvorgänge auf dem Knoten; die Bestätigung hängt von der Konfiguration ab.
-- **Optionales S3:** speichert Journale und Snapshots. Uploads laufen asynchron.
-- **Wiederherstellung:** lädt Objekte und baut Indizes im RAM neu auf.
+- **Lokales WAL** protokolliert Schreibvorgänge auf dem Knoten. Bei `localWal` folgt die Bestätigung auf den lokalen Flush.
+- **Optionales S3** hält Journale und Snapshots asynchron vor.
+- **Wiederherstellung** lädt Objekte und baut Indizes im RAM neu auf.
 
-Eine lokale WAL-Bestätigung wartet weder auf Replikation noch auf S3-Uploads.
+Eine lokale WAL-Bestätigung wartet weder auf Replikate noch auf S3-Uploads.
 
-[Persistenz und Wiederherstellung](/content/server.md?id=make-it-durable) · [Loslegen](get-started.md)
+[Persistenzeinstellungen](/content/server.md?id=make-it-durable) · [OBJY starten](get-started.md)

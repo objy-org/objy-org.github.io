@@ -7,6 +7,11 @@
   .learn-server-wide { display: none; }
   .learn-server-compact { display: block; }
 }
+@container (max-width: 480px) {
+  .learn-server { aspect-ratio: 360 / 360; }
+  .learn-server-wide { display: none; }
+  .learn-server-compact { display: block; }
+}
 </style>
 <svg class="learn-server-wide" viewBox="0 0 560 320" width="100%" height="100%" aria-hidden="true">
 <rect x="16" y="84" width="148" height="98" rx="7" fill="#26282d" stroke="#66879c"/>

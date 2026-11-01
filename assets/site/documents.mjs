@@ -33,7 +33,8 @@ function decorateIllustratedChapter({ heading, content }, image) {
   heading.before(section);
   const copy = document.createElement('div');
   copy.className = 'document-illustration-copy';
-  copy.append(...content.filter(node => node !== image));
+  const examples = content.filter(node => node.tagName === 'DETAILS');
+  copy.append(...content.filter(node => node !== image && !examples.includes(node)));
   section.append(heading);
   section.classList.toggle('document-illustration-wide', !copy.childNodes.length);
   const figure = document.createElement('figure');
@@ -42,6 +43,12 @@ function decorateIllustratedChapter({ heading, content }, image) {
   image.remove();
   if (copy.childNodes.length) section.append(copy);
   section.append(figure);
+  if (examples.length) {
+    const details = document.createElement('div');
+    details.className = 'document-lesson-details';
+    details.append(...examples);
+    section.append(details);
+  }
   return section;
 }
 
@@ -158,8 +165,17 @@ export function decorateDocument(html) {
           if (topic.heading.id) section.setAttribute('aria-labelledby', topic.heading.id);
           const copy = document.createElement('div');
           copy.className = 'document-illustration-copy';
-          copy.append(...topic.content);
+          const blocks = topic.content.filter(node => node.tagName === 'PRE');
+          const examples = blocks.length === 1 ? blocks : [];
+          copy.append(...topic.content.filter(node => !examples.includes(node)));
           section.append(topic.heading, copy);
+          if (examples.length) {
+            section.classList.add('document-code-lesson');
+            const example = document.createElement('div');
+            example.className = 'document-lesson-example';
+            example.append(...examples);
+            section.append(example);
+          }
           chapter.append(section);
         }
       }

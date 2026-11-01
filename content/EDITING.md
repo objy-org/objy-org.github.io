@@ -198,7 +198,7 @@ Shared images in `assets/` are relative to the site root. Other relative image p
 ## Add a language
 
 1. Copy `content/en/` to a new folder named after the language code, such as `content/fr/`.
-2. Translate `home.md`, `sidebar.md`, `labels.md`, `get-started.md`, `documentation.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
+2. Translate `home.md`, `sidebar.md`, `labels.md`, `learn.md`, `get-started.md`, `documentation.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
 3. Add an entry to `content/languages.json`, for example `{ "code": "fr", "name": "Français", "short": "FR" }`. The code must match the folder. The language appears in the switcher automatically; no HTML or JavaScript changes are needed.
 4. Preview `/?lang=fr`, `/?lang=fr#/get-started`, `/?lang=fr#/documentation`, and `/?lang=fr#/content/database`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
 5. Run `node --test tests/*.test.mjs` to check for missing files, labels, anchors, or broken local links.
@@ -217,7 +217,7 @@ The redesign is on `codex/objy-brand-website`. That branch does not automaticall
 
 Open `content/en/learn.md` or `content/de/learn.md`. The two `##` chapters are Database and Server. Use simple `###` topic headings beneath them: collections, objects, properties, references, queries, vectors and HNSW, storage, API, users and permissions, clusters, and persistence. Their headings automatically become the left menu, with topics indented beneath their parent chapter. Keep matching `:id=...` values across translations.
 
-The shared guide renderer supports a mixture of illustrated topics and ordinary prose, lists, or code. Keep at least one standalone image in each main chapter. Text and artwork alternate sides on desktop and stack on phones. Headings and whitespace separate the chapters; do not add manual divider lines.
+The shared guide renderer supports a mixture of illustrated topics and ordinary prose, lists, or code. Keep at least one standalone image in each main chapter. Wide layouts pair the explanation with its illustration or a direct code block. They stack as soon as the article becomes too narrow for readable diagrams. Headings and whitespace separate the chapters; do not add manual divider lines. Optional examples go in `<details>` with a short `<summary>` and blank lines around the fenced code. The guide places these controls beneath the illustration; they open in place without changing the diagram’s size.
 
 Use the same bike (`bike-01` in `bikes`) and owner Alex (`person-42` in `people`) throughout. The reference example shows `owner.object` as an expanded read view. Collection metadata configures storage rather than becoming fields on the bike. Ownership describes a relationship; user permissions separately control access. Keep S3 persistence explicitly optional and replication asynchronous.
 

@@ -928,7 +928,7 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement?.lang === language && document.querySelectorAll('.document-guide .document-art > svg').length === 8 &&
+        if (document?.documentElement?.lang === language && document.querySelectorAll('.document-guide .document-art > svg').length === 7 &&
           document.querySelector('.header-links a[href$="#/learn"][aria-current="page"]')) return resolve();
         if (Date.now() > deadline) return reject(new Error('Learn did not finish loading'));
         setTimeout(ready, 16);
@@ -960,7 +960,7 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
       (language === 'en' ? 'OBJY|Learn|Get started|Documentation' : 'OBJY|Lernen|Loslegen|Dokumentation'),
       'The top bar does not show the four translated destinations in order');
     const objectTopic = guide.querySelector('#objects').closest('.document-chapter');
-    const json = [...objectTopic.querySelectorAll('svg text[font-family]')].map(line => line.textContent).join('\n');
+    const json = [...objectTopic.querySelectorAll('.learn-objects g text')].map(line => line.textContent).join('\n');
     const bike = JSON.parse(json);
     assert(bike._id === 'bike-01' && bike.price === 15 && bike.available === true && !guide.textContent.includes('Orbit'),
       'The bike example is invalid or the old project example remains');
@@ -968,10 +968,23 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     assert(examples.length === 8 && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
       'Learn examples lost highlighting or copy controls');
     const codeIn = id => guide.querySelector(`#${id}`).closest('.document-chapter').querySelector('pre code').textContent;
-    assert(JSON.parse(codeIn('references')).owner.object.name === 'Alex' &&
+    const reference = JSON.parse([...guide.querySelectorAll('.learn-references-wide .reference-parent text')]
+      .map(line => line.textContent).join('\n'));
+    assert(reference.owner.object.name === 'Alex' && reference.owner.value === reference.owner.object._id &&
+      codeIn('references').includes('type: "reference"') &&
       JSON.parse(codeIn('memory')).columns[0] === 'price' &&
       JSON.parse(codeIn('users-permissions')).permissions[0].query['owner.value'] === 'person-42',
       'The expanded owner, storage metadata, or permission rule is invalid');
+    assert(guide.querySelectorAll('.document-code-lesson > .document-lesson-example pre').length === 3 &&
+      guide.querySelectorAll('.document-lesson-details details').length === 5 &&
+      !guide.querySelector('.learn-objects rect, .reference-parent rect, .reference-source rect'),
+      'Learn must keep code lessons readable, optional examples expandable, and JSON illustrations unframed');
+    const setup = guide.querySelector('.document-lesson-details details');
+    assert(!setup.open, 'The optional setup example starts expanded');
+    setup.querySelector('summary').click();
+    assert(setup.open && setup.querySelector('pre').getBoundingClientRect().height > 0,
+      'The setup example cannot be opened');
+    setup.querySelector('summary').click();
     const vectors = guide.querySelector('#vectors').closest('.document-chapter');
     assert(vectors.closest('.document-guide-group').querySelector('h2').id === 'database' &&
       vectors.querySelector('.learn-vectors') && codeIn('vectors').includes('await bikes.ready()') &&

@@ -1,14 +1,19 @@
 # Learn OBJY. :id=learn
 
-A bike, its owner, and the database behind them.
+Start with a bike. Connect its owner. Build from there.
 
 ## ![](assets/site/icons/database.svg) Database :id=database
 
-Work with JSON objects directly in memory, in browsers and Node.js.
+**Inside your application.** `@objy/db` runs in your browser or Node.js process. You work with collections of JSON objects, directly in memory.
 
 ### Collections :id=collections
 
-Collections group objects: `bikes` for bikes, `people` for owners. Their metadata controls indexes and storage.
+Create a database called `app`, then give related objects a home: bikes in `bikes`, owners in `people`. Each collection has its own settings for indexes and storage.
+
+![The app database branches into bikes and people collections. Each contains independent JSON objects.](assets/site/learn/collections.svg)
+
+<details>
+<summary>Create the database and collections</summary>
 
 ```js
 import { createDatabase } from "@objy/db";
@@ -20,83 +25,93 @@ await app.createCollection("people");
 const bikes = app.collection("bikes");
 ```
 
-![The bikes collection contains a bike and other objects, with shared settings for indexes, columns, and compression.](assets/site/learn/collections.svg)
+</details>
 
 [Database setup](/content/database.md?id=use-the-same-database-api)
 
 ### Objects :id=objects
 
-Objects represent things in your app. Each has a unique `_id` within its collection; OBJY creates one if needed. Properties can differ between objects, without a fixed schema.
+A bike is an object with an `_id` and your own properties. The ID is unique within its collection; OBJY generates one when you leave it out.
 
-![A bike object with its ID, name, availability, price, and tags.](assets/site/learn/objects.svg)
+Numbers, booleans, arrays, and nested objects keep their types. Objects in the same collection can have different properties.
+
+![One plain JSON bike object: its ID identifies it, and its properties describe it.](assets/site/learn/objects.svg)
 
 [Object model](/content/api.md?id=objects)
 
 ### Properties :id=properties
 
-Store text, numbers, booleans, arrays, nested objects, or `null`. Use `insert` to add an object and `patch` to change fields.
+Insert the bike, then change just its location. `$set` accepts dot paths for nested fields; `$unset` removes a property.
 
 ```js
 await bikes.insert({
-  _id: "bike-01",
-  name: "City bike",
-  available: true,
-  price: 15,
-  tags: ["city", "electric"]
+  _id: "bike-01", name: "City bike",
+  available: true, price: 15
 });
 await bikes.patch("bike-01", {
   $set: { "location.city": "Berlin" }
 });
 ```
 
-Dot paths update nested fields. `replace` replaces an object; `remove` deletes it. Bulk methods handle many objects.
+Use `replace` for a whole new object, `remove` to delete it, and bulk methods for many objects.
 
-[Writing and changing objects](/content/database.md?id=bulk-is-the-native-path)
+[Write operations](/content/database.md?id=bulk-is-the-native-path)
 
 ### References :id=references
 
-The bike’s `owner` points to Alex in `people`. Resolving the reference adds Alex’s current data under `owner.object`:
+The bike's `owner` points to Alex in `people`. Store the destination's collection and ID. On read, OBJY resolves it into `owner.object` with Alex's current data.
 
-```json
-{
-  "_id": "bike-01",
-  "owner": {
-    "type": "reference",
-    "collection": "people",
-    "value": "person-42",
-    "object": { "_id": "person-42", "name": "Alex" }
-  }
-}
+![The bike contains an owner reference. Its object sub-property resolves Alex from the separate people collection; the faint Alex object shows the source.](assets/site/learn/references.svg)
+
+<details>
+<summary>Connect the bike to Alex</summary>
+
+```js
+await app.collection("people").insert({
+  _id: "person-42", name: "Alex"
+});
+await bikes.patch("bike-01", {
+  $set: { owner: {
+    type: "reference",
+    collection: "people",
+    value: "person-42"
+  } }
+});
 ```
 
-Store `type`, `collection`, and `value`; `object` is the expanded read view. Later reads can reflect Alex’s updates. Reference depth limits how far OBJY follows relationships.
+</details>
 
-![The bike references its owner Alex. On read, owner.object contains Alex's data.](assets/site/learn/references.svg)
+`owner.object` is the resolved view. The reference keeps pointing to Alex when his data changes.
 
-[Reference storage and reads](/content/api.md?id=live-references)
+[References and read depth](/content/api.md?id=live-references)
 
 ### Queries :id=operations
 
-Find available bikes or aggregate their prices. Queries also support sorting and pagination:
+Find the available bikes, or calculate their average price. The first operation returns objects; the second computes a result across them.
 
 ```js
 await bikes.find({ available: true });
+
 await bikes.search({
+  available: true,
   $aggregate: {
     fields: { averagePrice: { $avg: "price" } }
   }
 });
 ```
 
-![CRUD, queries, aggregation, and vector search work with the same bike object.](assets/site/learn/apis.svg)
-
-[Queries](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation) · [Vectors](/content/api.md?id=vector-search)
+[Filters and sorting](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation)
 
 ### Vectors and HNSW :id=vectors
 
-A vector represents features as numbers. Store an embedding in `_vec` to find similar objects. Your app generates embeddings from text, images, or other data.
+Find bikes with similar features. Your app creates an embedding and stores those numbers in `_vec`.
 
-**HNSW** searches a layered graph in memory: broad jumps first, nearby matches next. It finds approximate nearest neighbors quickly.
+The **HNSW index** searches a graph in memory: large jumps narrow the area, then nearby connections lead to similar objects.
+
+![A highlighted search takes broad jumps through sparse HNSW layers, then explores nearby bike vectors.](assets/site/learn/vectors.svg)
+
+<details>
+<summary>Store a vector and find similar bikes</summary>
 
 ```js
 await bikes.patch("bike-01", {
@@ -104,28 +119,28 @@ await bikes.patch("bike-01", {
 });
 await bikes.ready();
 const similar = await bikes.search({
-  $vector: {
-    vector: [0.21, 0.79, 0.4],
-    limit: 3
-  }
+  $vector: { vector: [0.21, 0.79, 0.4], limit: 3 }
 });
 ```
 
-The short vectors are illustrative. Use the same embedding model for data and searches. `ready()` waits for the index; results include a similarity `_score`.
+</details>
 
-![A query follows a highlighted route through three HNSW graph layers. Sparse upper connections guide the search into a denser neighborhood of bike vectors, ending at similar bikes.](assets/site/learn/vectors.svg)
+Use the same embedding model for objects and queries. The short vectors above are illustrative; `ready()` waits for the index.
 
-[Vector search API](/content/api.md?id=vector-search) · [HNSW background](https://arxiv.org/abs/1603.09320)
+[Vector search](/content/api.md?id=vector-search)
 
 ### Storage :id=memory
 
-Objects stay in RAM. OBJY splits their fields internally and rebuilds complete objects on read.
+You read complete objects. Internally, collection metadata lets you choose how their fields use memory:
 
-- **Hot fields:** direct access to frequently used data.
-- **Columns:** compact values for fast aggregation.
-- **Compressed fields:** smaller storage for colder data.
+- **Hot fields:** keep frequently read values directly accessible.
+- **Columns:** store values such as `price` compactly for aggregation.
+- **Compression:** reduce the space used by colder object data.
 
-Collection metadata chooses what to index, store in columns, and keep hot:
+![A plain bike object feeds a physical RAM module with hot fields, compact columns, and compressed data.](assets/site/learn/memory.svg)
+
+<details>
+<summary>Choose indexes and storage settings</summary>
 
 ```json
 {
@@ -138,43 +153,46 @@ Collection metadata chooses what to index, store in columns, and keep hot:
 }
 ```
 
-Embedded data lasts until the page or process closes. The server adds optional persistence for recovery after restarts.
+</details>
 
-![The bike's data is organized into hot fields, columns, and compressed fields inside RAM.](assets/site/learn/memory.svg)
+Writes become visible immediately. Indexes and columns can finish building in the background. Embedded data lives for the lifetime of the page or process.
 
-[Storage settings](/content/database.md?id=shape-the-workload-with-metadata) · [Memory and lifecycle](/content/database.md?id=memory-is-the-database)
+[Storage and indexes](/content/database.md?id=shape-the-workload-with-metadata)
 
 ## ![](assets/site/icons/server.svg) Server :id=server
 
-Share the database over a network, with authentication, permissions, clustering, and optional persistence.
+**Shared by your applications.** `@objy/server` wraps the same database engine with network access, users, permissions, clustering, and persistence.
 
 ### API :id=server-api
 
-Use REST or the JavaScript client. The server checks access before running your object operations.
+Your app sends a request through REST or the JavaScript client. The server checks the token and permissions, then runs the operation on the database.
+
+![An application sends a request through API and access checks to the same in-memory database engine.](assets/site/learn/server.svg)
+
+<details>
+<summary>Read the bike through REST</summary>
 
 ```http
 GET /api/app/bikes/object/bike-01
 Authorization: Bearer <accessToken>
 ```
 
-![An application sends an HTTP request to the server. API and authentication checks sit in front of the in-memory database.](assets/site/learn/server.svg)
+</details>
 
 [REST API](/content/api.md) · [JavaScript client](/content/client.md)
 
 ### Users and permissions :id=users-permissions
 
-Users sign in for access tokens. Collection grants and object rules control access; an owner reference alone grants nothing.
+Signing in gives a user an access token. Collection grants and object rules determine which data they can use.
 
-This user rule allows reading (`r`) and updating (`u`) Alex’s bikes:
+This rule lets Alex read (`r`) and update (`u`) bikes whose `owner.value` is his ID. A reference alone grants no access.
 
 ```json
 {
-  "permissions": [
-    {
-      "query": { "owner.value": "person-42" },
-      "perm": "ru"
-    }
-  ]
+  "permissions": [{
+    "query": { "owner.value": "person-42" },
+    "perm": "ru"
+  }]
 }
 ```
 
@@ -182,23 +200,25 @@ This user rule allows reading (`r`) and updating (`u`) Alex’s bikes:
 
 ### Clusters :id=clusters
 
-A cluster distributes data across nodes and routes requests to the node holding each object.
+Grow beyond one machine with two different building blocks:
 
-- **Sharding:** splits data across machines; queries combine results from the relevant shards.
-- **Replication:** keeps extra copies, updated asynchronously.
+- **Shards** divide the objects across nodes.
+- **Replicas** keep additional copies of a shard on other nodes.
 
-![Two shards are held on different nodes, with an additional replica of each shard on another node.](assets/site/learn/cluster.svg)
+Requests can reach any public node; routing finds the owner. Replicas catch up asynchronously.
 
-[Cluster setup](/content/server.md?id=form-a-cluster) · [Routing and replication](/content/server.md?id=route-and-replicate)
+![Two object shards live on different machines, with one additional replica of each on another machine.](assets/site/learn/cluster.svg)
+
+[Cluster setup](/content/server.md?id=form-a-cluster)
 
 ### Persistence :id=persistence
 
-Enable persistence to recover data after a restart:
+Choose what survives a restart:
 
-- **Local WAL:** logs writes on the node; acknowledgement depends on configuration.
-- **Optional S3:** stores journals and snapshots. Uploads happen asynchronously.
-- **Recovery:** restores objects and rebuilds indexes in RAM.
+- **Local WAL** records writes on the node. With `localWal` acknowledgement, success follows the local flush.
+- **Optional S3** keeps journals and snapshots asynchronously.
+- **Recovery** restores objects and rebuilds indexes in memory.
 
-Local WAL acknowledgement does not wait for replication or S3 uploads.
+A local WAL acknowledgement does not wait for replicas or S3 uploads.
 
-[Persistence and recovery](/content/server.md?id=make-it-durable) · [Get started](get-started.md)
+[Persistence settings](/content/server.md?id=make-it-durable) · [Run OBJY](get-started.md)

@@ -1,32 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="learn-references" width="100%" fill="none" font-family="Montserrat, Arial, sans-serif">
   <style>
-    .learn-references { aspect-ratio: 560 / 360; }
+    .learn-references { aspect-ratio: 560 / 405; }
     .learn-references-compact { display: none; }
     @media (max-width: 640px) {
-      .learn-references { aspect-ratio: 360 / 368; }
+      .learn-references { aspect-ratio: 360 / 478; }
+      .learn-references-wide { display: none; }
+      .learn-references-compact { display: block; }
+    }
+    @container (max-width: 480px) {
+      .learn-references { aspect-ratio: 360 / 478; }
       .learn-references-wide { display: none; }
       .learn-references-compact { display: block; }
     }
   </style>
-  <svg class="learn-references-wide" viewBox="0 0 560 360" width="100%" height="100%" aria-hidden="true">
-<text x="44" y="153" font-size="16" fill="#c4b8ac" data-copy="learn-diagrams.bike-label">bikes / bike-01</text>
-<text x="44" y="199" font-size="28" fill="#e4b29d" data-copy="learn-diagrams.bike-name">Bike</text>
-<text x="358" y="83" font-size="16" fill="#b7c2aa" data-copy="learn-diagrams.person-label">people / person-42</text>
-<text x="358" y="129" font-size="28" fill="#c5dca5" data-copy="learn-diagrams.person-name">Alex</text>
-<path d="M238 170h38V111h50m-7-6 7 6-7 6" stroke="#b0b39e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="272" y="197" font-size="15" fill="#e4b29d" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">owner</text>
-<text x="354" y="301" font-size="19" fill="#cfb5ee" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.reference-read">owner.object.name → &quot;Alex&quot;</text>
-<path d="M436 174v84m-5-5 5 5 5-5" stroke="#74608a" stroke-width="1.5"/>
-<text x="26" y="299" font-size="16" fill="#aaa99f" data-copy="learn-diagrams.read">Read →</text>
+  <svg class="learn-references-wide" viewBox="0 0 560 405" width="100%" height="100%" aria-hidden="true">
+<text x="14" y="19" font-size="13" fill="#aaa99f" data-copy="learn-diagrams.bike-label">bikes / bike-01</text>
+<g class="reference-parent" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">
+<text x="14" y="57" font-size="16" fill="#aaa99f">{</text>
+<text x="30" y="82" font-size="16" fill="#e4b29d" data-copy="learn-diagrams.object-id">&quot;_id&quot;: &quot;bike-01&quot;,</text>
+<text x="30" y="107" font-size="16" fill="#e4b29d" data-copy="learn-diagrams.reference-owner">&quot;owner&quot;: {</text>
+<text x="46" y="132" font-size="16" fill="#e4b29d" data-copy="learn-diagrams.reference-type">&quot;type&quot;: &quot;reference&quot;,</text>
+<text x="46" y="157" font-size="16" fill="#e4b29d" data-copy="learn-diagrams.reference-collection">&quot;collection&quot;: &quot;people&quot;,</text>
+<text x="46" y="182" font-size="16" fill="#e4b29d" data-copy="learn-diagrams.reference-value">&quot;value&quot;: &quot;person-42&quot;,</text>
+<text x="46" y="207" font-size="16" fill="#cfb5ee" data-copy="learn-diagrams.reference-object">&quot;object&quot;: {</text>
+<text x="62" y="232" font-size="16" fill="#cfb5ee" data-copy="learn-diagrams.resolved-id">&quot;_id&quot;: &quot;person-42&quot;,</text>
+<text x="62" y="257" font-size="16" fill="#cfb5ee" data-copy="learn-diagrams.resolved-name">&quot;name&quot;: &quot;Alex&quot;</text>
+<text x="46" y="282" font-size="16" fill="#cfb5ee">}</text>
+<text x="30" y="307" font-size="16" fill="#e4b29d">}</text>
+<text x="14" y="332" font-size="16" fill="#aaa99f">}</text>
+</g>
+<text x="364" y="155" font-size="14" fill="#aaa99f" data-copy="learn-diagrams.person-label">people / person-42</text>
+<g class="reference-source" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" opacity=".55">
+<text x="364" y="185" font-size="14" fill="#aebac5">{</text>
+<text x="378" y="208" font-size="14" fill="#aebac5" data-copy="learn-diagrams.source-id">&quot;_id&quot;: &quot;person-42&quot;,</text>
+<text x="378" y="231" font-size="14" fill="#aebac5" data-copy="learn-diagrams.source-name">&quot;name&quot;: &quot;Alex&quot;</text>
+<text x="364" y="254" font-size="14" fill="#aebac5">}</text>
+</g>
+<path d="M350 226H328v31h-80m5-4-5 4 5 4" stroke="#a88fbd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 5"/>
+<text x="14" y="383" font-size="15" fill="#cfb5ee" data-copy="learn-diagrams.reference-read" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">owner.object.name → &quot;Alex&quot;</text>
   </svg>
-  <svg class="learn-references-compact" viewBox="0 0 360 368" width="100%" height="100%" aria-hidden="true">
-<text x="36" y="45" font-size="14" fill="#c4b8ac" data-copy="learn-diagrams.bike-label">bikes / bike-01</text>
-<text x="36" y="83" font-size="26" fill="#e4b29d" data-copy="learn-diagrams.bike-name">Bike</text>
-<path d="M132 114v28h96v17m-5-5 5 5 5-5" stroke="#b0b39e" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-<text x="288" y="140" font-size="14" fill="#e4b29d" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">owner</text>
-<text x="132" y="195" font-size="14" fill="#b7c2aa" data-copy="learn-diagrams.person-label">people / person-42</text>
-<text x="132" y="234" font-size="26" fill="#c5dca5" data-copy="learn-diagrams.person-name">Alex</text>
-<path d="M228 264v27m-5-5 5 5 5-5" stroke="#74608a" stroke-width="1.5"/>
-<text x="180" y="332" font-size="17" fill="#cfb5ee" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.reference-read">owner.object.name → &quot;Alex&quot;</text>
+  <svg class="learn-references-compact" viewBox="0 0 360 478" width="100%" height="100%" aria-hidden="true">
+<text x="14" y="19" font-size="13" fill="#aaa99f" data-copy="learn-diagrams.bike-label">bikes / bike-01</text>
+<g class="reference-parent" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">
+<text x="14" y="51" font-size="15" fill="#aaa99f">{</text>
+<text x="29" y="74" font-size="15" fill="#e4b29d" data-copy="learn-diagrams.object-id">&quot;_id&quot;: &quot;bike-01&quot;,</text>
+<text x="29" y="97" font-size="15" fill="#e4b29d" data-copy="learn-diagrams.reference-owner">&quot;owner&quot;: {</text>
+<text x="44" y="120" font-size="15" fill="#e4b29d" data-copy="learn-diagrams.reference-type">&quot;type&quot;: &quot;reference&quot;,</text>
+<text x="44" y="143" font-size="15" fill="#e4b29d" data-copy="learn-diagrams.reference-collection">&quot;collection&quot;: &quot;people&quot;,</text>
+<text x="44" y="166" font-size="15" fill="#e4b29d" data-copy="learn-diagrams.reference-value">&quot;value&quot;: &quot;person-42&quot;,</text>
+<text x="44" y="189" font-size="15" fill="#cfb5ee" data-copy="learn-diagrams.reference-object">&quot;object&quot;: {</text>
+<text x="59" y="212" font-size="15" fill="#cfb5ee" data-copy="learn-diagrams.resolved-id">&quot;_id&quot;: &quot;person-42&quot;,</text>
+<text x="59" y="235" font-size="15" fill="#cfb5ee" data-copy="learn-diagrams.resolved-name">&quot;name&quot;: &quot;Alex&quot;</text>
+<text x="44" y="258" font-size="15" fill="#cfb5ee">}</text>
+<text x="29" y="281" font-size="15" fill="#e4b29d">}</text>
+<text x="14" y="304" font-size="15" fill="#aaa99f">}</text>
+</g>
+<text x="166" y="353" font-size="14" fill="#aaa99f" data-copy="learn-diagrams.person-label">people / person-42</text>
+<g class="reference-source" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" opacity=".55">
+<text x="166" y="383" font-size="14" fill="#aebac5">{</text>
+<text x="180" y="406" font-size="14" fill="#aebac5" data-copy="learn-diagrams.source-id">&quot;_id&quot;: &quot;person-42&quot;,</text>
+<text x="180" y="429" font-size="14" fill="#aebac5" data-copy="learn-diagrams.source-name">&quot;name&quot;: &quot;Alex&quot;</text>
+<text x="166" y="452" font-size="14" fill="#aebac5">}</text>
+</g>
+<path d="M259 342V258H231m5-4-5 4 5 4" stroke="#a88fbd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3 5"/>
   </svg>
 </svg>

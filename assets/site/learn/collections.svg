@@ -1,35 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="learn-collections" width="100%" fill="none" font-family="Montserrat, Arial, sans-serif">
   <style>
-    .learn-collections { aspect-ratio: 560 / 340; }
+    .learn-collections { aspect-ratio: 560 / 250; }
     .learn-collections-compact { display: none; }
     @media (max-width: 640px) {
-      .learn-collections { aspect-ratio: 360 / 290; }
+      .learn-collections { aspect-ratio: 360 / 246; }
+      .learn-collections-wide { display: none; }
+      .learn-collections-compact { display: block; }
+    }
+    @container (max-width: 480px) {
+      .learn-collections { aspect-ratio: 360 / 246; }
       .learn-collections-wide { display: none; }
       .learn-collections-compact { display: block; }
     }
   </style>
-  <svg class="learn-collections-wide" viewBox="0 0 560 340" width="100%" height="100%" aria-hidden="true">
-<text x="44" y="64" font-size="23" fill="#c5dca5" data-copy="learn-diagrams.bike-collection">bikes</text>
-<text x="514" y="62" font-size="14" fill="#aaa99f" data-copy="learn-diagrams.collection" text-anchor="end">Collection</text>
-<text x="114" y="149" font-size="26" fill="#c5dca5" text-anchor="middle" data-copy="learn-diagrams.bike-name">Bike</text>
-<text x="280" y="149" font-size="26" fill="#c5dca5" text-anchor="middle">{ }</text>
-<text x="446" y="149" font-size="26" fill="#c5dca5" text-anchor="middle">{ }</text>
-<path d="M280 198v24m-5-5 5 5 5-5" stroke="#888779" stroke-width="1.5"/>
-<rect x="44" y="232" width="472" height="52" rx="8" fill="#302724" stroke="#8a6a5c"/>
-<text x="120" y="264" font-size="18" fill="#e4b29d" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">indexes</text>
-<text x="280" y="264" font-size="18" fill="#e4b29d" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">columns</text>
-<text x="440" y="264" font-size="18" fill="#e4b29d" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">tiering</text>
+  <svg class="learn-collections-wide" viewBox="0 0 560 250" width="100%" height="100%" aria-hidden="true">
+<text x="280.0" y="35" font-size="24" fill="#e4b29d" data-copy="learn-diagrams.database-name" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">app</text>
+<path d="M280.0 51V78M150 78H410M150 78v24m-4-4 4 4 4-4M410 78v24m-4-4 4 4 4-4" stroke="#77776d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="150" y="134" font-size="23" fill="#c5dca5" data-copy="learn-diagrams.bike-collection" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">bikes</text>
+<path d="M150 147v18" stroke="#c5dca5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="94.0" y="207" font-size="32" fill="#c5dca5" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
+<text x="150.0" y="207" font-size="32" fill="#c5dca5" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
+<text x="206.0" y="207" font-size="32" fill="#c5dca5" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
+<text x="410" y="134" font-size="23" fill="#cfb5ee" data-copy="learn-diagrams.people-collection" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">people</text>
+<path d="M410 147v18" stroke="#cfb5ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="354.0" y="207" font-size="32" fill="#cfb5ee" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
+<text x="410.0" y="207" font-size="32" fill="#cfb5ee" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
+<text x="466.0" y="207" font-size="32" fill="#cfb5ee" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
   </svg>
-  <svg class="learn-collections-compact" viewBox="0 0 360 290" width="100%" height="100%" aria-hidden="true">
-<text x="28" y="49" font-size="21" fill="#c5dca5" data-copy="learn-diagrams.bike-collection">bikes</text>
-<text x="332" y="47" font-size="13" fill="#aaa99f" data-copy="learn-diagrams.collection" text-anchor="end">Collection</text>
-<text x="70" y="134" font-size="21" fill="#c5dca5" text-anchor="middle" data-copy="learn-diagrams.bike-name">Bike</text>
-<text x="180" y="134" font-size="21" fill="#c5dca5" text-anchor="middle">{ }</text>
-<text x="290" y="134" font-size="21" fill="#c5dca5" text-anchor="middle">{ }</text>
-<path d="M180 179v25m-5-5 5 5 5-5" stroke="#888779" stroke-width="1.5"/>
-<rect x="28" y="216" width="304" height="40" rx="6" fill="#302724" stroke="#8a6a5c"/>
-<text x="78" y="242" font-size="15" fill="#e4b29d" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">indexes</text>
-<text x="180" y="242" font-size="15" fill="#e4b29d" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">columns</text>
-<text x="282" y="242" font-size="15" fill="#e4b29d" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">tiering</text>
+  <svg class="learn-collections-compact" viewBox="0 0 360 246" width="100%" height="100%" aria-hidden="true">
+<text x="180.0" y="35" font-size="24" fill="#e4b29d" data-copy="learn-diagrams.database-name" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">app</text>
+<path d="M180.0 51V78M92 78H268M92 78v24m-4-4 4 4 4-4M268 78v24m-4-4 4 4 4-4" stroke="#77776d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="92" y="134" font-size="23" fill="#c5dca5" data-copy="learn-diagrams.bike-collection" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">bikes</text>
+<path d="M92 147v18" stroke="#c5dca5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="70.0" y="207" font-size="32" fill="#c5dca5" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
+<text x="114.0" y="207" font-size="32" fill="#c5dca5" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
+<text x="268" y="134" font-size="23" fill="#cfb5ee" data-copy="learn-diagrams.people-collection" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">people</text>
+<path d="M268 147v18" stroke="#cfb5ee" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="246.0" y="207" font-size="32" fill="#cfb5ee" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
+<text x="290.0" y="207" font-size="32" fill="#cfb5ee" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace">{}</text>
   </svg>
 </svg>
