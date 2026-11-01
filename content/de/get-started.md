@@ -1,6 +1,6 @@
 # Deine Anwendung. Dein Betrieb. :id=deployment
 
-## ![](assets/site/icons/quick-start.svg) Lokal :id=deploy-run
+## ![](assets/site/icons/quick-start.svg) Lokale Server :id=deploy-run
 
 ```sh
 npm i -g @objy/server

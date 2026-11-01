@@ -1,6 +1,6 @@
 # Deploy on your terms. :id=deployment
 
-## ![](assets/site/icons/quick-start.svg) Local :id=deploy-run
+## ![](assets/site/icons/quick-start.svg) Local servers :id=deploy-run
 
 ```sh
 npm i -g @objy/server
