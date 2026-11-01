@@ -284,7 +284,7 @@ body > main > .sidebar-toggle,
   flex: 0 0 6px;
   width: 6px;
   height: 6px;
-  margin: 16px 10px 0 1px;
+  margin: 19px 10px 0 1px;
   border-right: 1px solid var(--muted);
   border-bottom: 1px solid var(--muted);
   transform: rotate(-45deg);
@@ -297,22 +297,21 @@ body > main > .sidebar-toggle,
   min-width: 0;
   gap: 8px;
   padding: 9px 0;
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
-.documentation-guide img { flex: 0 0 20px; margin-top: 1px; }
+.documentation-guide img { flex: 0 0 20px; margin-top: 3px; }
 #section-links .documentation-branch > ul { padding: 6px 0 16px 17px; }
 #section-links .documentation-branch ul ul { padding-left: 12px; }
 #section-links .documentation-chapter-link {
   padding: 6px 0;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.5;
   font-weight: 400;
   overflow-wrap: anywhere;
 }
-#section-links .documentation-branch ul ul .documentation-chapter-link { font-size: 13px; }
-.documentation-branch ul summary::before { margin: 13px 8px 0 1px; flex-basis: 5px; width: 5px; height: 5px; }
+.documentation-branch ul summary::before { margin: 16px 8px 0 1px; flex-basis: 5px; width: 5px; height: 5px; }
 .documentation-tree summary > a { min-width: 0; }
 .sections-root {
   max-width: var(--content-width);
