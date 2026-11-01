@@ -4,11 +4,11 @@ Ein Fahrrad, sein Besitzer und die Datenbank dahinter.
 
 ## Datenbank :id=database
 
-Die Datenbank-Engine speichert und verarbeitet deine Objekte im Arbeitsspeicher. Sie läuft direkt im Browser und in Node.js. An einem Fahrrad und seinem Besitzer erklären wir zuerst das Datenmodell und danach die interne Speicherung.
+Arbeite mit JSON-Objekten direkt im Arbeitsspeicher, im Browser und in Node.js.
 
 ### Collections :id=collections
 
-Eine Datenbank enthält benannte Collections. In unserer Datenbank `app` liegen Fahrräder in `bikes` und ihre Besitzer in `people`. Eine Collection gruppiert Objekte und hält Einstellungen wie Indizes und Komprimierung in ihren Metadaten.
+Collections gruppieren Objekte: `bikes` für Fahrräder, `people` für Besitzer. Ihre Metadaten steuern Indizes und Speicherung.
 
 ```js
 import { createDatabase } from "@objy/db";
@@ -26,9 +26,7 @@ const bikes = app.collection("bikes");
 
 ### Objekte :id=objects
 
-Ein Objekt beschreibt etwas in deiner Anwendung: ein Fahrrad, eine Person oder eine Buchung. Seine `_id` identifiziert es innerhalb der Collection. Ohne angegebene ID erzeugt OBJY eine. Dieses Fahrrad kombiniert Text, einen Wahrheitswert, eine Zahl und ein Array in einem JSON-Objekt.
-
-Objekte derselben Collection können unterschiedliche Eigenschaften haben. Ein weiteres Fahrrad kann eine Batterie oder einen verschachtelten Standort enthalten, ohne alle vorhandenen Fahrräder zu ändern.
+Objekte beschreiben Dinge in deiner App. Jedes hat eine eindeutige `_id` innerhalb seiner Collection; bei Bedarf erzeugt OBJY sie. Die Eigenschaften dürfen sich unterscheiden, ohne festes Schema.
 
 ![Ein Fahrradobjekt mit ID, Name, Verfügbarkeit, Preis und Tags.](assets/site/learn/objects.svg)
 
@@ -36,7 +34,7 @@ Objekte derselben Collection können unterschiedliche Eigenschaften haben. Ein w
 
 ### Eigenschaften :id=properties
 
-Eigenschaften enthalten deine Daten: Zeichenketten, Zahlen, Wahrheitswerte, Arrays, verschachtelte Objekte oder `null`. Füge das Fahrrad mit `insert` hinzu und ändere einzelne Eigenschaften mit `patch`. Ein Pfad wie `location.city` adressiert eine verschachtelte Eigenschaft.
+Speichere Text, Zahlen, Wahrheitswerte, Arrays, verschachtelte Objekte oder `null`. Mit `insert` fügst du ein Objekt hinzu, mit `patch` änderst du Felder.
 
 ```js
 await bikes.insert({
@@ -51,13 +49,13 @@ await bikes.patch("bike-01", {
 });
 ```
 
-Mit `replace` ersetzt du ein vollständiges Objekt, mit `remove` löschst du es. Die entsprechenden Bulk-Methoden verarbeiten viele Objekte auf einmal.
+Punktpfade ändern verschachtelte Felder. `replace` ersetzt ein Objekt, `remove` löscht es. Bulk-Methoden verarbeiten viele Objekte.
 
 [Objekte schreiben und ändern](/content/database.md?id=bulk-is-the-native-path)
 
 ### Referenzen :id=references
 
-Das Fahrrad gehört Alex. Sein Objekt liegt in `people` und hat die ID `person-42`. Setze die Eigenschaft `owner` auf eine Referenz mit `type`, `collection` und `value`. OBJY speichert die Beziehung und kann beim Lesen die aktuellen Daten des Besitzers auflösen:
+Der `owner` des Fahrrads zeigt auf Alex in `people`. Beim Auflösen erscheinen seine aktuellen Daten unter `owner.object`:
 
 ```json
 {
@@ -71,7 +69,7 @@ Das Fahrrad gehört Alex. Sein Objekt liegt in `people` und hat die ID `person-4
 }
 ```
 
-Das verschachtelte `object` ist die aufgelöste Leseansicht. Ändert sich Alex, können spätere Lesezugriffe auf das Fahrrad die neuen Daten zeigen. Die Referenztiefe bestimmt, wie weit OBJY Beziehungen folgt.
+Gespeichert werden `type`, `collection` und `value`; `object` ist die aufgelöste Leseansicht. Spätere Lesezugriffe können Alex’ Änderungen zeigen. Die Referenztiefe begrenzt, wie weit OBJY Beziehungen folgt.
 
 ![Das Fahrrad referenziert seinen Besitzer Alex. Beim Lesen enthält owner.object Alex' Daten.](assets/site/learn/references.svg)
 
@@ -79,7 +77,7 @@ Das verschachtelte `object` ist die aufgelöste Leseansicht. Ändert sich Alex, 
 
 ### Abfragen :id=operations
 
-Eine Abfrage findet Objekte anhand ihrer Eigenschaften. Filtere verfügbare Fahrräder, sortiere die Ergebnisse, teile sie in Seiten auf oder berechne Summen und Durchschnittswerte ihrer Preise:
+Finde verfügbare Fahrräder oder berechne ihren Durchschnittspreis. Abfragen unterstützen auch Sortierung und Seiteneinteilung:
 
 ```js
 await bikes.find({ available: true });
@@ -96,9 +94,9 @@ await bikes.search({
 
 ### Vektoren und HNSW :id=vectors
 
-Ein Vektor ist eine Liste von Zahlen, die Bedeutung oder Merkmale eines Objekts beschreibt. Deine Anwendung erzeugt aus der Beschreibung oder dem Bild eines Fahrrads ein Embedding und speichert es in `_vec`. Ähnliche Embeddings helfen, ähnliche Fahrräder zu finden.
+Ein Vektor beschreibt Merkmale als Zahlen. Speichere ein Embedding in `_vec`, um ähnliche Objekte zu finden. Deine App erzeugt Embeddings aus Text, Bildern oder anderen Daten.
 
-OBJY verwendet einen **HNSW-Index** im Arbeitsspeicher (Hierarchical Navigable Small World). Er verbindet Vektoren in mehreren Graphebenen: Die Suche springt zunächst über wenige Verbindungen der oberen Ebenen und folgt darunter engeren Verbindungen, um näherungsweise die nächsten Nachbarn zu finden.
+**HNSW** durchsucht einen Graphen mit mehreren Ebenen im RAM: erst große Sprünge, dann nahe Treffer. So findet OBJY schnell näherungsweise die nächsten Nachbarn.
 
 ```js
 await bikes.patch("bike-01", {
@@ -113,7 +111,7 @@ const similar = await bikes.search({
 });
 ```
 
-Die kurzen Vektoren veranschaulichen die API. Verwende dasselbe Embedding-Modell für gespeicherte Objekte und Suchanfragen. `ready()` wartet auf den Indexaufbau; Ergebnisse enthalten einen Ähnlichkeitswert `_score`.
+Die kurzen Vektoren dienen als Beispiel. Nutze dasselbe Embedding-Modell für Daten und Suche. `ready()` wartet auf den Index; Ergebnisse enthalten den Ähnlichkeitswert `_score`.
 
 ![Eine Suchanfrage folgt einer hervorgehobenen Route durch drei HNSW-Graphebenen. Wenige obere Verbindungen führen in eine dichtere Nachbarschaft von Fahrradvektoren und schließlich zu ähnlichen Fahrrädern.](assets/site/learn/vectors.svg)
 
@@ -121,13 +119,13 @@ Die kurzen Vektoren veranschaulichen die API. Verwende dasselbe Embedding-Modell
 
 ### Speicherung :id=memory
 
-Objekte und ihre Suchstrukturen liegen im RAM. Intern kann OBJY die Eigenschaften eines Objekts auf unterschiedliche Speicherblöcke verteilen und beim Lesen das vollständige Objekt zusammensetzen.
+Objekte liegen im RAM. OBJY verteilt ihre Felder intern auf Speicherblöcke und setzt beim Lesen vollständige Objekte zusammen.
 
-- **Heiße Felder** halten häufig genutzte Eigenschaften direkt zugänglich.
-- **Spalten** legen ausgewählte Werte kompakt zusammen ab und beschleunigen Aggregationen.
-- **Komprimierte Felder** halten seltener benötigte Objektdaten komprimiert im Arbeitsspeicher und entpacken sie bei Bedarf.
+- **Heiße Felder:** direkter Zugriff auf häufig genutzte Daten.
+- **Spalten:** kompakte Werte für schnelle Aggregationen.
+- **Komprimierte Felder:** weniger Speicher für seltener genutzte Daten.
 
-Indizes helfen, passende Objekte zu finden. Gemeinsame Wörterbücher reduzieren wiederholte Werte. Collection-Metadaten steuern diese Strukturen. Diese Konfiguration indiziert die Verfügbarkeit, legt Preise in einer Spalte ab und hält ausgewählte Felder direkt zugänglich, während größere Objektinhalte komprimiert werden:
+Collection-Metadaten bestimmen, welche Felder indiziert, als Spalten gespeichert oder direkt zugänglich bleiben:
 
 ```json
 {
@@ -140,7 +138,7 @@ Indizes helfen, passende Objekte zu finden. Gemeinsame Wörterbücher reduzieren
 }
 ```
 
-Eingebettete Daten leben so lange wie die Browserseite oder der Node.js-Prozess. Der Server ergänzt gemeinsamen Zugriff und optionale Persistenz, wie im nächsten Kapitel erklärt.
+Eingebettete Daten bleiben bis zum Schließen der Seite oder des Prozesses erhalten. Der Server ergänzt optionale Persistenz für Neustarts.
 
 ![Die Daten des Fahrrads sind im RAM in heiße Felder, Spalten und komprimierte Felder aufgeteilt.](assets/site/learn/memory.svg)
 
@@ -148,11 +146,11 @@ Eingebettete Daten leben so lange wie die Browserseite oder der Node.js-Prozess.
 
 ## Server :id=server
 
-Der Server macht dieselbe Datenbank-Engine zu einem gemeinsam nutzbaren Dienst. Er ergänzt das bekannte Objektmodell um Netzwerkzugriff, Authentifizierung, Berechtigungen, Cluster und Wiederherstellung.
+Nutze die Datenbank gemeinsam über ein Netzwerk, mit Authentifizierung, Berechtigungen, Clustering und optionaler Persistenz.
 
 ### API :id=server-api
 
-Anwendungen verbinden sich über REST oder den JavaScript-Client. Nach Authentifizierung und Berechtigungsprüfung gelangt eine Anfrage zur Datenbank, die das Fahrrad hält. Objekte, Abfragen und Aggregationen funktionieren über dieselbe Schnittstelle.
+Verbinde dich über REST oder den JavaScript-Client. Der Server prüft den Zugriff, bevor er Objektoperationen ausführt.
 
 ```http
 GET /api/app/bikes/object/bike-01
@@ -165,9 +163,9 @@ Authorization: Bearer <accessToken>
 
 ### Benutzer und Berechtigungen :id=users-permissions
 
-Benutzer melden sich an und erhalten Zugriffstoken. Freigaben für Collections und Regeln für einzelne Objekte bestimmen ihre erlaubten Operationen. Eine Besitzerreferenz beschreibt eine Beziehung; Berechtigungen steuern den Zugriff auf das Fahrrad separat.
+Benutzer erhalten beim Anmelden Zugriffstoken. Collection-Freigaben und Objektregeln steuern den Zugriff; eine Besitzerreferenz allein gewährt keine Rechte.
 
-Eine Benutzerregel kann zum Beispiel das Lesen und Ändern von Fahrrädern erlauben, deren `owner.value` auf Alex zeigt. Hier steht `r` für Lesen und `u` für Ändern:
+Diese Benutzerregel erlaubt das Lesen (`r`) und Ändern (`u`) von Alex’ Fahrrädern:
 
 ```json
 {
@@ -184,10 +182,10 @@ Eine Benutzerregel kann zum Beispiel das Lesen und Ändern von Fahrrädern erlau
 
 ### Cluster :id=clusters
 
-Ein Cluster verteilt Objekte auf Knoten. Datenbankname, Collection und Objekt-ID bestimmen den Shard eines Objekts. Die Shard-Map legt fest, welche Knoten ihn halten. Jeder öffentliche Knoten kann eine Anfrage annehmen und zum zuständigen Knoten weiterleiten.
+Ein Cluster verteilt Daten auf Knoten und leitet Anfragen an den Knoten weiter, der das Objekt hält.
 
-- **Sharding** verteilt Daten auf Maschinen. Abfragen und Aggregationen sammeln Ergebnisse aus den benötigten Shards.
-- **Replikation** hält zusätzliche Kopien von Shards. Replikate holen Änderungen asynchron ab und holen nach Unterbrechungen auf.
+- **Sharding:** verteilt Daten auf Maschinen; Abfragen führen Ergebnisse der benötigten Shards zusammen.
+- **Replikation:** hält zusätzliche Kopien, die asynchron aktualisiert werden.
 
 ![Zwei Shards liegen auf unterschiedlichen Knoten, mit je einem zusätzlichen Replikat auf einem weiteren Knoten.](assets/site/learn/cluster.svg)
 
@@ -195,12 +193,12 @@ Ein Cluster verteilt Objekte auf Knoten. Datenbankname, Collection und Objekt-ID
 
 ### Persistenz :id=persistence
 
-Die laufenden Daten liegen im Arbeitsspeicher. Aktiviere Server-Persistenz, wenn Objekte einen Neustart überstehen sollen:
+Aktiviere Persistenz, um Daten nach einem Neustart wiederherzustellen:
 
-- **Lokales Write-Ahead-Log:** zeichnet Operationen auf dem Knoten auf. Bei lokaler WAL-Bestätigung und aktiviertem Flush gehört dieser lokale Log-Schritt zu einer erfolgreichen Schreiboperation.
-- **Optionaler S3-Speicher:** Journale zeichnen Änderungen auf, Snapshots halten Objektzustände für die Wiederherstellung fest. Uploads laufen asynchron.
-- **Wiederherstellung:** Der Server lädt Objekte und spielt neuere Operationen nach. Indizes, Spalten und Vektorindizes werden im Arbeitsspeicher neu aufgebaut.
+- **Lokales WAL:** protokolliert Schreibvorgänge auf dem Knoten; die Bestätigung hängt von der Konfiguration ab.
+- **Optionales S3:** speichert Journale und Snapshots. Uploads laufen asynchron.
+- **Wiederherstellung:** lädt Objekte und baut Indizes im RAM neu auf.
 
-Replikation und S3-Uploads laufen unabhängig von einer lokalen WAL-Bestätigung. Wähle die Persistenzkonfiguration passend zur benötigten Wiederherstellung deiner Anwendung.
+Eine lokale WAL-Bestätigung wartet weder auf Replikation noch auf S3-Uploads.
 
 [Persistenz und Wiederherstellung](/content/server.md?id=make-it-durable) · [Loslegen](get-started.md)
