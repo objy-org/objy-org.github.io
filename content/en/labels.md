@@ -52,35 +52,20 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Query | Query |
 | Aggregate | Aggregate |
 | Vector | Vector |
-| Device collection | devices |
-| Device id | `"_id": "drone-01",` |
-| Device name | `"name": "Survey drone",` |
-| Device status | `"status": "ready",` |
-| Device battery | `"battery": 87` |
-| Person collection | people |
-| Person id | `"_id": "person-42",` |
-| Person name | `"name": "Alex",` |
-| Person role | `"role": "pilot"` |
-| Memory collection | memories |
-| Memory id | `"_id": "memory-01",` |
-| Memory title | `"title": "First flight",` |
-| Memory vector | `"_vec": [0.2, 0.8, 0.4]` |
+| Object collection | bikes |
+| Object id | `"_id": "bike-01",` |
+| Object name | `"name": "City bike",` |
+| Object price | `"price": 15,` |
+| Object vector | `"_vec": [0.2, 0.8, 0.4]` |
 
 ## Storage diagram
 
 | Location | Text |
 | --- | --- |
-| Inside | Inside objy.db |
 | Memory | IN MEMORY |
 | Hot | Hot fields |
-| Columns | Compact columns |
-| Compressed | Compressed fields |
-| Hot detail | Frequent fields. |
-| Hot benefit | Direct access, no unpacking. |
-| Columns detail | Values grouped together. |
-| Columns benefit | Fast scans & aggregation. |
-| Compressed detail | More data in memory. |
-| Compressed benefit | Unpack only when read. |
+| Columns | Columns |
+| Compressed | Compressed |
 
 ## Application diagram
 
@@ -100,9 +85,6 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | --- | --- |
 | Read | Read → |
 | Collection | Collection |
-| Hot | Hot fields |
-| Columns | Columns |
-| Compressed | Compressed |
 | Bike collection | `bikes` |
 | Bike label | `bikes / bike-01` |
 | Person label | `people / person-42` |

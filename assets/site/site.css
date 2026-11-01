@@ -885,7 +885,7 @@ body > main > .sidebar-toggle,
   text-align: center;
 }
 .document-lead-art { margin: 48px 0 16px; }
-.document-lead-art .document-art { max-width: 1000px; }
+.document-lead-art .document-art { max-width: 900px; }
 /* An italic Markdown paragraph after the illustration becomes its small caption. */
 .document-lead-art + p:has(> em:only-child) {
   max-width: 660px;

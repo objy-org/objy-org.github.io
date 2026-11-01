@@ -127,7 +127,7 @@ Connect objects and expand their references when reading.
 
 Keep one icon and one short description per feature, with no fenced code examples. Give the icon empty alternative text, because its heading already names the feature. Add the same IDs and icon paths in both languages. Add or edit features directly in this one Markdown file; the renderer builds the responsive card grids automatically.
 
-The JSON/API image belongs directly beneath the Features headline and introduction. The same illustration contains a prominent in-memory panel with three storage blocks. Edit their headings and two short explanation lines in the Storage diagram table of `labels.md`; keep the lines short enough to fit their blocks. The single italic Markdown paragraph after the image is its small, centered caption. Keep it to one sentence; do not add a separate storage text section or second image below the diagram. Illustrated chapter headings sit above their text and image. Spacing and typography separate the chapters; do not add manual divider rules.
+The JSON/API image belongs directly beneath the Features headline and introduction. The illustration shows four API labels, one JSON object, and a physical RAM module with three chips. Edit the short chip labels in the Storage diagram table of `labels.md`; these labels are shared with Learn. Keep them brief and do not add explanation lines inside the image. The single italic Markdown paragraph after the image is its small, centered caption. Keep it to one sentence; do not add a separate storage text section or second image below the diagram. Illustrated chapter headings sit above their text and image. Spacing and typography separate the chapters; do not add manual divider rules.
 
 The core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous. Existing `#/features` bookmarks redirect to the homepage, retaining their chapter IDs.
 
@@ -165,7 +165,7 @@ Add new `##` chapters after the hero to place full-width content beneath it. Ill
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Application diagram table controls the Apps, AI agents, and APIs labels and the central JSON example in the homepage hero. Keep its four JSON lines short and preserve valid JSON punctuation. The Architecture diagram table controls the API labels and three JSON examples in the homepage Features introduction. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
+The Application diagram table controls the Apps, AI agents, and APIs labels and the central JSON example in the homepage hero. Keep its four JSON lines short and preserve valid JSON punctuation. The Architecture diagram table controls the four API labels and single JSON example in the homepage Features introduction. Its Object rows provide the collection name and JSON fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
 Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. The storage explanations are inside the diagram. The full feature list follows it on the homepage.
 
@@ -185,7 +185,7 @@ Keep all four use cases together for a single desktop row. Their icons are custo
 
 ## Change section images
 
-The opening hero centers a layered object database beneath its headline and icon statements. Smaller apps, AI agents, APIs, and object nodes surround it. It can grow to 1300px; on phones, the endpoint icons move beneath the enlarged database. The four use cases follow the image. The homepage Features area opens with the overlapping JSON architecture diagram; its integrated storage panel is explained directly underneath, without another graphic. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero centers a layered object database beneath its headline and icon statements. Smaller apps, AI agents, APIs, and object nodes surround it. It can grow to 1300px; on phones, the endpoint icons move beneath the enlarged database. The four use cases follow the image. The homepage Features area opens with a compact API → JSON object → RAM diagram. Its three chips have short labels; the small caption explains the storage underneath, without another graphic. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

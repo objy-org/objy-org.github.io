@@ -1,230 +1,125 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="objy-architecture" width="100%" fill="none" font-family="Montserrat, Arial, sans-serif">
   <style>
-    .objy-architecture { aspect-ratio: 1000 / 860; }
+    .objy-architecture { aspect-ratio: 1000 / 570; }
     .objy-architecture .architecture-compact { display: none; }
     @media (max-width: 640px) {
-      .objy-architecture { aspect-ratio: 360 / 1090; }
+      .objy-architecture { aspect-ratio: 360 / 600; }
       .objy-architecture .architecture-wide { display: none; }
       .objy-architecture .architecture-compact { display: block; }
     }
   </style>
   <defs>
-    <g id="objy-arch-ram" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="1" y="3" width="28" height="18" rx="2"/>
-      <path d="M5 8h5v8H5zm10 0h5v8h-5zM5 22v4m5-4v4m5-4v4m5-4v4m5-4v4"/>
-    </g>
-    <g id="objy-arch-hot" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
-      <path d="M3 5h16M3 12h12M3 19h16"/>
-      <circle cx="23" cy="5" r="1.5" fill="currentColor" stroke="none"/>
-      <circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>
-      <circle cx="23" cy="19" r="1.5" fill="currentColor" stroke="none"/>
-    </g>
-    <g id="objy-arch-columns" stroke="currentColor" stroke-width="1.5">
-      <rect x="2" y="2" width="5" height="20" rx="1"/>
-      <rect x="11" y="2" width="5" height="20" rx="1"/>
-      <rect x="20" y="2" width="5" height="20" rx="1"/>
-    </g>
-    <g id="objy-arch-compressed" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="9" y="5" width="9" height="14" rx="1"/>
-      <path d="M1 12h5m-3-3 3 3-3 3m23-3h-5m3-3-3 3 3 3"/>
-    </g>
-    <g id="objy-arch-card" stroke="currentColor" stroke-linejoin="round">
-      <path d="M400 0l10 9v240l-10-9Z" fill="#302f2b"/>
-      <path d="M0 240l10 9h400l-10-9Z" fill="#21221f"/>
-      <rect width="400" height="240" rx="3" fill="inherit" stroke-width="1.3"/>
-      <path d="M0 48h400" opacity=".45"/>
-    </g>
-    <g id="objy-arch-person" class="object-snippet" fill="#292522" color="#8f7163">
-      <use href="#objy-arch-card"/>
-      <text x="22" y="31" font-size="18" fill="#e4b29d" data-copy="architecture-diagram.person-collection">people</text>
-      <text x="378" y="31" text-anchor="end" font-size="14" fill="#aaa49d">JSON</text>
-      <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" fill="#e4b29d">
-        <text x="24" y="84" fill="#ccc5bb">{</text>
-        <text x="44" y="112" data-copy="architecture-diagram.person-id">&quot;_id&quot;: &quot;person-42&quot;,</text>
-        <text x="44" y="140" data-copy="architecture-diagram.person-name">&quot;name&quot;: &quot;Alex&quot;,</text>
-        <text x="44" y="168" data-copy="architecture-diagram.person-role">&quot;role&quot;: &quot;pilot&quot;</text>
-        <text x="24" y="196" fill="#ccc5bb">}</text>
-      </g>
-    </g>
-    <g id="objy-arch-memory" class="object-snippet" fill="#28242d" color="#7c6a8d">
-      <use href="#objy-arch-card"/>
-      <text x="22" y="31" font-size="18" fill="#cfb5ee" data-copy="architecture-diagram.memory-collection">memories</text>
-      <text x="378" y="31" text-anchor="end" font-size="14" fill="#aaa49d">JSON</text>
-      <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" fill="#cfb5ee">
-        <text x="24" y="84" fill="#ccc5bb">{</text>
-        <text x="44" y="112" data-copy="architecture-diagram.memory-id">&quot;_id&quot;: &quot;memory-01&quot;,</text>
-        <text x="44" y="140" data-copy="architecture-diagram.memory-title">&quot;title&quot;: &quot;First flight&quot;,</text>
-        <text x="44" y="168" data-copy="architecture-diagram.memory-vector">&quot;_vec&quot;: [0.2, 0.8, 0.4]</text>
-        <text x="24" y="196" fill="#ccc5bb">}</text>
-      </g>
-    </g>
-    <g id="objy-arch-device" class="object-snippet" fill="#252922" color="#859174">
-      <use href="#objy-arch-card"/>
-      <text x="22" y="31" font-size="18" fill="#c5dca5" data-copy="architecture-diagram.device-collection">devices</text>
-      <text x="378" y="31" text-anchor="end" font-size="14" fill="#aaa49d">JSON</text>
-      <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="19" fill="#c5dca5">
-        <text x="24" y="84" fill="#ccc5bb">{</text>
-        <text x="44" y="112" data-copy="architecture-diagram.device-id">&quot;_id&quot;: &quot;drone-01&quot;,</text>
-        <text x="44" y="140" data-copy="architecture-diagram.device-name">&quot;name&quot;: &quot;Survey drone&quot;,</text>
-        <text x="44" y="168" data-copy="architecture-diagram.device-status">&quot;status&quot;: &quot;ready&quot;,</text>
-        <text x="44" y="196" data-copy="architecture-diagram.device-battery">&quot;battery&quot;: 87</text>
-        <text x="24" y="224" fill="#ccc5bb">}</text>
+    <g id="objy-arch-crud" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 14h20m-10-10v20m-8-14-4 4 4 4m16-8 4 4-4 4"/></g>
+    <g id="objy-arch-query" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="12" r="8"/><path d="m20 18 8 8m-18-14h8"/></g>
+    <g id="objy-arch-aggregate" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 27V16h5v11m7 0V9h5v18m7 0V3h5v24"/></g>
+    <g id="objy-arch-vector" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 23 10-15 11 17m-11-17 15-3"/><circle cx="6" cy="23" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="27" cy="25" r="3"/><circle cx="31" cy="5" r="3"/></g>
+    <g id="objy-arch-object" class="object-snippet">
+      <rect width="330" height="216" rx="8" fill="#272624" stroke="#746355" stroke-width="1.2"/>
+      <path d="M1 40h328" stroke="#4c433b"/>
+      <text x="22" y="26" font-size="15" fill="#bfb4a9" data-copy="architecture-diagram.object-collection">bikes</text>
+      <text x="308" y="26" text-anchor="end" font-size="12" fill="#8f8b85">JSON</text>
+      <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" fill="#e4b29d">
+        <text x="22" y="68" fill="#c8c2b8">{</text>
+        <text x="40" y="92" data-copy="architecture-diagram.object-id">&quot;_id&quot;: &quot;bike-01&quot;,</text>
+        <text x="40" y="116" data-copy="architecture-diagram.object-name">&quot;name&quot;: &quot;City bike&quot;,</text>
+        <text x="40" y="140" data-copy="architecture-diagram.object-price">&quot;price&quot;: 15,</text>
+        <text x="40" y="164" data-copy="architecture-diagram.object-vector">&quot;_vec&quot;: [0.2, 0.8, 0.4]</text>
+        <text x="22" y="188" fill="#c8c2b8">}</text>
       </g>
     </g>
   </defs>
-  <svg class="architecture-wide" viewBox="0 0 1000 860" width="100%" height="100%" aria-hidden="true">
-    <g transform="translate(80 22)">
-      <rect x=".7" y=".7" width="190.6" height="64.6" rx="12" fill="#262626" stroke="#41413d"/>
-      <g transform="translate(15 20.0) scale(0.85)" stroke="#c5dca5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <path d="M8 14h20m-10-10v20m-8-14-4 4 4 4m16-8 4 4-4 4"/>
-      </g>
-      <text x="58" y="40.7" font-size="22" fill="#c5dca5" data-copy="architecture-diagram.crud">CRUD</text>
+  <svg class="architecture-wide" viewBox="0 0 1000 570" width="100%" height="100%" aria-hidden="true">
+    <g class="api-option" transform="translate(80 20)">
+      <rect x=".7" y=".7" width="190.6" height="54.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-crud" transform="translate(15 13) scale(.8)" color="#c5dca5"/>
+      <text x="58" y="36" font-size="22" fill="#c5dca5" data-copy="architecture-diagram.crud">CRUD</text>
     </g>
-    <g transform="translate(296 22)">
-      <rect x=".7" y=".7" width="190.6" height="64.6" rx="12" fill="#262626" stroke="#41413d"/>
-      <g transform="translate(15 20.0) scale(0.85)" stroke="#a9d0eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <circle cx="14" cy="12" r="8"/>
-        <path d="m20 18 8 8m-18-14h8"/>
-      </g>
-      <text x="58" y="40.7" font-size="22" fill="#a9d0eb" data-copy="architecture-diagram.query">Query</text>
+    <g class="api-option" transform="translate(296 20)">
+      <rect x=".7" y=".7" width="190.6" height="54.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-query" transform="translate(15 13) scale(.8)" color="#a9d0eb"/>
+      <text x="58" y="36" font-size="22" fill="#a9d0eb" data-copy="architecture-diagram.query">Query</text>
     </g>
-    <g transform="translate(512 22)">
-      <rect x=".7" y=".7" width="190.6" height="64.6" rx="12" fill="#262626" stroke="#41413d"/>
-      <g transform="translate(15 20.0) scale(0.85)" stroke="#e4b29d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <path d="M5 27V16h5v11m7 0V9h5v18m7 0V3h5v24"/>
-      </g>
-      <text x="58" y="40.7" font-size="22" fill="#e4b29d" data-copy="architecture-diagram.aggregate">Aggregate</text>
+    <g class="api-option" transform="translate(512 20)">
+      <rect x=".7" y=".7" width="190.6" height="54.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-aggregate" transform="translate(15 13) scale(.8)" color="#e4b29d"/>
+      <text x="58" y="36" font-size="22" fill="#e4b29d" data-copy="architecture-diagram.aggregate">Aggregate</text>
     </g>
-    <g transform="translate(728 22)">
-      <rect x=".7" y=".7" width="190.6" height="64.6" rx="12" fill="#262626" stroke="#41413d"/>
-      <g transform="translate(15 20.0) scale(0.85)" stroke="#cfb5ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <path d="m6 23 10-15 11 17m-11-17 15-3"/>
-        <circle cx="6" cy="23" r="3"/>
-        <circle cx="16" cy="8" r="3"/>
-        <circle cx="27" cy="25" r="3"/>
-        <circle cx="31" cy="5" r="3"/>
-      </g>
-      <text x="58" y="40.7" font-size="22" fill="#cfb5ee" data-copy="architecture-diagram.vector">Vector</text>
+    <g class="api-option" transform="translate(728 20)">
+      <rect x=".7" y=".7" width="190.6" height="54.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-vector" transform="translate(15 13) scale(.8)" color="#cfb5ee"/>
+      <text x="58" y="36" font-size="22" fill="#cfb5ee" data-copy="architecture-diagram.vector">Vector</text>
     </g>
-    <g stroke="#74746c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M176 88v25h648V88m-432 0v25m216-25v25M500 113v35m-5-5 5 5 5-5"/>
-    </g>
-    <g class="object-stack">
-      <use href="#objy-arch-person" transform="matrix(.9 -.072 0 .9 130 198)"/>
-      <use href="#objy-arch-memory" transform="matrix(.9 -.072 0 .9 510 156)"/>
-      <use href="#objy-arch-device" transform="matrix(.9 -.072 0 .9 320 346)"/>
-    </g>
-    <path d="M500 565v15m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M176 82v25h648V82m-432 0v25m216-25v25M500 107v28m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <g class="architecture-object"><use href="#objy-arch-object" transform="translate(318.5 150) scale(1.1)"/></g>
+    <path d="M500 393v13m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
     <g class="storage-panel">
-      <path d="m920 588 8 7v236l-8-7M80 824l8 7h840" fill="#252a22" stroke="#71815f" stroke-linejoin="round"/>
-      <rect x="80" y="588" width="840" height="236" rx="6" fill="#252a22" stroke="#84976f" stroke-width="1.5"/>
-      <use href="#objy-arch-ram" transform="translate(102 607) scale(1.1)" color="#c5dca5"/>
-      <text x="150" y="633" font-size="30" font-weight="600" letter-spacing="1.5" fill="#d2e6b2" data-copy="storage-diagram.memory">IN MEMORY</text>
-      <text x="900" y="630" text-anchor="end" font-size="14" fill="#b2b9aa" data-copy="storage-diagram.inside">Inside objy.db</text>
-      <g class="storage-tier" transform="translate(100 662)">
-        <rect width="252" height="134" rx="4" fill="#2a3025" stroke="#647352"/>
-        <use href="#objy-arch-hot" transform="translate(16 17)" color="#c5dca5"/>
-        <text x="56" y="35" font-size="17" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
-        <g font-size="15.5" fill="#c3c2ba">
-          <text x="18" y="76" data-copy="storage-diagram.hot-detail">Frequent fields.</text>
-          <text x="18" y="100" data-copy="storage-diagram.hot-benefit">Direct access, no unpacking.</text>
-        </g>
+      <path class="memory-board" d="M87 414H913l7 7v116l-7 7H509.0v-7h-18v7H87l-7-7V421Z" fill="#252e24" stroke="#84976f" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="91" cy="425" r="2.5" stroke="#718565"/>
+      <circle cx="909" cy="425" r="2.5" stroke="#718565"/>
+      <text x="110" y="445" font-size="24" font-weight="600" letter-spacing="1" fill="#d2e6b2" data-copy="storage-diagram.memory">IN MEMORY</text>
+      <g class="storage-chip" transform="translate(110 463)">
+        <path d="M43.2 -4v4m0 58v4 M81.6 -4v4m0 58v4 M120 -4v4m0 58v4 M158.4 -4v4m0 58v4 M196.8 -4v4m0 58v4" stroke="#c5dca5" stroke-width="2" opacity=".4"/>
+        <rect width="240" height="58" rx="4" fill="#293227" stroke="#c5dca5" stroke-opacity=".5"/>
+        <text x="120" y="35.65" text-anchor="middle" font-size="19" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
       </g>
-      <g class="storage-tier" transform="translate(374 662)">
-        <rect width="252" height="134" rx="4" fill="#302724" stroke="#8a6a5c"/>
-        <use href="#objy-arch-columns" transform="translate(16 17)" color="#e4b29d"/>
-        <text x="56" y="35" font-size="17" fill="#e4b29d" data-copy="storage-diagram.columns">Compact columns</text>
-        <g font-size="15.5" fill="#c3c2ba">
-          <text x="18" y="76" data-copy="storage-diagram.columns-detail">Values grouped together.</text>
-          <text x="18" y="100" data-copy="storage-diagram.columns-benefit">Fast scans &amp; aggregation.</text>
-        </g>
+      <g class="storage-chip" transform="translate(380 463)">
+        <path d="M43.2 -4v4m0 58v4 M81.6 -4v4m0 58v4 M120 -4v4m0 58v4 M158.4 -4v4m0 58v4 M196.8 -4v4m0 58v4" stroke="#e4b29d" stroke-width="2" opacity=".4"/>
+        <rect width="240" height="58" rx="4" fill="#332b27" stroke="#e4b29d" stroke-opacity=".5"/>
+        <text x="120" y="35.65" text-anchor="middle" font-size="19" fill="#e4b29d" data-copy="storage-diagram.columns">Columns</text>
       </g>
-      <g class="storage-tier" transform="translate(648 662)">
-        <rect width="252" height="134" rx="4" fill="#2b2631" stroke="#74608a"/>
-        <use href="#objy-arch-compressed" transform="translate(16 17)" color="#cfb5ee"/>
-        <text x="56" y="35" font-size="17" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed fields</text>
-        <g font-size="15.5" fill="#c3c2ba">
-          <text x="18" y="76" data-copy="storage-diagram.compressed-detail">More data in memory.</text>
-          <text x="18" y="100" data-copy="storage-diagram.compressed-benefit">Unpack only when read.</text>
-        </g>
+      <g class="storage-chip" transform="translate(650 463)">
+        <path d="M43.2 -4v4m0 58v4 M81.6 -4v4m0 58v4 M120 -4v4m0 58v4 M158.4 -4v4m0 58v4 M196.8 -4v4m0 58v4" stroke="#cfb5ee" stroke-width="2" opacity=".4"/>
+        <rect width="240" height="58" rx="4" fill="#2e2934" stroke="#cfb5ee" stroke-opacity=".5"/>
+        <text x="120" y="35.65" text-anchor="middle" font-size="19" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed</text>
       </g>
-      <path d="M120 832v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m440-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10" stroke="#9ba47e" stroke-width="6"/>
+      <path class="memory-contacts" d="M110 545v10 M128 545v10 M146 545v10 M164 545v10 M182 545v10 M200 545v10 M218 545v10 M236 545v10 M254 545v10 M272 545v10 M290 545v10 M308 545v10 M326 545v10 M344 545v10 M362 545v10 M380 545v10 M398 545v10 M416 545v10 M434 545v10 M890 545v10 M872 545v10 M854 545v10 M836 545v10 M818 545v10 M800 545v10 M782 545v10 M764 545v10 M746 545v10 M728 545v10 M710 545v10 M692 545v10 M674 545v10 M656 545v10 M638 545v10 M620 545v10 M602 545v10 M584 545v10 M566 545v10" stroke="#b4aa78" stroke-width="7"/>
     </g>
   </svg>
-  <svg class="architecture-compact" viewBox="0 0 360 1090" width="100%" height="100%" aria-hidden="true">
-    <g transform="translate(24 14)">
-      <rect x=".7" y=".7" width="150.6" height="50.6" rx="12" fill="#262626" stroke="#41413d"/>
-      <g transform="translate(15 13.0) scale(0.65)" stroke="#c5dca5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <path d="M8 14h20m-10-10v20m-8-14-4 4 4 4m16-8 4 4-4 4"/>
-      </g>
-      <text x="47" y="31.95" font-size="17" fill="#c5dca5" data-copy="architecture-diagram.crud">CRUD</text>
+  <svg class="architecture-compact" viewBox="0 0 360 600" width="100%" height="100%" aria-hidden="true">
+    <g class="api-option" transform="translate(12 14)">
+      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-crud" transform="translate(15 13) scale(.65)" color="#c5dca5"/>
+      <text x="47" y="30" font-size="16" fill="#c5dca5" data-copy="architecture-diagram.crud">CRUD</text>
     </g>
-    <g transform="translate(184 14)">
-      <rect x=".7" y=".7" width="150.6" height="50.6" rx="12" fill="#262626" stroke="#41413d"/>
-      <g transform="translate(15 13.0) scale(0.65)" stroke="#a9d0eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <circle cx="14" cy="12" r="8"/>
-        <path d="m20 18 8 8m-18-14h8"/>
-      </g>
-      <text x="47" y="31.95" font-size="17" fill="#a9d0eb" data-copy="architecture-diagram.query">Query</text>
+    <g class="api-option" transform="translate(188 14)">
+      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-query" transform="translate(15 13) scale(.65)" color="#a9d0eb"/>
+      <text x="47" y="30" font-size="16" fill="#a9d0eb" data-copy="architecture-diagram.query">Query</text>
     </g>
-    <g transform="translate(24 78)">
-      <rect x=".7" y=".7" width="150.6" height="50.6" rx="12" fill="#262626" stroke="#41413d"/>
-      <g transform="translate(15 13.0) scale(0.65)" stroke="#e4b29d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <path d="M5 27V16h5v11m7 0V9h5v18m7 0V3h5v24"/>
-      </g>
-      <text x="47" y="31.95" font-size="17" fill="#e4b29d" data-copy="architecture-diagram.aggregate">Aggregate</text>
+    <g class="api-option" transform="translate(12 74)">
+      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-aggregate" transform="translate(15 13) scale(.65)" color="#e4b29d"/>
+      <text x="47" y="30" font-size="16" fill="#e4b29d" data-copy="architecture-diagram.aggregate">Aggregate</text>
     </g>
-    <g transform="translate(184 78)">
-      <rect x=".7" y=".7" width="150.6" height="50.6" rx="12" fill="#262626" stroke="#41413d"/>
-      <g transform="translate(15 13.0) scale(0.65)" stroke="#cfb5ee" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
-        <path d="m6 23 10-15 11 17m-11-17 15-3"/>
-        <circle cx="6" cy="23" r="3"/>
-        <circle cx="16" cy="8" r="3"/>
-        <circle cx="27" cy="25" r="3"/>
-        <circle cx="31" cy="5" r="3"/>
-      </g>
-      <text x="47" y="31.95" font-size="17" fill="#cfb5ee" data-copy="architecture-diagram.vector">Vector</text>
+    <g class="api-option" transform="translate(188 74)">
+      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-vector" transform="translate(15 13) scale(.65)" color="#cfb5ee"/>
+      <text x="47" y="30" font-size="16" fill="#cfb5ee" data-copy="architecture-diagram.vector">Vector</text>
     </g>
-    <path d="M100 132v16h160v-16m-80 16v22m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <g class="object-stack">
-      <use href="#objy-arch-person" transform="matrix(.72 -.0576 0 .72 20 196)"/>
-      <use href="#objy-arch-memory" transform="matrix(.72 -.0576 0 .72 52 352)"/>
-      <use href="#objy-arch-device" transform="matrix(.72 -.0576 0 .72 20 508)"/>
-    </g>
-    <path d="M180 688v17m-4-4 4 4 4-4" stroke="#74746c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M92 130v16h176v-16m-88 16v27m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <g class="architecture-object"><use href="#objy-arch-object" transform="translate(15 190)"/></g>
+    <path d="M180 416v29m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
     <g class="storage-panel">
-      <rect x="20" y="716" width="320" height="342" rx="5" fill="#252a22" stroke="#84976f" stroke-width="1.5"/>
-      <use href="#objy-arch-ram" transform="translate(34 733)" color="#c5dca5"/>
-      <text x="76" y="755" font-size="25" font-weight="600" fill="#d2e6b2" data-copy="storage-diagram.memory">IN MEMORY</text>
-      <text x="326" y="748" text-anchor="end" font-size="10" fill="#b2b9aa" data-copy="storage-diagram.inside">Inside objy.db</text>
-      <g class="storage-tier" transform="translate(34 780)">
-        <rect width="292" height="78" rx="3" fill="#2a3025" stroke="#647352"/>
-        <use href="#objy-arch-hot" transform="translate(14 10) scale(.8)" color="#c5dca5"/>
-        <text x="48" y="27" font-size="16" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
-        <g font-size="13.5" fill="#c3c2ba">
-          <text x="14" y="51" data-copy="storage-diagram.hot-detail">Frequent fields.</text>
-          <text x="14" y="69" data-copy="storage-diagram.hot-benefit">Direct access, no unpacking.</text>
-        </g>
+      <path class="memory-board" d="M17 460H343l7 7v98l-7 7H189.0v-7h-18v7H17l-7-7V467Z" fill="#252e24" stroke="#84976f" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="21" cy="471" r="2.5" stroke="#718565"/>
+      <circle cx="339" cy="471" r="2.5" stroke="#718565"/>
+      <text x="28" y="487" font-size="20" font-weight="600" letter-spacing="1" fill="#d2e6b2" data-copy="storage-diagram.memory">IN MEMORY</text>
+      <g class="storage-chip" transform="translate(26 502)">
+        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#c5dca5" stroke-width="2" opacity=".4"/>
+        <rect width="96" height="49" rx="4" fill="#293227" stroke="#c5dca5" stroke-opacity=".5"/>
+        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
       </g>
-      <g class="storage-tier" transform="translate(34 870)">
-        <rect width="292" height="78" rx="3" fill="#302724" stroke="#8a6a5c"/>
-        <use href="#objy-arch-columns" transform="translate(14 10) scale(.8)" color="#e4b29d"/>
-        <text x="48" y="27" font-size="16" fill="#e4b29d" data-copy="storage-diagram.columns">Compact columns</text>
-        <g font-size="13.5" fill="#c3c2ba">
-          <text x="14" y="51" data-copy="storage-diagram.columns-detail">Values grouped together.</text>
-          <text x="14" y="69" data-copy="storage-diagram.columns-benefit">Fast scans &amp; aggregation.</text>
-        </g>
+      <g class="storage-chip" transform="translate(132 502)">
+        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#e4b29d" stroke-width="2" opacity=".4"/>
+        <rect width="96" height="49" rx="4" fill="#332b27" stroke="#e4b29d" stroke-opacity=".5"/>
+        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#e4b29d" data-copy="storage-diagram.columns">Columns</text>
       </g>
-      <g class="storage-tier" transform="translate(34 960)">
-        <rect width="292" height="78" rx="3" fill="#2b2631" stroke="#74608a"/>
-        <use href="#objy-arch-compressed" transform="translate(14 10) scale(.8)" color="#cfb5ee"/>
-        <text x="48" y="27" font-size="16" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed fields</text>
-        <g font-size="13.5" fill="#c3c2ba">
-          <text x="14" y="51" data-copy="storage-diagram.compressed-detail">More data in memory.</text>
-          <text x="14" y="69" data-copy="storage-diagram.compressed-benefit">Unpack only when read.</text>
-        </g>
+      <g class="storage-chip" transform="translate(238 502)">
+        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#cfb5ee" stroke-width="2" opacity=".4"/>
+        <rect width="96" height="49" rx="4" fill="#2e2934" stroke="#cfb5ee" stroke-opacity=".5"/>
+        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed</text>
       </g>
-      <path d="M44 1060v12m14-12v12m14-12v12m14-12v12m14-12v12m160-12v12m14-12v12m14-12v12m14-12v12m14-12v12" stroke="#9ba47e" stroke-width="4"/>
+      <path class="memory-contacts" d="M28 573v10 M39 573v10 M50 573v10 M61 573v10 M72 573v10 M83 573v10 M94 573v10 M105 573v10 M116 573v10 M127 573v10 M138 573v10 M149 573v10 M332 573v10 M321 573v10 M310 573v10 M299 573v10 M288 573v10 M277 573v10 M266 573v10 M255 573v10 M244 573v10 M233 573v10 M222 573v10 M211 573v10" stroke="#b4aa78" stroke-width="4"/>
     </g>
   </svg>
 </svg>

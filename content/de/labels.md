@@ -52,35 +52,20 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Query | Abfragen |
 | Aggregate | Aggregation |
 | Vector | Vektoren |
-| Device collection | devices |
-| Device id | `"_id": "drone-01",` |
-| Device name | `"name": "Survey drone",` |
-| Device status | `"status": "ready",` |
-| Device battery | `"battery": 87` |
-| Person collection | people |
-| Person id | `"_id": "person-42",` |
-| Person name | `"name": "Alex",` |
-| Person role | `"role": "pilot"` |
-| Memory collection | memories |
-| Memory id | `"_id": "memory-01",` |
-| Memory title | `"title": "First flight",` |
-| Memory vector | `"_vec": [0.2, 0.8, 0.4]` |
+| Object collection | bikes |
+| Object id | `"_id": "bike-01",` |
+| Object name | `"name": "City bike",` |
+| Object price | `"price": 15,` |
+| Object vector | `"_vec": [0.2, 0.8, 0.4]` |
 
 ## Storage diagram
 
 | Location | Text |
 | --- | --- |
-| Inside | In objy.db |
 | Memory | IM RAM |
 | Hot | Heiße Felder |
-| Columns | Kompakte Spalten |
+| Columns | Spalten |
 | Compressed | Komprimiert |
-| Hot detail | Häufig genutzte Felder. |
-| Hot benefit | Direkt lesen, unkomprimiert. |
-| Columns detail | Werte liegen zusammen. |
-| Columns benefit | Für Scans & Aggregation. |
-| Compressed detail | Mehr Daten im RAM. |
-| Compressed benefit | Erst beim Lesen entpacken. |
 
 ## Application diagram
 
@@ -100,9 +85,6 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | --- | --- |
 | Read | Lesen → |
 | Collection | Collection |
-| Hot | Heiße Felder |
-| Columns | Spalten |
-| Compressed | Komprimiert |
 | Bike collection | `bikes` |
 | Bike label | `bikes / bike-01` |
 | Person label | `people / person-42` |

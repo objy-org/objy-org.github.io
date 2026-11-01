@@ -800,16 +800,17 @@ await check('The homepage feature area keeps its illustrations, translations, an
       'Für effiziente Speicherung im RAM wird jedes Objekt in heiße Felder, kompakte Spalten und komprimierte Daten aufgeteilt.'),
       'The small storage caption is missing or untranslated');
     const objectDiagram = architecture.querySelector('.objy-architecture');
-    assert(objectDiagram && objectDiagram.querySelectorAll('defs .object-snippet').length === 3,
-      'The original architecture diagram was not moved to Features');
+    assert(objectDiagram && objectDiagram.querySelectorAll('defs .object-snippet').length === 1,
+      'The architecture diagram must show one JSON object');
+    const object = JSON.parse([...objectDiagram.querySelectorAll('defs .object-snippet g text')].map(line => line.textContent).join('\n'));
+    assert(object._id === 'bike-01' && object.price === 15 && object._vec.length === 3,
+      'The architecture JSON is invalid or lost its example fields');
     assert(objectDiagram.querySelector('[data-copy="architecture-diagram.query"]').textContent ===
       (language === 'en' ? 'Query' : 'Abfragen'), 'The architecture diagram is not translated');
     assert(!document.querySelector('.document-explanation') && architecture.querySelectorAll('.document-art').length === 1,
       'The storage prose or a separate illustration remains below the overview');
-    assert(!objectDiagram.querySelector('[data-copy="storage-diagram.durability"]') &&
-      objectDiagram.querySelector('[data-copy="storage-diagram.hot-benefit"]').textContent ===
-      (language === 'en' ? 'Direct access, no unpacking.' : 'Direkt lesen, unkomprimiert.'),
-      'The storage explanations are missing or the removed S3 line remains in the illustration');
+    assert(!objectDiagram.querySelector('[data-copy="storage-diagram.durability"], [data-copy$="-detail"], [data-copy$="-benefit"]'),
+      'The architecture diagram still contains long storage explanations or the removed S3 line');
     assert(objectDiagram.querySelector('[data-copy="storage-diagram.hot"]').textContent ===
       (language === 'en' ? 'Hot fields' : 'Heiße Felder'), 'The integrated storage labels are not translated');
     for (const width of [1920, 1280, 1101, 1100, 1001, 1000, 900, 761, 760, 390, 320]) {
@@ -839,8 +840,10 @@ await check('The homepage feature area keeps its illustrations, translations, an
       const phone = width <= 640;
       const layout = objectDiagram.querySelector(phone ? '.architecture-compact' : '.architecture-wide');
       assert(frame.getComputedStyle(layout).display !== 'none' &&
-        layout.querySelectorAll('.object-stack > use').length === 3, 'The architecture objects are missing from the visible layout');
-      assert(Math.abs(architectureBox.height / architectureBox.width - (phone ? 1090 / 360 : 860 / 1000)) < .01 &&
+        layout.querySelectorAll('.architecture-object > use').length === 1 && layout.querySelectorAll('.api-option').length === 4,
+        'The architecture must keep four API variants and one JSON object');
+      assert(Math.abs(architectureBox.height / architectureBox.width - (phone ? 600 / 360 : 570 / 1000)) < .01 &&
+        architectureBox.width <= 901 &&
         architectureBox.left >= article.left - 1 && architectureBox.right <= article.right + 1,
         'The moved architecture diagram is stretched or clipped');
       for (const label of layout.querySelectorAll('text')) {
@@ -849,20 +852,21 @@ await check('The homepage feature area keeps its illustrations, translations, an
           'An architecture label is clipped');
       }
       const panel = layout.querySelector('.storage-panel').getBoundingClientRect();
-      const objectBounds = layout.querySelector('.object-stack').getBoundingClientRect();
-      assert(layout.querySelectorAll('.storage-tier').length === 3 && panel.top > objectBounds.bottom &&
+      const objectBounds = layout.querySelector('.architecture-object').getBoundingClientRect();
+      assert(layout.querySelectorAll('.storage-chip').length === 3 && layout.querySelector('.memory-contacts') && panel.top > objectBounds.bottom &&
         panel.bottom < architectureBox.bottom, 'Storage is not one compact layer below the JSON objects');
-      for (const tier of layout.querySelectorAll('.storage-tier')) {
+      for (const tier of layout.querySelectorAll('.storage-chip')) {
+        assert(tier.querySelectorAll('text').length === 1, 'A memory chip has more than a short label');
         const box = tier.querySelector('rect').getBoundingClientRect();
         for (const label of tier.querySelectorAll('text')) {
           const text = label.getBoundingClientRect();
           assert(text.left > box.left && text.right < box.right && text.top > box.top && text.bottom < box.bottom,
-            `A storage explanation is clipped inside its block (${language}, ${width}px, ${label.textContent})`);
+            `A memory label is clipped inside its chip (${language}, ${width}px, ${label.textContent})`);
         }
       }
       const memory = layout.querySelector('[data-copy="storage-diagram.memory"]');
       const headingSize = parseFloat(frame.getComputedStyle(memory).fontSize);
-      assert(headingSize >= 25 && headingSize > parseFloat(frame.getComputedStyle(layout.querySelector('.storage-tier text')).fontSize),
+      assert(headingSize >= 20 && headingSize > parseFloat(frame.getComputedStyle(layout.querySelector('.storage-chip text')).fontSize),
         'The in-memory label is not prominent');
       const brand = document.querySelector('.header-brand').getBoundingClientRect();
       const nav = document.querySelector('.header-links').getBoundingClientRect();

@@ -14,15 +14,15 @@
 <rect x="20" y="94" width="520" height="198" rx="8" fill="#252a22" stroke="#84976f"/>
 <text x="44" y="131" font-size="24" fill="#c5dca5" data-copy="storage-diagram.memory">IN MEMORY</text>
 <rect x="36" y="154" width="152" height="112" rx="8" fill="#2a3025" stroke="#647352"/>
-<text x="112" y="181" font-size="16" fill="#c5dca5" data-copy="learn-diagrams.hot" text-anchor="middle">Hot fields</text>
+<text x="112" y="181" font-size="16" fill="#c5dca5" data-copy="storage-diagram.hot" text-anchor="middle">Hot fields</text>
 <path d="M60 207h88m-88 16h64m-64 16h88" stroke="#c5dca5" stroke-width="3" stroke-linecap="round"/>
 <rect x="204" y="154" width="152" height="112" rx="8" fill="#302724" stroke="#8a6a5c"/>
-<text x="280" y="181" font-size="16" fill="#e4b29d" data-copy="learn-diagrams.columns" text-anchor="middle">Columns</text>
+<text x="280" y="181" font-size="16" fill="#e4b29d" data-copy="storage-diagram.columns" text-anchor="middle">Columns</text>
 <rect x="240" y="199" width="20" height="45" rx="2" fill="#5b453a" stroke="#e4b29d"/>
 <rect x="268" y="199" width="20" height="45" rx="2" fill="#5b453a" stroke="#e4b29d"/>
 <rect x="296" y="199" width="20" height="45" rx="2" fill="#5b453a" stroke="#e4b29d"/>
 <rect x="372" y="154" width="152" height="112" rx="8" fill="#2b2631" stroke="#74608a"/>
-<text x="448" y="181" font-size="16" fill="#cfb5ee" data-copy="learn-diagrams.compressed" text-anchor="middle">Compressed</text>
+<text x="448" y="181" font-size="16" fill="#cfb5ee" data-copy="storage-diagram.compressed" text-anchor="middle">Compressed</text>
 <rect x="434" y="199" width="30" height="44" rx="2" fill="#483852" stroke="#cfb5ee"/>
 <path d="M392 221h31m-7-7 7 7-7 7m88-7h-29m7-7-7 7 7 7" stroke="#cfb5ee" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M48 294v14m16-14v14m16-14v14m16-14v14m16-14v14m16-14v14m288-14v14m16-14v14m16-14v14m16-14v14m16-14v14m16-14v14" stroke="#9ba47e" stroke-width="5"/>
@@ -33,15 +33,15 @@
 <rect x="12" y="76" width="336" height="278" rx="6" fill="#252a22" stroke="#84976f"/>
 <text x="32" y="112" font-size="24" fill="#c5dca5" data-copy="storage-diagram.memory">IN MEMORY</text>
 <rect x="28" y="134" width="304" height="58" rx="6" fill="#2a3025" stroke="#647352"/>
-<text x="48" y="169" font-size="18" fill="#c5dca5" data-copy="learn-diagrams.hot">Hot fields</text>
+<text x="48" y="169" font-size="18" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
 <path d="M266 152h44m-44 12h32m-32 12h44" stroke="#c5dca5" stroke-width="2.3" stroke-linecap="round"/>
 <rect x="28" y="204" width="304" height="58" rx="6" fill="#302724" stroke="#8a6a5c"/>
-<text x="48" y="239" font-size="18" fill="#e4b29d" data-copy="learn-diagrams.columns">Columns</text>
+<text x="48" y="239" font-size="18" fill="#e4b29d" data-copy="storage-diagram.columns">Columns</text>
 <rect x="268" y="218" width="10" height="32" rx="1" fill="#5b453a" stroke="#e4b29d"/>
 <rect x="284" y="218" width="10" height="32" rx="1" fill="#5b453a" stroke="#e4b29d"/>
 <rect x="300" y="218" width="10" height="32" rx="1" fill="#5b453a" stroke="#e4b29d"/>
 <rect x="28" y="274" width="304" height="58" rx="6" fill="#2b2631" stroke="#74608a"/>
-<text x="48" y="309" font-size="18" fill="#cfb5ee" data-copy="learn-diagrams.compressed">Compressed</text>
+<text x="48" y="309" font-size="18" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed</text>
 <rect x="280" y="288" width="18" height="32" rx="1" fill="#483852" stroke="#cfb5ee"/>
 <path d="M258 304h14m-4-4 4 4-4 4m50-4h-13m4-4-4 4 4 4" stroke="#cfb5ee" stroke-width="1.7"/>
 <path d="M32 356v12m14-12v12m14-12v12m14-12v12m14-12v12m184-12v12m14-12v12m14-12v12m14-12v12m14-12v12" stroke="#9ba47e" stroke-width="4"/>
