@@ -29,21 +29,9 @@ Build tools and SaaS apps with APIs, authentication, users, and permissions alre
 
 Your objects. Your ideas. Build whatever comes next.
 
-## Built for your application. :id=feature-highlights
+## Features :id=feature-highlights
 
-### ![](assets/site/icons/features/hot-compressed.svg) Efficient storage :id=highlight-storage
-
-Hot fields, compressed objects, and compact columns make memory go further.
-
-### ![](assets/site/icons/features/query-aggregate.svg) Powerful operations :id=highlight-operations
-
-CRUD, queries, aggregations, and vector search through one API.
-
-### ![](assets/site/icons/features/permissions.svg) Application essentials included :id=highlight-application
-
-Users, authentication, permissions, and APIs are already built in.
-
-[Explore all features →](/features.md)
+[All features](/features.md "catalog")
 
 ---
 

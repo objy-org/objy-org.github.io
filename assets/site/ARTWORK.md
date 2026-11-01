@@ -45,7 +45,7 @@ The SVG uses a wide 1000 × 680 composition and a vertical phone composition of 
 
 The documentation index and deployment page retain their custom SVG icons in `assets/site/icons/`. The Features page uses 21 distinct icons in `assets/site/icons/features/`. Their provenance is recorded above.
 
-The homepage uses four custom icons for AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. Its headings, icon paths, and descriptions stay editable in `content/<language>/home.md`. Three feature highlights below the use cases reuse the hot/compressed storage, query/aggregation, and permissions icons from the existing feature catalog. The separate Features page retains all 21 icons with short descriptions and no code examples.
+The homepage uses four custom icons for AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. Its headings, icon paths, and descriptions stay editable in `content/<language>/home.md`. The complete catalog below the use cases reuses all 21 feature icons from the Features page. Both views share the same localized Markdown entries, with their existing short descriptions and no code examples.
 
 ## Storage illustration
 

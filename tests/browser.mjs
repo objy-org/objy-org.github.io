@@ -292,6 +292,32 @@ await check('A missing illustration falls back to the image without losing page 
   assert(content.querySelector('.hero-art img'), 'Image fallback missing');
 });
 
+await check('Catalog includes share arbitrary Markdown groups with safe heading levels and an available fallback link', async () => {
+  const markup = '<h1 id="top">Hello</h1><h2 id="capabilities">Capabilities</h2>' +
+    '<p><a href="other.md" title="catalog">All capabilities</a></p><hr><p>Footer</p>';
+  const entry = id => `<h3 id="${id}"><img src="${id}.svg" alt="">${id}</h3><p>About ${id}.</p>`;
+  const source = '<h1 id="source">Source</h1><p>Introduction.</p>' +
+    '<h2 id="diagram">Diagram</h2><p><img src="diagram.svg" alt="Diagram"></p>' +
+    '<h2 id="alpha">Alpha</h2>' + entry('first') + entry('second') +
+    '<h2 id="beta">Beta</h2>' + entry('third');
+  let requested;
+  const content = htmlFragment(await decorateHomepage(markup, {
+    loadCatalog: async href => { requested = href; return source; },
+  }));
+  const groups = [...content.querySelectorAll('.homepage-catalog > .catalog-section')];
+  assert(requested === 'other.md' && groups.length === 2 && content.querySelectorAll('.catalog-feature').length === 3,
+    'The catalog source or feature count was hard-coded');
+  assert(groups[0].querySelector(':scope > h3').id === 'alpha' &&
+    content.querySelector('.catalog-feature > h4').id === 'first' && content.querySelectorAll('h1').length === 1,
+    'Catalog headings are not nested under the homepage chapter');
+  assert(!content.querySelector('.document-art, #diagram, #source') &&
+    content.querySelector('.section-feature-catalog > .section-footer').textContent === 'Footer',
+    'Unrelated source chapters were included or the footer was lost');
+  const fallback = htmlFragment(await decorateHomepage(markup, { loadCatalog: async () => null }));
+  assert(fallback.querySelector('a[href="other.md"]') && !fallback.querySelector('.homepage-catalog'),
+    'The source link disappeared when the catalog could not load');
+});
+
 await check('Icon subchapters become reusable homepage columns with their own accessible headings', async () => {
   const home = '<h1 id="top">Hello</h1><h2 id="overview">Overview</h2>' +
     ['alpha', 'beta', 'gamma'].map((id) => `<h3 id="${id}"><a class="anchor"><img src="icons/${id}.svg">${id}</a></h3>` +
@@ -385,15 +411,15 @@ await check('Homepage actions and footer are derived from Markdown links', async
   assert(content.querySelector('.section-footer a').textContent === 'GitHub', 'Markdown footer missing');
 });
 
-await check('The homepage has four use cases and three feature highlights with a link to the full catalog', async () => {
+await check('The homepage shows every feature from its localized catalog below the four use cases', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/?id=object-capabilities`;
     await new Promise((resolve, reject) => {
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.section-icon-cards')) return resolve();
-        if (Date.now() > deadline) return reject(new Error('Use cases did not load'));
+        if (document?.documentElement.lang === language && document.querySelector('.homepage-catalog')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Homepage catalog did not load'));
         setTimeout(ready, 16);
       };
       ready();
@@ -402,30 +428,48 @@ await check('The homepage has four use cases and three feature highlights with a
     const source = await fetch(`../content/${language}/home.md`).then((response) => response.text());
     const expected = [...source.matchAll(/^### !\[\]\(([^)]+)\) (.+) :id=(\S+)/gm)];
     const cards = [...document.querySelectorAll('.section-options > .section-option')];
-    assert(cards.length === expected.length && cards.length === 7, 'The homepage does not show its four use cases and three feature highlights');
+    assert(cards.length === expected.length && cards.length === 4, 'The homepage lost a use case');
     const useCases = document.querySelector('[data-section="object-capabilities"]');
     const overview = document.querySelector('[data-section="feature-highlights"]');
-    assert(useCases.querySelectorAll('.section-option').length === 4 && useCases.nextElementSibling === overview &&
-      overview.querySelectorAll('.section-option').length === 3, 'The feature highlights are not directly below the use cases');
-    assert(overview.querySelector('.feature-more a').getAttribute('href').endsWith('#/features') &&
-      !overview.querySelector('.section-options .feature-more') && overview.querySelector(':scope > .section-footer'),
-      'The full-features link or homepage footer is missing or trapped in a card');
+    assert(useCases.nextElementSibling === overview && overview.querySelector(':scope > .section-footer'),
+      'The full feature catalog is not directly below the use cases or lost the footer');
+    const featureSource = await fetch(`../content/${language}/features.md`).then((response) => response.text());
+    const expectedFeatures = [...featureSource.matchAll(/^### !\[\]\(([^)]+)\) (.+) :id=(\S+)\n\n([^\n]+)/gm)];
+    const features = [...overview.querySelectorAll('.catalog-feature')];
+    assert(features.length === expectedFeatures.length && features.length > 3 &&
+      overview.querySelectorAll('.catalog-section').length === 2, 'The homepage only shows a feature summary');
+    features.forEach((feature, index) => {
+      const title = feature.querySelector('h4');
+      const [, icon, text, id, description] = expectedFeatures[index];
+      assert(title?.id === id && title.textContent.trim() === text && feature.querySelector('img').src.endsWith(icon) &&
+        feature.querySelector('p').textContent.trim() === description, 'A feature differs from its source Markdown');
+    });
+    assert(overview.querySelectorAll('h3').length === 2 && !overview.querySelector('h1, pre, .document-art'),
+      'Catalog heading levels are wrong or introductory artwork was duplicated');
     const start = document.querySelector('.header-links a[href$="#/get-started"]');
     assert(start?.textContent === (language === 'en' ? 'Get started' : 'Loslegen') &&
       !document.querySelector('.accordion-row, [data-section="start-building"]'), 'Deployment options remain on the homepage or their navigation link is missing');
     cards.forEach((card, index) => {
       const title = card.querySelector('h3');
       assert(title.textContent.trim() === expected[index][2] && title.id === expected[index][3], 'A use-case translation changed');
-      assert(card.querySelector('img').src.endsWith(expected[index][1]), 'A use-case icon was substituted');
-      assert(card.querySelector('p')?.textContent.trim(), 'A use-case description is missing');
+      assert(card.querySelector('img').src.endsWith(expected[index][1]) && card.querySelector('p')?.textContent.trim(),
+        'A use-case icon or description is missing');
     });
-    assert(!document.querySelector('.feature-overview, .catalog-feature, .example-workspace') &&
-      !document.querySelector('[data-section="object-capabilities"] pre'),
-      'The previous feature catalog or code examples are still on the homepage');
+    for (const width of [1920, 1440, 760, 390, 320]) {
+      site.style.width = `${width}px`;
+      site.style.height = '900px';
+      await new Promise(resolve => site.contentWindow.requestAnimationFrame(() => site.contentWindow.requestAnimationFrame(resolve)));
+      assert(document.documentElement.scrollWidth <= width + 1, 'The embedded catalog overflows the page');
+      for (const feature of features) {
+        const box = feature.getBoundingClientRect();
+        assert(box.width >= 260 && box.left >= 0 && box.right <= width + 1, 'An embedded feature card is clipped');
+      }
+    }
     assert(document.querySelector('#section-links a[href$="id=object-capabilities"]').textContent ===
       (language === 'en' ? 'Use cases' : 'Anwendungsfälle'), 'The use-case chapter link was not updated');
     const files = site.contentWindow.performance.getEntriesByType('resource').map((resource) => resource.name);
-    assert(!files.some((file) => /\/(?:features|get-started)\.md$/.test(file)), 'The homepage downloads the full feature catalog or deployment options');
+    assert(files.some((file) => /\/features\.md$/.test(file)) &&
+      !files.some((file) => /\/get-started\.md$/.test(file)), 'The homepage catalog is not shared or deployment options are still loaded');
   }
 });
 

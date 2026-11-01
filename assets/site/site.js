@@ -13,6 +13,7 @@ let language;
 let languageRegistry;
 let homepageSidebar;
 let currentPage;
+let renderingSource;
 
 function mountSidebar(vm) {
   const sidebar = document.querySelector('aside.sidebar');
@@ -308,7 +309,31 @@ function objyTheme(hook, vm) {
     let content = decorateDocument(clean);
     if (!loadError && path === '/' && page) {
       try {
-        content = await decorateHomepage(clean);
+        content = await decorateHomepage(clean, {
+          async loadCatalog(href) {
+            const url = new URL(href, document.baseURI);
+            if (url.origin !== location.origin) return null;
+            const route = url.hash.startsWith('#/') ? url.hash.slice(1).split('?')[0] :
+              url.pathname.slice(new URL('./', document.baseURI).pathname.length);
+            try {
+              const source = await pages.loadMarkdown(pages.markdownFiles(
+                route, language.code, languageRegistry.defaultLanguage,
+                languageRegistry.languages.map((entry) => entry.code),
+              ));
+              if (!source || page !== currentPage || path !== vm.route.path) return null;
+              const previous = renderingSource;
+              renderingSource = source.file;
+              try {
+                return sanitizeMarkup(vm.compiler.compile(source.markdown));
+              } finally {
+                renderingSource = previous;
+              }
+            } catch (error) {
+              console.warn('Feature catalog could not load:', error);
+              return null;
+            }
+          },
+        });
       } catch (error) {
         console.error('OBJY theme could not format this page:', error);
       }
@@ -440,7 +465,7 @@ async function startSite() {
       for (const type of ['link', 'image']) {
         const render = renderer[type];
         renderer[type] = function (token) {
-          const source = currentPage?.file;
+          const source = renderingSource || currentPage?.file;
           if (source)
             token = {
               ...token,

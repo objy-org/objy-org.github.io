@@ -1,5 +1,6 @@
 import { htmlFragment } from './markup.mjs';
 import { decorateExample } from './examples.mjs';
+import { decorateDocument } from './documents.mjs';
 import { createIllustration } from './illustrations.mjs';
 
 function isLinkParagraph(node) {
@@ -14,10 +15,36 @@ function decorateFooter(section, body) {
   footer.className = 'section-footer';
   while (rule.nextSibling) footer.append(rule.nextSibling);
   rule.replaceWith(footer);
-  if (section.classList.contains('section-cards')) section.append(footer);
+  if (section.matches('.section-cards, .section-feature-catalog')) section.append(footer);
 }
 
-async function decorateSection(section) {
+async function includeCatalog(section, body, loadCatalog) {
+  const link = body.querySelector(':scope > p > a[title="catalog"]:only-child');
+  if (!link || !loadCatalog) return false;
+  section.classList.add('section-feature-catalog');
+  decorateFooter(section, body);
+  const html = await loadCatalog(link.getAttribute('href'));
+  if (!html) return false; // Keep the ordinary link usable if its source cannot load.
+  const source = htmlFragment(decorateDocument(html));
+  const groups = [...source.querySelectorAll('.document-catalog > .catalog-section')];
+  if (!groups.length) return false;
+  const catalog = document.createElement('div');
+  catalog.className = 'homepage-catalog';
+  for (const group of groups) {
+    // Catalog groups sit beneath the homepage chapter; preserve their IDs.
+    for (const heading of group.querySelectorAll('h2, h3')) {
+      const nested = document.createElement(`h${Number(heading.tagName.slice(1)) + 1}`);
+      for (const attribute of heading.attributes) nested.setAttribute(attribute.name, attribute.value);
+      nested.append(...heading.childNodes);
+      heading.replaceWith(nested);
+    }
+    catalog.append(group);
+  }
+  link.parentElement.replaceWith(catalog);
+  return true;
+}
+
+async function decorateSection(section, options) {
   const body = section.querySelector('.markdown-body');
   const heading = body.querySelector('h1, h2');
   section.setAttribute('aria-labelledby', heading.id);
@@ -45,6 +72,7 @@ async function decorateSection(section) {
       }
     }
   }
+  const catalog = await includeCatalog(section, body, options.loadCatalog);
   // A standalone Markdown image becomes the section's explanatory artwork.
   const image = body.querySelector(':scope > p > img:only-child');
   if (image) {
@@ -55,8 +83,8 @@ async function decorateSection(section) {
     section.append(figure);
     if (!isHero) section.classList.add('section-illustrated');
   }
-  const example = !image && heading.tagName !== 'H1' && decorateExample(section);
-  if (!example && heading.tagName !== 'H1' && !image && body.querySelector(':scope > h3')) {
+  const example = !catalog && !image && heading.tagName !== 'H1' && decorateExample(section);
+  if (!catalog && !example && heading.tagName !== 'H1' && !image && body.querySelector(':scope > h3')) {
     section.classList.add('section-cards');
     decorateFooter(section, body);
     const more = body.lastElementChild;
@@ -107,7 +135,7 @@ async function decorateSection(section) {
   if (section.classList.contains('section-callout')) decorateFooter(section, body);
 }
 
-export async function decorateHomepage(html) {
+export async function decorateHomepage(html, options = {}) {
   const template = htmlFragment(html);
   const sections = [];
   let current;
@@ -126,7 +154,7 @@ export async function decorateHomepage(html) {
   }
   if (sections[0]?.dataset.section !== 'top')
     throw new Error('home.md: keep the # headline with :id=top first.');
-  await Promise.all(sections.map((section) => decorateSection(section)));
+  await Promise.all(sections.map((section) => decorateSection(section, options)));
   const [hero, ...details] = sections;
   // A closing link-only paragraph follows the hero artwork, keeping its copy and
   // destination editable in Markdown without turning it into a large CTA.
