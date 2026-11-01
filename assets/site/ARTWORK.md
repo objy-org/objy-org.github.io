@@ -50,7 +50,7 @@ To restore this version, change only the hero image path in `content/en/home.md`
 
 `assets/site/architecture.svg` introduces the homepage Features area beneath its title, without an Architecture heading. Four API options (CRUD, Query, Aggregate, and Vector) connect to one small bike JSON example. Below it, a physical RAM module has a keyed circuit board, gold contacts, and three chips labeled Hot fields, Columns, and Compressed. The old overlapping cards and internal explanation lines have been removed.
 
-The SVG uses a 1000 × 570 wide layout and a 360 × 600 phone layout below 641px, capped at 900px on the page. Both reuse one JSON card and the same custom API glyphs. API labels and JSON lines live in the Architecture diagram table in each language’s `labels.md`; the short Storage diagram labels are shared with Learn. The image path and screen-reader description live in `home.md`. A small Markdown caption beneath the image explains the storage. All geometry is original SVG markup; no third-party artwork was introduced.
+The SVG uses a 1000 × 570 wide layout and a 360 × 600 phone layout below 641px, capped at 900px on the page. Both reuse one unframed JSON snippet and the same custom API glyphs. API labels and JSON lines live in the Architecture diagram table in each language’s `labels.md`; the short Storage diagram labels are shared with Learn. The image path and screen-reader description live in `home.md`. A small Markdown caption beneath the image explains the storage. All geometry is original SVG markup; no third-party artwork was introduced.
 
 ## Page icons and use cases
 
@@ -63,6 +63,8 @@ The homepage uses four custom icons for AI agents and memory, analytics, applica
 The former stacked storage illustration and the more detailed architecture panel remain available in Git history. The current architecture drawing uses a physical RAM module with only three short chip labels and an in-memory heading. These are editable in the localized Storage diagram tables in `labels.md`, shared with the Learn illustrations. The detailed explanations remain on Learn and in the feature cards.
 
 ## Learn illustrations
+
+JSON objects sit directly on the page background. The homepage architecture and Learn object, collection, reference, and API illustrations have no object panels, outlines, or code-header divider lines. The two standalone JSON-brace icons also have no background tiles. Collection labels and connection arrows remain; storage hardware and API controls retain their own shapes.
 
 The eight SVGs in `assets/site/learn/` were created for this website on 2026-11-01 with original vector geometry, without third-party icons or images. `objects.svg` shows a bike as valid JSON; `references.svg` connects it to its owner Alex and shows the resolved `owner.object.name`; `collections.svg` introduces shared collection settings; `apis.svg` connects CRUD, queries, aggregation, and vectors to the same bike; `memory.svg` places three storage blocks inside RAM. `server.svg` shows the API and authentication layer in front of the same database engine; `cluster.svg` distinguishes distributing shards from keeping replicas on other nodes.
 

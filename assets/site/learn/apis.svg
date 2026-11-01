@@ -18,7 +18,6 @@
 <rect x="416" y="32" width="124" height="56" rx="8" fill="#262626" stroke="#4f4f47"/>
 <text x="478" y="67" font-size="16" fill="#cfb5ee" data-copy="architecture-diagram.vector" text-anchor="middle">Vector</text>
 <path d="M82 96v32h396V96m-264 0v32m132-32v32M280 128v45m-6-6 6 6 6-6" stroke="#888779" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="128" y="192" width="304" height="112" rx="8" fill="#282a25" stroke="#71815f"/>
 <text x="280" y="234" font-size="28" fill="#c5dca5" text-anchor="middle" data-copy="learn-diagrams.bike-name">Bike</text>
 <text x="280" y="269" font-size="17" fill="#b7c2aa" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.bike-identity">&quot;_id&quot;: &quot;bike-01&quot;</text>
   </svg>
@@ -32,7 +31,6 @@
 <rect x="186" y="84" width="158" height="54" rx="6" fill="#262626" stroke="#4f4f47"/>
 <text x="265" y="118" font-size="19" fill="#cfb5ee" data-copy="architecture-diagram.vector" text-anchor="middle">Vector</text>
 <path d="M95 146v18h170v-18m-85 18v31m-5-5 5 5 5-5" stroke="#888779" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-<rect x="54" y="212" width="252" height="92" rx="6" fill="#282a25" stroke="#71815f"/>
 <text x="180" y="247" font-size="26" fill="#c5dca5" text-anchor="middle" data-copy="learn-diagrams.bike-name">Bike</text>
 <text x="180" y="280" font-size="16" fill="#b7c2aa" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" data-copy="learn-diagrams.bike-identity">&quot;_id&quot;: &quot;bike-01&quot;</text>
   </svg>

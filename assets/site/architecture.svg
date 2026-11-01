@@ -14,8 +14,6 @@
     <g id="objy-arch-aggregate" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 27V16h5v11m7 0V9h5v18m7 0V3h5v24"/></g>
     <g id="objy-arch-vector" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 23 10-15 11 17m-11-17 15-3"/><circle cx="6" cy="23" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="27" cy="25" r="3"/><circle cx="31" cy="5" r="3"/></g>
     <g id="objy-arch-object" class="object-snippet">
-      <rect width="330" height="216" rx="8" fill="#272624" stroke="#746355" stroke-width="1.2"/>
-      <path d="M1 40h328" stroke="#4c433b"/>
       <text x="22" y="26" font-size="15" fill="#bfb4a9" data-copy="architecture-diagram.object-collection">bikes</text>
       <text x="308" y="26" text-anchor="end" font-size="12" fill="#8f8b85">JSON</text>
       <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" fill="#e4b29d">
