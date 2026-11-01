@@ -29,7 +29,7 @@ Baue Tools und SaaS-Anwendungen mit integrierten APIs, Authentifizierung, Benutz
 
 Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
-## Flexibles JSON. Vielseitige APIs.<br> Schnell dank In-Memory-Speicherung. :id=feature-highlights
+## Flexibles JSON. Vielseitige APIs. :id=feature-highlights
 
 Schnelle, flexible Daten sind erst der Anfang. Entdecke, was OBJY deiner Anwendung bietet — von der In-Memory-Engine bis zum verteilten Backend.
 

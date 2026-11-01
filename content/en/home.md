@@ -29,7 +29,7 @@ Build tools and SaaS apps with APIs, authentication, users, and permissions alre
 
 Your objects. Your ideas. Build whatever comes next.
 
-## Flexible JSON. Versatile APIs.<br> Fast, thanks to in-memory storage. :id=feature-highlights
+## Flexible JSON. Versatile APIs. :id=feature-highlights
 
 Fast, flexible data is just the beginning. Explore what OBJY brings to your application, from the in-memory engine to a distributed backend.
 
