@@ -5,9 +5,9 @@
 > Baue Anwendungsfälle rund um schnelle Objekte.
 
 - ![](assets/site/icons/features/flexible-objects.svg) Flexibles JSON
-- ![](assets/site/icons/features/query-aggregate.svg) OLAP + OLTP
-- ![](assets/site/icons/features/cross-runtime.svg) Läuft überall
-- ![](assets/site/icons/features/authentication.svg) API & Auth inklusive
+- ![](assets/site/icons/features/query-aggregate.svg) OLTP · OLAP · Vektor
+- ![](assets/site/icons/features/hot-compressed.svg) Effiziente Speicherung
+- ![](assets/site/icons/features/authentication.svg) API, Auth & Berechtigungen
 
 ![Eine geschichtete OBJY-Datenbank mit einem JSON-Objekt im Zentrum, verbunden mit Apps, KI-Agenten, APIs und kleineren Objektknoten.](assets/site/applications-objects.svg)
 
@@ -31,13 +31,13 @@ Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
 ## Flexibles JSON. Vielseitige APIs. :id=feature-highlights
 
-Schnelle, flexible Daten sind erst der Anfang. Entdecke, was OBJY deiner Anwendung bietet — von der In-Memory-Engine bis zum verteilten Backend.
+Arbeite mit flexiblen JSON-Objekten. Nutze Abfragen, Aggregationen und Vektorsuche über eine API. Betreibe OBJY eingebettet in deiner Anwendung oder verteilt in einem Cluster.
 
 ![CRUD, Abfragen, Aggregation und Vektorsuche über drei überlappenden JSON-Beispielen: eine Person, eine KI-Erinnerung und ein vernetztes Gerät.](assets/site/architecture.svg)
 
 ### Außen JSON, innen effiziente Speicherung :id=storage-internals
 
-Arbeite mit vollständigen Objekten. Intern teilt OBJY sie für schnellen Zugriff und effiziente Speicherung in Blöcke auf.
+Speichere mehr Daten im Arbeitsspeicher und arbeite mit einfachen Objekten. OBJY kombiniert direkt zugängliche heiße Felder, kompakte Spalten und komprimierte Objektinhalte.
 
 - **Heiße Felder:** Häufig genutzte Daten bleiben unkomprimiert im Arbeitsspeicher.
 - **Kompakte Spalten:** Ausgewählte Werte liegen zusammen – für effiziente Scans und Aggregation.
@@ -54,14 +54,6 @@ Arbeite mit vollständigen Objekten. Intern teilt OBJY sie für schnellen Zugrif
 
 Dieselbe Engine, eingebettet in Browser und Node.js. [Zur Core-Dokumentation](/content/database.md).
 
-#### ![](assets/site/icons/features/flexible-objects.svg) Objekte ohne starre Schemas :id=flexible-objects
-
-Kombiniere verschachtelte Eigenschaften, Arrays und unterschiedliche Datentypen. Deine Objekte wachsen mit deiner Anwendung.
-
-#### ![](assets/site/icons/features/live-references.svg) Live-Referenzen statt Kopien :id=live-references
-
-Verbinde Objekte und löse ihre Referenzen beim Lesen auf. Gespeichert wird die Beziehung, ohne das referenzierte Objekt zu duplizieren.
-
 #### ![](assets/site/icons/features/in-memory.svg) Objekte mit In-Memory-Geschwindigkeit :id=in-memory
 
 Arbeite direkt mit Objekten im Arbeitsspeicher. Im zentralen Datenpfad sind keine Lesezugriffe auf die Festplatte nötig.
@@ -74,6 +66,26 @@ Halte häufig genutzte Felder im Speicher direkt zugänglich und komprimiere den
 
 Kompakte Spalten beschleunigen numerische Aggregationen. Beim Lesen erhältst du dieselben Daten als vollständige Objekte zurück.
 
+#### ![](assets/site/icons/features/query-aggregate.svg) Abfragen. Gruppieren. Zusammenrechnen. :id=query-aggregation
+
+Filtere und sortiere Objekte, gruppiere deine Daten und berechne Anzahl, Summe oder Durchschnitt mit derselben Engine.
+
+#### ![](assets/site/icons/features/vector-search.svg) Bedeutung finden mit Vektorsuche :id=vector-search
+
+Durchsuche die von deiner Anwendung bereitgestellten Embeddings mit einem integrierten HNSW-Index, direkt neben deinen Objektdaten.
+
+#### ![](assets/site/icons/features/cross-runtime.svg) Eine Engine für beide Welten :id=cross-runtime
+
+Nutze dieselbe Datenbank-API im Browser und in Node.js. Die Engine läuft dort, wo deine Anwendung läuft.
+
+#### ![](assets/site/icons/features/flexible-objects.svg) Objekte ohne starre Schemas :id=flexible-objects
+
+Kombiniere verschachtelte Eigenschaften, Arrays und unterschiedliche Datentypen. Deine Objekte wachsen mit deiner Anwendung.
+
+#### ![](assets/site/icons/features/live-references.svg) Live-Referenzen statt Kopien :id=live-references
+
+Verbinde Objekte und löse ihre Referenzen beim Lesen auf. Gespeichert wird die Beziehung, ohne das referenzierte Objekt zu duplizieren.
+
 #### ![](assets/site/icons/features/shared-values.svg) Gleiche Werte, smarter gespeichert :id=shared-values
 
 Gemeinsame Wörterbücher reduzieren den Speicherbedarf von Werten, die immer wieder vorkommen.
@@ -82,25 +94,17 @@ Gemeinsame Wörterbücher reduzieren den Speicherbedarf von Werten, die immer wi
 
 Konfiguriere Indizes, Spalten und Komprimierung pro Collection. Deine Objekte bleiben dabei einfach zu verwenden.
 
-#### ![](assets/site/icons/features/vector-search.svg) Bedeutung finden mit Vektorsuche :id=vector-search
-
-Durchsuche die von deiner Anwendung bereitgestellten Embeddings mit einem integrierten HNSW-Index, direkt neben deinen Objektdaten.
-
-#### ![](assets/site/icons/features/query-aggregate.svg) Abfragen. Gruppieren. Zusammenrechnen. :id=query-aggregation
-
-Filtere und sortiere Objekte, gruppiere deine Daten und berechne Anzahl, Summe oder Durchschnitt mit derselben Engine.
-
 #### ![](assets/site/icons/features/bulk-operations.svg) Für ein Objekt. Oder viele. :id=bulk-operations
 
 Einzelne und gebündelte Schreibvorgänge nutzen denselben Ausführungspfad. Batches gehören so ganz natürlich zur Arbeit mit Objekten.
 
-#### ![](assets/site/icons/features/cross-runtime.svg) Eine Engine für beide Welten :id=cross-runtime
-
-Nutze dieselbe Datenbank-API im Browser und in Node.js. Die Engine läuft dort, wo deine Anwendung läuft.
-
 ### DB Server :id=db-server
 
 Ergänze den Kern um Anwendungsdienste, verteilten Betrieb und optionale Persistenz. [Zur Server-Dokumentation](/content/server.md).
+
+#### ![](assets/site/icons/features/sharding.svg) Objekte über Maschinen verteilen :id=object-sharding
+
+Verteile Objekte per Sharding auf mehrere Knoten. So kann deine Datenbank über mehrere Maschinen laufen.
 
 #### ![](assets/site/icons/features/rest-client.svg) Verbinden über REST oder JavaScript :id=rest-client
 
@@ -114,6 +118,14 @@ Verwalte Benutzeridentitäten und authentifizierte Sitzungen direkt in deinem Da
 
 Kombiniere Collection-Berechtigungen, Rollen und Regeln pro Objekt, um den Zugriff auf deine Daten zu steuern.
 
+#### ![](assets/site/icons/features/s3-durability.svg) Optionale S3-Persistenz :id=s3-durability
+
+Aktiviere ein lokales Write-Ahead-Log, S3-Journale und Snapshots, um Daten dauerhaft zu speichern und nach einem Neustart wiederherzustellen.
+
+#### ![](assets/site/icons/features/replication.svg) Replikate, die wieder aufholen :id=replication-recovery
+
+Asynchrone Replikation hält Kopien auf anderen Knoten vor. Nach Unterbrechungen können Replikate wieder aufholen.
+
 #### ![](assets/site/icons/features/files.svg) Auch Dateien sind Objekte :id=file-objects
 
 Speichere Dateimetadaten als Objekte und die Dateiinhalte in S3, geschützt durch dieselben Objektberechtigungen.
@@ -121,18 +133,6 @@ Speichere Dateimetadaten als Objekte und die Dateiinhalte in S3, geschützt durc
 #### ![](assets/site/icons/features/hooks.svg) Deine Logik bei jeder Operation :id=operation-hooks
 
 Ergänze mit Server-Hooks eigenes Verhalten beim Erstellen, Lesen, Ändern und Löschen von Objekten.
-
-#### ![](assets/site/icons/features/sharding.svg) Objekte über Maschinen verteilen :id=object-sharding
-
-Verteile Objekte per Sharding auf mehrere Knoten. So kann deine Datenbank über mehrere Maschinen laufen.
-
-#### ![](assets/site/icons/features/replication.svg) Replikate, die wieder aufholen :id=replication-recovery
-
-Asynchrone Replikation hält Kopien auf anderen Knoten vor. Nach Unterbrechungen können Replikate wieder aufholen.
-
-#### ![](assets/site/icons/features/s3-durability.svg) Optionale S3-Persistenz :id=s3-durability
-
-Aktiviere ein lokales Write-Ahead-Log, S3-Journale und Snapshots, um Daten dauerhaft zu speichern und nach einem Neustart wiederherzustellen.
 
 #### ![](assets/site/icons/features/streaming-import.svg) Daten rein. Batch für Batch. :id=streaming-import
 

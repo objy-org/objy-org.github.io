@@ -345,7 +345,7 @@ body > main > .sidebar-toggle,
 }
 .section-copy .hero-highlights {
   display: grid;
-  grid-template-columns: repeat(var(--highlight-columns), max-content);
+  grid-template-columns: repeat(var(--highlight-columns), minmax(0, 1fr));
   justify-content: center;
   gap: 18px 30px;
   margin: 48px 0 0;
@@ -355,6 +355,7 @@ body > main > .sidebar-toggle,
 .hero-highlights li {
   display: flex;
   align-items: center;
+  justify-self: center;
   gap: 10px;
   color: #c8c7c3;
   font-size: 16px;
