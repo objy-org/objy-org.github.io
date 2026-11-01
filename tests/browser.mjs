@@ -763,8 +763,14 @@ await check('The homepage feature area keeps its illustrations, translations, an
       document.querySelector('.header-links a[href$="#/get-started"]') &&
       !document.querySelector('.header-links a[href$="id=feature-highlights"]'), 'The top bar should contain only OBJY, Get Started, and Documentation');
     const architecture = document.querySelector('.document-lead-art');
-    assert(!document.getElementById('architecture') && architecture.nextElementSibling.matches('.catalog-section'),
+    const caption = architecture.nextElementSibling;
+    assert(!document.getElementById('architecture') && caption.matches('p:has(> em:only-child)') &&
+      caption.nextElementSibling.matches('.catalog-section'),
       'The architecture diagram should introduce the page without its own chapter heading');
+    assert(caption.textContent === (language === 'en' ?
+      'Each object is split into hot fields, compact columns, and compressed data for efficient in-memory storage.' :
+      'Für effiziente Speicherung im RAM wird jedes Objekt in heiße Felder, kompakte Spalten und komprimierte Daten aufgeteilt.'),
+      'The small storage caption is missing or untranslated');
     const objectDiagram = architecture.querySelector('.objy-architecture');
     assert(objectDiagram && objectDiagram.querySelectorAll('defs .object-snippet').length === 3,
       'The original architecture diagram was not moved to Features');

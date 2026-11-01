@@ -886,6 +886,16 @@ body > main > .sidebar-toggle,
 }
 .document-lead-art { margin: 48px 0 16px; }
 .document-lead-art .document-art { max-width: 1000px; }
+/* An italic Markdown paragraph after the illustration becomes its small caption. */
+.document-lead-art + p:has(> em:only-child) {
+  max-width: 660px;
+  margin: 20px auto 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  text-align: center;
+}
+.document-lead-art + p > em:only-child { font-style: normal; }
 .document-chapter {
   margin: 0;
   padding: 56px 0 64px;

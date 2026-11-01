@@ -35,6 +35,8 @@ Arbeite mit flexiblen JSON-Objekten. Nutze Abfragen, Aggregationen und Vektorsuc
 
 ![CRUD, Abfragen, Aggregation und Vektorsuche greifen auf drei überlappende JSON-Objekte über einer gemeinsamen Speicherebene im RAM zu. Heiße Felder sind direkt zugänglich, kompakte Spalten beschleunigen Scans und Aggregation, komprimierte Felder werden beim Lesen entpackt. S3-Journale und Snapshots sind optional.](assets/site/architecture.svg)
 
+*Für effiziente Speicherung im RAM wird jedes Objekt in heiße Felder, kompakte Spalten und komprimierte Daten aufgeteilt.*
+
 ### Datenbankkern :id=database-core
 
 Dieselbe Engine, eingebettet in Browser und Node.js. [Zur Core-Dokumentation](/content/database.md).

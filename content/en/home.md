@@ -35,6 +35,8 @@ Work with flexible JSON objects. Query, aggregate, and search vectors through on
 
 ![CRUD, queries, aggregation, and vector search connect to three overlapping JSON objects above one in-memory storage layer. Hot fields stay directly accessible, compact columns speed up scans and aggregation, and compressed fields are unpacked when read. S3 journals and snapshots are optional.](assets/site/architecture.svg)
 
+*Each object is split into hot fields, compact columns, and compressed data for efficient in-memory storage.*
+
 ### Database core :id=database-core
 
 The same engine, embedded in browsers and Node.js. [Explore the core docs](/content/database.md).
