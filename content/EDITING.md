@@ -111,7 +111,7 @@ An image inside a `##` heading becomes a small chapter icon, for example `## ![]
 
 ## Edit the feature catalog
 
-The left-menu Features link jumps to the Features area in `home.md`. Its `##` headline introduces the JSON/API diagram. Storage internals and the two catalog groups use `###` headings; each individual feature uses an icon-led `####` heading:
+The left-menu Features link jumps to the Features area in `home.md`. Its `##` headline introduces the JSON/API diagram. The two catalog groups use `###` headings; each individual feature uses an icon-led `####` heading:
 
 ```markdown
 ### Database core :id=database-core
@@ -125,7 +125,7 @@ Connect objects and expand their references when reading.
 
 Keep one icon and one short description per feature, with no fenced code examples. Give the icon empty alternative text, because its heading already names the feature. Add the same IDs and icon paths in both languages. Add or edit features directly in this one Markdown file; the renderer builds the responsive card grids automatically.
 
-The JSON/API image belongs directly beneath the Features headline and introduction. The same illustration contains a small in-memory storage panel. Keep the storage heading, paragraph, three bullets, and optional S3 note together in the next `###` chapter, directly below the picture. Do not add a second storage image. The panel labels stay centralized in the Storage diagram table of `labels.md`. Illustrated chapter headings sit above their text and image. Spacing and typography separate the chapters; do not add manual divider rules.
+The JSON/API image belongs directly beneath the Features headline and introduction. The same illustration contains a prominent in-memory panel with three storage blocks. Edit their headings and two short explanation lines in the Storage diagram table of `labels.md`; keep the lines short enough to fit their blocks. The same table supplies the explicitly optional S3 note. Do not add a separate storage text section or second image below the diagram. Illustrated chapter headings sit above their text and image. Spacing and typography separate the chapters; do not add manual divider rules.
 
 The core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous. Existing `#/features` bookmarks redirect to the homepage, retaining their chapter IDs.
 
@@ -165,7 +165,7 @@ In `labels.md`, edit the right-hand column. Keep the headings and left-hand colu
 
 The Application diagram table controls the Apps, AI agents, and APIs labels and the central JSON example in the homepage hero. Keep its four JSON lines short and preserve valid JSON punctuation. The Architecture diagram table controls the API labels and three JSON examples in the homepage Features introduction. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
-Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. The storage explanation and full feature list follow the diagram on the homepage.
+Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. The storage explanations are inside the diagram. The full feature list follows it on the homepage.
 
 ## Edit the homepage use cases
 

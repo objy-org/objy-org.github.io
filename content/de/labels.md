@@ -74,6 +74,13 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Hot | Heiße Felder |
 | Columns | Kompakte Spalten |
 | Compressed | Komprimiert |
+| Hot detail | Häufig genutzte Felder. |
+| Hot benefit | Direkt lesen, unkomprimiert. |
+| Columns detail | Werte liegen zusammen. |
+| Columns benefit | Für Scans & Aggregation. |
+| Compressed detail | Mehr Daten im RAM. |
+| Compressed benefit | Erst beim Lesen entpacken. |
+| Durability | S3-Persistenz optional · Journale & Snapshots |
 
 ## Application diagram
 

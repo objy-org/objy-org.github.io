@@ -33,19 +33,7 @@ Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
 Arbeite mit flexiblen JSON-Objekten. Nutze Abfragen, Aggregationen und Vektorsuche über eine API. Betreibe OBJY eingebettet in deiner Anwendung oder verteilt in einem Cluster.
 
-![CRUD, Abfragen, Aggregation und Vektorsuche greifen auf drei überlappende JSON-Objekte zu. Darunter enthält eine gemeinsame Speicherebene im RAM heiße Felder, kompakte Spalten und komprimierte Felder.](assets/site/architecture.svg)
-
-### Außen JSON, innen effiziente Speicherung :id=storage-internals
-
-Speichere mehr Daten im Arbeitsspeicher und arbeite mit einfachen Objekten. OBJY kombiniert direkt zugängliche heiße Felder, kompakte Spalten und komprimierte Objektinhalte.
-
-- **Heiße Felder:** Häufig genutzte Daten bleiben unkomprimiert im Arbeitsspeicher.
-- **Kompakte Spalten:** Ausgewählte Werte liegen zusammen – für effiziente Scans und Aggregation.
-- **Komprimierte Felder:** Halte mehr Daten im Arbeitsspeicher und entpacke sie beim Lesen.
-
-> **Schnell im RAM. Optional dauerhaft in S3.**
->
-> Aktiviere S3-Journale und Snapshots, um deine Objekte für die Wiederherstellung zu sichern.
+![CRUD, Abfragen, Aggregation und Vektorsuche greifen auf drei überlappende JSON-Objekte über einer gemeinsamen Speicherebene im RAM zu. Heiße Felder sind direkt zugänglich, kompakte Spalten beschleunigen Scans und Aggregation, komprimierte Felder werden beim Lesen entpackt. S3-Journale und Snapshots sind optional.](assets/site/architecture.svg)
 
 ### Datenbankkern :id=database-core
 

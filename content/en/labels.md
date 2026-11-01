@@ -74,6 +74,13 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Hot | Hot fields |
 | Columns | Compact columns |
 | Compressed | Compressed fields |
+| Hot detail | Frequent fields. |
+| Hot benefit | Direct access, no unpacking. |
+| Columns detail | Values grouped together. |
+| Columns benefit | Fast scans & aggregation. |
+| Compressed detail | More data in memory. |
+| Compressed benefit | Unpack only when read. |
+| Durability | Optional S3 durability · Journals & snapshots |
 
 ## Application diagram
 

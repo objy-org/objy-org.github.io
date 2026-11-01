@@ -1020,40 +1020,6 @@ body > main > .sidebar-toggle,
 }
 .homepage-catalog .document-illustration-copy blockquote { margin: 28px 0 0; }
 .homepage-catalog .document-illustration-copy blockquote p { margin: 8px 0 0; }
-.homepage-catalog .document-explanation { padding-top: 32px; }
-.homepage-catalog .document-explanation > h3 {
-  font-size: 26px;
-  text-align: center;
-}
-.document-explanation-copy > p {
-  max-width: 760px;
-  margin: 20px auto 0;
-  text-align: center;
-}
-.homepage-catalog .document-explanation .document-explanation-copy > ul {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
-  gap: 24px 40px;
-  margin: 36px 0 0;
-  padding: 0;
-  list-style: none;
-}
-.homepage-catalog .document-explanation-copy > ul > li {
-  margin: 0;
-  color: var(--muted);
-  font-size: 16px;
-  line-height: 1.85;
-}
-.document-explanation-copy > ul strong { display: block; margin-bottom: 8px; color: var(--text); }
-.homepage-catalog .document-explanation-copy blockquote {
-  max-width: 680px;
-  margin: 40px auto 0;
-  padding: 0;
-  border: 0;
-  text-align: center;
-}
-.document-explanation-copy blockquote p { margin: 8px 0 0; font-size: 16px; }
-.document-explanation-copy blockquote strong { color: var(--accent); }
 .homepage-catalog .catalog-section > p {
   margin: 0 0 24px;
   font-size: 16px;
