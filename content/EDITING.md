@@ -215,7 +215,7 @@ The redesign is on `codex/objy-brand-website`. That branch does not automaticall
 
 ## Edit Learn
 
-Open `content/en/learn.md` or `content/de/learn.md`. The two `##` chapters are Database and Server. Use simple `###` topic headings beneath them: collections, objects, properties, references, queries, vectors and HNSW, storage, API, users and permissions, clusters, and persistence. Their headings automatically become the left menu, with topics indented beneath their parent chapter. Keep matching `:id=...` values across translations.
+Open `content/en/learn.md` or `content/de/learn.md`. The two `##` chapters are Database and Server. Use simple `###` topic headings beneath them: collections, objects, properties, references, queries, vectors and HNSW, storage, API, users and permissions, clusters, and persistence. Their headings automatically become the left menu, with topics indented beneath their parent chapter. Use `####` for a subsection inside a topic, such as CRUD beneath Queries; the menu adds another indentation level automatically. Keep matching `:id=...` values across translations.
 
 The shared guide renderer supports a mixture of illustrated topics and ordinary prose, lists, or code. Keep at least one standalone image in each main chapter. Wide layouts pair the explanation with its illustration or a direct code block. They stack as soon as the article becomes too narrow for readable diagrams. Headings and whitespace separate the chapters; do not add manual divider lines. Optional examples go in `<details>` with a short `<summary>` and blank lines around the fenced code. The guide places these controls beneath the illustration; they open in place without changing the diagram’s size.
 

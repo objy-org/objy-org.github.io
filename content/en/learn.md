@@ -102,6 +102,30 @@ await bikes.search({
 
 [Filters and sorting](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation)
 
+#### Create, Read, Update, Delete :id=crud
+
+Use the same collection for all four operations. This example creates a second bike, reads it by ID, changes its price, then deletes it.
+
+```js
+// Create
+await bikes.insert({
+  _id: "bike-02",
+  name: "Cargo bike",
+  price: 25
+});
+
+// Read
+await bikes.find({ _id: "bike-02" });
+
+// Update
+await bikes.patch("bike-02", {
+  $set: { price: 30 }
+});
+
+// Delete
+await bikes.remove("bike-02");
+```
+
 ### Vectors and HNSW :id=vectors
 
 Find bikes with similar features. Your app creates an embedding and stores those numbers in `_vec`.

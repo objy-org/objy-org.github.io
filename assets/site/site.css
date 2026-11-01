@@ -1003,6 +1003,12 @@ body > main > .sidebar-toggle,
   scroll-margin-top: 48px;
 }
 .document-guide .document-text > h3 { margin-bottom: 24px; }
+.document-guide .document-illustration-copy h4 {
+  margin: 40px 0 16px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+}
 .document-guide .document-text .document-illustration-copy { max-width: 760px; }
 .document-guide :is(.document-illustration, .document-code-lesson) {
   display: grid;

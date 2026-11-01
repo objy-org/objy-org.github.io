@@ -147,7 +147,7 @@ export function decorateDocument(html) {
   });
   if (groups.length && groups.every(group => group.topics.some(topic => topic.image) &&
     group.topics.every(topic => topic.content.length && !topic.heading.querySelector('img') &&
-      !topic.content.some(node => /^H[1-6]$/.test(node.tagName))))) {
+      !topic.content.some(node => /^H[1-3]$/.test(node.tagName))))) {
     article.classList.add('document-guide', 'document-guide-grouped');
     for (const group of groups) {
       const chapter = document.createElement('section');

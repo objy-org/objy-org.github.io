@@ -940,13 +940,13 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     const guide = document.querySelector('.document-guide');
     const groups = [...guide.querySelectorAll(':scope > .document-guide-group')];
     const topics = [...guide.querySelectorAll('.document-chapter')];
-    const headings = [...guide.querySelectorAll('h2, h3')];
+    const headings = [...guide.querySelectorAll('h2, h3, h4')];
     const links = [...document.querySelectorAll('#section-links a')];
     assert(groups.length === 2 && groups.map(group => group.querySelector('h2').id).join('|') === 'database|server' &&
       groups[0].querySelectorAll('h3').length === 7 && groups[1].querySelectorAll('h3').length === 4,
       'Learn is not organized into Database and Server chapters');
     assert(links.map(link => link.textContent).join('|') === headings.map(heading => heading.textContent.trim()).join('|') &&
-      document.querySelectorAll('#section-links .subchapter').length === 11,
+      document.querySelectorAll('#section-links .subchapter').length === 12,
       'The Learn menu is not generated from its two chapters and nested Markdown topics');
     const icons = [...document.querySelectorAll('#section-links img')];
     assert(icons.length === 2 && icons.every(icon => icon.width === 20 && icon.height === 20 && icon.alt === '') &&
@@ -965,7 +965,7 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     assert(bike._id === 'bike-01' && bike.price === 15 && bike.available === true && !guide.textContent.includes('Orbit'),
       'The bike example is invalid or the old project example remains');
     const examples = [...guide.querySelectorAll('pre')];
-    assert(examples.length === 8 && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
+    assert(examples.length === 9 && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
       'Learn examples lost highlighting or copy controls');
     const codeIn = id => guide.querySelector(`#${id}`).closest('.document-chapter').querySelector('pre code').textContent;
     const reference = JSON.parse([...guide.querySelectorAll('.learn-references-wide .reference-parent text')]
@@ -975,7 +975,13 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
       JSON.parse(codeIn('memory')).columns[0] === 'price' &&
       JSON.parse(codeIn('users-permissions')).permissions[0].query['owner.value'] === 'person-42',
       'The expanded owner, storage metadata, or permission rule is invalid');
-    assert(guide.querySelectorAll('.document-code-lesson > .document-lesson-example pre').length === 3 &&
+    const crudHeading = guide.querySelector('h4#crud');
+    const crud = [...crudHeading.closest('.document-chapter').querySelectorAll('pre code')].at(-1).textContent;
+    assert(crudHeading.closest('.document-chapter').querySelector('h3').id === 'operations' &&
+      ['bikes.insert(', 'bikes.find(', 'bikes.patch(', 'bikes.remove('].every(operation => crud.includes(operation)) &&
+      document.querySelector('#section-links a[href$="id=crud"]').closest('li').style.getPropertyValue('--chapter-depth') === '2',
+      'CRUD must remain a nested Markdown subsection of Queries with all four examples');
+    assert(guide.querySelectorAll('.document-code-lesson > .document-lesson-example pre').length === 2 &&
       guide.querySelectorAll('.document-lesson-details details').length === 5 &&
       !guide.querySelector('.learn-objects rect, .reference-parent rect, .reference-source rect'),
       'Learn must keep code lessons readable, optional examples expandable, and JSON illustrations unframed');
@@ -1016,7 +1022,7 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
         }
       }
     }
-    for (const id of ['operations', 'vectors', 'server']) {
+    for (const id of ['operations', 'crud', 'vectors', 'server']) {
       document.querySelector(`#section-links a[href$="id=${id}"]`).click();
       await new Promise((resolve, reject) => {
         const deadline = Date.now() + 5000;

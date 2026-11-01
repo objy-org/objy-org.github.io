@@ -102,6 +102,30 @@ await bikes.search({
 
 [Filter und Sortierung](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation)
 
+#### Erstellen, Lesen, Ändern, Löschen :id=crud
+
+Alle vier Operationen arbeiten auf derselben Collection. Dieses Beispiel legt ein zweites Fahrrad an, liest es über seine ID, ändert den Preis und löscht es anschließend.
+
+```js
+// Create
+await bikes.insert({
+  _id: "bike-02",
+  name: "Cargo bike",
+  price: 25
+});
+
+// Read
+await bikes.find({ _id: "bike-02" });
+
+// Update
+await bikes.patch("bike-02", {
+  $set: { price: 30 }
+});
+
+// Delete
+await bikes.remove("bike-02");
+```
+
 ### Vektoren und HNSW :id=vectors
 
 Finde Fahrräder mit ähnlichen Merkmalen. Deine App erzeugt ein Embedding und speichert dessen Zahlen unter `_vec`.
