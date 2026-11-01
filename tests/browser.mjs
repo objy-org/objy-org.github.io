@@ -943,7 +943,7 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     const headings = [...guide.querySelectorAll('h2, h3, h4')];
     const links = [...document.querySelectorAll('#section-links a')];
     assert(groups.length === 2 && groups.map(group => group.querySelector('h2').id).join('|') === 'database|server' &&
-      groups[0].querySelectorAll('h3').length === 7 && groups[1].querySelectorAll('h3').length === 4,
+      groups[0].querySelectorAll('h3').length === 8 && groups[1].querySelectorAll('h3').length === 4,
       'Learn is not organized into Database and Server chapters');
     assert(links.map(link => link.textContent).join('|') === headings.map(heading => heading.textContent.trim()).join('|') &&
       document.querySelectorAll('#section-links .subchapter').length === 12,
@@ -975,13 +975,13 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
       JSON.parse(codeIn('memory')).columns[0] === 'price' &&
       JSON.parse(codeIn('users-permissions')).permissions[0].query['owner.value'] === 'person-42',
       'The expanded owner, storage metadata, or permission rule is invalid');
-    const crudHeading = guide.querySelector('h4#crud');
+    const crudHeading = guide.querySelector('h3#crud');
     const crud = [...crudHeading.closest('.document-chapter').querySelectorAll('pre code')].at(-1).textContent;
-    assert(crudHeading.closest('.document-chapter').querySelector('h3').id === 'operations' &&
+    assert(crudHeading.closest('.document-chapter').nextElementSibling.querySelector('h3').id === 'operations' &&
       ['bikes.insert(', 'bikes.find(', 'bikes.patch(', 'bikes.remove('].every(operation => crud.includes(operation)) &&
-      document.querySelector('#section-links a[href$="id=crud"]').closest('li').style.getPropertyValue('--chapter-depth') === '2',
-      'CRUD must remain a nested Markdown subsection of Queries with all four examples');
-    assert(guide.querySelectorAll('.document-code-lesson > .document-lesson-example pre').length === 2 &&
+      document.querySelector('#section-links a[href$="id=crud"]').closest('li').style.getPropertyValue('--chapter-depth') === '1',
+      'CRUD must precede Queries at the same heading and menu level, with all four examples');
+    assert(guide.querySelectorAll('.document-code-lesson > .document-lesson-example pre').length === 4 &&
       guide.querySelectorAll('.document-lesson-details details').length === 5 &&
       !guide.querySelector('.learn-objects rect, .reference-parent rect, .reference-source rect'),
       'Learn must keep code lessons readable, optional examples expandable, and JSON illustrations unframed');

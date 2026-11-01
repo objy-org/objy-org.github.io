@@ -85,24 +85,7 @@ await bikes.patch("bike-01", {
 
 [References and read depth](/content/api.md?id=live-references)
 
-### Queries :id=operations
-
-Find the available bikes, or calculate their average price. The first operation returns objects; the second computes a result across them.
-
-```js
-await bikes.find({ available: true });
-
-await bikes.search({
-  available: true,
-  $aggregate: {
-    fields: { averagePrice: { $avg: "price" } }
-  }
-});
-```
-
-[Filters and sorting](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation)
-
-#### Create, Read, Update, Delete :id=crud
+### Create, Read, Update, Delete :id=crud
 
 Use the same collection for all four operations. This example creates a second bike, reads it by ID, changes its price, then deletes it.
 
@@ -125,6 +108,23 @@ await bikes.patch("bike-02", {
 // Delete
 await bikes.remove("bike-02");
 ```
+
+### Queries :id=operations
+
+Find the available bikes, or calculate their average price. The first operation returns objects; the second computes a result across them.
+
+```js
+await bikes.find({ available: true });
+
+await bikes.search({
+  available: true,
+  $aggregate: {
+    fields: { averagePrice: { $avg: "price" } }
+  }
+});
+```
+
+[Filters and sorting](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation)
 
 ### Vectors and HNSW :id=vectors
 
