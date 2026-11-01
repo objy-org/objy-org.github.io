@@ -1045,10 +1045,10 @@ await check('The object database hero stays large, translated, and centered on d
     assert(agents === (language === 'en' ? 'AI agents' : 'KI-Agenten'), 'Hero labels were not translated');
     assert(diagram.classList.contains('objy-object-engine') && !document.querySelector('.hero-art .objy-architecture'),
       'The object database hero is missing or the architecture remains on the homepage');
-    const json = [...diagram.querySelectorAll('.engine-json text')].map((line) => line.textContent).join('\n');
-    const object = JSON.parse(json);
-    assert(object._id === 'item-01' && object.tags[0] === (language === 'en' ? 'new' : 'neu') && object._vec.length === 3,
-      'The central object example is invalid or untranslated');
+    const field = diagram.querySelector('#objy-scale-field');
+    assert(diagram.classList.contains('objy-scale-engine') && field?.querySelectorAll('.field-object').length >= 300 &&
+      field.querySelectorAll('.connected-object').length === 3 && !field.querySelector('text, rect'),
+      'The hero must show hundreds of empty objects, with three connected objects and no code cards');
     assert(diagram.querySelectorAll('.object-engine-pulse animateMotion').length === 6 &&
       [...diagram.querySelectorAll('mpath')].every((path) => diagram.querySelector(path.getAttribute('href'))),
       'A connection pulse lost its path');
@@ -1066,9 +1066,9 @@ await check('The object database hero stays large, translated, and centered on d
       const ratio = width <= 640 ? 560 / 420 : 480 / 720;
       assert(box.width > 250 && Math.abs(box.height / box.width - ratio) < .01, 'Hero artwork is stretched or too small');
       const layout = diagram.querySelector(width <= 640 ? '.object-engine-compact' : '.object-engine-wide');
-      assert(frame.getComputedStyle(layout).display !== 'none' && layout.querySelectorAll('.engine-scale-nodes use').length === 2,
+      assert(frame.getComputedStyle(layout).display !== 'none' && layout.querySelectorAll('.engine-endpoint').length === 3,
         'The responsive database composition is missing');
-      const database = layout.querySelector('.engine-database').getBoundingClientRect();
+      const database = layout.querySelector('.engine-object-field').getBoundingClientRect();
       assert(database.width > box.width * .43 && database.left >= box.left - 1 && database.right <= box.right + 1 &&
         database.top >= box.top - 1 && database.bottom <= box.bottom + 1, 'The central database is too small or clipped');
       assert(document.documentElement.scrollWidth <= width + 1, `${language} homepage overflows at ${width}px`);
@@ -1096,17 +1096,12 @@ await check('The object database hero stays large, translated, and centered on d
             'The homepage cards do not share a row');
         }
       }
-      // Shared definitions have no screen rectangle; measure the visible uses
-      // and each JSON line's local bounds instead.
-      for (const endpoint of layout.querySelectorAll(':scope > use:not(.engine-database)')) {
+      // Shared definitions have no screen rectangle; measure their visible uses.
+      for (const endpoint of layout.querySelectorAll('.engine-endpoint')) {
         const rect = endpoint.getBoundingClientRect();
         assert(rect.left >= box.left - 1 && rect.right <= box.right + 1 &&
           rect.top >= box.top - 1 && rect.bottom <= box.bottom + 1,
           `${language} hero endpoint is clipped at ${width}px`);
-      }
-      for (const line of diagram.querySelectorAll('.engine-json text')) {
-        const rect = line.getBBox();
-        assert(rect.x >= 20 && rect.x + rect.width <= 280, `${language} JSON overflows the object card: ${line.textContent}`);
       }
     }
   }

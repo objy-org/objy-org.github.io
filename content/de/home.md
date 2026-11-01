@@ -9,7 +9,7 @@
 - ![](assets/site/icons/features/hot-compressed.svg) Effiziente Speicherung
 - ![](assets/site/icons/features/authentication.svg) API, Auth & Berechtigungen
 
-![Eine geschichtete OBJY-Datenbank mit einem JSON-Objekt im Zentrum, verbunden mit Apps, KI-Agenten, APIs und kleineren Objektknoten.](assets/site/applications-objects.svg)
+![Hunderte leere JSON-Objektklammern bilden ein räumliches Objektfeld. Apps, KI-Agenten und APIs sind mit einzelnen Objekten verbunden.](assets/site/applications-objects-scale.svg)
 
 ## Was wirst du bauen? :id=object-capabilities
 

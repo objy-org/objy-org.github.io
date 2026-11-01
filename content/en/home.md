@@ -9,7 +9,7 @@
 - ![](assets/site/icons/features/hot-compressed.svg) Efficient storage
 - ![](assets/site/icons/features/authentication.svg) API, auth & permissions
 
-![A layered OBJY database with a JSON object at its center, connected to apps, AI agents, APIs, and smaller object nodes.](assets/site/applications-objects.svg)
+![Hundreds of empty JSON object brackets form a deep object field, with apps, AI agents, and APIs connected to individual objects.](assets/site/applications-objects-scale.svg)
 
 ## What will you build? :id=object-capabilities
 
