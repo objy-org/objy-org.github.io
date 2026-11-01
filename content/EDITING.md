@@ -58,7 +58,7 @@ The words inside `[]` are the label. The destination goes inside `()`. `/?id=obj
 
 Deployment content lives in `get-started.md`, opened through the top-bar Get started link at `#/get-started`. It is separate from the homepage. Its five deployment options are Run locally, Run a cluster, Bring your own cloud, Run in the browser, and Embed in Node.js. Each is an expandable row with a large colored icon and title; its commands or buttons appear directly underneath when opened. Keep an icon in each `##` heading, then start its content with a fenced code block or a link-only paragraph/list. This Markdown structure enables the accordion without a chapter menu. Link-only bullet lists become buttons. Finish each option with its guide link, and keep the page and chapter IDs so shared links open the right row. All titles, code, providers, and destinations stay editable in Markdown. Documentation retains its clickable directory layout.
 
-The homepage’s last area contains the JSON/API overview, storage internals, and all feature cards. Edit these directly in `home.md`. The top-bar Features link jumps to this area; there is no separate Features file. Get Started remains its own page. A Markdown rule (`---`) separates the homepage footer from the full catalog.
+The homepage’s last area contains the JSON/API overview, storage internals, and all feature cards. Edit these directly in `home.md`. The left-menu Features link jumps to this area; there is no separate Features file. Get Started remains its own page. A Markdown rule (`---`) separates the homepage footer from the full catalog.
 
 A list containing only links becomes a row of action buttons in the hero or a closing section without an illustration. The first link is the primary action. A horizontal rule (`---`) separates a closing section’s footer links. All labels and destinations come from the Markdown.
 
@@ -111,7 +111,7 @@ An image inside a `##` heading becomes a small chapter icon, for example `## ![]
 
 ## Edit the feature catalog
 
-The top-bar Features link jumps to the Features area in `home.md`. Its `##` headline introduces the JSON/API diagram. Storage internals and the two catalog groups use `###` headings; each individual feature uses an icon-led `####` heading:
+The left-menu Features link jumps to the Features area in `home.md`. Its `##` headline introduces the JSON/API diagram. Storage internals and the two catalog groups use `###` headings; each individual feature uses an icon-led `####` heading:
 
 ```markdown
 ### Database core :id=database-core

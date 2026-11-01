@@ -599,7 +599,7 @@ await check('The homepage feature area keeps its illustrations, translations, an
     await new Promise((resolve, reject) => {
       const deadline = Date.now() + 5000;
       const ready = () => {
-        if (document.querySelector('.header-links [aria-current="page"]')?.getAttribute('href').endsWith('id=feature-highlights')) return resolve();
+        if (document.querySelector('#section-links [aria-current="location"]')?.getAttribute('href').endsWith('id=feature-highlights')) return resolve();
         if (Date.now() > deadline)
           return reject(new Error(`The redirected Features section did not become active (${language}, ${frame.innerWidth}px)`));
         frame.requestAnimationFrame(ready);
@@ -619,10 +619,11 @@ await check('The homepage feature area keeps its illustrations, translations, an
     assert(features.every((feature) => !feature.querySelector('h4').hasAttribute('data-chapter')),
       'Individual features still participate in chapter navigation');
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
-    assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/?id=feature-highlights'),
-      'Features navigation is not active');
-    assert(document.querySelectorAll('.header-links a').length === 4 &&
-      document.querySelector('.header-links a[href$="#/get-started"]'), 'Get Started is missing from the top bar');
+    assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/?id=top'),
+      'OBJY navigation is not active on the homepage');
+    assert(document.querySelectorAll('.header-links a').length === 3 &&
+      document.querySelector('.header-links a[href$="#/get-started"]') &&
+      !document.querySelector('.header-links a[href$="id=feature-highlights"]'), 'The top bar should contain only OBJY, Get Started, and Documentation');
     const storage = document.getElementById('storage-internals').closest('.document-illustration');
     const architecture = document.querySelector('.document-lead-art');
     assert(!document.getElementById('architecture') && architecture.nextElementSibling === storage,
@@ -649,8 +650,8 @@ await check('The homepage feature area keeps its illustrations, translations, an
       await new Promise((resolve) => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
       document.getElementById('feature-highlights').scrollIntoView({ behavior: 'instant', block: 'start' });
       await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
-      assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('id=feature-highlights'),
-        'The Features header link does not follow the homepage section');
+      assert(document.querySelector('#section-links [aria-current="location"]').getAttribute('href').endsWith('id=feature-highlights'),
+        'The left menu does not follow the homepage Features section');
       const viewport = document.documentElement.clientWidth;
       const article = document.querySelector('.homepage-catalog').getBoundingClientRect();
       assert(document.documentElement.scrollWidth <= viewport + 1, `${language} catalog overflows at ${width}px`);

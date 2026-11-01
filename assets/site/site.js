@@ -67,7 +67,7 @@ function anchorId(link) {
   return new URLSearchParams(link.hash.split('?')[1] || '').get('id');
 }
 
-function updateHeaderNavigation(route, sectionId) {
+function updateHeaderNavigation(route) {
   const normalize = (path) =>
     decodeURI(path.split('?')[0]).replace(/\.(?:md|markdown)$/i, '').replace(/\/+$/, '') || '/';
   const current = normalize(route);
@@ -79,10 +79,7 @@ function updateHeaderNavigation(route, sectionId) {
     .filter(({ path }) => current === path || (path !== '/' && current.startsWith(`${path}/`)))
     .sort((a, b) => b.path.length - a.path.length)[0]?.link;
   // Guides without their own top-level link belong to the documentation entry.
-  const requested = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
-  const selected = sectionId || document.getElementById(requested)?.closest('.page-section')?.dataset.section;
-  const sectionLink = current === '/' && links.find(link => anchorId(link) === selected);
-  const active = sectionLink || match ||
+  const active = match ||
     (current !== '/' && links.find((link) => link.hasAttribute('data-navigation-fallback')));
   links.forEach((link) => {
     if (link === active) link.setAttribute('aria-current', 'page');
@@ -195,7 +192,6 @@ function wireNavigation() {
       if (anchorId(link) === current) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
-    if (document.querySelector('.sections-root')) updateHeaderNavigation('/', current);
     scheduled = 0;
   };
   window.addEventListener(
