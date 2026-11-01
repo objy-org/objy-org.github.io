@@ -9,7 +9,7 @@
 - ![](assets/site/icons/features/hot-compressed.svg) Efficient storage
 - ![](assets/site/icons/features/authentication.svg) API, auth & permissions
 
-![A wide field of empty JSON object brackets wraps around apps, AI agents, APIs, and two connected object stacks. Subtle colors, sizes, tilts, and heavier brackets add variety on one flat plane.](assets/site/applications-objects-chaos.svg)
+![Hundreds of empty JSON object brackets form a deep object field, with apps, AI agents, and APIs connected to individual objects.](assets/site/applications-objects-scale.svg)
 
 ## What will you build? :id=object-capabilities
 

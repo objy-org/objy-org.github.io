@@ -9,7 +9,7 @@
 - ![](assets/site/icons/features/hot-compressed.svg) Effiziente Speicherung
 - ![](assets/site/icons/features/authentication.svg) API, Auth & Berechtigungen
 
-![Ein weites Feld leerer JSON-Objektklammern umgibt Apps, KI-Agenten, APIs und zwei verbundene Objektstapel. Dezente Farben, Größen, Drehungen und kräftigere Klammern sorgen für Abwechslung auf einer Ebene.](assets/site/applications-objects-chaos.svg)
+![Hunderte leere JSON-Objektklammern bilden ein räumliches Objektfeld. Apps, KI-Agenten und APIs sind mit einzelnen Objekten verbunden.](assets/site/applications-objects-scale.svg)
 
 ## Was wirst du bauen? :id=object-capabilities
 

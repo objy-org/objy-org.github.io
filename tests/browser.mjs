@@ -624,7 +624,7 @@ await check('Articles stay centered in the viewport without colliding with the c
         'Hero artwork does not sit centered below the headline');
       assert(picture.width <= 1300 && picture.width > 250, 'Hero artwork size is incorrect');
       if (width >= 1920) assert(picture.width > 1000, 'The restored hero artwork was not enlarged');
-      const ratio = width <= 640 ? 640 / 420 : 520 / 900;
+      const ratio = width <= 640 ? 560 / 420 : 480 / 720;
       assert(Math.abs(picture.height / picture.width - ratio) < .01, 'Hero artwork is stretched');
       assert(!document.querySelector('.example-workspace, [data-section="storage-internals"]'), 'The previous examples or storage chapter are still present');
       if (width > 1100) {
@@ -1046,37 +1046,9 @@ await check('The object database hero stays large, translated, and centered on d
     assert(diagram.classList.contains('objy-object-engine') && !document.querySelector('.hero-art .objy-architecture'),
       'The object database hero is missing or the architecture remains on the homepage');
     const field = diagram.querySelector('#objy-scale-field');
-    const fields = [...field.querySelectorAll('.object-field')];
-    assert(diagram.classList.contains('objy-chaos-engine') && fields.length === 2,
-      'The wide and phone object fields are missing');
-    for (const objectField of fields) {
-      const glyphs = [...objectField.querySelectorAll('.field-object')];
-      assert(glyphs.length >= 200 && objectField.querySelectorAll('.connected-object').length === 3 &&
-        objectField.querySelectorAll('.node-anchor-object').length === 2 && !objectField.querySelector('text, rect, ellipse'),
-        'Each layout must show hundreds of empty objects, with connections to the endpoints and object stacks');
-      assert(new Set(glyphs.map(glyph => glyph.getAttribute('transform'))).size > 100 &&
-        new Set([...objectField.querySelectorAll('.scatter-object')].map(glyph => glyph.getAttribute('color'))).size >= 3 &&
-        glyphs.some(glyph => glyph.classList.contains('bold-object')) &&
-        glyphs.some(glyph => !glyph.classList.contains('bold-object')),
-        'The object field lost its irregular placement, subtle colors, or varied stroke weights');
-      const bounds = glyphs.map(glyph => {
-        const matrix = glyph.transform.baseVal.consolidate().matrix;
-        const size = Math.hypot(matrix.a, matrix.b);
-        const tilt = Math.atan2(matrix.b, matrix.a) * 180 / Math.PI;
-        assert(size >= .819 && size <= 1.281 && Math.abs(tilt) <= 10.01 && glyph.getAttribute('opacity') === '.74',
-          'Objects must retain modest sizes and tilts, with consistent brightness on one plane');
-        const box = glyph.getBBox();
-        const corners = [[box.x, box.y], [box.x + box.width, box.y], [box.x, box.y + box.height],
-          [box.x + box.width, box.y + box.height]].map(([x, y]) =>
-          ({ x: matrix.a * x + matrix.c * y + matrix.e, y: matrix.b * x + matrix.d * y + matrix.f }));
-        return { left: Math.min(...corners.map(point => point.x)), right: Math.max(...corners.map(point => point.x)),
-          top: Math.min(...corners.map(point => point.y)), bottom: Math.max(...corners.map(point => point.y)) };
-      });
-      bounds.forEach((box, index) => bounds.slice(index + 1).forEach(other => {
-        assert(box.right < other.left || other.right < box.left || box.bottom < other.top || other.bottom < box.top,
-          'Object brackets overlap and become difficult to read');
-      }));
-    }
+    assert(diagram.classList.contains('objy-scale-engine') && field?.querySelectorAll('.field-object').length >= 300 &&
+      field.querySelectorAll('.connected-object').length === 3 && !field.querySelector('text, rect'),
+      'The hero must show hundreds of empty objects, with three connected objects and no code cards');
     assert(diagram.querySelectorAll('.object-engine-pulse animateMotion').length === 6 &&
       [...diagram.querySelectorAll('mpath')].every((path) => diagram.querySelector(path.getAttribute('href'))),
       'A connection pulse lost its path');
@@ -1092,11 +1064,10 @@ await check('The object database hero stays large, translated, and centered on d
       // Offscreen iframe animation frames can be suspended; layout reads below force a reflow.
       await new Promise((resolve) => setTimeout(resolve, 32));
       const box = diagram.getBoundingClientRect();
-      const ratio = width <= 640 ? 640 / 420 : 520 / 900;
+      const ratio = width <= 640 ? 560 / 420 : 480 / 720;
       assert(box.width > 250 && Math.abs(box.height / box.width - ratio) < .01, 'Hero artwork is stretched or too small');
       const layout = diagram.querySelector(width <= 640 ? '.object-engine-compact' : '.object-engine-wide');
-      assert(frame.getComputedStyle(layout).display !== 'none' && layout.querySelectorAll('.engine-endpoint').length === 3 &&
-        layout.querySelectorAll('.engine-scale-nodes > use').length === 2,
+      assert(frame.getComputedStyle(layout).display !== 'none' && layout.querySelectorAll('.engine-endpoint').length === 3,
         'The responsive database composition is missing');
       const database = layout.querySelector('.engine-object-field').getBoundingClientRect();
       assert(database.width > box.width * .43 && database.left >= box.left - 1 && database.right <= box.right + 1 &&
@@ -1127,7 +1098,7 @@ await check('The object database hero stays large, translated, and centered on d
         }
       }
       // Shared definitions have no screen rectangle; measure their visible uses.
-      for (const endpoint of layout.querySelectorAll('.engine-endpoint, .engine-scale-nodes > use')) {
+      for (const endpoint of layout.querySelectorAll('.engine-endpoint')) {
         const rect = endpoint.getBoundingClientRect();
         assert(rect.left >= box.left - 1 && rect.right <= box.right + 1 &&
           rect.top >= box.top - 1 && rect.bottom <= box.bottom + 1,

@@ -32,19 +32,19 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 ## Homepage hero
 
-The active hero is `assets/site/applications-objects-chaos.svg`. A wide, asymmetric cloud of empty object brackets wraps around the Apps, AI agents, APIs, and two restored small object stacks. It suggests scale and variety, with clear gaps, modest size changes, muted coral, blue, sage, lavender, and neutral colors, tilts up to 10 degrees, and occasional heavier strokes. Every object has the same opacity; there are no foreground/background layers, blurring, or perspective effects. Clear islands keep brackets away from the icons and labels. Five highlighted objects connect to the three endpoints and two stacks. Positions are fixed in the SVG, so the composition stays stable between reloads. The endpoint labels remain localized. Small animated pulses travel along three connection paths; reduced-motion preferences hide them.
+The active hero is the first symmetric bracket version, `assets/site/applications-objects-scale.svg`, unchanged from commit `0421151`. It shows 376 empty object brackets in an orderly field on two projected planes, with Apps, AI agents, and APIs connected to individual objects. A 720 × 480 desktop layout surrounds the field with endpoint icons; a 420 × 560 phone layout places those icons beneath it. Both share field and icon definitions and localized labels. Connection pulses respect reduced-motion preferences. The hero remains capped at 1300px, without invented scale or performance numbers.
 
-A wider 900 × 520 desktop layout contains 240 objects. A 420 × 640 phone layout uses 200 objects, arranged around the icons to retain readable gaps. Both reuse the same bracket and icon definitions, with separate fixed object positions. The hero remains capped at 1300px, and introduces no additional copy or invented scale/performance numbers. Brackets are symbolic objects, not a literal node topology.
+### Preserved hero — restore the wider asymmetric cloud
 
-### Preserved hero — restore the orderly object field
+`assets/site/applications-objects-chaos.svg` remains unchanged from commit `3077520`. Its wide asymmetric cloud wraps around Apps, AI agents, APIs, and two small object stacks, with 240 objects on desktop and 200 on phones. Modest size changes, muted colors, gentle tilts, and occasional heavier strokes stay on one flat plane. Separate fixed positions leave clear gaps around icons and labels. Its desktop and phone layouts are 900 × 520 and 420 × 640.
 
-`assets/site/applications-objects-scale.svg` remains unchanged from commit `0421151`. It shows the same 376 objects on two orderly projected planes. To restore it, change the hero image path in both localized `home.md` files from `assets/site/applications-objects-chaos.svg` to `assets/site/applications-objects-scale.svg`, and update the image descriptions.
+To restore it, change the hero image path in both localized `home.md` files from `assets/site/applications-objects-scale.svg` to `assets/site/applications-objects-chaos.svg`, and update the image descriptions.
 
 ### Preserved hero — restore the layered object
 
 `assets/site/applications-objects.svg` remains unchanged from commit `b0528d5`. It shows a large layered database with an ID, name, array, and vector, surrounded by the same endpoint icons and two quieter object nodes. Its Application diagram JSON rows remain in both `labels.md` files.
 
-To restore this version, change only the hero image path in `content/en/home.md` and `content/de/home.md` from `assets/site/applications-objects-chaos.svg` to `assets/site/applications-objects.svg`, and adjust their image descriptions to describe the layered database. There is no CSS or JavaScript switch to undo. Keep the current homepage text and other sections.
+To restore this version, change only the hero image path in `content/en/home.md` and `content/de/home.md` from `assets/site/applications-objects-scale.svg` to `assets/site/applications-objects.svg`, and adjust their image descriptions to describe the layered database. There is no CSS or JavaScript switch to undo. Keep the current homepage text and other sections.
 
 ## Architecture illustration
 
