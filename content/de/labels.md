@@ -127,3 +127,5 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Shard 1 | Shard 1 |
 | Shard 2 | Shard 2 |
 | Replica | Replikat |
+| Vector query | Suchvektor |
+| Vector matches | Ähnliche Fahrräder |

@@ -896,7 +896,7 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement?.lang === language && document.querySelectorAll('.document-guide .document-art > svg').length === 7 &&
+        if (document?.documentElement?.lang === language && document.querySelectorAll('.document-guide .document-art > svg').length === 8 &&
           document.querySelector('.header-links a[href$="#/learn"][aria-current="page"]')) return resolve();
         if (Date.now() > deadline) return reject(new Error('Learn did not finish loading'));
         setTimeout(ready, 16);
@@ -911,10 +911,10 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     const headings = [...guide.querySelectorAll('h2, h3')];
     const links = [...document.querySelectorAll('#section-links a')];
     assert(groups.length === 2 && groups.map(group => group.querySelector('h2').id).join('|') === 'database|server' &&
-      groups[0].querySelectorAll('h3').length === 6 && groups[1].querySelectorAll('h3').length === 4,
+      groups[0].querySelectorAll('h3').length === 7 && groups[1].querySelectorAll('h3').length === 4,
       'Learn is not organized into Database and Server chapters');
     assert(links.map(link => link.textContent).join('|') === headings.map(heading => heading.textContent).join('|') &&
-      document.querySelectorAll('#section-links .subchapter').length === 10,
+      document.querySelectorAll('#section-links .subchapter').length === 11,
       'The Learn menu is not generated from its two chapters and nested Markdown topics');
     assert(!document.querySelector('.documentation-tree') &&
       document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/learn'),
@@ -928,13 +928,19 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     assert(bike._id === 'bike-01' && bike.price === 15 && bike.available === true && !guide.textContent.includes('Orbit'),
       'The bike example is invalid or the old project example remains');
     const examples = [...guide.querySelectorAll('pre')];
-    assert(examples.length === 7 && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
+    assert(examples.length === 8 && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
       'Learn examples lost highlighting or copy controls');
     const codeIn = id => guide.querySelector(`#${id}`).closest('.document-chapter').querySelector('pre code').textContent;
     assert(JSON.parse(codeIn('references')).owner.object.name === 'Alex' &&
       JSON.parse(codeIn('memory')).columns[0] === 'price' &&
       JSON.parse(codeIn('users-permissions')).permissions[0].query['owner.value'] === 'person-42',
       'The expanded owner, storage metadata, or permission rule is invalid');
+    const vectors = guide.querySelector('#vectors').closest('.document-chapter');
+    assert(vectors.closest('.document-guide-group').querySelector('h2').id === 'database' &&
+      vectors.querySelector('.learn-vectors') && codeIn('vectors').includes('await bikes.ready()') &&
+      codeIn('vectors').includes('$vector') && vectors.querySelector('[data-copy="learn-diagrams.vector-matches"]').textContent ===
+      (language === 'en' ? 'Similar bikes' : 'Ähnliche Fahrräder'),
+      'The vector lesson lost its index readiness, search example, illustration, or translation');
     assert(guide.querySelector('[data-copy="learn-diagrams.database"]').textContent ===
       (language === 'en' ? 'Database' : 'Datenbank'), 'Server artwork is not translated');
     for (const width of [1440, 1100, 1000, 760, 390, 320]) {
@@ -960,7 +966,7 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
         }
       }
     }
-    for (const id of ['operations', 'server']) {
+    for (const id of ['operations', 'vectors', 'server']) {
       document.querySelector(`#section-links a[href$="id=${id}"]`).click();
       await new Promise((resolve, reject) => {
         const deadline = Date.now() + 5000;

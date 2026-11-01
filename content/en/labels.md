@@ -127,3 +127,5 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Shard 1 | Shard 1 |
 | Shard 2 | Shard 2 |
 | Replica | Replica |
+| Vector query | Query vector |
+| Vector matches | Similar bikes |

@@ -90,11 +90,34 @@ await bikes.search({
 });
 ```
 
-For similarity search, your application supplies embeddings in `_vec`. OBJY builds a vector index and searches those embeddings alongside your object data.
-
 ![CRUD, queries, aggregation, and vector search work with the same bike object.](assets/site/learn/apis.svg)
 
 [Queries](/content/api.md?id=query) · [Aggregation](/content/api.md?id=aggregation) · [Vectors](/content/api.md?id=vector-search)
+
+### Vectors and HNSW :id=vectors
+
+A vector is a list of numbers describing an object's meaning or features. Your application creates an embedding from a bike's description or image and stores it in `_vec`. Similar embeddings help you find similar bikes.
+
+OBJY uses an in-memory **HNSW index** (Hierarchical Navigable Small World). It connects vectors in several graph layers: search makes broad jumps through sparse upper layers, then follows closer connections below to find approximate nearest neighbors.
+
+```js
+await bikes.patch("bike-01", {
+  $set: { _vec: [0.2, 0.8, 0.4] }
+});
+await bikes.ready();
+const similar = await bikes.search({
+  $vector: {
+    vector: [0.21, 0.79, 0.4],
+    limit: 3
+  }
+});
+```
+
+These short vectors illustrate the API. Use the same embedding model for stored objects and searches. `ready()` waits for index building; results include a similarity `_score`.
+
+![A query follows a highlighted route through three HNSW graph layers. Sparse upper connections guide the search into a denser neighborhood of bike vectors, ending at similar bikes.](assets/site/learn/vectors.svg)
+
+[Vector search API](/content/api.md?id=vector-search) · [HNSW background](https://arxiv.org/abs/1603.09320)
 
 ### Storage :id=memory
 
