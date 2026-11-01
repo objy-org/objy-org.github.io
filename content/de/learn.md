@@ -2,7 +2,7 @@
 
 Ein Fahrrad, sein Besitzer und die Datenbank dahinter.
 
-## Datenbank :id=database
+## ![](assets/site/icons/database.svg) Datenbank :id=database
 
 Arbeite mit JSON-Objekten direkt im Arbeitsspeicher, im Browser und in Node.js.
 
@@ -144,7 +144,7 @@ Eingebettete Daten bleiben bis zum Schließen der Seite oder des Prozesses erhal
 
 [Speichereinstellungen](/content/database.md?id=shape-the-workload-with-metadata) · [Arbeitsspeicher und Lebensdauer](/content/database.md?id=memory-is-the-database)
 
-## Server :id=server
+## ![](assets/site/icons/server.svg) Server :id=server
 
 Nutze die Datenbank gemeinsam über ein Netzwerk, mit Authentifizierung, Berechtigungen, Clustering und optionaler Persistenz.
 

@@ -92,7 +92,7 @@ await check('Documentation trees derive arbitrary roots, retain sibling guides, 
   const article = document.createElement('article');
   article.className = 'document-page';
   article.innerHTML = '<h1 id="title">Alpha</h1><h2 id="install">Install</h2>' +
-    '<h3 id="browser">Browser</h3><h4 id="advanced">Advanced</h4><h2 id="usage">Usage</h2>';
+    '<h3 id="browser"><img src="browser.svg" alt="">Browser</h3><h4 id="advanced">Advanced</h4><h2 id="usage">Usage</h2>';
   document.body.append(nav, article);
   const previousUrl = location.href;
   let controller = new AbortController();
@@ -107,6 +107,8 @@ await check('Documentation trees derive arbitrary roots, retain sibling guides, 
       roots[0].querySelector('[data-chapter-id="advanced"]').hash.endsWith('id=advanced'), 'Nested chapter ancestry did not expand for a deep link');
     assert(nav.querySelectorAll('.documentation-guide[aria-current="page"]').length === 1 &&
       article.querySelectorAll('[data-chapter]').length === 4, 'Guide selection or chapter tracking was lost');
+    assert(nav.querySelector('.documentation-chapter-link img')?.getAttribute('src') === 'browser.svg' &&
+      !article.querySelector('h3 img'), 'A Markdown chapter icon was not moved into the documentation tree');
     const parent = roots[0].querySelector('details');
     parent.open = false;
     parent.querySelector('summary > a').click();
@@ -291,6 +293,7 @@ await check('Icon chapters keep their content visible and generate ordinary Mark
     '<h2 id="gamma"><img src="browser.svg" alt="">Gamma</h2>' +
     '<pre><code>const db = createDatabase();</code></pre>',
   )));
+  const chapters = documentChapters(fixture.querySelector('.document-page'));
   const sections = [...fixture.querySelectorAll('.setup-section')];
   assert(sections.length === 3 && !fixture.querySelector('details, summary'), 'Setup chapters are missing or collapsed');
   assert(sections.every(section => section.querySelector(':scope > h2[data-chapter-icon]') &&
@@ -301,7 +304,6 @@ await check('Icon chapters keep their content visible and generate ordinary Mark
   assert(fixture.querySelector('.setup-copy code').textContent === 'objy run', 'Code source changed');
   assert(fixture.querySelector('.setup-copy a').getAttribute('href') === 'guide.md?id=first', 'Guide destination changed');
   assert(fixture.querySelector('.setup-actions a').textContent === 'Provider', 'Provider action was lost');
-  const chapters = documentChapters(fixture.querySelector('.document-page'));
   assert(JSON.stringify(chapters.map(({ id, title }) => ({ id, title }))) ===
     JSON.stringify([{ id: 'alpha', title: 'Alpha' }, { id: 'beta', title: 'Beta' }, { id: 'gamma', title: 'Gamma' }]),
     'Chapter navigation is not generated from the Markdown headings');
@@ -939,9 +941,14 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     assert(groups.length === 2 && groups.map(group => group.querySelector('h2').id).join('|') === 'database|server' &&
       groups[0].querySelectorAll('h3').length === 7 && groups[1].querySelectorAll('h3').length === 4,
       'Learn is not organized into Database and Server chapters');
-    assert(links.map(link => link.textContent).join('|') === headings.map(heading => heading.textContent).join('|') &&
+    assert(links.map(link => link.textContent).join('|') === headings.map(heading => heading.textContent.trim()).join('|') &&
       document.querySelectorAll('#section-links .subchapter').length === 11,
       'The Learn menu is not generated from its two chapters and nested Markdown topics');
+    const icons = [...document.querySelectorAll('#section-links img')];
+    assert(icons.length === 2 && icons.every(icon => icon.width === 20 && icon.height === 20 && icon.alt === '') &&
+      icons[0].getAttribute('src').endsWith('/database.svg') && icons[1].getAttribute('src').endsWith('/server.svg') &&
+      !guide.querySelector('h2 img, h3 img'),
+      'Learn must use the same menu-only chapter icons as Get Started and Documentation');
     assert(!document.querySelector('.documentation-tree') &&
       document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/learn'),
       'Learn inherited documentation navigation or lost its selected header link');

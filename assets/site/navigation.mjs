@@ -25,6 +25,12 @@ export function documentChapters(article) {
   const firstLevel = Math.min(...headings.map(heading => Number(heading.tagName.slice(1))));
   return headings.map(heading => {
     heading.dataset.chapter = heading.id;
+    const icons = heading.querySelectorAll('img');
+    // An empty-alt Markdown image marks a decorative navigation icon.
+    if (icons.length === 1 && icons[0].alt === '') {
+      heading.dataset.chapterIcon = icons[0].getAttribute('src');
+      icons[0].remove();
+    }
     return { id: heading.id, title: heading.textContent.trim(), depth: Number(heading.tagName.slice(1)) - firstLevel,
       icon: heading.dataset.chapterIcon };
   });
@@ -95,7 +101,8 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
         const item = document.createElement('li');
         const link = document.createElement('a');
         link.className = 'documentation-chapter-link';
-        link.textContent = node.title;
+        navigationLabel(link, node.title, node.icon);
+        if (node.icon) link.classList.add('chapter-icon-link');
         link.dataset.chapterId = node.id;
         link.href = toURL(guide.route, { id: node.id });
         if (node.children.length) {

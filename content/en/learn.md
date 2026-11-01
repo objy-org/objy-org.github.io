@@ -2,7 +2,7 @@
 
 A bike, its owner, and the database behind them.
 
-## Database :id=database
+## ![](assets/site/icons/database.svg) Database :id=database
 
 Work with JSON objects directly in memory, in browsers and Node.js.
 
@@ -144,7 +144,7 @@ Embedded data lasts until the page or process closes. The server adds optional p
 
 [Storage settings](/content/database.md?id=shape-the-workload-with-metadata) · [Memory and lifecycle](/content/database.md?id=memory-is-the-database)
 
-## Server :id=server
+## ![](assets/site/icons/server.svg) Server :id=server
 
 Share the database over a network, with authentication, permissions, clustering, and optional persistence.
 

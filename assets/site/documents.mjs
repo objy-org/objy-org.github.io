@@ -175,13 +175,11 @@ export function decorateDocument(html) {
   if (sections.length && sections.every(({ heading, content, icon }) =>
     icon && heading.querySelectorAll('img').length === 1 && content.length &&
     (content.some(node => node.tagName === 'PRE') || destinationLinks(content[0])))) {
-    for (const { heading, content, icon } of sections) {
+    for (const { heading, content } of sections) {
       const section = document.createElement('section');
       section.className = 'setup-section';
       if (heading.id) section.setAttribute('aria-labelledby', heading.id);
       heading.before(section);
-      heading.dataset.chapterIcon = icon.getAttribute('src');
-      icon.remove();
       const body = document.createElement('div');
       body.className = 'setup-copy';
       body.append(...content);

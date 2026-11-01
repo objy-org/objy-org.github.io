@@ -97,6 +97,8 @@ Start your database.
 
 Use `#` for the page title, `##` for chapters, and `###` for subchapters. You do not need to edit `sidebar.md` or any code for these pages. IDs are optional; Docsify creates them from heading text. Explicit IDs are useful for links and should stay the same across translations.
 
+To add a left-menu icon, put an image with empty alternative text in the heading: `## ![](assets/site/icons/database.svg) Database :id=database`. It appears only in the menu, at the same size as Documentation and Get Started. This also works for subchapters and illustrated guides. Learn uses icons for its Database and Server chapters, with plain text for the topics below them.
+
 Links within a document are relative to its folder. From `guides/setup.md`, `[Next](next.md)` opens `guides/next.md`, and `[Documentation](../documentation.md)` opens the documentation index. Link directly to a chapter with `[Installation](setup.md?id=installation)`. For a link from any page to a top-level document, start with `/`, for example `[Documentation](/documentation.md)`.
 
 Markdown files at the repository root work too. The site first checks the selected language folder, then the default language, then the root. If a new page has no translation yet, readers see its default-language version. The top-left OBJY logo always returns to the homepage in the selected language.
