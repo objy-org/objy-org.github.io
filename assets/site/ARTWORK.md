@@ -19,6 +19,7 @@ Reviewed on 2026-10-27. This records the assets currently used by the site, rath
 | All 21 `assets/site/icons/features/*.svg` catalog icons | Custom SVG geometry created for the feature catalog on 2026-10-31. Each capability has a distinct drawing in the site's coral, lavender, blue, or sage palette. No external artwork, icon font, or third-party icon library is used. |
 | All four `assets/site/icons/use-cases/*.svg` homepage icons | Custom SVG geometry created for this website on 2026-10-31 in the existing coral, lavender, blue, and sage palette. No downloaded artwork, icon font, or third-party library is used. |
 | `assets/site/architecture.svg` | Custom SVG geometry created for the architecture overview on 2026-10-31. No downloaded icons, external artwork, or third-party icon library is used. |
+| `assets/site/applications-objects-chaos.svg` | Original SVG variant created on 2026-11-01. It reuses the endpoint icons and scatters 216 empty object brackets on one flat plane, with uniform size, orientation, and opacity and no overlaps. No third-party artwork or icon library is used. |
 | `assets/site/applications-objects-scale.svg` | Original SVG variant created on 2026-11-01. It reuses the existing endpoint icons and connects them to a field of 376 empty object brackets. No downloaded artwork or third-party icon library is used. |
 | `assets/site/applications-objects.svg` | Custom SVG artwork revised on 2026-10-31 from the earlier apps-and-objects composition. A dominant layered object database connects to smaller application, agent, API, and object-node drawings. No external icon library or third-party artwork is used. |
 | `assets/site/branding/objy-db-mark-white.svg` and `.png` | Custom white-on-transparent OBJY DB mark created for this project. The PNG is a raster export of the matching SVG; neither includes third-party artwork. |
@@ -31,15 +32,19 @@ No missing third-party icon attribution was found in this review. The brand-righ
 
 ## Homepage hero
 
-The active hero is `assets/site/applications-objects-scale.svg`. A field of 376 empty object brackets suggests scale. Two projected planes create depth; a quieter rear plane and a clearer front plane keep the three connected objects visible. The existing Apps, AI agents, and APIs drawings and their localized labels remain. Small animated pulses travel along three connection paths; reduced-motion preferences hide them.
+The active hero is `assets/site/applications-objects-chaos.svg`. A field of 216 empty object brackets suggests scale and variety. Irregular placement forms an asymmetric cloud, with every bracket upright, equally sized, and equally bright on one flat plane. Clear gaps prevent overlaps; there are no foreground/background layers or perspective effects. Three colored objects identify the connections without changing size or depth. Positions are fixed in the SVG, so the composition stays stable between reloads. The existing Apps, AI agents, and APIs drawings and their localized labels remain. Small animated pulses travel along three connection paths; reduced-motion preferences hide them.
 
 A 720 × 480 desktop layout places endpoints around the field. A 420 × 560 phone layout enlarges the field and places endpoints below it. Both reuse the same field and icon definitions. The hero remains capped at 1300px, and introduces no additional copy or invented scale/performance numbers. Brackets are symbolic objects, not a literal node topology.
+
+### Preserved hero — restore the orderly object field
+
+`assets/site/applications-objects-scale.svg` remains unchanged from commit `0421151`. It shows the same 376 objects on two orderly projected planes. To restore it, change the hero image path in both localized `home.md` files from `assets/site/applications-objects-chaos.svg` to `assets/site/applications-objects-scale.svg`, and update the image descriptions.
 
 ### Preserved hero — restore the layered object
 
 `assets/site/applications-objects.svg` remains unchanged from commit `b0528d5`. It shows a large layered database with an ID, name, array, and vector, surrounded by the same endpoint icons and two quieter object nodes. Its Application diagram JSON rows remain in both `labels.md` files.
 
-To restore this version, change only the hero image path in `content/en/home.md` and `content/de/home.md` from `assets/site/applications-objects-scale.svg` to `assets/site/applications-objects.svg`, and adjust their image descriptions to describe the layered database. There is no CSS or JavaScript switch to undo. Keep the current homepage text and other sections.
+To restore this version, change only the hero image path in `content/en/home.md` and `content/de/home.md` from `assets/site/applications-objects-chaos.svg` to `assets/site/applications-objects.svg`, and adjust their image descriptions to describe the layered database. There is no CSS or JavaScript switch to undo. Keep the current homepage text and other sections.
 
 ## Architecture illustration
 

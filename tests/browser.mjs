@@ -1046,9 +1046,23 @@ await check('The object database hero stays large, translated, and centered on d
     assert(diagram.classList.contains('objy-object-engine') && !document.querySelector('.hero-art .objy-architecture'),
       'The object database hero is missing or the architecture remains on the homepage');
     const field = diagram.querySelector('#objy-scale-field');
-    assert(diagram.classList.contains('objy-scale-engine') && field?.querySelectorAll('.field-object').length >= 300 &&
-      field.querySelectorAll('.connected-object').length === 3 && !field.querySelector('text, rect'),
+    assert(diagram.classList.contains('objy-chaos-engine') && field?.querySelectorAll('.field-object').length >= 200 &&
+      field.querySelectorAll('.scatter-object').length >= 200 &&
+      field.querySelectorAll('.connected-object').length === 3 && !field.querySelector('text, rect, ellipse'),
       'The hero must show hundreds of empty objects, with three connected objects and no code cards');
+    const glyphs = [...field.querySelectorAll('.field-object')];
+    const bounds = glyphs.map(glyph => {
+      const matrix = glyph.transform.baseVal.consolidate().matrix;
+      assert(Math.abs(matrix.a - .9) < .001 && Math.abs(matrix.d - .9) < .001 && matrix.b === 0 && matrix.c === 0 &&
+        glyph.getAttribute('opacity') === '.74', 'Objects must have one size, orientation, and brightness');
+      const box = glyph.getBBox();
+      return { left: matrix.e + box.x * matrix.a, right: matrix.e + (box.x + box.width) * matrix.a,
+        top: matrix.f + box.y * matrix.d, bottom: matrix.f + (box.y + box.height) * matrix.d };
+    });
+    bounds.forEach((box, index) => bounds.slice(index + 1).forEach(other => {
+      assert(box.right < other.left || other.right < box.left || box.bottom < other.top || other.bottom < box.top,
+        'Object brackets overlap and become difficult to read');
+    }));
     assert(diagram.querySelectorAll('.object-engine-pulse animateMotion').length === 6 &&
       [...diagram.querySelectorAll('mpath')].every((path) => diagram.querySelector(path.getAttribute('href'))),
       'A connection pulse lost its path');
