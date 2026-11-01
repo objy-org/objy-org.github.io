@@ -1,18 +1,22 @@
 # Deploy on your terms. :id=deployment
 
-## ![](assets/site/icons/quick-start.svg) Run locally :id=deploy-quick-start
+## ![](assets/site/icons/quick-start.svg) Run OBJY :id=deploy-run
 
 ```sh
 npm i -g @objy/server
+```
+
+### One node :id=deploy-quick-start
+
+```sh
 objy run
 ```
 
 [Quick-start guide](/content/server.md?id=start-one-node)
 
-## ![](assets/site/icons/server.svg) Run a cluster :id=deploy-cluster
+### Cluster :id=deploy-cluster
 
 ```sh
-npm i -g @objy/server
 objy start --instances 4
 objy status
 ```
@@ -29,16 +33,9 @@ objy status
 
 [Server setup](/content/server.md?id=start-one-node)
 
-## ![](assets/site/icons/browser.svg) Run in the browser :id=deploy-browser
+## ![](assets/site/icons/database.svg) Embedded :id=deploy-embedded
 
-```js
-import { createDatabase } from "@objy/db";
-const objy = createDatabase();
-```
-
-[Browser guide](/content/database.md?id=install-in-a-browser)
-
-## ![](assets/site/icons/database.svg) Embed in Node.js :id=deploy-embedded
+Run the same database directly in browsers and Node.js.
 
 ```sh
 npm i @objy/db
@@ -50,4 +47,4 @@ const objy = createDatabase();
 await objy.createDatabase("app");
 ```
 
-[Embedding guide](/content/database.md?id=install-in-nodejs)
+[Browser setup](/content/database.md?id=install-in-a-browser) · [Node.js setup](/content/database.md?id=install-in-nodejs)

@@ -661,7 +661,7 @@ await check('Articles stay centered in the viewport without colliding with the c
   }
 });
 
-await check('Get Started has five visible Markdown sections, translated chapter navigation, and working jumps', async () => {
+await check('Get Started groups server setup, cloud, and embedded use with nested Markdown navigation', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/get-started?id=deploy-cluster`;
     await new Promise((resolve, reject) => {
@@ -679,18 +679,28 @@ await check('Get Started has five visible Markdown sections, translated chapter 
     const frame = site.contentWindow;
     const sections = [...document.querySelectorAll('.setup-section')];
     const links = [...document.querySelectorAll('#section-links a')];
-    assert(sections.length === 5 && links.length === sections.length && !document.querySelector('.document-setup details'),
+    const headings = [...document.querySelectorAll('.document-setup h2, .document-setup h3')];
+    assert(sections.length === 3 && links.length === 5 && !document.querySelector('.document-setup details'),
       'Deployment options are missing, collapsed, or absent from the chapter menu');
     assert(!document.querySelector('.page-sidebar').hidden && !document.querySelector('.section-menu-toggle').hidden,
       'Get Started hides its chapter menu');
-    assert(links.every((link, index) => link.textContent === sections[index].querySelector('h2').textContent.trim()),
+    assert(links.every((link, index) => link.textContent === headings[index].textContent.trim()),
       'Chapter labels do not follow the translated Markdown headings');
-    assert(!document.querySelector('.document-setup img') && links.every(link => link.querySelector('img[width="20"][height="20"]')),
+    assert(!document.querySelector('.document-setup img') && links.filter(link => link.querySelector('img[width="20"][height="20"]')).length === 3 &&
+      document.querySelectorAll('#section-links .subchapter').length === 2,
       'Deployment icons must appear only in the left menu, at the same size as Documentation');
+    assert(sections.map(section => section.querySelector('h2').id).join('|') === 'deploy-run|bring-your-own-cloud|deploy-embedded' &&
+      [...sections[0].querySelectorAll('h3')].map(heading => heading.id).join('|') === 'deploy-quick-start|deploy-cluster',
+      'Server and embedded setup were not combined under the expected headings');
     assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/get-started'),
       'Get Started navigation is not active');
     assert(sections[0].querySelector('code').textContent.includes('npm i -g @objy/server') &&
-      sections[1].querySelector('code').textContent.includes('npm i -g @objy/server'), 'CLI installation instructions are missing');
+      document.querySelector('.document-setup').textContent.split('npm i -g @objy/server').length === 2 &&
+      sections[0].textContent.includes('objy run') && sections[0].textContent.includes('objy start --instances 4'),
+      'Server setup lost its shared CLI installation or launch commands');
+    assert(sections[2].querySelectorAll('pre').length === 2 && sections[2].textContent.includes('npm i @objy/db') &&
+      sections[2].querySelector('a[href$="id=install-in-a-browser"]') && sections[2].querySelector('a[href$="id=install-in-nodejs"]'),
+      'Embedded setup must share one example and retain both platform guides');
     for (const width of [1280, 760, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '1000px';
@@ -704,7 +714,7 @@ await check('Get Started has five visible Markdown sections, translated chapter 
         for (const pre of section.querySelectorAll('pre')) assert(pre.querySelectorAll('.copy-button').length === 1,
           'A command has missing or duplicate copy controls');
       }
-      for (const id of ['bring-your-own-cloud', 'deploy-embedded', 'deploy-quick-start']) {
+      for (const id of ['bring-your-own-cloud', 'deploy-embedded', 'deploy-cluster', 'deploy-quick-start']) {
         if (width <= 760) document.querySelector('.section-menu-toggle').click();
         document.querySelector(`#section-links a[href$="id=${id}"]`).click();
         await new Promise((resolve, reject) => {
@@ -716,7 +726,7 @@ await check('Get Started has five visible Markdown sections, translated chapter 
             stable = previousTop === top ? stable + 1 : 0;
             previousTop = top;
             if (frame.location.hash === `#/get-started?id=${id}` &&
-              document.querySelector(`#section-links a[href$="id=${id}"][aria-current="location"]`) &&
+              document.querySelector('#section-links a[aria-current="location"]') &&
               top >= document.querySelector('.site-header').getBoundingClientRect().bottom && top < frame.innerHeight && stable >= 3) return resolve();
             if (Date.now() > deadline) return reject(new Error(`Deployment chapter jump failed: ${language}, ${width}px, ${id}`));
             frame.requestAnimationFrame(ready);
