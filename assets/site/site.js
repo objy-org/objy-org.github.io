@@ -13,7 +13,7 @@ let language;
 let languageRegistry;
 let homepageSidebar;
 let currentPage;
-let renderingSource;
+let redirectedAnchor;
 
 function mountSidebar(vm) {
   const sidebar = document.querySelector('aside.sidebar');
@@ -67,7 +67,7 @@ function anchorId(link) {
   return new URLSearchParams(link.hash.split('?')[1] || '').get('id');
 }
 
-function updateHeaderNavigation(route) {
+function updateHeaderNavigation(route, sectionId) {
   const normalize = (path) =>
     decodeURI(path.split('?')[0]).replace(/\.(?:md|markdown)$/i, '').replace(/\/+$/, '') || '/';
   const current = normalize(route);
@@ -79,8 +79,11 @@ function updateHeaderNavigation(route) {
     .filter(({ path }) => current === path || (path !== '/' && current.startsWith(`${path}/`)))
     .sort((a, b) => b.path.length - a.path.length)[0]?.link;
   // Guides without their own top-level link belong to the documentation entry.
-  const active =
-    match || (current !== '/' && links.find((link) => link.hasAttribute('data-navigation-fallback')));
+  const requested = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
+  const selected = sectionId || document.getElementById(requested)?.closest('.page-section')?.dataset.section;
+  const sectionLink = current === '/' && links.find(link => anchorId(link) === selected);
+  const active = sectionLink || match ||
+    (current !== '/' && links.find((link) => link.hasAttribute('data-navigation-fallback')));
   links.forEach((link) => {
     if (link === active) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -177,10 +180,11 @@ function wireNavigation() {
     let currentRow = -Infinity;
     const requested = new URLSearchParams(location.hash.split('?')[1] || '').get('id');
     const atEnd = scrollY + innerHeight >= document.documentElement.scrollHeight - 4;
+    const anchorLine = Math.max(180, parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) + 64);
     for (const section of sections) {
       const top = contentTop(section);
       const id = section.dataset.chapter || section.dataset.section;
-      if (top > (atEnd ? innerHeight : 180)) continue;
+      if (top > (atEnd ? innerHeight : anchorLine)) continue;
       // Columns share a vertical position: retain the selected column within that row.
       if (top > currentRow + 1 || (Math.abs(top - currentRow) <= 1 && id === requested)) {
         current = id;
@@ -191,6 +195,7 @@ function wireNavigation() {
       if (anchorId(link) === current) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
+    if (document.querySelector('.sections-root')) updateHeaderNavigation('/', current);
     scheduled = 0;
   };
   window.addEventListener(
@@ -309,31 +314,7 @@ function objyTheme(hook, vm) {
     let content = decorateDocument(clean);
     if (!loadError && path === '/' && page) {
       try {
-        content = await decorateHomepage(clean, {
-          async loadCatalog(href) {
-            const url = new URL(href, document.baseURI);
-            if (url.origin !== location.origin) return null;
-            const route = url.hash.startsWith('#/') ? url.hash.slice(1).split('?')[0] :
-              url.pathname.slice(new URL('./', document.baseURI).pathname.length);
-            try {
-              const source = await pages.loadMarkdown(pages.markdownFiles(
-                route, language.code, languageRegistry.defaultLanguage,
-                languageRegistry.languages.map((entry) => entry.code),
-              ));
-              if (!source || page !== currentPage || path !== vm.route.path) return null;
-              const previous = renderingSource;
-              renderingSource = source.file;
-              try {
-                return sanitizeMarkup(vm.compiler.compile(source.markdown));
-              } finally {
-                renderingSource = previous;
-              }
-            } catch (error) {
-              console.warn('Feature catalog could not load:', error);
-              return null;
-            }
-          },
-        });
+        content = await decorateHomepage(clean);
       } catch (error) {
         console.error('OBJY theme could not format this page:', error);
       }
@@ -348,6 +329,11 @@ function objyTheme(hook, vm) {
     if (loadError) return;
     mountSidebar(vm);
     bindCopy();
+    if (redirectedAnchor) {
+      // Docsify treats a replaced hash as history and skips its usual anchor jump.
+      document.getElementById(redirectedAnchor)?.scrollIntoView({ behavior: 'instant', block: 'start' });
+      redirectedAnchor = null;
+    }
     updateHeaderNavigation(vm.route.path);
     wireNavigation();
     wireCopyButtons();
@@ -422,6 +408,15 @@ async function startSite() {
 
   let pageRequest;
   const renderMarkdown = (route, match, done) => {
+    // Keep bookmarks from the retired Features page on their matching homepage chapter.
+    if (/^\/(?:content\/[^/]+\/)?features(?:\.md)?\/?$/.test(route)) {
+      const query = new URLSearchParams(location.hash.split('?')[1] || '');
+      if (!query.get('id') || ['features', 'architecture'].includes(query.get('id')))
+        query.set('id', 'feature-highlights');
+      redirectedAnchor = query.get('id');
+      location.replace(`#/?${query}`);
+      return;
+    }
     pageRequest?.abort();
     const request = (pageRequest = new AbortController());
     Promise.resolve()
@@ -465,7 +460,7 @@ async function startSite() {
       for (const type of ['link', 'image']) {
         const render = renderer[type];
         renderer[type] = function (token) {
-          const source = renderingSource || currentPage?.file;
+          const source = currentPage?.file;
           if (source)
             token = {
               ...token,

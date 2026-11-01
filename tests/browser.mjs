@@ -292,30 +292,25 @@ await check('A missing illustration falls back to the image without losing page 
   assert(content.querySelector('.hero-art img'), 'Image fallback missing');
 });
 
-await check('Catalog includes share arbitrary Markdown groups with safe heading levels and an available fallback link', async () => {
-  const markup = '<h1 id="top">Hello</h1><h2 id="capabilities">Capabilities</h2>' +
-    '<p><a href="other.md" title="catalog">All capabilities</a></p><hr><p>Footer</p>';
-  const entry = id => `<h3 id="${id}"><img src="${id}.svg" alt="">${id}</h3><p>About ${id}.</p>`;
-  const source = '<h1 id="source">Source</h1><p>Introduction.</p>' +
-    '<h2 id="diagram">Diagram</h2><p><img src="diagram.svg" alt="Diagram"></p>' +
-    '<h2 id="alpha">Alpha</h2>' + entry('first') + entry('second') +
-    '<h2 id="beta">Beta</h2>' + entry('third');
-  let requested;
-  const content = htmlFragment(await decorateHomepage(markup, {
-    loadCatalog: async href => { requested = href; return source; },
-  }));
-  const groups = [...content.querySelectorAll('.homepage-catalog > .catalog-section')];
-  assert(requested === 'other.md' && groups.length === 2 && content.querySelectorAll('.catalog-feature').length === 3,
-    'The catalog source or feature count was hard-coded');
-  assert(groups[0].querySelector(':scope > h3').id === 'alpha' &&
-    content.querySelector('.catalog-feature > h4').id === 'first' && content.querySelectorAll('h1').length === 1,
-    'Catalog headings are not nested under the homepage chapter');
-  assert(!content.querySelector('.document-art, #diagram, #source') &&
-    content.querySelector('.section-feature-catalog > .section-footer').textContent === 'Footer',
-    'Unrelated source chapters were included or the footer was lost');
-  const fallback = htmlFragment(await decorateHomepage(markup, { loadCatalog: async () => null }));
-  assert(fallback.querySelector('a[href="other.md"]') && !fallback.querySelector('.homepage-catalog'),
-    'The source link disappeared when the catalog could not load');
+await check('Nested homepage catalogs retain their overview, illustrations, feature groups, and footer', async () => {
+  const entry = id => `<h4 id="${id}"><img src="${id}.svg" alt="">${id}</h4><p>About ${id}.</p>`;
+  const markup = '<h1 id="top">Hello</h1><h2 id="capabilities">Capabilities</h2><p>Introduction.</p>' +
+    '<p><img src="overview.svg" alt="Overview"></p>' +
+    '<h3 id="storage">Storage</h3><p>Explanation.</p><p><img src="storage.svg" alt="Storage"></p>' +
+    '<h3 id="alpha">Alpha</h3>' + entry('first') + entry('second') +
+    '<h3 id="beta">Beta</h3>' + entry('third') + '<hr><p>Footer</p>';
+  const content = htmlFragment(await decorateHomepage(markup));
+  const catalog = content.querySelector('.homepage-catalog');
+  const groups = [...catalog.querySelectorAll(':scope > .catalog-section')];
+  assert(groups.length === 2 && catalog.querySelectorAll('.catalog-feature').length === 3,
+    'Catalog names or feature counts were hard-coded');
+  assert(catalog.querySelector(':scope > h2').id === 'capabilities' && groups[0].querySelector(':scope > h3').id === 'alpha' &&
+    catalog.querySelector('.catalog-feature > h4').id === 'first' && content.querySelectorAll('h1').length === 1,
+    'The original heading hierarchy or IDs were lost');
+  assert(catalog.querySelectorAll('.document-art img').length === 2 &&
+    catalog.querySelector('.document-illustration > h3').id === 'storage' &&
+    content.querySelector('.section-feature-catalog > .section-footer').textContent === 'Footer' &&
+    !catalog.querySelector('footer, hr'), 'The overview, storage chapter, or footer was lost');
 });
 
 await check('Icon subchapters become reusable homepage columns with their own accessible headings', async () => {
@@ -411,7 +406,7 @@ await check('Homepage actions and footer are derived from Markdown links', async
   assert(content.querySelector('.section-footer a').textContent === 'GitHub', 'Markdown footer missing');
 });
 
-await check('The homepage shows every feature from its localized catalog below the four use cases', async () => {
+await check('The homepage keeps its illustrated overview and complete localized feature catalog below the four use cases', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/?id=object-capabilities`;
     await new Promise((resolve, reject) => {
@@ -433,8 +428,7 @@ await check('The homepage shows every feature from its localized catalog below t
     const overview = document.querySelector('[data-section="feature-highlights"]');
     assert(useCases.nextElementSibling === overview && overview.querySelector(':scope > .section-footer'),
       'The full feature catalog is not directly below the use cases or lost the footer');
-    const featureSource = await fetch(`../content/${language}/features.md`).then((response) => response.text());
-    const expectedFeatures = [...featureSource.matchAll(/^### !\[\]\(([^)]+)\) (.+) :id=(\S+)\n\n([^\n]+)/gm)];
+    const expectedFeatures = [...source.matchAll(/^#### !\[\]\(([^)]+)\) (.+) :id=(\S+)\n\n([^\n]+)/gm)];
     const features = [...overview.querySelectorAll('.catalog-feature')];
     assert(features.length === expectedFeatures.length && features.length > 3 &&
       overview.querySelectorAll('.catalog-section').length === 2, 'The homepage only shows a feature summary');
@@ -444,8 +438,8 @@ await check('The homepage shows every feature from its localized catalog below t
       assert(title?.id === id && title.textContent.trim() === text && feature.querySelector('img').src.endsWith(icon) &&
         feature.querySelector('p').textContent.trim() === description, 'A feature differs from its source Markdown');
     });
-    assert(overview.querySelectorAll('h3').length === 2 && !overview.querySelector('h1, pre, .document-art'),
-      'Catalog heading levels are wrong or introductory artwork was duplicated');
+    assert(overview.querySelectorAll('h3').length === 3 && overview.querySelectorAll('.document-art').length === 2 &&
+      !overview.querySelector('h1, pre'), 'The two large illustrated sections or original heading levels are missing');
     const start = document.querySelector('.header-links a[href$="#/get-started"]');
     assert(start?.textContent === (language === 'en' ? 'Get started' : 'Loslegen') &&
       !document.querySelector('.accordion-row, [data-section="start-building"]'), 'Deployment options remain on the homepage or their navigation link is missing');
@@ -468,8 +462,7 @@ await check('The homepage shows every feature from its localized catalog below t
     assert(document.querySelector('#section-links a[href$="id=object-capabilities"]').textContent ===
       (language === 'en' ? 'Use cases' : 'Anwendungsfälle'), 'The use-case chapter link was not updated');
     const files = site.contentWindow.performance.getEntriesByType('resource').map((resource) => resource.name);
-    assert(files.some((file) => /\/features\.md$/.test(file)) &&
-      !files.some((file) => /\/get-started\.md$/.test(file)), 'The homepage catalog is not shared or deployment options are still loaded');
+    assert(!files.some((file) => /\/(?:features|get-started)\.md$/.test(file)), 'The homepage still loads the retired Features page or deployment options');
   }
 });
 
@@ -586,14 +579,14 @@ await check('Get Started keeps its deployment options, translations, deep links,
   }
 });
 
-await check('Feature catalogs keep translations, chapter navigation, and the shared header responsive', async () => {
+await check('The homepage feature area keeps its illustrations, translations, anchors, and responsive header', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/features`;
     await new Promise((resolve, reject) => {
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.document-catalog')) return resolve();
+        if (document?.documentElement.lang === language && document.querySelector('.homepage-catalog')) return resolve();
         if (Date.now() > deadline) return reject(new Error('Feature catalog did not load'));
         setTimeout(ready, 16);
       };
@@ -602,19 +595,31 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
     const frame = site.contentWindow;
     const document = site.contentDocument;
     const features = [...document.querySelectorAll('.catalog-feature')];
+    await document.fonts.ready;
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        if (document.querySelector('.header-links [aria-current="page"]')?.getAttribute('href').endsWith('id=feature-highlights')) return resolve();
+        if (Date.now() > deadline)
+          return reject(new Error(`The redirected Features section did not become active (${language}, ${frame.innerWidth}px)`));
+        frame.requestAnimationFrame(ready);
+      };
+      ready();
+    });
     assert(features.length === 21 && new Set(features.map((feature) => feature.querySelector('img').src)).size === 21,
       'A feature or distinct icon is missing');
     const links = [...document.querySelectorAll('#section-links a')];
-    assert(links.length === 3 && links[0].hash.endsWith('id=storage-internals') &&
-      links[1].hash.endsWith('id=database-core') && links[2].hash.endsWith('id=db-server'),
-      'The feature menu should contain storage and the two main groups');
-    assert(document.querySelector('.document-catalog > h1').textContent === (language === 'en' ?
+    assert(links.length === 3 && links[0].hash.endsWith('id=top') &&
+      links[1].hash.endsWith('id=object-capabilities') && links[2].hash.endsWith('id=feature-highlights'),
+      'The homepage chapter menu changed');
+    assert(frame.location.hash === '#/?id=feature-highlights', 'The retired Features URL did not redirect to the homepage');
+    assert(document.querySelector('.homepage-catalog > h2').textContent === (language === 'en' ?
       'Flexible JSON. Versatile APIs. Fast, thanks to in-memory storage.' :
       'Flexibles JSON. Vielseitige APIs. Schnell dank In-Memory-Speicherung.'), 'The Features title was not updated');
-    assert(features.every((feature) => !feature.querySelector('h3').hasAttribute('data-chapter')),
+    assert(features.every((feature) => !feature.querySelector('h4').hasAttribute('data-chapter')),
       'Individual features still participate in chapter navigation');
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
-    assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/features'),
+    assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/?id=feature-highlights'),
       'Features navigation is not active');
     assert(document.querySelectorAll('.header-links a').length === 4 &&
       document.querySelector('.header-links a[href$="#/get-started"]'), 'Get Started is missing from the top bar');
@@ -627,7 +632,7 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       'The original architecture diagram was not moved to Features');
     assert(objectDiagram.querySelector('[data-copy="architecture-diagram.query"]').textContent ===
       (language === 'en' ? 'Query' : 'Abfragen'), 'The architecture diagram is not translated');
-    assert(storage.querySelector('h2').id === 'storage-internals' &&
+    assert(storage.querySelector('h3').id === 'storage-internals' &&
       storage.nextElementSibling.matches('.catalog-section'), 'Storage internals is not above the feature catalog');
     assert(storage.querySelectorAll('.document-illustration-copy li').length === 3 &&
       storage.querySelector('blockquote').textContent.toLowerCase().includes('optional'),
@@ -642,15 +647,19 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       site.style.width = `${width}px`;
       site.style.height = '900px';
       await new Promise((resolve) => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+      document.getElementById('feature-highlights').scrollIntoView({ behavior: 'instant', block: 'start' });
+      await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+      assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('id=feature-highlights'),
+        'The Features header link does not follow the homepage section');
       const viewport = document.documentElement.clientWidth;
-      const article = document.querySelector('.document-catalog').getBoundingClientRect();
+      const article = document.querySelector('.homepage-catalog').getBoundingClientRect();
       assert(document.documentElement.scrollWidth <= viewport + 1, `${language} catalog overflows at ${width}px`);
       assert(Math.abs(article.left + article.width / 2 - viewport / 2) <= 1,
         `${language} catalog is not centered at ${width}px`);
       const chapters = [...document.querySelectorAll('.document-chapter')];
       for (const [index, chapter] of chapters.entries()) {
         const bounds = chapter.getBoundingClientRect();
-        const title = chapter.querySelector(':scope > h2').getBoundingClientRect();
+        const title = chapter.querySelector(':scope > h3').getBoundingClientRect();
         assert(title.top >= bounds.top + 40 &&
           Math.abs(bounds.left - article.left) <= 1 && Math.abs(bounds.width - article.width) <= 1,
           'A major chapter is missing its heading space or full-width layout');
@@ -672,7 +681,7 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       }
       const copy = storage.querySelector('.document-illustration-copy').getBoundingClientRect();
       const art = storage.querySelector('.document-art').getBoundingClientRect();
-      const storageTitle = storage.querySelector(':scope > h2').getBoundingClientRect();
+      const storageTitle = storage.querySelector(':scope > h3').getBoundingClientRect();
       assert(storageTitle.bottom < Math.min(copy.top, art.top), 'The storage heading is not above its text and illustration');
       assert(art.left >= article.left - 1 && art.right <= article.right + 1 &&
         Math.abs(art.height / art.width - 740 / 660) < .01, 'The storage illustration is clipped or distorted');
@@ -713,9 +722,17 @@ await check('Feature catalogs keep translations, chapter navigation, and the sha
       }
     }
     frame.location.hash = '#/features?id=s3-durability';
-    await new Promise((resolve) => frame.addEventListener('hashchange', resolve, { once: true }));
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        if (frame.location.hash === '#/?id=s3-durability') return resolve();
+        if (Date.now() > deadline) return reject(new Error('The old feature bookmark did not redirect'));
+        setTimeout(ready, 16);
+      };
+      ready();
+    });
     assert(document.getElementById('s3-durability')?.closest('.catalog-feature'), 'Individual feature anchor disappeared');
-    const target = links.find((link) => link.hash.endsWith('id=db-server'));
+    const target = document.querySelector('#db-server a');
     const changed = new Promise((resolve) => frame.addEventListener('hashchange', resolve, { once: true }));
     target.click();
     await changed;
@@ -742,7 +759,7 @@ await check('The object database hero stays large, translated, and centered on d
     const diagram = document.querySelector('.hero-art > svg');
     const agents = diagram.querySelector('[data-copy="application-diagram.agents"]').textContent;
     assert(agents === (language === 'en' ? 'AI agents' : 'KI-Agenten'), 'Hero labels were not translated');
-    assert(diagram.classList.contains('objy-object-engine') && !document.querySelector('.objy-architecture'),
+    assert(diagram.classList.contains('objy-object-engine') && !document.querySelector('.hero-art .objy-architecture'),
       'The object database hero is missing or the architecture remains on the homepage');
     const json = [...diagram.querySelectorAll('.engine-json text')].map((line) => line.textContent).join('\n');
     const object = JSON.parse(json);

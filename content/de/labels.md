@@ -20,7 +20,7 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Language menu | Sprache ändern |
 | Skip link | Zum Inhalt springen |
 | Product link | [OBJY](#/?id=top) |
-| Features link | [Features](#/features) |
+| Features link | [Features](#/?id=feature-highlights) |
 | Get started link | [Loslegen](#/get-started) |
 | Documentation link | [Dokumentation](#/documentation) |
 | Source link | [GitHub](https://github.com/objy-org) |

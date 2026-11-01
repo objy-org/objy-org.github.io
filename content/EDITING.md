@@ -11,7 +11,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Header, controls, metadata, diagram labels | [labels.md](en/labels.md) | [labels.md](de/labels.md) |
 | Get started and deployment options | [get-started.md](en/get-started.md) | [get-started.md](de/get-started.md) |
 | Documentation index | [documentation.md](en/documentation.md) | [documentation.md](de/documentation.md) |
-| Feature catalog, descriptions, and icons | [features.md](en/features.md) | [features.md](de/features.md) |
+| Feature overview, storage, descriptions, and icons | [home.md](en/home.md) | [home.md](de/home.md) |
 
 Edit the file in the language you want to change. Database, server, and REST API documentation are loaded live from `objy-org/objy`; JavaScript client documentation comes from `objy-org/objy-client`. The shared Markdown includes are listed below.
 
@@ -29,7 +29,7 @@ Live references, nested data, vectors, and files.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-The homepage tells the story through the large apps, AI agents, and objects illustration, followed by four use cases and the complete feature catalog. Deployment options live on the separate Get Started page. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The separate Features page contains the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
+The homepage tells the story through the large apps, AI agents, and objects illustration, followed by four use cases and the complete feature catalog. Deployment options live on the separate Get Started page. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The homepage Features area contains the overview, storage internals, and the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
 
 The short statements beneath the main headline are an ordinary bullet list in `home.md`. Begin each item with an icon image, then its text: `- ![](assets/site/icons/features/flexible-objects.svg) Flexible JSON`. Icon-led lists in the hero automatically become a centered highlights row, with two columns on smaller screens. Keep each statement short and update both languages.
 
@@ -58,7 +58,7 @@ The words inside `[]` are the label. The destination goes inside `()`. `/?id=obj
 
 Deployment content lives in `get-started.md`, opened through the top-bar Get started link at `#/get-started`. It is separate from the homepage. Its five deployment options are Run locally, Run a cluster, Bring your own cloud, Run in the browser, and Embed in Node.js. Each is an expandable row with a large colored icon and title; its commands or buttons appear directly underneath when opened. Keep an icon in each `##` heading, then start its content with a fenced code block or a link-only paragraph/list. This Markdown structure enables the accordion without a chapter menu. Link-only bullet lists become buttons. Finish each option with its guide link, and keep the page and chapter IDs so shared links open the right row. All titles, code, providers, and destinations stay editable in Markdown. Documentation retains its clickable directory layout.
 
-The homepage’s last section shows all feature cards from the selected language’s `features.md`, grouped under Database core and DB server. Keep `[All features](/features.md "catalog")` beneath the Features heading in `home.md`. Edit or add the icon-led `###` features in `features.md` to update both pages together. Titles, descriptions, icons, links, and IDs are shared; the source’s introductory diagram and storage illustration stay on the Features page. A Markdown rule (`---`) separates the homepage footer from the catalog. If the source cannot load, its link remains available.
+The homepage’s last area contains the JSON/API overview, storage internals, and all feature cards. Edit these directly in `home.md`. The top-bar Features link jumps to this area; there is no separate Features file. Get Started remains its own page. A Markdown rule (`---`) separates the homepage footer from the full catalog.
 
 A list containing only links becomes a row of action buttons in the hero or a closing section without an illustration. The first link is the primary action. A horizontal rule (`---`) separates a closing section’s footer links. All labels and destinations come from the Markdown.
 
@@ -111,27 +111,23 @@ An image inside a `##` heading becomes a small chapter icon, for example `## ![]
 
 ## Edit the feature catalog
 
-The top-bar Features link opens `features.md`. It separates the shared database core from DB server features. Each feature is a `###` heading with its own icon, followed by its description:
+The top-bar Features link jumps to the Features area in `home.md`. Its `##` headline introduces the JSON/API diagram. Storage internals and the two catalog groups use `###` headings; each individual feature uses an icon-led `####` heading:
 
 ```markdown
-## Database core :id=database-core
+### Database core :id=database-core
 
 The same engine, embedded in browsers and Node.js.
 
-### ![](assets/site/icons/features/live-references.svg) Live references, without copies :id=live-references
+#### ![](assets/site/icons/features/live-references.svg) Live references, without copies :id=live-references
 
 Connect objects and expand their references when reading.
 ```
 
-Use `##` for groups and `###` for individual features. Give each feature one icon with empty alternative text, because its heading already provides the label. This pattern creates a responsive grid of compact feature cards automatically, on any local Markdown page. The left menu lists Storage Internals, Database Core, and DB Server, without listing individual features. Each feature keeps its ID for direct links. Titles, descriptions, order, and icon paths all come from Markdown. Add the same IDs and icon paths in both languages. If a group contains a feature without an icon or without content, the page keeps its ordinary document layout.
+Keep one icon and one short description per feature, with no fenced code examples. Give the icon empty alternative text, because its heading already names the feature. Add the same IDs and icon paths in both languages. Add or edit features directly in this one Markdown file; the renderer builds the responsive card grids automatically.
 
-The architecture diagram appears directly beneath the page title and introduction. Put its standalone image before the first `##` heading to show it without an extra heading or menu entry. A chapter heading followed only by its standalone image still makes a full-width illustrated chapter. The first chapter contains the original storage explanation and layered illustration from the homepage. Edit its heading, paragraph, three bullet points, optional S3 durability note, and image description directly in `features.md`. The graphic’s labels and sample object are centralized in the Storage diagram table of `labels.md`. Keep S3 durability explicitly optional.
+The JSON/API image belongs directly beneath the Features headline and introduction. Keep the storage heading, paragraph, three bullets, optional S3 note, and image together in the next `###` chapter. Its diagram labels and sample object stay centralized in the Storage diagram table of `labels.md`. Illustrated chapter headings sit above their text and image. Spacing and typography separate the chapters; do not add manual divider rules.
 
-Each main `##` chapter gets generous vertical space and a consistent heading. Illustrated chapter headings sit above both the text and image. Spacing and typography separate the chapters automatically; do not add manual horizontal rules between them.
-
-Keep this page concise: one short description per feature, without fenced code examples. Link readers to the core or server documentation for implementation details.
-
-Keep capabilities in the correct group: the core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous.
+The core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous. Existing `#/features` bookmarks redirect to the homepage, retaining their chapter IDs.
 
 ## Include live documentation
 
@@ -167,9 +163,9 @@ Add new `##` chapters after the hero to place full-width content beneath it. Ill
 
 In `labels.md`, edit the right-hand column. Keep the headings and left-hand column unchanged: they identify where each label appears. The header links use ordinary Markdown links.
 
-The Application diagram table controls the Apps, AI agents, and APIs labels and the central JSON example in the homepage hero. Keep its four JSON lines short and preserve valid JSON punctuation. The Architecture diagram table controls the API labels and three JSON examples in the Features introduction. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
+The Application diagram table controls the Apps, AI agents, and APIs labels and the central JSON example in the homepage hero. Keep its four JSON lines short and preserve valid JSON punctuation. The Architecture diagram table controls the API labels and three JSON examples in the homepage Features introduction. Device, Person, and Memory rows provide each collection name and its object's fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
-Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. Use the full Features page for explanations of storage and other capabilities.
+Keep the examples short enough to fit the cards. The person and memory examples have three fields each; the device has four. The storage explanation and full feature list follow the diagram on the homepage.
 
 ## Edit the homepage use cases
 
@@ -187,7 +183,7 @@ Keep all four use cases together for a single desktop row. Their icons are custo
 
 ## Change section images
 
-The opening hero centers a layered object database beneath its headline and icon statements. Smaller apps, AI agents, APIs, and object nodes surround it. It can grow to 1300px; on phones, the endpoint icons move beneath the enlarged database. The four use cases follow the image. The Features page opens with the overlapping JSON architecture diagram; storage internals follows with its original graphic. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero centers a layered object database beneath its headline and icon statements. Smaller apps, AI agents, APIs, and object nodes surround it. It can grow to 1300px; on phones, the endpoint icons move beneath the enlarged database. The four use cases follow the image. The homepage Features area opens with the overlapping JSON architecture diagram; storage internals follows with its original graphic. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 
@@ -200,7 +196,7 @@ Shared images in `assets/` are relative to the site root. Other relative image p
 ## Add a language
 
 1. Copy `content/en/` to a new folder named after the language code, such as `content/fr/`.
-2. Translate `home.md`, `sidebar.md`, `labels.md`, `get-started.md`, `documentation.md`, and `features.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
+2. Translate `home.md`, `sidebar.md`, `labels.md`, `get-started.md`, `documentation.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
 3. Add an entry to `content/languages.json`, for example `{ "code": "fr", "name": "Français", "short": "FR" }`. The code must match the folder. The language appears in the switcher automatically; no HTML or JavaScript changes are needed.
 4. Preview `/?lang=fr`, `/?lang=fr#/get-started`, `/?lang=fr#/documentation`, and `/?lang=fr#/content/database`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
 5. Run `node --test tests/*.test.mjs` to check for missing files, labels, anchors, or broken local links.
