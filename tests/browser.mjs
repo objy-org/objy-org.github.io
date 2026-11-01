@@ -752,8 +752,8 @@ await check('The homepage feature area keeps its illustrations, translations, an
       'The homepage chapter menu changed');
     assert(frame.location.hash === '#/?id=feature-highlights', 'The retired Features URL did not redirect to the homepage');
     assert(document.querySelector('.homepage-catalog > h2').textContent === (language === 'en' ?
-      'Flexible JSON. Versatile APIs.' :
-      'Flexibles JSON. Vielseitige APIs.'), 'The Features title was not updated');
+      'Flexible JSON. Versatile APIs. Effective in-memory storage.' :
+      'Flexibles JSON. Vielseitige APIs. Effiziente In-Memory-Speicherung.'), 'The Features title was not updated');
     assert(features.every((feature) => !feature.querySelector('h4').hasAttribute('data-chapter')),
       'Individual features still participate in chapter navigation');
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');

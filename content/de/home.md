@@ -29,7 +29,7 @@ Baue Tools und SaaS-Anwendungen mit integrierten APIs, Authentifizierung, Benutz
 
 Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
-## Flexibles JSON. Vielseitige APIs. :id=feature-highlights
+## Flexibles JSON. Vielseitige APIs. Effiziente In-Memory-Speicherung. :id=feature-highlights
 
 Arbeite mit flexiblen JSON-Objekten. Nutze Abfragen, Aggregationen und Vektorsuche über eine API. Betreibe OBJY eingebettet in deiner Anwendung oder verteilt in einem Cluster.
 

@@ -29,7 +29,7 @@ Build tools and SaaS apps with APIs, authentication, users, and permissions alre
 
 Your objects. Your ideas. Build whatever comes next.
 
-## Flexible JSON. Versatile APIs. :id=feature-highlights
+## Flexible JSON. Versatile APIs. Effective in-memory storage. :id=feature-highlights
 
 Work with flexible JSON objects. Query, aggregate, and search vectors through one API. Run embedded in your application or across a cluster.
 
