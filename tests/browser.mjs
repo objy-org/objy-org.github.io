@@ -778,10 +778,10 @@ await check('The homepage feature area keeps its illustrations, translations, an
       (language === 'en' ? 'Query' : 'Abfragen'), 'The architecture diagram is not translated');
     assert(!document.querySelector('.document-explanation') && architecture.querySelectorAll('.document-art').length === 1,
       'The storage prose or a separate illustration remains below the overview');
-    assert(objectDiagram.querySelector('[data-copy="storage-diagram.durability"]').textContent.toLowerCase().includes('optional') &&
+    assert(!objectDiagram.querySelector('[data-copy="storage-diagram.durability"]') &&
       objectDiagram.querySelector('[data-copy="storage-diagram.hot-benefit"]').textContent ===
       (language === 'en' ? 'Direct access, no unpacking.' : 'Direkt lesen, unkomprimiert.'),
-      'The storage explanations or optional S3 durability are missing from the illustration');
+      'The storage explanations are missing or the removed S3 line remains in the illustration');
     assert(objectDiagram.querySelector('[data-copy="storage-diagram.hot"]').textContent ===
       (language === 'en' ? 'Hot fields' : 'Heiße Felder'), 'The integrated storage labels are not translated');
     for (const width of [1920, 1280, 1101, 1100, 1001, 1000, 900, 761, 760, 390, 320]) {
@@ -812,7 +812,7 @@ await check('The homepage feature area keeps its illustrations, translations, an
       const layout = objectDiagram.querySelector(phone ? '.architecture-compact' : '.architecture-wide');
       assert(frame.getComputedStyle(layout).display !== 'none' &&
         layout.querySelectorAll('.object-stack > use').length === 3, 'The architecture objects are missing from the visible layout');
-      assert(Math.abs(architectureBox.height / architectureBox.width - (phone ? 1130 / 360 : 900 / 1000)) < .01 &&
+      assert(Math.abs(architectureBox.height / architectureBox.width - (phone ? 1090 / 360 : 860 / 1000)) < .01 &&
         architectureBox.left >= article.left - 1 && architectureBox.right <= article.right + 1,
         'The moved architecture diagram is stretched or clipped');
       for (const label of layout.querySelectorAll('text')) {

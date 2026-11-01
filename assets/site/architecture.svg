@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="objy-architecture" width="100%" fill="none" font-family="Montserrat, Arial, sans-serif">
   <style>
-    .objy-architecture { aspect-ratio: 1000 / 900; }
+    .objy-architecture { aspect-ratio: 1000 / 860; }
     .objy-architecture .architecture-compact { display: none; }
     @media (max-width: 640px) {
-      .objy-architecture { aspect-ratio: 360 / 1130; }
+      .objy-architecture { aspect-ratio: 360 / 1090; }
       .objy-architecture .architecture-wide { display: none; }
       .objy-architecture .architecture-compact { display: block; }
     }
@@ -72,7 +72,7 @@
       </g>
     </g>
   </defs>
-  <svg class="architecture-wide" viewBox="0 0 1000 900" width="100%" height="100%" aria-hidden="true">
+  <svg class="architecture-wide" viewBox="0 0 1000 860" width="100%" height="100%" aria-hidden="true">
     <g transform="translate(80 22)">
       <rect x=".7" y=".7" width="190.6" height="64.6" rx="12" fill="#262626" stroke="#41413d"/>
       <g transform="translate(15 20.0) scale(0.85)" stroke="#c5dca5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -150,9 +150,8 @@
       </g>
       <path d="M120 832v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m440-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10m20-10v10" stroke="#9ba47e" stroke-width="6"/>
     </g>
-    <text x="500" y="881" text-anchor="middle" font-size="16" fill="#aaa99f" data-copy="storage-diagram.durability">Optional S3 durability · Journals &amp; snapshots</text>
   </svg>
-  <svg class="architecture-compact" viewBox="0 0 360 1130" width="100%" height="100%" aria-hidden="true">
+  <svg class="architecture-compact" viewBox="0 0 360 1090" width="100%" height="100%" aria-hidden="true">
     <g transform="translate(24 14)">
       <rect x=".7" y=".7" width="150.6" height="50.6" rx="12" fill="#262626" stroke="#41413d"/>
       <g transform="translate(15 13.0) scale(0.65)" stroke="#c5dca5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">
@@ -227,6 +226,5 @@
       </g>
       <path d="M44 1060v12m14-12v12m14-12v12m14-12v12m14-12v12m160-12v12m14-12v12m14-12v12m14-12v12m14-12v12" stroke="#9ba47e" stroke-width="4"/>
     </g>
-    <text x="180" y="1109" text-anchor="middle" font-size="12.5" fill="#aaa99f" data-copy="storage-diagram.durability">Optional S3 durability · Journals &amp; snapshots</text>
   </svg>
 </svg>

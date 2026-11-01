@@ -80,7 +80,6 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Columns benefit | Fast scans & aggregation. |
 | Compressed detail | More data in memory. |
 | Compressed benefit | Unpack only when read. |
-| Durability | Optional S3 durability · Journals & snapshots |
 
 ## Application diagram
 

@@ -36,9 +36,9 @@ The SVG shares its geometry and translated text between a 720 × 480 desktop lay
 
 ## Architecture illustration
 
-`assets/site/architecture.svg` introduces the homepage Features area beneath its title, without an Architecture heading. CRUD, Query, Aggregate, and Vector appear above three overlapping JSON cards: a person, an AI memory with a vector, and a connected device. A RAM-shaped panel below the cards places hot fields, compact columns, and compressed fields inside one in-memory layer. Its large label and memory contacts emphasize RAM; each colored block contains a heading and two concise explanation lines. Small custom glyphs distinguish the blocks without showing individual stored fields. An explicitly optional S3 durability note completes the image.
+`assets/site/architecture.svg` introduces the homepage Features area beneath its title, without an Architecture heading. CRUD, Query, Aggregate, and Vector appear above three overlapping JSON cards: a person, an AI memory with a vector, and a connected device. A RAM-shaped panel below the cards places hot fields, compact columns, and compressed fields inside one in-memory layer. Its large label and memory contacts emphasize RAM; each colored block contains a heading and two concise explanation lines. Small custom glyphs distinguish the blocks without showing individual stored fields.
 
-The SVG uses a wide 1000 × 900 composition and a vertical phone composition of 360 × 1130 below 641px. Both reuse the same card frame and three snippet definitions. The overlaps sit at card edges so the JSON stays readable. API labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `home.md`. The Storage diagram table supplies the internal-storage headings, explanations, and optional durability note. A standalone image in the Markdown introduction displays the self-contained diagram at full width; there is no separate storage prose section beneath it.
+The SVG uses a wide 1000 × 860 composition and a vertical phone composition of 360 × 1090 below 641px. Both reuse the same card frame and three snippet definitions. The overlaps sit at card edges so the JSON stays readable. API labels and JSON lines are supplied by the Architecture diagram table in each language’s `labels.md`. The image path and screen-reader description live in `home.md`. The Storage diagram table supplies the internal-storage headings and explanations. A standalone image in the Markdown introduction displays the self-contained diagram at full width; there is no separate storage prose section beneath it.
 
 ## Page icons and use cases
 
@@ -48,4 +48,4 @@ The homepage uses four custom icons for AI agents and memory, analytics, applica
 
 ## Storage explanation
 
-The former separate stacked storage illustration has been replaced by the compact panel in `architecture.svg`. It remains available in Git history. Storage headings, two explanation lines per block, and the explicitly optional S3 durability note remain editable in the localized Storage diagram tables in `labels.md`. All are rendered inside the combined image. No third-party artwork was introduced.
+The former separate stacked storage illustration has been replaced by the compact panel in `architecture.svg`. It remains available in Git history. Storage headings and two explanation lines per block remain editable in the localized Storage diagram tables in `labels.md`. All are rendered inside the combined image. No third-party artwork was introduced.

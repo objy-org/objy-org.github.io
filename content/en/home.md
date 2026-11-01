@@ -33,7 +33,7 @@ Your objects. Your ideas. Build whatever comes next.
 
 Work with flexible JSON objects. Query, aggregate, and search vectors through one API. Run embedded in your application or across a cluster.
 
-![CRUD, queries, aggregation, and vector search connect to three overlapping JSON objects above one in-memory storage layer. Hot fields stay directly accessible, compact columns speed up scans and aggregation, and compressed fields are unpacked when read. S3 journals and snapshots are optional.](assets/site/architecture.svg)
+![CRUD, queries, aggregation, and vector search connect to three overlapping JSON objects above one in-memory storage layer. Hot fields stay directly accessible, compact columns speed up scans and aggregation, and compressed fields are unpacked when read.](assets/site/architecture.svg)
 
 *Each object is split into hot fields, compact columns, and compressed data for efficient in-memory storage.*
 

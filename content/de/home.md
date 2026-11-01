@@ -33,7 +33,7 @@ Deine Objekte. Deine Ideen. Baue, was dir vorschwebt.
 
 Arbeite mit flexiblen JSON-Objekten. Nutze Abfragen, Aggregationen und Vektorsuche über eine API. Betreibe OBJY eingebettet in deiner Anwendung oder verteilt in einem Cluster.
 
-![CRUD, Abfragen, Aggregation und Vektorsuche greifen auf drei überlappende JSON-Objekte über einer gemeinsamen Speicherebene im RAM zu. Heiße Felder sind direkt zugänglich, kompakte Spalten beschleunigen Scans und Aggregation, komprimierte Felder werden beim Lesen entpackt. S3-Journale und Snapshots sind optional.](assets/site/architecture.svg)
+![CRUD, Abfragen, Aggregation und Vektorsuche greifen auf drei überlappende JSON-Objekte über einer gemeinsamen Speicherebene im RAM zu. Heiße Felder sind direkt zugänglich, kompakte Spalten beschleunigen Scans und Aggregation, komprimierte Felder werden beim Lesen entpackt.](assets/site/architecture.svg)
 
 *Für effiziente Speicherung im RAM wird jedes Objekt in heiße Felder, kompakte Spalten und komprimierte Daten aufgeteilt.*
 
