@@ -210,3 +210,11 @@ Use language-neutral links such as `/content/server.md?id=start-one-node`, `/con
 Save your Markdown changes, review the website on desktop and mobile, and check the links. Your Markdown editor shows the content; the website preview shows its final appearance.
 
 The redesign is on `codex/objy-brand-website`. That branch does not automatically publish to the live site. Use the repository's review and publishing process; a developer can handle previews and releases.
+
+## Edit Learn
+
+Open `content/en/learn.md` or `content/de/learn.md`. The five `##` chapters explain objects, references, collections, operations, and memory with the Orbit project and its owner Alex. Their headings automatically become the left menu; keep matching `:id=...` values across translations. A standalone image in every chapter enables the illustrated guide layout. Text and artwork alternate sides on desktop and stack on phones.
+
+Keep each chapter short: one idea, one illustration, an optional fenced example, and links to deeper documentation. Keep code identical across translations. The reference example stores its descriptor; `owner.object` is the expanded read view. The metadata example describes collection settings, not fields inside an object. Edit the image path and accessible description in the page Markdown. Diagram labels, names, and the illustrated JSON example live in the Learn diagrams table of `labels.md`. Keep the sample data consistent with the page’s prose and fenced examples in both languages; preserve JSON punctuation.
+
+The top-bar Learn link is translated in the Navigation table of `labels.md`. No separate page registration or chapter-menu file is required.

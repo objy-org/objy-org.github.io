@@ -49,3 +49,9 @@ The homepage uses four custom icons for AI agents and memory, analytics, applica
 ## Storage explanation
 
 The former separate stacked storage illustration has been replaced by the compact panel in `architecture.svg`. It remains available in Git history. Storage headings and two explanation lines per block remain editable in the localized Storage diagram tables in `labels.md`. All are rendered inside the combined image. No third-party artwork was introduced.
+
+## Learn illustrations
+
+The five SVGs in `assets/site/learn/` were created for this website on 2026-11-01 with original vector geometry, without third-party icons or images. `objects.svg` shows the Orbit project as valid JSON; `references.svg` connects it to Alex and shows the resolved `owner.object.name`; `collections.svg` introduces a shared collection configuration; `apis.svg` connects CRUD, queries, aggregation, and vectors to the same project; `memory.svg` places three storage blocks inside RAM.
+
+They are referenced by each language’s `learn.md`, which also supplies their accessible descriptions. Human-facing diagram labels use the existing Architecture and Storage tables plus the Learn diagrams table in `labels.md`. JSON lines, identifiers, and example names are also editable in that table; keep the sample data consistent across languages. Four of the illustrations include separate narrow-screen layouts so their labels remain readable on phones. The illustrations load only on pages that reference them.

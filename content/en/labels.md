@@ -21,6 +21,7 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Language menu | Change language |
 | Skip link | Skip to content |
 | Product link | [OBJY](#/?id=top) |
+| Learn link | [Learn](#/learn) |
 | Get started link | [Get started](#/get-started) |
 | Documentation link | [Documentation](#/documentation) |
 | Source link | [GitHub](https://github.com/objy-org) |
@@ -92,3 +93,26 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Json name | `"name": "Orbit",` |
 | Json tags | `"tags": ["new", "blue"],` |
 | Json vector | `"_vec": [0.2, 0.8, 0.4]` |
+
+## Learn diagrams
+
+| Location | Text |
+| --- | --- |
+| Read | Read → |
+| Collection | Collection |
+| Hot | Hot fields |
+| Columns | Columns |
+| Compressed | Compressed |
+| Project collection | `projects` |
+| Project label | `projects / project-01` |
+| Person label | `people / person-42` |
+| Project name | `Orbit` |
+| Person name | `Alex` |
+| Project summary | `{ Orbit }` |
+| Project identity | `"_id": "project-01"` |
+| Reference read | `owner.object.name → "Alex"` |
+| Object id | `  "_id": "project-01",` |
+| Object name | `  "name": "Orbit",` |
+| Object status | `  "status": "active",` |
+| Object score | `  "score": 42,` |
+| Object tags | `  "tags": ["launch", "team"]` |

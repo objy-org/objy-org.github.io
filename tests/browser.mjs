@@ -759,9 +759,9 @@ await check('The homepage feature area keeps its illustrations, translations, an
     assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
     assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/?id=top'),
       'OBJY navigation is not active on the homepage');
-    assert(document.querySelectorAll('.header-links a').length === 3 &&
+    assert(document.querySelectorAll('.header-links a').length === 4 &&
       document.querySelector('.header-links a[href$="#/get-started"]') &&
-      !document.querySelector('.header-links a[href$="id=feature-highlights"]'), 'The top bar should contain only OBJY, Get Started, and Documentation');
+      !document.querySelector('.header-links a[href$="id=feature-highlights"]'), 'The top bar should contain OBJY, Learn, Get Started, and Documentation');
     const architecture = document.querySelector('.document-lead-art');
     const caption = architecture.nextElementSibling;
     assert(!document.getElementById('architecture') && caption.matches('p:has(> em:only-child)') &&
@@ -886,6 +886,85 @@ await check('The homepage feature area keeps its illustrations, translations, an
     target.click();
     await changed;
     assert(frame.location.hash.endsWith('id=db-server'), 'Feature group link did not navigate');
+  }
+});
+
+await check('Learn keeps its illustrated concepts, Markdown chapters, examples, and translated navigation', async () => {
+  for (const language of ['en', 'de']) {
+    site.src = `../?lang=${language}#/learn`;
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        const document = site.contentDocument;
+        if (document?.documentElement?.lang === language && document.querySelectorAll('.document-guide .document-art > svg').length === 5 &&
+          document.querySelector('.header-links a[href$="#/learn"][aria-current="page"]')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Learn did not finish loading'));
+        setTimeout(ready, 16);
+      };
+      ready();
+    });
+    const frame = site.contentWindow;
+    const document = site.contentDocument;
+    const guide = document.querySelector('.document-guide');
+    const chapters = [...guide.querySelectorAll('.document-chapter')];
+    const headings = chapters.map(chapter => chapter.querySelector('h2'));
+    const links = [...document.querySelectorAll('#section-links a')];
+    assert(headings.map(heading => heading.id).join('|') === 'objects|references|collections|operations|memory' &&
+      links.map(link => link.textContent).join('|') === headings.map(heading => heading.textContent).join('|'),
+      'The Learn menu is not generated from its five Markdown chapters');
+    assert(!document.querySelector('.documentation-tree') &&
+      document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/learn'),
+      'Learn inherited documentation navigation or lost its selected header link');
+    assert([...document.querySelectorAll('.header-links a')].map(link => link.textContent).join('|') ===
+      (language === 'en' ? 'OBJY|Learn|Get started|Documentation' : 'OBJY|Lernen|Loslegen|Dokumentation'),
+      'The top bar does not show the four translated destinations in order');
+    const json = [...chapters[0].querySelectorAll('svg text[font-family]')].map(line => line.textContent).join('\n');
+    assert(JSON.parse(json)._id === 'project-01' && JSON.parse(json).score === 42,
+      'The first lesson lost its valid Orbit object');
+    const examples = [...guide.querySelectorAll('pre')];
+    assert(examples.length === 3 && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
+      'Learn examples lost highlighting or copy controls');
+    assert(JSON.parse(examples[0].querySelector('code').textContent).owner.value === 'person-42' &&
+      JSON.parse(examples[1].querySelector('code').textContent).tiering.mode === 'compressedMemory',
+      'The reference or metadata example is invalid');
+    assert(guide.querySelector('[data-copy="learn-diagrams.hot"]').textContent ===
+      (language === 'en' ? 'Hot fields' : 'Heiße Felder'), 'Learn artwork is not translated');
+    for (const width of [1440, 1100, 1000, 760, 390, 320]) {
+      site.style.width = `${width}px`;
+      site.style.height = '900px';
+      await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+      const box = guide.getBoundingClientRect();
+      assert(document.documentElement.scrollWidth <= width + 1 && Math.abs(box.left + box.width / 2 - width / 2) < 1,
+        `Learn overflows or shifts off center (${language}, ${width}px)`);
+      for (const chapter of chapters) {
+        const copy = chapter.querySelector('.document-illustration-copy').getBoundingClientRect();
+        const art = chapter.querySelector('.document-art').getBoundingClientRect();
+        assert(art.width > 200 && art.left >= box.left - 1 && art.right <= box.right + 1 &&
+          (art.left >= copy.right - 1 || art.right <= copy.left + 1 || art.top >= copy.bottom - 1),
+          'A Learn illustration is too small, clipped, or overlaps its explanation');
+        for (const label of chapter.querySelectorAll('svg text')) {
+          const labelBox = label.getBoundingClientRect();
+          assert(!labelBox.width || labelBox.left >= art.left - 1 && labelBox.right <= art.right + 1,
+            `A Learn diagram label is clipped (${language}, ${label.textContent})`);
+        }
+      }
+    }
+    links[3].click();
+    await new Promise((resolve, reject) => {
+      const deadline = Date.now() + 5000;
+      const ready = () => {
+        if (frame.location.hash === '#/learn?id=operations' && document.querySelector('#section-links a[href$="id=operations"][aria-current="location"]')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('The Learn chapter jump did not update the menu'));
+        frame.requestAnimationFrame(ready);
+      };
+      ready();
+    });
+    assert(!frame.performance.getEntriesByType('resource').some(resource => resource.name.startsWith('https://raw.githubusercontent.com/')),
+      'Learn unnecessarily downloads live documentation');
+    const otherLanguage = language === 'en' ? 'de' : 'en';
+    const switcher = document.querySelector(`.language-switcher a[lang="${otherLanguage}"]`);
+    assert(switcher && new URL(switcher.href).hash === '#/learn?id=operations',
+      'Switching language loses the Learn page or chapter');
   }
 });
 

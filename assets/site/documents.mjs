@@ -25,6 +25,25 @@ function catalogEntries(content) {
   return entries.every(Boolean) ? { intro: content.slice(0, content.indexOf(headings[0])), entries } : null;
 }
 
+// Shared by illustrated guides and the visual chapters inside catalogs.
+function decorateIllustratedChapter({ heading, content }, image) {
+  const section = document.createElement('section');
+  section.className = 'document-chapter document-illustration';
+  if (heading.id) section.setAttribute('aria-labelledby', heading.id);
+  heading.before(section);
+  const copy = document.createElement('div');
+  copy.className = 'document-illustration-copy';
+  copy.append(...content.filter(node => node !== image));
+  section.append(heading);
+  section.classList.toggle('document-illustration-wide', !copy.childNodes.length);
+  const figure = document.createElement('figure');
+  figure.className = 'document-art';
+  figure.append(image.firstElementChild);
+  image.remove();
+  if (copy.childNodes.length) section.append(copy);
+  section.append(figure);
+}
+
 // An index is a sequence of icon headings, descriptions, and links or link-only lists.
 // Icon chapters starting with code or actions expand in place. Chapters with icon
 // subheadings form a catalog. Other guides keep their normal chapter navigation.
@@ -64,29 +83,19 @@ export function decorateDocument(html) {
     }
     for (const [index, { heading }] of sections.entries()) {
       if (!catalogs[index]) {
+        if (illustrations[index]) {
+          decorateIllustratedChapter(sections[index], illustrations[index]);
+          continue;
+        }
         const section = document.createElement('section');
-        const illustrated = Boolean(illustrations[index]);
-        section.className = `document-chapter ${illustrated ? 'document-illustration' : 'document-explanation'}`;
+        section.className = 'document-chapter document-explanation';
         if (heading.id) section.setAttribute('aria-labelledby', heading.id);
         heading.before(section);
         const copy = document.createElement('div');
-        copy.className = illustrated ? 'document-illustration-copy' : 'document-explanation-copy';
-        copy.append(...sections[index].content.filter((node) => node !== illustrations[index]));
-        section.append(heading);
-        if (!illustrated) {
-          copy.querySelectorAll(':scope > ul').forEach(list => list.setAttribute('role', 'list'));
-          section.append(copy);
-          continue;
-        }
-        // A heading and image alone make a wide visual chapter; explanations
-        // with lists or other content retain the text-and-image layout.
-        section.classList.toggle('document-illustration-wide', !copy.childNodes.length);
-        const figure = document.createElement('figure');
-        figure.className = 'document-art';
-        figure.append(illustrations[index].firstElementChild);
-        illustrations[index].remove();
-        if (copy.childNodes.length) section.append(copy);
-        section.append(figure);
+        copy.className = 'document-explanation-copy';
+        copy.append(...sections[index].content);
+        copy.querySelectorAll(':scope > ul').forEach(list => list.setAttribute('role', 'list'));
+        section.append(heading, copy);
         continue;
       }
       const { intro, entries } = catalogs[index];
@@ -111,6 +120,12 @@ export function decorateDocument(html) {
       section.append(grid);
     }
     article.classList.add('document-catalog');
+    return article.outerHTML;
+  }
+  // A guide with an image in each chapter gets a visual reading layout.
+  if (sections.length && illustrations.every(Boolean)) {
+    sections.forEach((section, index) => decorateIllustratedChapter(section, illustrations[index]));
+    article.classList.add('document-guide');
     return article.outerHTML;
   }
   if (sections.length && sections.every(({ heading, content, icon }) =>

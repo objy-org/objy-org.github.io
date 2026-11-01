@@ -21,6 +21,7 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Language menu | Sprache ändern |
 | Skip link | Zum Inhalt springen |
 | Product link | [OBJY](#/?id=top) |
+| Learn link | [Lernen](#/learn) |
 | Get started link | [Loslegen](#/get-started) |
 | Documentation link | [Dokumentation](#/documentation) |
 | Source link | [GitHub](https://github.com/objy-org) |
@@ -92,3 +93,26 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Json name | `"name": "Orbit",` |
 | Json tags | `"tags": ["neu", "blau"],` |
 | Json vector | `"_vec": [0.2, 0.8, 0.4]` |
+
+## Learn diagrams
+
+| Location | Text |
+| --- | --- |
+| Read | Lesen → |
+| Collection | Collection |
+| Hot | Heiße Felder |
+| Columns | Spalten |
+| Compressed | Komprimiert |
+| Project collection | `projects` |
+| Project label | `projects / project-01` |
+| Person label | `people / person-42` |
+| Project name | `Orbit` |
+| Person name | `Alex` |
+| Project summary | `{ Orbit }` |
+| Project identity | `"_id": "project-01"` |
+| Reference read | `owner.object.name → "Alex"` |
+| Object id | `  "_id": "project-01",` |
+| Object name | `  "name": "Orbit",` |
+| Object status | `  "status": "active",` |
+| Object score | `  "score": 42,` |
+| Object tags | `  "tags": ["launch", "team"]` |

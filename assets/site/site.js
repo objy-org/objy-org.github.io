@@ -173,7 +173,8 @@ function wireNavigation() {
     for (const section of sections) {
       const top = contentTop(section);
       const id = section.dataset.chapter || section.dataset.section;
-      if (top > (atEnd ? innerHeight : anchorLine)) continue;
+      // Anchor jumps can land a fraction of a pixel below the CSS offset.
+      if (top > (atEnd ? innerHeight : anchorLine) + 1) continue;
       // Columns share a vertical position: retain the selected column within that row.
       if (top > currentRow + 1 || (Math.abs(top - currentRow) <= 1 && id === requested)) {
         current = id;
