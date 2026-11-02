@@ -1,50 +1,21 @@
 # Deine Anwendung. Dein Betrieb. :id=deployment
 
+Wähle, wie du OBJY betreiben möchtest.
+
 ## ![](assets/site/icons/quick-start.svg) Lokale Server :id=deploy-run
 
-```sh
-npm i -g @objy/server
-```
+Starte einen Server oder einen Cluster auf deinem Rechner.
 
-### Ein Knoten :id=deploy-quick-start
-
-```sh
-objy run
-```
-
-[Schnellstart-Anleitung](/content/server.md?id=start-one-node)
-
-### Cluster :id=deploy-cluster
-
-```sh
-objy start --instances 4
-objy status
-```
-
-[Cluster einrichten](/content/server.md?id=form-a-cluster)
+[Lokale Server einrichten](/get-started/local.md)
 
 ## ![](assets/site/icons/cloud.svg) Deine eigene Cloud :id=bring-your-own-cloud
 
-- [Hetzner](https://www.hetzner.com/cloud/)
-- [IONOS](https://cloud.ionos.com/)
-- [Google Cloud](https://cloud.google.com/)
-- [AWS](https://aws.amazon.com/)
-- [Azure](https://azure.microsoft.com/)
+Betreibe OBJY auf der Infrastruktur deines Cloud-Anbieters.
 
-[Server einrichten](/content/server.md?id=start-one-node)
+[Cloud einrichten](/get-started/cloud.md)
 
 ## ![](assets/site/icons/database.svg) Embedded :id=deploy-embedded
 
-Dieselbe Datenbank direkt im Browser und in Node.js nutzen.
+Nutze die Datenbank direkt im Browser und in Node.js.
 
-```sh
-npm i @objy/db
-```
-
-```js
-import { createDatabase } from "@objy/db";
-const objy = createDatabase();
-await objy.createDatabase("app");
-```
-
-[Browser einrichten](/content/database.md?id=install-in-a-browser) · [Node.js einrichten](/content/database.md?id=install-in-nodejs)
+[Embedded einrichten](/get-started/embedded.md)

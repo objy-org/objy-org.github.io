@@ -540,7 +540,7 @@ await check('The homepage keeps its illustrated overview and complete localized 
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.homepage-catalog')) return resolve();
+        if (document?.documentElement?.lang === language && document.querySelector('.homepage-catalog')) return resolve();
         if (Date.now() > deadline) return reject(new Error('Homepage catalog did not load'));
         setTimeout(ready, 16);
       };
@@ -663,85 +663,112 @@ await check('Articles stay centered in the viewport without colliding with the c
   }
 });
 
-await check('Get Started groups server setup, cloud, and embedded use with nested Markdown navigation', async () => {
+await check('Get Started has a Markdown overview and persistent collapsible setup roots', async () => {
+  const waitFor = predicate => new Promise((resolve, reject) => {
+    const deadline = Date.now() + 7000;
+    const ready = () => {
+      if (predicate()) return resolve();
+      if (Date.now() > deadline) return reject(new Error('Getting Started navigation did not finish loading'));
+      setTimeout(ready, 16);
+    };
+    ready();
+  });
   for (const language of ['en', 'de']) {
-    site.src = `../?lang=${language}#/get-started?id=deploy-cluster`;
-    await new Promise((resolve, reject) => {
-      const deadline = Date.now() + 5000;
-      const ready = () => {
-        const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.document-page.document-setup') &&
-          document.querySelector('#section-links a[href$="id=deploy-cluster"]')) return resolve();
-        if (Date.now() > deadline) return reject(new Error('Deployment options did not load'));
-        setTimeout(ready, 16);
-      };
-      ready();
-    });
-    const document = site.contentDocument;
+    site.src = `../?lang=${language}#/get-started`;
+    await waitFor(() => site.contentDocument?.documentElement.lang === language &&
+      site.contentDocument.querySelector('.document-directory') &&
+      site.contentDocument.querySelectorAll('.documentation-guide').length === 3);
     const frame = site.contentWindow;
-    const sections = [...document.querySelectorAll('.setup-section')];
-    const links = [...document.querySelectorAll('#section-links a')];
-    const headings = [...document.querySelectorAll('.document-setup h2, .document-setup h3')];
-    assert(sections.length === 3 && links.length === 5 && !document.querySelector('.document-setup details'),
-      'Deployment options are missing, collapsed, or absent from the chapter menu');
-    assert(!document.querySelector('.page-sidebar').hidden && !document.querySelector('.section-menu-toggle').hidden,
-      'Get Started hides its chapter menu');
-    assert(links.every((link, index) => link.textContent === headings[index].textContent.trim()),
-      'Chapter labels do not follow the translated Markdown headings');
-    assert(!document.querySelector('.document-setup img') && links.filter(link => link.querySelector('img[width="20"][height="20"]')).length === 3 &&
-      document.querySelectorAll('#section-links .subchapter').length === 2,
-      'Deployment icons must appear only in the left menu, at the same size as Documentation');
-    assert(sections.map(section => section.querySelector('h2').id).join('|') === 'deploy-run|bring-your-own-cloud|deploy-embedded' &&
-      [...sections[0].querySelectorAll('h3')].map(heading => heading.id).join('|') === 'deploy-quick-start|deploy-cluster',
-      'Server and embedded setup were not combined under the expected headings');
-    assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/get-started'),
-      'Get Started navigation is not active');
-    assert(sections[0].querySelector('code').textContent.includes('npm i -g @objy/server') &&
-      document.querySelector('.document-setup').textContent.split('npm i -g @objy/server').length === 2 &&
-      sections[0].textContent.includes('objy run') && sections[0].textContent.includes('objy start --instances 4'),
-      'Server setup lost its shared CLI installation or launch commands');
-    assert(sections[2].querySelectorAll('pre').length === 2 && sections[2].textContent.includes('npm i @objy/db') &&
-      sections[2].querySelector('a[href$="id=install-in-a-browser"]') && sections[2].querySelector('a[href$="id=install-in-nodejs"]'),
-      'Embedded setup must share one example and retain both platform guides');
-    for (const width of [1280, 760, 390, 320]) {
-      site.style.width = `${width}px`;
-      site.style.height = '1000px';
-      await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
-      for (const section of sections) {
-        assert(document.documentElement.scrollWidth <= width + 1, `${language} deployment options overflow at ${width}px`);
-        for (const action of section.querySelectorAll('.setup-copy a')) {
+    const document = site.contentDocument;
+    const rows = [...document.querySelectorAll('.directory-link')];
+    assert(rows.length === 3 && rows.every(row => row.querySelector('img') && row.querySelector('p')) &&
+      !document.querySelector('.document-page pre') && !document.querySelector('.page-sidebar').hidden,
+      'The overview must show three icon rows and retain the left menu');
+    assert(rows.map(row => new URL(row.href).hash).join('|') ===
+      '#/get-started/local|#/get-started/cloud|#/get-started/embedded', 'Overview rows lost their setup guides');
+    assert(document.querySelectorAll('.documentation-branch[open]').length === 0,
+      'Unselected setup roots should start collapsed');
+    assert(!frame.performance.getEntriesByType('resource').some(resource => resource.name.startsWith('https://raw.githubusercontent.com/')),
+      'The setup overview unnecessarily downloads remote documentation');
+    const openRoot = async index => {
+      const link = document.querySelectorAll('.documentation-guide')[index];
+      const target = link.hash;
+      link.click();
+      await waitFor(() => frame.location.hash === target && document.querySelector('.document-setup') &&
+        document.querySelectorAll('.documentation-guide')[index]?.getAttribute('aria-current') === 'page');
+      const roots = [...document.querySelectorAll('.documentation-branch')];
+      assert(roots.length === 3 && roots.filter(root => root.open).length === 1 && roots[index].open,
+        'Selecting a setup guide lost the other roots or opened multiple roots');
+      assert(roots[index].querySelectorAll('[data-chapter-id]').length === document.querySelectorAll('.document-page h2').length,
+        'The expanded branch does not follow the selected Markdown guide');
+      assert(document.querySelector('.header-links [aria-current="page"]').hash === '#/get-started',
+        'A setup guide lost the Get Started header selection');
+      assert(!document.querySelector('.document-page img') && document.querySelectorAll('.documentation-guide img[width="20"][height="20"]').length === 3,
+        'Setup guide icons must remain in the left menu');
+      return roots[index];
+    };
+    const local = await openRoot(0);
+    const article = document.querySelector('.document-page');
+    assert(article.textContent.includes('npm i -g @objy/server') && article.textContent.includes('objy run') &&
+      article.textContent.includes('objy start --instances 4') &&
+      article.textContent.split('npm i -g @objy/server').length === 2, 'Local setup lost its install or launch commands');
+    local.querySelector('.documentation-guide').click();
+    assert(!local.open && document.querySelector('.document-page') === article,
+      'Clicking the active root should collapse it without changing its guide');
+    local.querySelector('.documentation-guide').click();
+    assert(local.open, 'Clicking the collapsed current root did not reopen it');
+    local.querySelector('[data-chapter-id="deploy-cluster"]').click();
+    await waitFor(() => frame.location.hash === '#/get-started/local?id=deploy-cluster' &&
+      document.querySelector('[data-chapter-id="deploy-cluster"][aria-current="location"]'));
+    assert(document.querySelector(`.language-switcher a[lang="${language === 'en' ? 'de' : 'en'}"]`).hash ===
+      '#/get-started/local?id=deploy-cluster', 'Language switching loses the selected setup chapter');
+    for (const index of [1, 2]) {
+      await openRoot(index);
+      const page = document.querySelector('.document-setup');
+      if (index === 1) assert(page.querySelectorAll('.setup-actions a').length === 5 &&
+        page.querySelector('a[href$="id=start-one-node"]'), 'Cloud setup lost its providers or server guide');
+      else assert(page.querySelectorAll('pre').length === 2 && page.textContent.includes('npm i @objy/db') &&
+        page.querySelector('a[href$="id=install-in-a-browser"]') && page.querySelector('a[href$="id=install-in-nodejs"]'),
+        'Embedded setup lost its install, example, or browser and Node.js guides');
+      for (const width of [1280, 760, 390, 320]) {
+        site.style.width = `${width}px`;
+        site.style.height = '1000px';
+        await new Promise(resolve => setTimeout(resolve, 32));
+        assert(document.documentElement.scrollWidth <= width + 1, `${language} setup overflows at ${width}px`);
+        const bounds = page.getBoundingClientRect();
+        assert(Math.abs(bounds.left + bounds.width / 2 - width / 2) <= 1, 'The setup guide is not centered');
+        for (const action of page.querySelectorAll('.setup-copy a')) {
           const rect = action.getBoundingClientRect();
-          assert(rect.left >= 0 && rect.right <= width + 1, `${language} action is clipped at ${width}px`);
+          assert(rect.left >= 0 && rect.right <= width + 1, 'A deployment action is clipped');
         }
-        for (const pre of section.querySelectorAll('pre')) assert(pre.querySelectorAll('.copy-button').length === 1,
-          'A command has missing or duplicate copy controls');
-      }
-      for (const id of ['bring-your-own-cloud', 'deploy-embedded', 'deploy-cluster', 'deploy-quick-start']) {
-        if (width <= 760) document.querySelector('.section-menu-toggle').click();
-        document.querySelector(`#section-links a[href$="id=${id}"]`).click();
-        await new Promise((resolve, reject) => {
-          const deadline = Date.now() + 5000;
-          let previousTop;
-          let stable = 0;
-          const ready = () => {
-            const top = document.getElementById(id).getBoundingClientRect().top;
-            stable = previousTop === top ? stable + 1 : 0;
-            previousTop = top;
-            if (frame.location.hash === `#/get-started?id=${id}` &&
-              document.querySelector('#section-links a[aria-current="location"]') &&
-              top >= document.querySelector('.site-header').getBoundingClientRect().bottom && top < frame.innerHeight && stable >= 3) return resolve();
-            if (Date.now() > deadline) return reject(new Error(`Deployment chapter jump failed: ${language}, ${width}px, ${id}`));
-            frame.requestAnimationFrame(ready);
-          };
-          ready();
-        });
-        const top = document.getElementById(id).getBoundingClientRect().top;
-        assert(top >= 0 && top < frame.innerHeight,
-          `Selected deployment heading is not visible: ${language}, ${width}px, ${id}, top=${top}`);
-        if (width <= 760) assert(document.querySelector('.section-menu-toggle').getAttribute('aria-expanded') === 'false',
-          'Selecting a deployment chapter leaves the mobile menu open');
+        for (const pre of page.querySelectorAll('pre')) assert(pre.querySelectorAll('.copy-button').length === 1,
+          'A setup example lost its copy control');
+        if (width <= 1100) {
+          document.querySelector('.section-menu-toggle').click();
+          assert(frame.getComputedStyle(document.querySelector('.page-sidebar')).display !== 'none' &&
+            document.querySelectorAll('.documentation-guide').length === 3, 'The mobile drawer lost its setup roots');
+          if (width <= 760) {
+            const currentRoot = document.querySelector('.documentation-guide[aria-current="page"]');
+            currentRoot.click();
+            assert(!currentRoot.closest('details').open &&
+              document.querySelector('.section-menu-toggle').getAttribute('aria-expanded') === 'true',
+              'Collapsing a root unexpectedly closed the mobile drawer');
+            currentRoot.click();
+            assert(currentRoot.closest('details').open, 'The mobile root cannot be reopened');
+          }
+          document.querySelector('.section-menu-toggle').click();
+        }
       }
     }
+    document.querySelector('.header-links a[href$="#/get-started"]').click();
+    await waitFor(() => document.querySelector('.document-directory .directory-link'));
+    assert(document.querySelectorAll('.directory-link').length === 3 && document.querySelectorAll('.documentation-guide').length === 3,
+      'Returning to the setup overview lost its rows or root tree');
+    site.src = `../?lang=${language}#/get-started/local?id=deploy-cluster`;
+    await waitFor(() => site.contentDocument?.documentElement.lang === language &&
+      site.contentDocument.querySelector('.documentation-branch[open] [data-chapter-id="deploy-cluster"]'));
+    assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 3,
+      'A direct setup chapter link lost the full root tree');
   }
 });
 
@@ -752,7 +779,7 @@ await check('The homepage feature area keeps its illustrations, translations, an
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.homepage-catalog')) return resolve();
+        if (document?.documentElement?.lang === language && document.querySelector('.homepage-catalog')) return resolve();
         if (Date.now() > deadline) return reject(new Error('Feature catalog did not load'));
         setTimeout(ready, 16);
       };
@@ -1050,7 +1077,7 @@ await check('The object database hero stays large, translated, and centered on d
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement.lang === language && document.querySelector('.hero-art [data-copy="application-diagram.agents"]')) return resolve();
+        if (document?.documentElement?.lang === language && document.querySelector('.hero-art [data-copy="application-diagram.agents"]')) return resolve();
         if (Date.now() > deadline) return reject(new Error('Hero artwork did not load'));
         setTimeout(ready, 16);
       };

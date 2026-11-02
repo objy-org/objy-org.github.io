@@ -53,7 +53,7 @@ function decorateIllustratedChapter({ heading, content }, image) {
 }
 
 // An index is a sequence of icon headings, descriptions, and links or link-only lists.
-// Icon chapters starting with code or actions form a setup guide. Chapters with
+// Chapters starting with code or actions form a setup guide. Chapters with
 // icon subheadings form a catalog. All guides keep their normal chapter navigation.
 export function decorateDocument(html) {
   const article = document.createElement('div');
@@ -188,8 +188,8 @@ export function decorateDocument(html) {
     article.classList.add('document-guide');
     return article.outerHTML;
   }
-  if (sections.length && sections.every(({ heading, content, icon }) =>
-    icon && heading.querySelectorAll('img').length === 1 && content.length &&
+  if (sections.length && sections.every(({ heading, content }) =>
+    heading.querySelectorAll('img').length <= 1 && content.length &&
     (content.some(node => node.tagName === 'PRE') || destinationLinks(content[0])))) {
     for (const { heading, content } of sections) {
       const section = document.createElement('section');

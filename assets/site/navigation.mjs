@@ -133,6 +133,7 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
   };
 
   return {
+    indexRoute: routePath(indexRoute),
     mount(nav, article, route, page) {
       const path = routePath(route);
       const matches = entries.filter(entry => entry.path === path);
@@ -193,8 +194,15 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
       }, { capture: true, signal });
       nav.addEventListener('click', event => {
         const link = event.target.closest('a');
-        if (!link) return;
-        if (link.parentElement.tagName === 'SUMMARY') link.parentElement.parentElement.open = true;
+        if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (link.parentElement.tagName === 'SUMMARY') {
+          const branch = link.parentElement.parentElement;
+          if (link.matches('.documentation-guide[aria-current="page"]')) {
+            event.preventDefault();
+            event.stopPropagation();
+            branch.open = !branch.open;
+          } else branch.open = true;
+        }
       }, { signal });
       article.addEventListener('click', event => {
         const link = event.target.closest('a[href]');

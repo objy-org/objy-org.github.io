@@ -1,6 +1,6 @@
 import * as i18n from './languages.mjs';
 import * as pages from './pages.mjs';
-import { createCopy, readMarkdown, sanitizeMarkup } from './markup.mjs';
+import { createCopy, htmlFragment, readMarkdown, sanitizeMarkup } from './markup.mjs';
 import { decorateHomepage } from './homepage.mjs';
 import { decorateDocument } from './documents.mjs';
 import { wireExamples } from './examples.mjs';
@@ -15,11 +15,15 @@ let languageRegistry;
 let homepageSidebar;
 let currentPage;
 let redirectedAnchor;
-let documentationNavigation;
+let directoryNavigation;
 
-function isDocumentationRoute(route) {
-  return ![...document.querySelectorAll('.header-links a:not([data-navigation-fallback])')]
-    .some(link => routePath(link.hash) === routePath(route));
+function headerLinkForRoute(route) {
+  const current = routePath(route);
+  return [...document.querySelectorAll('.header-links a')]
+    .filter(link => link.origin === location.origin && link.hash.startsWith('#/'))
+    .map(link => ({ link, path: routePath(link.hash) }))
+    .filter(({ path }) => current === path || path !== '/' && current.startsWith(`${path}/`))
+    .sort((a, b) => b.path.length - a.path.length)[0]?.link;
 }
 
 function mountSidebar(vm) {
@@ -35,12 +39,13 @@ function mountSidebar(vm) {
   nav.id = 'section-links';
   nav.setAttribute('role', 'navigation');
   const documentPage = document.querySelector('.document-page');
-  const tree = documentPage && isDocumentationRoute(vm.route.path) &&
-    documentationNavigation?.mount(nav, documentPage, vm.route.path, currentPage);
+  const tree = documentPage && directoryNavigation?.mount(nav, documentPage, vm.route.path, currentPage);
   const directory = documentPage?.matches('.document-directory') || false;
   sidebar.hidden = directory && !tree;
   document.querySelector('.section-menu-toggle').hidden = directory && !tree;
-  nav.dataset.copyAria = tree ? 'navigation.documentation-navigation-label' : 'navigation.section-navigation-label';
+  const documentationRoot = document.querySelector('[data-navigation-fallback]')?.hash;
+  nav.dataset.copyAria = tree && documentationRoot && directoryNavigation.indexRoute === routePath(documentationRoot) ?
+    'navigation.documentation-navigation-label' : 'navigation.section-navigation-label';
   nav.classList.toggle('chapter-links', Boolean(documentPage));
   if (!tree && documentPage) {
     nav.replaceChildren(chapterLinks(documentChapters(documentPage), vm.route.path, vm.router.toURL.bind(vm.router)));
@@ -59,16 +64,9 @@ function anchorId(link) {
 }
 
 function updateHeaderNavigation(route) {
-  const normalize = (path) =>
-    decodeURI(path.split('?')[0]).replace(/\.(?:md|markdown)$/i, '').replace(/\/+$/, '') || '/';
-  const current = normalize(route);
+  const current = routePath(route);
   const links = [...document.querySelectorAll('.header-links a')];
-  const match = links
-    .map((link) => ({ link, url: new URL(link.href) }))
-    .filter(({ url }) => url.origin === location.origin && url.hash.startsWith('#/'))
-    .map(({ link, url }) => ({ link, path: normalize(url.hash.slice(1)) }))
-    .filter(({ path }) => current === path || (path !== '/' && current.startsWith(`${path}/`)))
-    .sort((a, b) => b.path.length - a.path.length)[0]?.link;
+  const match = headerLinkForRoute(route);
   // Guides without their own top-level link belong to the documentation entry.
   const active = match ||
     (current !== '/' && links.find((link) => link.hasAttribute('data-navigation-fallback')));
@@ -102,7 +100,7 @@ function wireNavigation() {
   ];
   if (!nav || !menu) return;
   const links = [...nav.querySelectorAll('a')];
-  documentationNavigation?.wire(nav, document.querySelector('.document-page'), signal);
+  directoryNavigation?.wire(nav, document.querySelector('.document-page'), signal);
   const contentTop = (section) =>
     section.hasAttribute('data-chapter')
       ? section.getBoundingClientRect().top
@@ -147,20 +145,16 @@ function wireNavigation() {
     },
     { signal },
   );
-  links.forEach((link) =>
-    link.addEventListener(
-      'click',
-      () => {
-        if (window.matchMedia('(max-width: 760px)').matches) {
-          const target = document.getElementById(anchorId(link));
-          closeMenu();
-          target?.setAttribute('tabindex', '-1');
-          target?.focus({ preventScroll: true });
-        }
-      },
-      { signal },
-    ),
-  );
+  nav.addEventListener('click', event => {
+    const link = event.target.closest('a');
+    if (!link || event.defaultPrevented) return;
+    if (window.matchMedia('(max-width: 760px)').matches) {
+      const target = document.getElementById(anchorId(link));
+      closeMenu();
+      target?.setAttribute('tabindex', '-1');
+      target?.focus({ preventScroll: true });
+    }
+  }, { signal });
   let scheduled = 0;
   signal.addEventListener('abort', () => cancelAnimationFrame(scheduled), { once: true });
   const updateActive = () => {
@@ -240,7 +234,7 @@ function wireCopyButtons() {
 
 function objyTheme(hook, vm) {
   let contentReady;
-  let documentationReady;
+  const directoryRequests = new Map();
   let loadError;
   // Docsify supplies Prism. Load local grammars before the first Markdown render;
   // HTTP embeds JSON and Markdown embeds YAML, so their dependencies go first.
@@ -273,40 +267,45 @@ function objyTheme(hook, vm) {
       await document.fonts.ready;
     }));
 
-  const loadDocumentation = () => (documentationReady ||= (async () => {
-    const indexRoute = document.querySelector('[data-navigation-fallback]').hash.slice(1).split('?')[0];
-    const source = routePath(vm.route.path) === routePath(indexRoute) && currentPage ||
-      await pages.loadMarkdown(pages.markdownFiles(indexRoute, language.code, languageRegistry.defaultLanguage,
-        languageRegistry.languages.map(entry => entry.code)));
-    if (!source) return;
-    const base = new URL('./', document.baseURI);
-    const entries = documentationIndex(sanitizeMarkup(marked(source.markdown, { renderer: new marked.Renderer() })),
-      (href, image = false) => {
-        let target = pages.contentLink(href, source.file, image, base);
-        if (image) return target;
-        if (/^https?:.*\.(?:md|markdown)(?:[?#]|$)/i.test(target)) target = pages.remoteRoute(target);
-        return vm.router.toURL(target, null, indexRoute);
-      });
-    await Promise.all(entries.map(async entry => {
-      const files = pages.markdownFiles(entry.path, language.code, languageRegistry.defaultLanguage,
-        languageRegistry.languages.map(item => item.code));
-      if (entry.path.startsWith('/remote/')) entry.sources = files;
-      else {
-        try {
-          // Read tiny local include wrappers, without downloading unselected guides.
-          const wrapper = await pages.loadMarkdown(files, { followIncludes: false });
-          entry.sources = wrapper ? [wrapper.file, pages.markdownInclude(wrapper.markdown)].filter(Boolean) : [];
-        } catch (error) {
-          console.warn('Documentation source could not be indexed:', error);
+  const loadDirectory = (indexRoute, page) => {
+    if (directoryRequests.has(indexRoute)) return directoryRequests.get(indexRoute);
+    const request = (async () => {
+      const source = page ||
+        await pages.loadMarkdown(pages.markdownFiles(indexRoute, language.code, languageRegistry.defaultLanguage,
+          languageRegistry.languages.map(entry => entry.code)));
+      if (!source) return;
+      const html = sanitizeMarkup(marked(source.markdown, { renderer: new marked.Renderer() }));
+      if (!htmlFragment(decorateDocument(html)).querySelector('.document-directory')) return;
+      const base = new URL('./', document.baseURI);
+      const entries = documentationIndex(html,
+        (href, image = false) => {
+          let target = pages.contentLink(href, source.file, image, base);
+          if (image) return target;
+          if (/^https?:.*\.(?:md|markdown)(?:[?#]|$)/i.test(target)) target = pages.remoteRoute(target);
+          return vm.router.toURL(target, null, indexRoute);
+        });
+      await Promise.all(entries.map(async entry => {
+        const files = pages.markdownFiles(entry.path, language.code, languageRegistry.defaultLanguage,
+          languageRegistry.languages.map(item => item.code));
+        if (entry.path.startsWith('/remote/')) entry.sources = files;
+        else {
+          try {
+            // Resolve local guides and include wrappers without downloading remote bodies.
+            const wrapper = await pages.loadMarkdown(files, { followIncludes: false });
+            entry.sources = wrapper ? [wrapper.file, pages.markdownInclude(wrapper.markdown)].filter(Boolean) : [];
+          } catch (error) {
+            console.warn('Guide source could not be indexed:', error);
+          }
         }
-      }
-    }));
-    if (entries.length)
-      documentationNavigation = createDocumentationTree(entries, indexRoute, vm.router.toURL.bind(vm.router));
-  })().catch(error => {
-    documentationReady = null;
-    console.warn('Documentation navigation could not load:', error);
-  }));
+      }));
+      if (entries.length) return createDocumentationTree(entries, indexRoute, vm.router.toURL.bind(vm.router));
+    })().catch(error => {
+      directoryRequests.delete(indexRoute);
+      console.warn('Directory navigation could not load:', error);
+    });
+    directoryRequests.set(indexRoute, request);
+    return request;
+  };
 
   hook.beforeEach(async (markdown, next) => {
     const page = currentPage;
@@ -318,15 +317,21 @@ function objyTheme(hook, vm) {
       document.querySelector('main').prepend(sidebar);
     }
     let error;
+    let navigation;
     try {
       await Promise.all([loadContent(), syntaxReady]);
-      if (isDocumentationRoute(path)) await loadDocumentation();
+      if (path !== '/' && page) {
+        const root = headerLinkForRoute(path) || document.querySelector('[data-navigation-fallback]');
+        const indexRoute = root.hash.slice(1).split('?')[0];
+        navigation = await loadDirectory(indexRoute, routePath(path) === routePath(indexRoute) ? page : null);
+      }
     } catch (failure) {
       error = failure;
       contentReady = null;
       console.error('OBJY content could not load:', failure);
     }
     if (page !== currentPage || path !== vm.route.path) return;
+    directoryNavigation = navigation;
     loadError = error;
     if (!currentPage && !loadError) {
       markdown = `# ${copy('documents.unavailable-title')}\n\n${copy('documents.unavailable-description')}\n\n[${copy('documents.back-home')}](/?id=top)`;
