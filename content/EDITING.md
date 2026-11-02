@@ -56,7 +56,7 @@ Supported languages include `json`, `js`/`javascript`, `ts`/`typescript`, `sh`/`
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=object-capabilities` jumps to the heading with `:id=object-capabilities`.
 
-Getting Started uses the same overview and collapsible navigation as Documentation. Edit `content/<language>/get-started.md` for its three icon rows: Local servers, Bring your own cloud, and Embedded. Each row contains an icon-led `##` heading, a short description, and one Markdown link. Those same links define the left-menu roots; no separate navigation file is needed.
+Getting Started uses the same overview and collapsible navigation as Documentation. Edit `content/<language>/get-started.md` for its three icon rows: Bring your own cloud, Local servers, and Embedded. Each row contains an icon-led `##` heading, a short description, and one Markdown link. Those same links define the left-menu roots; no separate navigation file is needed.
 
 Instructions live in `content/<language>/get-started/local.md`, `cloud.md`, and `embedded.md`. Their `##` headings become chapters beneath the selected root. Clicking the current root collapses or expands its chapters while leaving the guide open. Local includes installation, One node, and Cluster. Cloud keeps the provider buttons; Embedded keeps the common browser and Node.js example. Chapters containing code or starting with a link-only list get the setup layout, and link-only lists become buttons. Keep matching IDs, code, and destinations across translations. To add a path, add its overview row and a localized Markdown guide.
 

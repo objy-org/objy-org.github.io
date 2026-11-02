@@ -685,7 +685,7 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
       !document.querySelector('.document-page pre') && !document.querySelector('.page-sidebar').hidden,
       'The overview must show three icon rows and retain the left menu');
     assert(rows.map(row => new URL(row.href).hash).join('|') ===
-      '#/get-started/local|#/get-started/cloud|#/get-started/embedded', 'Overview rows lost their setup guides');
+      '#/get-started/cloud|#/get-started/local|#/get-started/embedded', 'Overview rows lost their setup guides');
     assert(document.querySelectorAll('.documentation-branch[open]').length === 0,
       'Unselected setup roots should start collapsed');
     assert(!frame.performance.getEntriesByType('resource').some(resource => resource.name.startsWith('https://raw.githubusercontent.com/')),
@@ -707,7 +707,7 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
         'Setup guide icons must remain in the left menu');
       return roots[index];
     };
-    const local = await openRoot(0);
+    const local = await openRoot(1);
     const article = document.querySelector('.document-page');
     assert(article.textContent.includes('npm i -g @objy/server') && article.textContent.includes('objy run') &&
       article.textContent.includes('objy start --instances 4') &&
@@ -722,10 +722,10 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
       document.querySelector('[data-chapter-id="deploy-cluster"][aria-current="location"]'));
     assert(document.querySelector(`.language-switcher a[lang="${language === 'en' ? 'de' : 'en'}"]`).hash ===
       '#/get-started/local?id=deploy-cluster', 'Language switching loses the selected setup chapter');
-    for (const index of [1, 2]) {
+    for (const index of [0, 2]) {
       await openRoot(index);
       const page = document.querySelector('.document-setup');
-      if (index === 1) assert(page.querySelectorAll('.setup-actions a').length === 5 &&
+      if (index === 0) assert(page.querySelectorAll('.setup-actions a').length === 5 &&
         page.querySelector('a[href$="id=start-one-node"]'), 'Cloud setup lost its providers or server guide');
       else assert(page.querySelectorAll('pre').length === 2 && page.textContent.includes('npm i @objy/db') &&
         page.querySelector('a[href$="id=install-in-a-browser"]') && page.querySelector('a[href$="id=install-in-nodejs"]'),
