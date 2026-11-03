@@ -2,6 +2,8 @@
 
 Choose your provider and deploy OBJY on your own virtual machines.
 
+[Terraform setup guide](https://github.com/objy-org/terraform/blob/main/README.md)
+
 ## Providers :id=cloud-providers
 
 - [Hetzner](https://www.hetzner.com/cloud/)

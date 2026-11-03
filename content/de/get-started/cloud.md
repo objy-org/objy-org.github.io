@@ -2,6 +2,8 @@
 
 Wähle deinen Anbieter und betreibe OBJY auf deinen eigenen virtuellen Maschinen.
 
+[Terraform-Anleitung](https://github.com/objy-org/terraform/blob/main/README.md)
+
 ## Anbieter :id=cloud-providers
 
 - [Hetzner](https://www.hetzner.com/cloud/)
