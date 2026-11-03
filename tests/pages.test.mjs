@@ -120,6 +120,34 @@ test('a standalone remote include loads its source and revalidates it on each vi
   }
 });
 
+test('localized wrappers share local Markdown and retain its source without remote requests', async () => {
+  const markdown = "[Cloud](../../terraform.md ':include')\n";
+  const source = '# Terraform\n\n## Hetzner\n\n```sh\nterraform init\n```';
+  for (const language of ['en', 'de']) {
+    const wrapper = `content/${language}/get-started/cloud.md`;
+    const calls = [];
+    const fetchFile = async file => {
+      calls.push(file);
+      return new Response(file === wrapper ? markdown : source);
+    };
+    assert.equal(markdownInclude(markdown, wrapper), 'content/terraform.md');
+    assert.deepEqual(await loadMarkdown([wrapper], { fetchFile, followIncludes: false }), { file: wrapper, markdown });
+    assert.deepEqual(calls, [wrapper]);
+    calls.length = 0;
+    assert.deepEqual(await loadMarkdown([wrapper], { fetchFile }), { file: 'content/terraform.md', markdown: source });
+    assert.deepEqual(calls, [wrapper, 'content/terraform.md']);
+  }
+});
+
+test('local Markdown includes reject cycles and unsafe protocols', async () => {
+  assert.equal(markdownInclude("[Unsafe](file:///private/README.md ':include')"), null);
+  assert.equal(markdownInclude("[Unsafe](//example.org/README.md ':include')"), null);
+  await assert.rejects(loadMarkdown(['content/a.md'], {
+    fetchFile: async file => new Response(file.endsWith('a.md') ?
+      "[B](b.md ':include')" : "[A](a.md ':include')"),
+  }), /Circular Markdown include/);
+});
+
 test('remote Markdown links preserve source paths, queries, chapters, and reloadable routes', () => {
   const source = `${remoteReadme}?version=latest#quick-start`;
   const route = remoteRoute(source);

@@ -58,26 +58,38 @@ export function markdownFiles(route, language, defaultLanguage, languageCodes) {
   return [...new Set([`content/${language}/${path}`, `content/${defaultLanguage}/${path}`, path])];
 }
 
-export function markdownInclude(markdown) {
-  return markdown.trim().match(/^\[[^\]\r\n]*\]\((https?:\/\/[^\s)]+)\s+(['"]):include\2\)$/)?.[1] || null;
+export function markdownInclude(markdown, source) {
+  const href = markdown.trim().match(/^\[[^\]\r\n]*\]\(([^\s)]+)\s+(['"]):include\2\)$/)?.[1];
+  if (!href) return null;
+  if (isRemote(href)) return href;
+  if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href) || !isMarkdown(href)) return null;
+  if (!source) return href;
+  const base = new URL(source, 'https://markdown.invalid/');
+  return new URL(href, base).pathname.slice(1);
 }
 
 export async function loadMarkdown(files, { signal, fetchFile = fetch, followIncludes = true } = {}) {
-  for (const file of files) {
-    signal?.throwIfAborted();
-    const remote = isRemote(file);
-    const response = await fetchFile(file, {
-      signal,
-      cache: 'no-cache',
-      ...(remote ? { credentials: 'omit' } : {}),
-    });
-    if (response.status === 404) continue;
-    if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);
-    const markdown = await response.text();
-    // A page consisting of one remote include keeps its source for relative links/images.
-    const include = !remote && markdownInclude(markdown);
-    if (include && followIncludes) return loadMarkdown([include], { signal, fetchFile });
-    return { file: remote ? response.url || file : file, markdown };
-  }
-  return null;
+  const visited = new Set();
+  const load = async (candidates) => {
+    for (const file of candidates) {
+      signal?.throwIfAborted();
+      if (visited.has(file)) throw new Error(`Circular Markdown include: ${file}`);
+      visited.add(file);
+      const remote = isRemote(file);
+      const response = await fetchFile(file, {
+        signal,
+        cache: 'no-cache',
+        ...(remote ? { credentials: 'omit' } : {}),
+      });
+      if (response.status === 404) continue;
+      if (!response.ok) throw new Error(`${file}: request failed (${response.status}).`);
+      const markdown = await response.text();
+      // Standalone includes retain the actual source for links, images, and navigation.
+      const include = !remote && markdownInclude(markdown, file);
+      if (include && followIncludes) return load([include]);
+      return { file: remote ? response.url || file : file, markdown };
+    }
+    return null;
+  };
+  return load(files);
 }

@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
-import { markdownFiles, contentLink } from '../assets/site/pages.mjs';
+import { markdownFiles, markdownInclude, contentLink } from '../assets/site/pages.mjs';
 import { validateRegistry, chooseLanguage, withLanguage } from '../assets/site/languages.mjs';
 
 const root = new URL('../', import.meta.url);
@@ -96,6 +96,11 @@ for (const language of registry.languages) {
       assert.equal(new Set(anchors(files[file])).size, anchors(files[file]).length);
     }
     for (const [file, markdown] of Object.entries(files)) {
+      const include = markdownInclude(markdown, folder + file);
+      if (include) {
+        if (!/^https?:\/\//.test(include)) assert.ok(existsSync(new URL(include, root)), `${file}: missing include ${include}`);
+        continue;
+      }
       for (const match of withoutExamples(markdown).matchAll(
         /(!?)\[[^\]]*\]\(([^)\s]+)(?:\s+['"][^'"]*['"])?\)/g,
       )) {

@@ -292,7 +292,7 @@ function objyTheme(hook, vm) {
           try {
             // Resolve local guides and include wrappers without downloading remote bodies.
             const wrapper = await pages.loadMarkdown(files, { followIncludes: false });
-            entry.sources = wrapper ? [wrapper.file, pages.markdownInclude(wrapper.markdown)].filter(Boolean) : [];
+            entry.sources = wrapper ? [wrapper.file, pages.markdownInclude(wrapper.markdown, wrapper.file)].filter(Boolean) : [];
           } catch (error) {
             console.warn('Guide source could not be indexed:', error);
           }
