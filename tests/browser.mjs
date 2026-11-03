@@ -730,9 +730,14 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
           page.textContent.includes('terraform init') && page.textContent.includes('terraform apply'),
           'Cloud setup did not embed the Terraform README');
         const chapter = document.querySelector('.documentation-branch[open] [data-chapter-id="hetzner"]');
-        assert(chapter && document.querySelector('.documentation-branch[open] [data-chapter-id="configure-terraform-with-environment-variables"]') &&
-          document.querySelector('.documentation-branch[open] [data-chapter-id="installer-lifecycle-and-resizing"]'),
-          'The Terraform README sections are missing beneath the cloud root');
+        const terraform = document.querySelector('.documentation-branch[open] [data-chapter-id="terraform"]')?.closest('details');
+        assert(terraform && chapter && terraform.contains(chapter) &&
+          terraform.querySelector('[data-chapter-id="configure-terraform-with-environment-variables"]') &&
+          terraform.querySelector('[data-chapter-id="installer-lifecycle-and-resizing"]') &&
+          page.querySelector('a[href="https://github.com/objy-org/terraform/blob/main/README.md"]'),
+          'The README and its chapters must be grouped beneath the Terraform subsection');
+        terraform.querySelector('[data-chapter-id="terraform"]').click();
+        await waitFor(() => frame.location.hash === '#/get-started/cloud?id=terraform' && terraform.open);
         chapter.click();
         await waitFor(() => frame.location.hash === '#/get-started/cloud?id=hetzner' &&
           document.querySelector('[data-chapter-id="hetzner"][aria-current="location"]'));
