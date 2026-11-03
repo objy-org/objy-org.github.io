@@ -82,6 +82,22 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
   const visited = new Map();
   const owners = new Map();
   const expandedChapters = new Map();
+  const expandedGuides = new Map();
+  const allEntries = [];
+  const parents = new Map();
+  const collect = (items, parent) => {
+    for (const entry of items) {
+      allEntries.push(entry);
+      if (parent) parents.set(entry.key, parent);
+      collect(entry.children || [], entry);
+    }
+  };
+  collect(entries);
+  const ancestorsOf = (entry) => {
+    const ancestors = [];
+    for (let current = entry; current; current = parents.get(current.key)) ancestors.push(current);
+    return ancestors;
+  };
   let selected;
   let expanded;
   let previous;
@@ -124,7 +140,7 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
   const reveal = (nav) => {
     if (!selected) return;
     const current = anchor(location.hash);
-    const branch = [...nav.querySelectorAll('.documentation-branch')]
+    const branch = [...nav.querySelectorAll('[data-guide-key]')]
       .find(node => node.dataset.guideKey === selected.key);
     const link = [...(branch?.querySelectorAll('[data-chapter-id]') || [])]
       .find(node => node.dataset.chapterId === current);
@@ -132,15 +148,46 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
       if (node.tagName === 'DETAILS') node.open = true;
   };
 
+  const guideTree = (items, root = true) => {
+    const list = document.createElement('ul');
+    if (root) list.className = 'documentation-tree';
+    const currentBranch = ancestorsOf(selected);
+    for (const entry of items) {
+      const item = document.createElement('li');
+      const details = document.createElement('details');
+      details.className = root ? 'documentation-branch' : 'documentation-subbranch';
+      details.dataset.guideKey = entry.key;
+      if (root) details.name = 'documentation-guides';
+      details.open = root ? expanded === entry.key : expandedGuides.get(entry.key) || false;
+      const summary = document.createElement('summary');
+      const link = document.createElement('a');
+      link.className = root ? 'documentation-guide' : 'documentation-subguide';
+      link.href = entry.href;
+      if (selected === entry) link.setAttribute('aria-current', 'page');
+      else if (currentBranch.includes(entry)) link.setAttribute('aria-current', 'true');
+      navigationLabel(link, entry.title, root ? entry.icon : null);
+      summary.append(link);
+      details.append(summary);
+      if (entry.children?.length) details.append(guideTree(entry.children, false));
+      else {
+        const guide = visited.get(entry.key);
+        if (guide) details.append(chapterTree(guide.chapters, { ...guide, key: entry.key }));
+      }
+      item.append(details);
+      list.append(item);
+    }
+    return list;
+  };
+
   return {
     indexRoute: routePath(indexRoute),
     mount(nav, article, route, page) {
       const path = routePath(route);
-      const matches = entries.filter(entry => entry.path === path);
+      const matches = allEntries.filter(entry => entry.path === path);
       const key = owners.get(path) || owners.get(page?.file);
       selected = matches.find(entry => anchor(entry.href) === anchor(location.hash)) || matches[0] ||
-        entries.find(entry => entry.sources?.includes(page?.file)) ||
-        entries.find(entry => entry.key === key);
+        allEntries.find(entry => entry.sources?.includes(page?.file)) ||
+        allEntries.find(entry => entry.key === key);
       if (!selected && path !== routePath(indexRoute)) {
         previous = null;
         return false;
@@ -149,32 +196,14 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
         owners.set(path, selected.key);
         if (page?.file) owners.set(page.file, selected.key);
         visited.set(selected.key, { route, chapters: page ? documentChapters(article) : [] });
-        if (previous !== selected.key) expanded = selected.key;
+        if (previous !== selected.key) {
+          const ancestors = ancestorsOf(selected);
+          expanded = ancestors.at(-1).key;
+          for (const entry of allEntries) expandedGuides.set(entry.key, ancestors.includes(entry));
+        }
       }
       previous = selected?.key;
-      const list = document.createElement('ul');
-      list.className = 'documentation-tree';
-      for (const entry of entries) {
-        const item = document.createElement('li');
-        const details = document.createElement('details');
-        details.className = 'documentation-branch';
-        details.dataset.guideKey = entry.key;
-        details.name = 'documentation-guides';
-        details.open = expanded === entry.key;
-        const summary = document.createElement('summary');
-        const link = document.createElement('a');
-        link.className = 'documentation-guide';
-        link.href = entry.href;
-        if (selected === entry) link.setAttribute('aria-current', 'page');
-        navigationLabel(link, entry.title, entry.icon);
-        summary.append(link);
-        details.append(summary);
-        const guide = visited.get(entry.key);
-        if (guide) details.append(chapterTree(guide.chapters, { ...guide, key: entry.key }));
-        item.append(details);
-        list.append(item);
-      }
-      nav.replaceChildren(list);
+      nav.replaceChildren(guideTree(entries));
       reveal(nav);
       return true;
     },
@@ -183,13 +212,17 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
       if (!nav.querySelector('.documentation-tree')) return;
       nav.addEventListener('toggle', event => {
         const node = event.target;
-        if (node.matches('.documentation-branch')) {
+        if (node.dataset.guideKey) {
           const key = node.dataset.guideKey;
+          const entry = allEntries.find(entry => entry.key === key);
+          const root = !parents.has(key);
           if (node.open) {
-            expanded = key;
+            if (root) expanded = key;
+            else expandedGuides.set(key, true);
             // Fetch a guide only when selected, never all remote docs on index load.
-            if (!visited.has(key)) node.querySelector('summary > a').click();
-          } else if (expanded === key) expanded = null;
+            if (!visited.has(key) && !entry.children?.length) node.querySelector('summary > a').click();
+          } else if (root && expanded === key) expanded = null;
+          else if (!root) expandedGuides.set(key, false);
         } else if (node.dataset.chapterKey) expandedChapters.set(node.dataset.chapterKey, node.open);
       }, { capture: true, signal });
       nav.addEventListener('click', event => {
@@ -197,7 +230,7 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
         if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         if (link.parentElement.tagName === 'SUMMARY') {
           const branch = link.parentElement.parentElement;
-          if (link.matches('.documentation-guide[aria-current="page"]')) {
+          if (link.matches(':is(.documentation-guide, .documentation-subguide)[aria-current="page"]')) {
             event.preventDefault();
             event.stopPropagation();
             branch.open = !branch.open;

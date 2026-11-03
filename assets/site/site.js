@@ -175,7 +175,7 @@ function wireNavigation() {
       }
     }
     links.forEach((link) => {
-      if (link.matches('.documentation-guide')) return;
+      if (link.matches('.documentation-guide, .documentation-subguide')) return;
       if (anchorId(link) === current && routePath(link.hash) === routePath(location.hash)) link.setAttribute('aria-current', 'location');
       else link.removeAttribute('aria-current');
     });
@@ -274,17 +274,19 @@ function objyTheme(hook, vm) {
         await pages.loadMarkdown(pages.markdownFiles(indexRoute, language.code, languageRegistry.defaultLanguage,
           languageRegistry.languages.map(entry => entry.code)));
       if (!source) return;
-      const html = sanitizeMarkup(marked(source.markdown, { renderer: new marked.Renderer() }));
-      if (!htmlFragment(decorateDocument(html)).querySelector('.document-directory')) return;
       const base = new URL('./', document.baseURI);
-      const entries = documentationIndex(html,
-        (href, image = false) => {
-          let target = pages.contentLink(href, source.file, image, base);
+      const entriesFor = (page, route) => {
+        const html = sanitizeMarkup(marked(page.markdown, { renderer: new marked.Renderer() }));
+        if (!htmlFragment(decorateDocument(html)).querySelector('.document-directory')) return [];
+        return documentationIndex(html, (href, image = false) => {
+          let target = pages.contentLink(href, page.file, image, base);
           if (image) return target;
           if (/^https?:.*\.(?:md|markdown)(?:[?#]|$)/i.test(target)) target = pages.remoteRoute(target);
-          return vm.router.toURL(target, null, indexRoute);
+          return vm.router.toURL(target, null, route);
         });
-      await Promise.all(entries.map(async entry => {
+      };
+      const entries = entriesFor(source, indexRoute);
+      const indexEntry = async (entry, ancestors) => {
         const files = pages.markdownFiles(entry.path, language.code, languageRegistry.defaultLanguage,
           languageRegistry.languages.map(item => item.code));
         if (entry.path.startsWith('/remote/')) entry.sources = files;
@@ -293,11 +295,17 @@ function objyTheme(hook, vm) {
             // Resolve local guides and include wrappers without downloading remote bodies.
             const wrapper = await pages.loadMarkdown(files, { followIncludes: false });
             entry.sources = wrapper ? [wrapper.file, pages.markdownInclude(wrapper.markdown, wrapper.file)].filter(Boolean) : [];
+            if (wrapper) {
+              const path = new Set([...ancestors, entry.path]);
+              entry.children = entriesFor(wrapper, entry.path).filter(child => !path.has(child.path));
+              await Promise.all(entry.children.map(child => indexEntry(child, path)));
+            }
           } catch (error) {
             console.warn('Guide source could not be indexed:', error);
           }
         }
-      }));
+      };
+      await Promise.all(entries.map(entry => indexEntry(entry, new Set([routePath(indexRoute)]))));
       if (entries.length) return createDocumentationTree(entries, indexRoute, vm.router.toURL.bind(vm.router));
     })().catch(error => {
       directoryRequests.delete(indexRoute);

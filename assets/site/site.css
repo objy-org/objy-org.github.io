@@ -303,8 +303,12 @@ body > main > .sidebar-toggle,
 }
 :is(.documentation-guide, .chapter-icon-link) img { flex: 0 0 20px; margin-top: 3px; }
 #section-links .documentation-branch > ul { padding: 6px 0 16px 17px; }
-#section-links .documentation-branch ul ul { padding-left: 12px; }
-#section-links .documentation-chapter-link {
+#section-links .documentation-branch:has(.documentation-subbranch) > ul { padding-left: 42px; }
+#section-links .documentation-branch ul ul { padding-left: 28px; }
+@media (min-width: 1101px) {
+  .page-sidebar:has(.documentation-subbranch) { width: calc(var(--sidebar-width) + 16px); }
+}
+#section-links :is(.documentation-chapter-link, .documentation-subguide) {
   padding: 6px 0;
   font-size: 18px;
   line-height: 1.5;

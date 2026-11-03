@@ -1,11 +1,8 @@
 <!-- Source: https://github.com/objy-org/terraform/blob/main/README.md
 README blob: 13f7bcfa244809888eb21d9fc001e3d33e7152c7
-Shared snapshot because the source repository is private. Relative links point to GitHub.
-Presentation: the README sits under a Terraform section; its chapters are one level deeper. -->
+Shared snapshot because the source repository is private. Relative links point to GitHub. -->
 
 # OBJY DB Terraform
-
-## Terraform :id=terraform
 
 [Source README](https://github.com/objy-org/terraform/blob/main/README.md)
 
@@ -15,7 +12,7 @@ The first target is Hetzner Cloud. It creates a fixed sharded and replicated
 cluster with private peer networking, persistent WAL volumes, Hetzner Object
 Storage persistence, and one load-balanced public endpoint.
 
-### Hetzner
+## Hetzner
 
 ```sh
 cd hetzner
@@ -38,7 +35,7 @@ see the Hetzner README and `hetzner/objy-release.hcl` for the `objy` trial relea
 This first version installs a fixed topology. Do not change `shards` on an
 existing deployment; safe reshard orchestration will be added separately.
 
-### Configure Terraform with environment variables
+## Configure Terraform with environment variables
 
 When running the standalone `hetzner` module directly, set `TF_VAR_<name>` to
 supply any input declared in [`hetzner/variables.tf`](https://github.com/objy-org/terraform/blob/main/hetzner/variables.tf):
@@ -66,7 +63,7 @@ This applies to direct Terraform use. ObjyDB Control Center generates its own
 variable file from the wizard and filters inherited `TF_VAR_*` variables; those
 variables do not currently configure its UI or interactive CLI.
 
-### Installer lifecycle and resizing
+## Installer lifecycle and resizing
 
 All lifecycle management stays in the separate installer and Terraform. Do not
 modify OBJY DB or require a new database management API. The detailed
