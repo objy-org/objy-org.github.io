@@ -74,6 +74,13 @@ test('registry rejects duplicate codes, unsafe folder paths, and absent defaults
 });
 
 const source = (file) => read(`content/${registry.defaultLanguage}/${file}`);
+test('externally maintained documentation contains only live references', () => {
+  for (const file of ['database.md', 'server.md', 'api.md', 'client.md', 'terraform.md']) {
+    const target = markdownInclude(read(`content/${file}`), `content/${file}`);
+    assert.match(target || '', /^https:\/\/raw\.githubusercontent\.com\//, `${file} must reference its upstream source without a copied body`);
+  }
+});
+
 for (const language of registry.languages) {
   test(`${language.code}: all editorial files, labels, and anchors are complete`, () => {
     const folder = `content/${language.code}/`;

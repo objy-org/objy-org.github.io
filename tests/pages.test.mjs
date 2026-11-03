@@ -99,16 +99,18 @@ test('navigation can read include destinations without downloading remote guides
 test('a standalone remote include loads its source and revalidates it on each visit', async () => {
   const controller = new AbortController();
   const calls = [];
+  let revision = 1;
   const fetchFile = async (file, options) => {
     calls.push({ file, options });
     return new Response(
-      file === 'content/server.md' ? `[Documentation](${remoteReadme} ':include')\n` : '# Live documentation',
+      file === 'content/server.md' ? `[Documentation](${remoteReadme} ':include')\n` : `# Live documentation ${revision}`,
     );
   };
   for (let visit = 0; visit < 2; visit++) {
+    revision = visit + 1;
     assert.deepEqual(await loadMarkdown(['content/server.md'], { signal: controller.signal, fetchFile }), {
       file: remoteReadme,
-      markdown: '# Live documentation',
+      markdown: `# Live documentation ${revision}`,
     });
   }
   const remoteCalls = calls.filter((call) => call.file === remoteReadme);

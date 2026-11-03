@@ -4,6 +4,7 @@ import { decorateHomepage } from '../assets/site/homepage.mjs';
 import { wireExamples } from '../assets/site/examples.mjs';
 import { decorateDocument } from '../assets/site/documents.mjs';
 import { documentationIndex, createDocumentationTree, documentChapters, chapterLinks } from '../assets/site/navigation.mjs';
+import { markdownInclude } from '../assets/site/pages.mjs';
 
 const results = document.getElementById('results');
 let failures = 0;
@@ -668,7 +669,7 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
     const deadline = Date.now() + 7000;
     const ready = () => {
       if (predicate()) return resolve();
-      if (Date.now() > deadline) return reject(new Error('Getting Started navigation did not finish loading'));
+      if (Date.now() > deadline) return reject(new Error(`Getting Started navigation did not finish loading (${site.contentWindow.location.hash}; ${site.contentDocument?.querySelector('.document-page h1')?.textContent})`));
       setTimeout(ready, 16);
     };
     ready();
@@ -741,31 +742,49 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
           await waitFor(() => frame.location.hash === '#/get-started/cloud/terraform' &&
             document.querySelector('.documentation-subguide[aria-current="page"]'));
         };
-        await openTerraform();
-        page = document.querySelector('.document-page');
-        assert(page.querySelector('h1').textContent === 'OBJY DB Terraform' &&
-          page.textContent.includes('terraform init') && page.textContent.includes('terraform apply'),
-          'Cloud setup did not embed the Terraform README');
-        const chapter = document.querySelector('.documentation-branch[open] [data-chapter-id="hetzner"]');
-        const selected = document.querySelector('.documentation-subbranch[open]');
-        assert(selected && chapter && selected.contains(chapter) &&
-          selected.querySelector('[data-chapter-id="configure-terraform-with-environment-variables"]') &&
-          selected.querySelector('[data-chapter-id="installer-lifecycle-and-resizing"]') &&
-          page.querySelector('a[href="https://github.com/objy-org/terraform/blob/main/README.md"]'),
-          'The README and its chapters must be grouped beneath the Terraform subsection');
-        chapter.click();
-        await waitFor(() => frame.location.hash === '#/get-started/cloud/terraform?id=hetzner' &&
-          document.querySelector('[data-chapter-id="hetzner"][aria-current="location"]'));
-        assert(document.querySelector(`.language-switcher a[lang="${language === 'en' ? 'de' : 'en'}"]`).hash ===
-          '#/get-started/cloud/terraform?id=hetzner', 'Language switching loses the Terraform chapter');
-        assert(!frame.performance.getEntriesByType('resource').some(resource => resource.name.includes('raw.githubusercontent.com/objy-org/terraform')),
-          'The private Terraform repository must not be requested by the browser');
-        document.querySelector('.documentation-guide[aria-current="true"]').click();
-        await waitFor(() => frame.location.hash === '#/get-started/cloud' && document.querySelector('.document-directory'));
-        assert(!document.querySelector('.document-page pre') && !document.querySelector('.documentation-subbranch').open,
-          'Returning to the cloud overview must collapse the previously opened README');
-        await openTerraform();
-        page = document.querySelector('.document-page');
+        const terraformSource = markdownInclude(await fetch('../content/terraform.md').then(response => response.text()));
+        const originalFetch = frame.fetch;
+        const requests = [];
+        let revision = 1;
+        // Synthetic responses exercise source changes without copying or accessing private documentation.
+        frame.fetch = (file, options) => {
+          if (file !== terraformSource) return originalFetch.call(frame, file, options);
+          requests.push(options);
+          const finalChapter = revision === 1 ? 'Maintenance' : 'Outputs';
+          const paragraph = 'Generated test content for chapter navigation. '.repeat(70);
+          return Promise.resolve(new frame.Response(`# Terraform fixture ${revision}\n\n## Provisioning\n\n~~~sh\nexample-command\n~~~\n\n${paragraph}\n\n## Settings\n\n${paragraph}\n\n## ${finalChapter}\n\n${paragraph}`));
+        };
+        try {
+          await openTerraform();
+          page = document.querySelector('.document-page');
+          assert(page.querySelector('h1').textContent === 'Terraform fixture 1' && page.textContent.includes('example-command'),
+            'The reader did not render its fetched Markdown');
+          const chapter = document.querySelector('.documentation-branch[open] [data-chapter-id="provisioning"]');
+          const selected = document.querySelector('.documentation-subbranch[open]');
+          assert(selected && chapter && selected.contains(chapter) &&
+            selected.querySelector('[data-chapter-id="settings"]') && selected.querySelector('[data-chapter-id="maintenance"]'),
+            'The fetched chapters must be grouped beneath Terraform');
+          chapter.click();
+          await waitFor(() => frame.location.hash === '#/get-started/cloud/terraform?id=provisioning' &&
+            document.querySelector('[data-chapter-id="provisioning"][aria-current="location"]'));
+          assert(document.querySelector(`.language-switcher a[lang="${language === 'en' ? 'de' : 'en'}"]`).hash ===
+            '#/get-started/cloud/terraform?id=provisioning', 'Language switching loses the Terraform chapter');
+          document.querySelector('.documentation-guide[aria-current="true"]').click();
+          await waitFor(() => frame.location.hash === '#/get-started/cloud' && document.querySelector('.document-directory'));
+          assert(!document.querySelector('.document-page pre') && !document.querySelector('.documentation-subbranch').open,
+            'Returning to the cloud overview must collapse the previously opened README');
+          revision = 2;
+          await openTerraform();
+          page = document.querySelector('.document-page');
+          assert(page.querySelector('h1').textContent === 'Terraform fixture 2' &&
+            document.querySelector('.documentation-subbranch [data-chapter-id="outputs"]') &&
+            !document.querySelector('.documentation-subbranch [data-chapter-id="maintenance"]'),
+            'Reopening the reader must refresh both the source content and its chapter tree');
+          assert(requests.length === 2 && requests.every(options => options.cache === 'no-cache' && options.credentials === 'omit'),
+            'The live source must be revalidated on each visit without browser credentials');
+        } finally {
+          frame.fetch = originalFetch;
+        }
       }
       else assert(page.querySelectorAll('pre').length === 2 && page.textContent.includes('npm i @objy/db') &&
         page.querySelector('a[href$="id=install-in-a-browser"]') && page.querySelector('a[href$="id=install-in-nodejs"]'),
@@ -781,7 +800,7 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
           const branch = document.querySelector('.documentation-branch[open]');
           const root = branch.querySelector('.documentation-guide span').getBoundingClientRect();
           const nested = branch.querySelector('.documentation-subguide span').getBoundingClientRect();
-          const chapter = branch.querySelector('[data-chapter-id="hetzner"] span').getBoundingClientRect();
+          const chapter = branch.querySelector('[data-chapter-id="provisioning"] span').getBoundingClientRect();
           assert(nested.left >= root.left + 8 && chapter.left >= nested.left + 8,
             'Terraform and its README chapters must be visibly indented at each level');
         }
@@ -817,13 +836,19 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
       site.contentDocument.querySelector('.documentation-branch[open] [data-chapter-id="deploy-cluster"]'));
     assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 3,
       'A direct setup chapter link lost the full root tree');
-    site.src = `../?lang=${language}#/get-started/cloud/terraform?id=hetzner`;
+    site.src = `../?lang=${language}#/get-started/cloud/terraform?id=provisioning`;
     await waitFor(() => site.contentDocument?.documentElement?.lang === language &&
-      site.contentDocument.querySelector('.documentation-branch[open] [data-chapter-id="hetzner"]'));
-    assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 3 &&
-      site.contentDocument.querySelector('.document-page h1').textContent === 'OBJY DB Terraform' &&
-      site.contentDocument.querySelector('.documentation-subbranch[open] [data-chapter-id="hetzner"]'),
-      'A direct Terraform chapter link lost its README or sibling roots');
+      site.contentDocument.querySelector('.documentation-subguide[aria-current="page"]'));
+    const live = site.contentDocument;
+    assert(live.querySelectorAll('.documentation-guide').length === 3 && live.querySelector('.documentation-subbranch[open]'),
+      'A direct Terraform link lost its submenu or sibling roots');
+    const { copy } = createCopy(await Promise.all(['en', language].map(code =>
+      fetch(`../content/${code}/labels.md`).then(response => response.text()))));
+    if (live.querySelector('.document-page h1').textContent === copy('documents.unavailable-title')) {
+      assert(!live.querySelector('.document-page pre') && !live.querySelector('.documentation-subbranch [data-chapter-id]'),
+        'An unavailable live source must not render a copied fallback');
+    } else assert(live.querySelectorAll('.documentation-subbranch [data-chapter-id]').length ===
+      live.querySelectorAll('.document-page [data-chapter]').length, 'Live source headings are missing from the submenu');
   }
 });
 

@@ -328,7 +328,7 @@ function objyTheme(hook, vm) {
     let navigation;
     try {
       await Promise.all([loadContent(), syntaxReady]);
-      if (path !== '/' && page) {
+      if (path !== '/') {
         const root = headerLinkForRoute(path) || document.querySelector('[data-navigation-fallback]');
         const indexRoute = root.hash.slice(1).split('?')[0];
         navigation = await loadDirectory(indexRoute, routePath(path) === routePath(indexRoute) ? page : null);
