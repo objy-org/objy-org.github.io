@@ -735,9 +735,10 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
     };
     const local = await openRoot(1);
     const article = document.querySelector('.document-page');
-    assert(article.textContent.includes('npm i -g @objy/server') && article.textContent.includes('objy run') &&
-      article.textContent.includes('objy start --instances 4') &&
-      article.textContent.split('npm i -g @objy/server').length === 2, 'Local setup lost its install or launch commands');
+    assert(article.textContent.includes('npm install --global @objy/cli') &&
+      article.textContent.includes('objy deploy local --name dev --size tiny') &&
+      article.textContent.includes('objy deploy local --name dev-cluster --size custom --shards 2 --replicas 2 --memory 2048') &&
+      article.textContent.split('npm install --global @objy/cli').length === 2, 'Local setup lost its install or launch commands');
     local.querySelector('.documentation-guide').click();
     assert(!local.open && document.querySelector('.document-page') === article,
       'Clicking the active root should collapse it without changing its guide');
