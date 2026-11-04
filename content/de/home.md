@@ -14,21 +14,21 @@
 
 ## Der OBJY-Vorteil. :id=feature-highlights
 
-### Eine API. Alle Möglichkeiten. :id=versatile-api
+### CRUD. Analytics. Vektorsuche. Eine API. :id=versatile-api
 
-CRUD, Abfragen, Aggregationen und Vektorsuche gemeinsam.
+Erstellen, abfragen, aggregieren und per Vektorsuche durchsuchen: dieselben Objekte, eine einheitliche API.
 
 ![CRUD, Abfragen, Aggregation und Vektorsuche greifen auf dieselbe Objekt-API zu.](assets/site/architecture.svg#api)
 
-### Deine Anwendung, als Objekte. :id=flexible-objects
+### Flexibles JSON. Kein starres Schema. :id=flexible-objects
 
-Flexibles JSON, das der Struktur deiner Anwendung folgt.
+Kombiniere verschachtelte Eigenschaften, Arrays, Vektoren und Referenzen. Jedes Objekt kann sich weiterentwickeln, ohne alle Objekte in dieselbe Form zu zwingen.
 
 ![Ein flexibles JSON-Fahrradobjekt mit ID, Eigenschaften und einem Vektor.](assets/site/architecture.svg#objects)
 
-### In-Memory-Tempo. Weniger Speicherverbrauch. :id=hot-compressed
+### In-Memory-Tempo. Komprimierung inklusive. :id=hot-compressed
 
-Heiße Felder für direkten Zugriff, kompakte Spalten für schnelle Aggregationen und komprimierte Daten für einen kleineren Speicherbedarf.
+Heiße Felder ermöglichen direkten Zugriff, kompakte Spalten beschleunigen Aggregationen und komprimierte Objektdaten senken den Speicherverbrauch.
 
 ![Ein RAM-Modul speichert heiße Felder, kompakte Spalten und komprimierte Daten.](assets/site/architecture.svg#memory)
 
