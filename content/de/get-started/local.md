@@ -5,22 +5,23 @@ Starte mit einem Knoten oder betreibe einen lokalen Cluster.
 ## Installation :id=install-server
 
 ```sh
-npm i -g @objy/server
+npm install --global @objy/cli
 ```
 
 ## Ein Knoten :id=deploy-quick-start
 
 ```sh
-objy run
+objy deploy local --name dev --size tiny
+objy status dev
 ```
 
-[Schnellstart-Anleitung](/content/server.md?id=start-one-node)
+[Server-Anleitung](/content/server.md?id=deploy-a-server)
 
 ## Cluster :id=deploy-cluster
 
 ```sh
-objy start --instances 4
-objy status
+objy deploy local --name dev-cluster --size custom --shards 2 --replicas 2 --memory 2048
+objy status dev-cluster
 ```
 
 [Cluster einrichten](/content/server.md?id=form-a-cluster)
