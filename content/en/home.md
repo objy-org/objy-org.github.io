@@ -26,7 +26,7 @@ Combine nested properties, arrays, vectors, and references. Each object can evol
 
 ![A flexible JSON bike object, with an ID, properties, and a vector.](assets/site/architecture.svg#objects)
 
-### In-memory speed. Smarter storage. :id=hot-compressed
+### In-memory speed. Efficient storage. :id=hot-compressed
 
 Hot fields provide direct access, compact columns accelerate aggregations, and compressed object data reduces memory use.
 
