@@ -1,9 +1,23 @@
-import { htmlFragment } from './markup.mjs';
+import { headingSections, htmlFragment } from './markup.mjs';
 
 export const routePath = (href) => decodeURI(href.split('#/').pop().split('?')[0])
   .replace(/^\/?/, '/').replace(/\.(?:md|markdown)\/?$/i, '').replace(/\/+$/, '') || '/';
 
 const anchor = (href) => new URLSearchParams(href.split('?')[1] || '').get('id');
+
+export function guideContext(route) {
+  const guide = new URLSearchParams(route.split('?')[1] || '').get('guide');
+  return guide?.startsWith('#/') ? guide : null;
+}
+
+// Carry a Markdown-derived parent through bookmarks, new tabs, and language changes.
+export function withGuideContext(href, guide) {
+  if (!guide || !/^#?\/remote\//.test(href)) return href;
+  const [path, search = ''] = href.split('?');
+  const query = new URLSearchParams(search);
+  query.set('guide', guide);
+  return `${path}?${query}`;
+}
 
 function navigationLabel(link, title, source) {
   if (source) {
@@ -58,11 +72,10 @@ export function documentationIndex(html, resolve) {
   const source = htmlFragment(html);
   const entries = [];
   const seen = new Set();
-  for (const heading of [...source.children].filter(node => node.tagName === 'H2')) {
-    const content = [];
-    for (let node = heading.nextElementSibling; node && !node.matches('h1, h2'); node = node.nextElementSibling)
-      content.push(node);
-    const destination = content.flatMap(node => [...node.querySelectorAll('a[href]')])
+  for (const { heading, content } of headingSections(source.childNodes, 'H2')) {
+    // Code lessons and nested topics are guides; extra editorial prose is harmless.
+    if (content.some(node => /^H[1-6]$/.test(node.tagName) || node.tagName === 'PRE')) continue;
+    const destination = content.flatMap(node => [...(node.querySelectorAll?.('a[href]') || [])])
       .find(link => /\.(?:md|markdown)(?:[?#]|$)|^#\//i.test(link.getAttribute('href')));
     if (!destination) continue;
     const href = resolve(destination.getAttribute('href'));
@@ -70,7 +83,7 @@ export function documentationIndex(html, resolve) {
     seen.add(href);
     const icon = heading.querySelector('img');
     entries.push({
-      href, key: href, path: routePath(href),
+      href, path: routePath(href),
       title: heading.textContent.replace(/\s*:id=\S+\s*$/, '').trim(),
       icon: icon ? resolve(icon.getAttribute('src'), true) : null,
     });
@@ -85,18 +98,30 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
   const expandedGuides = new Map();
   const allEntries = [];
   const parents = new Map();
-  const collect = (items, parent) => {
-    for (const entry of items) {
+  const collect = (items, parent, lineage = []) => items.filter(entry => !lineage.includes(entry))
+    .map(source => {
+      const entry = { ...source, key: parent ? JSON.stringify([...lineage.map(node => node.href), source.href]) : source.href };
       allEntries.push(entry);
-      if (parent) parents.set(entry.key, parent);
-      collect(entry.children || [], entry);
-    }
-  };
-  collect(entries);
+      if (parent) parents.set(entry, parent);
+      entry.children = collect(source.children || [], entry, [...lineage, source]);
+      return entry;
+    });
+  entries = collect(entries);
   const ancestorsOf = (entry) => {
     const ancestors = [];
-    for (let current = entry; current; current = parents.get(current.key)) ancestors.push(current);
+    for (let current = entry; current && !ancestors.includes(current); current = parents.get(current)) ancestors.push(current);
     return ancestors;
+  };
+  const entryFor = (route, page) => {
+    const path = routePath(route);
+    const matches = allEntries.filter(entry => entry.path === path);
+    const key = owners.get(path) || owners.get(page?.file);
+    const context = guideContext(route) || guideContext(location.hash);
+    return matches.find(entry => entry.key === key) ||
+      matches.find(entry => anchor(entry.href) === anchor(location.hash)) || matches[0] ||
+      allEntries.find(entry => entry.sources?.includes(page?.file)) ||
+      allEntries.find(entry => entry.href === context) ||
+      allEntries.find(entry => entry.key === key);
   };
   let selected;
   let expanded;
@@ -120,7 +145,7 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
         navigationLabel(link, node.title, node.icon);
         if (node.icon) link.classList.add('chapter-icon-link');
         link.dataset.chapterId = node.id;
-        link.href = toURL(guide.route, { id: node.id });
+        link.href = toURL(guide.route, { id: node.id, ...(guide.context ? { guide: guide.context } : {}) });
         if (node.children.length) {
           const details = document.createElement('details');
           details.dataset.chapterKey = `${guide.key}:${node.id}`;
@@ -181,13 +206,10 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
 
   return {
     indexRoute: routePath(indexRoute),
+    contextFor: (route, page) => entryFor(route, page)?.href,
     mount(nav, article, route, page) {
       const path = routePath(route);
-      const matches = allEntries.filter(entry => entry.path === path);
-      const key = owners.get(path) || owners.get(page?.file);
-      selected = matches.find(entry => anchor(entry.href) === anchor(location.hash)) || matches[0] ||
-        allEntries.find(entry => entry.sources?.includes(page?.file)) ||
-        allEntries.find(entry => entry.key === key);
+      selected = entryFor(route, page);
       if (!selected && path !== routePath(indexRoute)) {
         previous = null;
         return false;
@@ -195,7 +217,8 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
       if (selected) {
         owners.set(path, selected.key);
         if (page?.file) owners.set(page.file, selected.key);
-        visited.set(selected.key, { route, chapters: page ? documentChapters(article) : [] });
+        visited.set(selected.key, { route, chapters: page ? documentChapters(article) : [],
+          context: path.startsWith('/remote/') ? selected.href : null });
         if (previous !== selected.key) {
           const ancestors = ancestorsOf(selected);
           expanded = ancestors.at(-1).key;
@@ -215,7 +238,7 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
         if (node.dataset.guideKey) {
           const key = node.dataset.guideKey;
           const entry = allEntries.find(entry => entry.key === key);
-          const root = !parents.has(key);
+          const root = !parents.has(entry);
           if (node.open) {
             if (root) expanded = key;
             else expandedGuides.set(key, true);
@@ -230,6 +253,7 @@ export function createDocumentationTree(entries, indexRoute, toURL) {
         if (!link || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
         if (link.parentElement.tagName === 'SUMMARY') {
           const branch = link.parentElement.parentElement;
+          if (branch.dataset.guideKey) owners.set(routePath(link.hash), branch.dataset.guideKey);
           if (link.matches(':is(.documentation-guide, .documentation-subguide)[aria-current="page"]')) {
             event.preventDefault();
             event.stopPropagation();

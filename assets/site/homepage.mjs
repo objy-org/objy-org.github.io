@@ -1,11 +1,9 @@
-import { htmlFragment } from './markup.mjs';
-import { decorateExample } from './examples.mjs';
+import { destinationLinks, htmlFragment } from './markup.mjs';
 import { decorateDocument } from './documents.mjs';
 import { createIllustration } from './illustrations.mjs';
 
 function isLinkParagraph(node) {
-  return node?.tagName === 'P' && node.children.length === 1 && node.firstElementChild.tagName === 'A' &&
-    node.textContent.trim() === node.firstElementChild.textContent.trim();
+  return node?.tagName === 'P' && Boolean(destinationLinks(node));
 }
 
 function decorateFooter(section, body) {
@@ -89,8 +87,7 @@ async function decorateSection(section) {
     section.append(figure);
     if (!isHero) section.classList.add('section-illustrated');
   }
-  const example = !image && heading.tagName !== 'H1' && decorateExample(section);
-  if (!example && heading.tagName !== 'H1' && !image && body.querySelector(':scope > h3')) {
+  if (heading.tagName !== 'H1' && !image && body.querySelector(':scope > h3')) {
     section.classList.add('section-cards');
     decorateFooter(section, body);
     const more = body.lastElementChild;
@@ -127,14 +124,8 @@ async function decorateSection(section) {
       if (more.classList.contains('feature-more')) body.append(more);
     }
   }
-  const actions = [...body.querySelectorAll(':scope > ul')].filter((list) =>
-    [...list.children].every((item) =>
-      item.children.length === 1 &&
-      item.firstElementChild.tagName === 'A' &&
-      item.textContent.trim() === item.firstElementChild.textContent.trim(),
-    ),
-  );
-  if (heading.tagName === 'H1' || (!image && !example && !body.querySelector(':scope > h3'))) {
+  const actions = [...body.querySelectorAll(':scope > ul')].filter(destinationLinks);
+  if (heading.tagName === 'H1' || (!image && !body.querySelector(':scope > h3'))) {
     actions.forEach((list) => list.classList.add('section-actions'));
     if (heading.tagName !== 'H1' && actions.length) section.classList.add('section-callout');
   }

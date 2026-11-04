@@ -1,9 +1,9 @@
 // No test framework or package installation: run this page through the local HTTP server.
 import { createCopy, htmlFragment, sanitizeMarkup } from '../assets/site/markup.mjs';
 import { decorateHomepage } from '../assets/site/homepage.mjs';
-import { wireExamples } from '../assets/site/examples.mjs';
 import { decorateDocument } from '../assets/site/documents.mjs';
-import { documentationIndex, createDocumentationTree, documentChapters, chapterLinks } from '../assets/site/navigation.mjs';
+import { documentationIndex, createDocumentationTree, documentChapters, chapterLinks, guideContext, withGuideContext } from '../assets/site/navigation.mjs';
+import { createDirectoryLoader } from '../assets/site/directories.mjs';
 import { markdownInclude } from '../assets/site/pages.mjs';
 
 const results = document.getElementById('results');
@@ -126,12 +126,92 @@ await check('Documentation trees derive arbitrary roots, retain sibling guides, 
     const fresh = createDocumentationTree(entries, '/handbook', toURL);
     assert(fresh.mount(nav, article, '/remote/opaque-source', { file: 'https://example.com/live/beta.md' }) &&
       nav.querySelector('.documentation-branch[open] .documentation-guide').textContent === 'Beta', 'A directly opened remote source lost its root');
+    assert(fresh.contextFor(withGuideContext('/remote/opaque-source', '#/handbook/alpha'),
+      { file: 'https://example.com/live/beta.md' }) === '#/handbook/beta',
+      'An existing guide source was incorrectly assigned to the originating guide');
     assert(!fresh.mount(nav, article, '/unrelated', { file: 'other.md' }), 'An unrelated document adopted the documentation tree');
   } finally {
     controller.abort();
     history.replaceState(null, '', previousUrl);
     nav.remove();
     article.remove();
+  }
+});
+
+await check('Markdown directory edits update roots independently of styling, without fetching remote bodies', async () => {
+  const originalFetch = window.fetch;
+  const files = new Map([
+    ['manual.md', '# Manual\n\n## First\n\nDescription.\n\nExtra description.\n\n[Read](one.md)\n\n## Second\n\n[Read](alias.md)'],
+    ['one.md', '# One\n\n## Original chapter\n\nContent.'],
+    ['alias.md', "[Shared](shared.md ':include')"],
+    ['shared.md', "[Remote](https://example.com/docs/README.md ':include')"],
+    ['two.md', '# Two\n\n## New chapter\n\nContent.'],
+  ]);
+  const requests = [];
+  window.fetch = async (file, options) => {
+    requests.push(String(file));
+    assert(options.cache === 'no-cache', 'Directory metadata was not revalidated');
+    return new Response(files.get(file) || '', { status: files.has(file) ? 200 : 404 });
+  };
+  const toURL = (route, query) => `#${route.replace(/\.md$/, '')}${query ? `?${new URLSearchParams(query)}` : ''}`;
+  const load = createDirectoryLoader({
+    filesForRoute: route => [`${route.replace(/^\//, '')}.md`],
+    render: markdown => sanitizeMarkup(marked(markdown, { renderer: new marked.Renderer() })),
+    resolve: (href, source, route, image) => image ? href : toURL(`/${href}`),
+    toURL,
+  });
+  const nav = document.createElement('nav');
+  const article = document.createElement('article');
+  article.className = 'document-page';
+  const previous = location.href;
+  try {
+    history.replaceState(null, '', '#/manual');
+    const initial = await load('/manual');
+    assert(initial?.mount(nav, article, '/manual', { file: 'manual.md' }), 'Extra prose removed the root tree');
+    assert([...nav.querySelectorAll('.documentation-guide')].map(link => link.textContent).join('|') === 'First|Second',
+      'Root labels do not follow the Markdown');
+    assert(await load('/manual') === initial, 'Unchanged Markdown unnecessarily discarded expansion state');
+    assert(initial.contextFor('/remote/opaque', { file: 'https://example.com/docs/README.md' }) === '#/alias',
+      'A chain of local includes lost its remote source identity');
+    files.set('manual.md', '# Manual\n\n## Changed title\n\nMore text.\n\n- Extra detail\n\n[Read](two.md)');
+    const changed = await load('/manual');
+    changed.mount(nav, article, '/manual', { file: 'manual.md' });
+    assert(changed !== initial && nav.querySelectorAll('.documentation-guide').length === 1 &&
+      nav.querySelector('.documentation-guide').textContent === 'Changed title' &&
+      nav.querySelector('.documentation-guide').hash === '#/two', 'Renamed, removed, or relinked Markdown entries stayed stale');
+    article.innerHTML = '<h1 id="two">Two</h1><h2 id="new-topic">New topic</h2><h3 id="detail">Detail</h3>';
+    history.replaceState(null, '', '#/two');
+    changed.mount(nav, article, '/two', { file: 'two.md' });
+    assert([...nav.querySelectorAll('[data-chapter-id]')].map(link => link.textContent).join('|') === 'New topic|Detail',
+      'Edited Markdown headings did not generate new chapters');
+    assert(!requests.some(file => /^https?:/.test(file)), 'Indexing fetched an unselected remote document');
+  } finally {
+    window.fetch = originalFetch;
+    history.replaceState(null, '', previous);
+  }
+});
+
+await check('Cross-linked directories keep separate branch identities and cannot create parent cycles', () => {
+  const entry = name => ({ key: `#/${name}`, href: `#/${name}`, path: `/${name}`, title: name });
+  const alpha = entry('alpha');
+  const beta = entry('beta');
+  alpha.children = [beta];
+  beta.children = [alpha];
+  const tree = createDocumentationTree([alpha, beta], '/index', (route, query) => `#${route}?${new URLSearchParams(query)}`);
+  const nav = document.createElement('nav');
+  const article = document.createElement('article');
+  article.className = 'document-page';
+  article.innerHTML = '<h1 id="title">Guide</h1><h2 id="topic">Topic</h2>';
+  const previous = location.href;
+  try {
+    history.replaceState(null, '', '#/alpha');
+    assert(tree.mount(nav, article, '/alpha', { file: 'alpha.md' }), 'Cross-linked roots did not mount');
+    const keys = [...nav.querySelectorAll('[data-guide-key]')].map(node => node.dataset.guideKey);
+    assert(keys.length === 4 && new Set(keys).size === keys.length, 'Repeated destinations shared a branch identity');
+    assert(nav.querySelectorAll('.documentation-branch[open]').length === 1 &&
+      nav.querySelector('.documentation-guide[aria-current="page"]').textContent === 'alpha', 'The selected root lost its ancestry');
+  } finally {
+    history.replaceState(null, '', previous);
   }
 });
 
@@ -463,65 +543,6 @@ await check('Icon subchapters become reusable homepage columns with their own ac
   });
 });
 
-await check('Markdown object tabs share one code panel and support deep links and keyboard navigation', async () => {
-  const markup = '<h1 id="top">Hello</h1><h2 id="demo">Example</h2><p>Introduction</p>' +
-    '<h3 id="first">First item</h3><blockquote><p>items / first</p></blockquote>' +
-    '<pre><code class="lang-json">{"_id":"first","literal":"&lt;tag&gt;"}</code></pre>' +
-    '<h3 id="related">Related record</h3><blockquote><p>people / second</p></blockquote>' +
-    '<pre><code class="language-json">{"_id":"second"}</code></pre>' +
-    '<h3 id="last">Last item</h3><pre><code class="lang-yaml">name: last</code></pre>';
-  const fixture = document.createElement('div');
-  fixture.append(htmlFragment(await decorateHomepage(markup)));
-  document.body.append(fixture);
-  const controller = new AbortController();
-  const previousUrl = location.href;
-  try {
-    history.replaceState(null, '', '#/?id=related');
-    wireExamples(controller.signal, fixture);
-    const panel = fixture.querySelector('.example-code');
-    const code = panel.querySelector('pre code');
-    const tabs = [...fixture.querySelectorAll('[data-example-tab]')];
-    const active = () => tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
-    assert(fixture.querySelectorAll('[role="tablist"]').length === 1, 'Multiple tab groups rendered');
-    assert(fixture.querySelectorAll('pre').length === 1, 'More than one code snippet rendered');
-    assert(tabs.map((tab) => tab.textContent).join(',') === 'First item,Related record,Last item', 'Tabs did not use Markdown labels');
-    assert(JSON.parse(code.textContent)._id === 'second', 'Initial deep link did not select its object');
-    tabs[0].click();
-    assert(JSON.parse(code.textContent).literal === '<tag>', 'Literal JSON changed');
-    assert(!code.querySelector('tag'), 'Example content became HTML');
-    tabs[1].click();
-    assert(panel.querySelector('pre code') === code, 'Code element changed, breaking copy controls');
-    assert(JSON.parse(code.textContent)._id === 'second', 'Tab did not change the visible object');
-    assert(fixture.querySelector('.example-source-label').textContent === 'people / second', 'Source label did not change');
-    assert(panel.getAttribute('aria-labelledby') === tabs[1].id, 'Panel does not identify the selected tab');
-    assert(tabs.every((tab) => tab.getAttribute('aria-controls') === panel.id), 'Tabs do not control the shared panel');
-    assert(tabs[0].tabIndex === -1 && tabs[1].tabIndex === 0, 'Roving tab focus did not update');
-    tabs[1].dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
-    assert(active() === tabs[2] && document.activeElement === tabs[2], 'End did not select and focus the last tab');
-    assert(code.textContent === 'name: last', 'Third source did not display');
-    assert(fixture.querySelector('.example-format').textContent === 'YAML', 'Code format did not update');
-    assert(fixture.querySelector('.example-source-label').textContent === '', 'Missing source retained a stale label');
-    tabs[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
-    assert(active() === tabs[0], 'Right arrow did not wrap');
-    tabs[0].dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
-    assert(active() === tabs[2], 'Left arrow did not wrap');
-    tabs[2].dispatchEvent(new KeyboardEvent('keydown', { key: 'Home', bubbles: true }));
-    assert(active() === tabs[0], 'Home did not select the first tab');
-    history.replaceState(null, '', '#/?id=related');
-    window.dispatchEvent(new HashChangeEvent('hashchange'));
-    assert(active() === tabs[1], 'Changed deep link did not select its object');
-    controller.abort();
-    tabs[0].click();
-    history.replaceState(null, '', '#/?id=first');
-    window.dispatchEvent(new HashChangeEvent('hashchange'));
-    assert(active() === tabs[1], 'Example listeners survived cleanup');
-  } finally {
-    controller.abort();
-    history.replaceState(null, '', previousUrl);
-    fixture.remove();
-  }
-});
-
 await check('Homepage actions and footer are derived from Markdown links', async () => {
   const content = htmlFragment(await decorateHomepage(
     '<h1 id="top">Hello</h1><p>Intro</p><ul><li><a href="get-started.md">Start</a></li></ul>' +
@@ -735,8 +756,8 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
         assert(page.matches('.document-directory') && page.querySelector('.directory-link h2').textContent.trim() === 'Terraform' &&
           !page.querySelector('pre') && terraform && !terraform.open && !terraform.querySelector('[data-chapter-id]'),
           'Opening the cloud overview must leave the Terraform README unloaded and collapsed');
-        assert(!frame.performance.getEntriesByType('resource').some(resource => resource.name.endsWith('/content/terraform.md')),
-          'The cloud overview fetched the Terraform README before it was selected');
+        assert(!frame.performance.getEntriesByType('resource').some(resource => resource.name.startsWith('https://raw.githubusercontent.com/')),
+          'The cloud overview fetched a remote README before it was selected');
         const openTerraform = async () => {
           document.querySelector('.documentation-subguide').click();
           await waitFor(() => frame.location.hash === '#/get-started/cloud/terraform' &&
@@ -1232,6 +1253,82 @@ await check('The object database hero stays large, translated, and centered on d
       }
     }
   }
+});
+
+await check('The chapter drawer closes after section jumps at every drawer width', async () => {
+  const waitFor = async predicate => {
+    const deadline = Date.now() + 10000;
+    while (!predicate()) {
+      if (Date.now() > deadline) throw new Error('Homepage did not load');
+      await new Promise(resolve => setTimeout(resolve, 20));
+    }
+  };
+  site.src = '../?lang=en';
+  await waitFor(() => site.contentDocument?.documentElement.lang === 'en' &&
+    site.contentDocument.querySelector('.hero-highlights') && site.contentDocument.querySelector('.page-sidebar'));
+  const document = site.contentDocument;
+  const menu = document.querySelector('.section-menu-toggle');
+  for (const width of [1100, 900, 760, 390]) {
+    site.style.width = `${width}px`;
+    await new Promise(resolve => setTimeout(resolve, 32));
+    menu.click();
+    assert(menu.getAttribute('aria-expanded') === 'true', `Menu did not open at ${width}px`);
+    document.querySelectorAll('#section-links a')[1].click();
+    assert(menu.getAttribute('aria-expanded') === 'false' &&
+      site.contentWindow.getComputedStyle(document.querySelector('.page-sidebar')).display === 'none',
+      `The drawer covers the selected section at ${width}px`);
+  }
+});
+
+await check('Linked remote Markdown preserves its setup roots, chapters, bookmarks, and language context', async () => {
+  const waitFor = async predicate => {
+    const deadline = Date.now() + 15000;
+    while (!predicate()) {
+      if (Date.now() > deadline) throw new Error('Linked documentation did not finish loading');
+      await new Promise(resolve => setTimeout(resolve, 20));
+    }
+  };
+  const source = markdownInclude(await fetch('../content/terraform.md').then(response => response.text()));
+  const sourceFolder = source.slice(0, source.lastIndexOf('/') + 1);
+  const patchFetch = () => {
+    const frame = site.contentWindow;
+    const original = frame.fetch.bind(frame);
+    frame.fetch = (input, options) => {
+      const url = typeof input === 'string' ? input : input.url;
+      if (url.startsWith(sourceFolder)) return Promise.resolve(new frame.Response(url.endsWith('SETUP.md') ?
+        '# Linked setup\n\n## Installation\n\nInstall here.\n\n## Configuration\n\nConfigure here.' :
+        '# Terraform fixture\n\n## Setup\n\n[Linked guide](SETUP.md)'));
+      return original(input, options);
+    };
+  };
+  site.src = '../?lang=en#/get-started';
+  await waitFor(() => site.contentDocument?.querySelectorAll('.documentation-guide').length === 3);
+  patchFetch();
+  let frame = site.contentWindow;
+  frame.location.hash = '#/get-started/cloud/terraform';
+  await waitFor(() => site.contentDocument.querySelector('.document-page h1')?.textContent === 'Terraform fixture');
+  site.contentDocument.querySelector('.document-page a[href*="/remote/"]').click();
+  await waitFor(() => site.contentDocument.querySelector('.document-page h1')?.textContent === 'Linked setup');
+  assert(guideContext(frame.location.hash) === '#/get-started/cloud/terraform', 'The linked document has no bookmarkable parent');
+  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 3 &&
+    site.contentDocument.querySelector('.header-links [aria-current="page"]').hash === '#/get-started',
+    'A linked Markdown file switched to Documentation or lost the setup roots');
+  const chapter = site.contentDocument.querySelector('[data-chapter-id="configuration"]');
+  assert(guideContext(chapter.hash) === '#/get-started/cloud/terraform', 'Chapter links dropped their parent context');
+  chapter.click();
+  await waitFor(() => site.contentDocument.querySelector('[data-chapter-id="configuration"][aria-current="location"]'));
+  const languageLink = site.contentDocument.querySelector('.language-switcher a[lang="de"]');
+  assert(guideContext(languageLink.hash) === '#/get-started/cloud/terraform', 'Language switching drops the parent context');
+  const bookmark = languageLink.href;
+  site.addEventListener('load', patchFetch, { once: true });
+  site.src = bookmark;
+  await waitFor(() => site.contentDocument?.documentElement.lang === 'de' &&
+    site.contentDocument.querySelector('.document-page h1')?.textContent === 'Linked setup' &&
+    site.contentDocument.querySelector('.documentation-subguide[aria-current="page"]'));
+  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 3 &&
+    site.contentDocument.querySelector('.header-links [aria-current="page"]').hash === '#/get-started' &&
+    site.contentDocument.querySelector('[data-chapter-id="configuration"]'), 'Reloading a translated bookmark lost the dynamic tree');
+  assert(withGuideContext('/remote/example?id=install', '#/manual/guide').includes('id=install'), 'Context removed the chapter query');
 });
 
 site.remove();

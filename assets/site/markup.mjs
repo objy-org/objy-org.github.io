@@ -6,6 +6,27 @@ export function htmlFragment(html) {
   return template.content;
 }
 
+// Group sibling Markdown blocks without coupling navigation to a visual layout.
+export function headingSections(nodes, tagName) {
+  const sections = [];
+  let section;
+  for (const node of nodes) {
+    if (node.nodeType === Node.TEXT_NODE && !node.textContent.trim()) continue;
+    if (node.tagName === tagName) {
+      section = { heading: node, content: [], icon: node.querySelector('img') };
+      sections.push(section);
+    } else if (section) section.content.push(node);
+  }
+  return sections;
+}
+
+export function destinationLinks(node) {
+  const items = node?.tagName === 'UL' ? [...node.children] : node?.tagName === 'P' ? [node] : [];
+  if (!items.length || items.some(item => item.children.length !== 1 || item.firstElementChild.tagName !== 'A' ||
+    item.textContent.trim() !== item.firstElementChild.textContent.trim())) return null;
+  return items.map(item => item.firstElementChild);
+}
+
 export function readMarkdown(markdown) {
   // Editorial tables and menus use a plain renderer, independent of the active page.
   return htmlFragment(marked(markdown, { renderer: new marked.Renderer() }));

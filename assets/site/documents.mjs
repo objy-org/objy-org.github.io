@@ -1,28 +1,17 @@
-import { htmlFragment } from './markup.mjs';
-
-function destinationLinks(node) {
-  const items = node?.tagName === 'UL' ? [...node.children] : node?.tagName === 'P' ? [node] : [];
-  if (!items.length || items.some((item) =>
-    item.children.length !== 1 || item.firstElementChild.tagName !== 'A' ||
-    item.textContent.trim() !== item.firstElementChild.textContent.trim())) return null;
-  return items.map((item) => item.firstElementChild);
-}
+import { destinationLinks, headingSections, htmlFragment } from './markup.mjs';
 
 function unwrapHeadingLinks(heading) {
   heading.querySelectorAll('a').forEach((anchor) => anchor.replaceWith(...anchor.childNodes));
 }
 
 function catalogEntries(content) {
-  const headings = content.filter((node) => node.tagName === 'H3');
-  if (!headings.length) return null;
-  const entries = headings.map((heading, index) => {
-    const start = content.indexOf(heading) + 1;
-    const end = index + 1 < headings.length ? content.indexOf(headings[index + 1]) : content.length;
-    const body = content.slice(start, end);
+  const sections = headingSections(content, 'H3');
+  if (!sections.length) return null;
+  const entries = sections.map(({ heading, content: body }) => {
     const icons = heading.querySelectorAll('img');
     return icons.length === 1 && body.length ? { heading, body, icon: icons[0] } : null;
   });
-  return entries.every(Boolean) ? { intro: content.slice(0, content.indexOf(headings[0])), entries } : null;
+  return entries.every(Boolean) ? { intro: content.slice(0, content.indexOf(sections[0].heading)), entries } : null;
 }
 
 // Shared by illustrated guides and the visual chapters inside catalogs.
@@ -59,16 +48,8 @@ export function decorateDocument(html) {
   const article = document.createElement('div');
   article.className = 'document-page';
   article.append(htmlFragment(html));
-  const headings = [...article.querySelectorAll(':scope > h2')];
-  const sections = headings.map((heading) => {
-    const content = [];
-    for (let node = heading.nextSibling; node && !headings.includes(node); node = node.nextSibling) {
-      if (node.nodeType === Node.TEXT_NODE && !node.textContent.trim()) continue;
-      content.push(node);
-    }
-    const icon = heading.querySelector('img');
-    return { heading, content, icon };
-  });
+  const sections = headingSections(article.childNodes, 'H2');
+  const headings = sections.map(section => section.heading);
   const catalogs = sections.map(({ content }) => catalogEntries(content));
   const illustrations = sections.map(({ content }) => !content.some((node) => node.tagName === 'H3') &&
     content.find((node) => node.tagName === 'P' && node.children.length === 1 && node.firstElementChild.tagName === 'IMG'));
@@ -132,14 +113,11 @@ export function decorateDocument(html) {
   }
   // H2 chapters can group simple H3 topics, mixing diagrams with prose and code.
   const groups = sections.map(({ heading, content }) => {
-    const topics = content.filter(node => node.tagName === 'H3');
+    const topics = headingSections(content, 'H3');
     return {
       heading,
-      intro: content.slice(0, content.indexOf(topics[0])),
-      topics: topics.map((title, index) => {
-        const start = content.indexOf(title) + 1;
-        const end = topics[index + 1] ? content.indexOf(topics[index + 1]) : content.length;
-        const body = content.slice(start, end);
+      intro: topics.length ? content.slice(0, content.indexOf(topics[0].heading)) : content,
+      topics: topics.map(({ heading: title, content: body }) => {
         const image = body.find(node => node.tagName === 'P' && node.children.length === 1 && node.firstElementChild.tagName === 'IMG');
         return { heading: title, content: body, image };
       }),
