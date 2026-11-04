@@ -25,6 +25,59 @@
         <text x="22" y="188" fill="#c8c2b8">}</text>
       </g>
     </g>
+    <symbol id="api" viewBox="0 0 360 184">
+    <g class="api-option" transform="translate(12 14)">
+      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-crud" transform="translate(15 13) scale(.65)" color="#c5dca5"/>
+      <text x="47" y="30" font-size="16" fill="#c5dca5" data-copy="architecture-diagram.crud">CRUD</text>
+    </g>
+    <g class="api-option" transform="translate(188 14)">
+      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-query" transform="translate(15 13) scale(.65)" color="#a9d0eb"/>
+      <text x="47" y="30" font-size="16" fill="#a9d0eb" data-copy="architecture-diagram.query">Query</text>
+    </g>
+    <g class="api-option" transform="translate(12 74)">
+      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-aggregate" transform="translate(15 13) scale(.65)" color="#e4b29d"/>
+      <text x="47" y="30" font-size="16" fill="#e4b29d" data-copy="architecture-diagram.aggregate">Aggregate</text>
+    </g>
+    <g class="api-option" transform="translate(188 74)">
+      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
+      <use href="#objy-arch-vector" transform="translate(15 13) scale(.65)" color="#cfb5ee"/>
+      <text x="47" y="30" font-size="16" fill="#cfb5ee" data-copy="architecture-diagram.vector">Vector</text>
+    </g>
+    <path d="M92 130v16h176v-16m-88 16v27m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+    </symbol>
+    <symbol id="objects" viewBox="0 184 360 258">
+    <g class="architecture-object"><use href="#objy-arch-object" transform="translate(15 190)"/></g>
+    <path d="M180 416v29m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+    </symbol>
+    <symbol id="memory" viewBox="0 442 360 158">
+    <g class="storage-panel">
+      <path class="memory-board" d="M17 460H343l7 7v98l-7 7H189.0v-7h-18v7H17l-7-7V467Z" fill="#252e24" stroke="#84976f" stroke-width="1.6" stroke-linejoin="round"/>
+      <circle cx="21" cy="471" r="2.5" stroke="#718565"/>
+      <circle cx="339" cy="471" r="2.5" stroke="#718565"/>
+      <text x="28" y="487" font-size="20" font-weight="600" letter-spacing="1" fill="#d2e6b2" data-copy="storage-diagram.memory">IN MEMORY</text>
+      <g class="storage-chip" transform="translate(26 502)">
+        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#c5dca5" stroke-width="2" opacity=".4"/>
+        <rect width="96" height="49" rx="4" fill="#293227" stroke="#c5dca5" stroke-opacity=".5"/>
+        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
+      </g>
+      <g class="storage-chip" transform="translate(132 502)">
+        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#e4b29d" stroke-width="2" opacity=".4"/>
+        <rect width="96" height="49" rx="4" fill="#332b27" stroke="#e4b29d" stroke-opacity=".5"/>
+        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#e4b29d" data-copy="storage-diagram.columns">Columns</text>
+      </g>
+      <g class="storage-chip" transform="translate(238 502)">
+        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#cfb5ee" stroke-width="2" opacity=".4"/>
+        <rect width="96" height="49" rx="4" fill="#2e2934" stroke="#cfb5ee" stroke-opacity=".5"/>
+        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed</text>
+      </g>
+      <path class="memory-contacts" d="M28 573v10 M39 573v10 M50 573v10 M61 573v10 M72 573v10 M83 573v10 M94 573v10 M105 573v10 M116 573v10 M127 573v10 M138 573v10 M149 573v10 M332 573v10 M321 573v10 M310 573v10 M299 573v10 M288 573v10 M277 573v10 M266 573v10 M255 573v10 M244 573v10 M233 573v10 M222 573v10 M211 573v10" stroke="#b4aa78" stroke-width="4"/>
+    </g>
+    </symbol>
   </defs>
   <svg class="architecture-wide" viewBox="0 0 1000 570" width="100%" height="100%" aria-hidden="true">
     <g class="api-option" transform="translate(80 20)">
@@ -74,50 +127,8 @@
     </g>
   </svg>
   <svg class="architecture-compact" viewBox="0 0 360 600" width="100%" height="100%" aria-hidden="true">
-    <g class="api-option" transform="translate(12 14)">
-      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
-      <use href="#objy-arch-crud" transform="translate(15 13) scale(.65)" color="#c5dca5"/>
-      <text x="47" y="30" font-size="16" fill="#c5dca5" data-copy="architecture-diagram.crud">CRUD</text>
-    </g>
-    <g class="api-option" transform="translate(188 14)">
-      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
-      <use href="#objy-arch-query" transform="translate(15 13) scale(.65)" color="#a9d0eb"/>
-      <text x="47" y="30" font-size="16" fill="#a9d0eb" data-copy="architecture-diagram.query">Query</text>
-    </g>
-    <g class="api-option" transform="translate(12 74)">
-      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
-      <use href="#objy-arch-aggregate" transform="translate(15 13) scale(.65)" color="#e4b29d"/>
-      <text x="47" y="30" font-size="16" fill="#e4b29d" data-copy="architecture-diagram.aggregate">Aggregate</text>
-    </g>
-    <g class="api-option" transform="translate(188 74)">
-      <rect x=".7" y=".7" width="158.6" height="46.6" rx="10" fill="#262626" stroke="#41413d"/>
-      <use href="#objy-arch-vector" transform="translate(15 13) scale(.65)" color="#cfb5ee"/>
-      <text x="47" y="30" font-size="16" fill="#cfb5ee" data-copy="architecture-diagram.vector">Vector</text>
-    </g>
-    <path d="M92 130v16h176v-16m-88 16v27m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <g class="architecture-object"><use href="#objy-arch-object" transform="translate(15 190)"/></g>
-    <path d="M180 416v29m-5-5 5 5 5-5" stroke="#74746c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-    <g class="storage-panel">
-      <path class="memory-board" d="M17 460H343l7 7v98l-7 7H189.0v-7h-18v7H17l-7-7V467Z" fill="#252e24" stroke="#84976f" stroke-width="1.6" stroke-linejoin="round"/>
-      <circle cx="21" cy="471" r="2.5" stroke="#718565"/>
-      <circle cx="339" cy="471" r="2.5" stroke="#718565"/>
-      <text x="28" y="487" font-size="20" font-weight="600" letter-spacing="1" fill="#d2e6b2" data-copy="storage-diagram.memory">IN MEMORY</text>
-      <g class="storage-chip" transform="translate(26 502)">
-        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#c5dca5" stroke-width="2" opacity=".4"/>
-        <rect width="96" height="49" rx="4" fill="#293227" stroke="#c5dca5" stroke-opacity=".5"/>
-        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#c5dca5" data-copy="storage-diagram.hot">Hot fields</text>
-      </g>
-      <g class="storage-chip" transform="translate(132 502)">
-        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#e4b29d" stroke-width="2" opacity=".4"/>
-        <rect width="96" height="49" rx="4" fill="#332b27" stroke="#e4b29d" stroke-opacity=".5"/>
-        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#e4b29d" data-copy="storage-diagram.columns">Columns</text>
-      </g>
-      <g class="storage-chip" transform="translate(238 502)">
-        <path d="M17.28 -4v4m0 49v4 M32.64 -4v4m0 49v4 M48 -4v4m0 49v4 M63.36 -4v4m0 49v4 M78.72 -4v4m0 49v4" stroke="#cfb5ee" stroke-width="2" opacity=".4"/>
-        <rect width="96" height="49" rx="4" fill="#2e2934" stroke="#cfb5ee" stroke-opacity=".5"/>
-        <text x="48" y="29.4" text-anchor="middle" font-size="14" fill="#cfb5ee" data-copy="storage-diagram.compressed">Compressed</text>
-      </g>
-      <path class="memory-contacts" d="M28 573v10 M39 573v10 M50 573v10 M61 573v10 M72 573v10 M83 573v10 M94 573v10 M105 573v10 M116 573v10 M127 573v10 M138 573v10 M149 573v10 M332 573v10 M321 573v10 M310 573v10 M299 573v10 M288 573v10 M277 573v10 M266 573v10 M255 573v10 M244 573v10 M233 573v10 M222 573v10 M211 573v10" stroke="#b4aa78" stroke-width="4"/>
-    </g>
+    <use href="#api" width="360" height="184"/>
+    <use href="#objects" y="184" width="360" height="258"/>
+    <use href="#memory" y="442" width="360" height="158"/>
   </svg>
 </svg>

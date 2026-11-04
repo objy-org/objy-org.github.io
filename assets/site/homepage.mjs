@@ -1,4 +1,4 @@
-import { destinationLinks, htmlFragment } from './markup.mjs';
+import { destinationLinks, headingSections, htmlFragment } from './markup.mjs';
 import { decorateDocument } from './documents.mjs';
 import { createIllustration } from './illustrations.mjs';
 
@@ -48,6 +48,36 @@ function decorateCatalog(section, body) {
   return true;
 }
 
+async function decorateDiagramStory(section, body) {
+  const steps = headingSections(body.childNodes, 'H3');
+  if (steps.length < 2 || steps.some(step => !step.content.some(node =>
+    node.matches?.('p:has(> img:only-child)')))) return false;
+  const more = isLinkParagraph(body.lastElementChild) ? body.lastElementChild : null;
+  if (more) {
+    more.classList.add('feature-more');
+    more.remove();
+  }
+  const story = document.createElement('div');
+  story.className = 'diagram-story';
+  for (const { heading, content } of steps) {
+    const row = document.createElement('section');
+    row.className = 'diagram-step';
+    row.setAttribute('aria-labelledby', heading.id);
+    const copy = document.createElement('div');
+    copy.className = 'diagram-copy';
+    copy.append(heading);
+    const image = content.find(node => node.matches?.('p:has(> img:only-child)'));
+    copy.append(...content.filter(node => node !== image && node !== more));
+    row.append(copy, await createIllustration(image.firstElementChild, 'diagram-art'));
+    image.remove();
+    story.append(row);
+  }
+  section.classList.add('section-diagram-story');
+  body.append(story);
+  if (more) body.append(more);
+  return true;
+}
+
 async function decorateSection(section) {
   const body = section.querySelector('.markdown-body');
   const heading = body.querySelector('h1, h2');
@@ -77,6 +107,7 @@ async function decorateSection(section) {
     }
   }
   if (decorateCatalog(section, body)) return;
+  if (await decorateDiagramStory(section, body)) return;
   // A standalone Markdown image becomes the section's explanatory artwork.
   const image = body.querySelector(':scope > p > img:only-child');
   if (image) {

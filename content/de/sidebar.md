@@ -1,3 +1,3 @@
 - [Überblick](/?id=top)
-- [Anwendungsfälle](/?id=object-capabilities)
 - [Features](/?id=feature-highlights)
+- [Anwendungsfälle](/?id=object-capabilities)

@@ -579,10 +579,71 @@ body > main > .sidebar-toggle,
   grid-column: 1;
   grid-row: 1;
 }
+/* Illustrated Markdown subchapters form one continuous, responsive diagram story. */
+.section-diagram-story.detail-section {
+  display: block;
+  border-top: 0;
+  padding: 72px 0 96px;
+  container-type: inline-size;
+}
+.section-diagram-story .section-copy {
+  max-width: 1120px;
+  margin-inline: auto;
+}
+.section-diagram-story .markdown-body > h2 {
+  margin: 0 0 52px;
+  font-size: 28px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--muted);
+  letter-spacing: -.6px;
+}
+.diagram-step {
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  align-items: center;
+  gap: clamp(32px, 4vw, 72px);
+  padding-block: 20px;
+}
+.diagram-step + .diagram-step { margin-top: 32px; }
+.diagram-copy { min-width: 0; }
+.section-diagram-story .diagram-copy h3 {
+  margin: 0;
+  font-size: clamp(28px, 2.4vw, 36px);
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: -.8px;
+  text-wrap: balance;
+}
+.diagram-step:nth-child(3n + 1) h3 { color: #a9d0eb; }
+.diagram-step:nth-child(3n + 2) h3 { color: var(--accent); }
+.diagram-step:nth-child(3n) h3 { color: #c5dca5; }
+.section-diagram-story .diagram-copy p {
+  margin: 18px 0 0;
+  font-size: 18px;
+  line-height: 1.75;
+  max-width: 480px;
+}
+.diagram-art {
+  width: 100%;
+  max-width: 420px;
+  min-width: 0;
+  justify-self: center;
+  margin: 0;
+}
+.diagram-art > :is(svg, img) { display: block; width: 100%; height: auto; }
+.section-diagram-story .markdown-body > .feature-more { margin: 48px auto 0; text-align: center; }
+@container (max-width: 740px) {
+  .diagram-step { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+  .section-diagram-story .diagram-copy p { margin-inline: auto; }
+  .diagram-step + .diagram-step { margin-top: 48px; }
+  .section-diagram-story .diagram-copy h3 { font-size: clamp(27px, 4.4vw, 34px); }
+}
 .section-cards {
   display: block;
   container-type: inline-size;
 }
+.section-diagram-story + .section-cards { border-top: 0; }
 .section-cards.detail-section .section-copy {
   max-width: none;
 }

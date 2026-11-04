@@ -11,7 +11,7 @@ All translated copy lives under `content/`, grouped by language. English is in `
 | Header, controls, metadata, diagram labels | [labels.md](en/labels.md) | [labels.md](de/labels.md) |
 | Get started and deployment options | [get-started.md](en/get-started.md) | [get-started.md](de/get-started.md) |
 | Documentation index | [documentation.md](en/documentation.md) | [documentation.md](de/documentation.md) |
-| Feature overview, storage, descriptions, and icons | [home.md](en/home.md) | [home.md](de/home.md) |
+| Three main advantages and their illustrations | [home.md](en/home.md) | [home.md](de/home.md) |
 
 Edit the file in the language you want to change. Database, server, and REST API documentation are loaded live from `objy-org/objy`; JavaScript client documentation comes from `objy-org/objy-client`. The shared Markdown includes are listed below.
 
@@ -29,7 +29,7 @@ Live references, nested data, vectors, and files.
 
 Use `**bold words**`, `*italic words*`, and `[link text](destination)` as usual. Keep the main `#` headline first. Its first standalone image appears below the headline and introduction. Later `##` sections become full-width details. Use `###` for smaller headings within a section.
 
-The homepage tells the story through the large apps, AI agents, and objects illustration, followed by four use cases and the complete feature catalog. Deployment options live on the separate Get Started page. The use cases explain what people can build: AI agents and memory, analytics, application backends, and an open-ended “Or anything else…” option. The homepage Features area contains the overview, storage internals, and the full capability catalog without code examples. Preserve existing `:id=...` values when renaming headings.
+The homepage opens with the large apps, AI agents, and objects illustration. The three main advantages follow immediately: one versatile API, flexible JSON objects, and efficient in-memory storage. Four use cases come next. The Learn link beneath the advantages leads to the full explanation; deployment options stay on Get Started. Preserve existing `:id=...` values when renaming headings.
 
 The short statements beneath the main headline are an ordinary bullet list in `home.md`. Begin each item with an icon image, then its text: `- ![](assets/site/icons/features/flexible-objects.svg) Flexible JSON`. Icon-led lists in the hero automatically become a centered highlights row, with two columns on smaller screens. Keep each statement short and update both languages.
 
@@ -60,7 +60,7 @@ Getting Started uses the same overview and collapsible navigation as Documentati
 
 Instructions live in `content/<language>/get-started/local.md`, `cloud.md`, and `embedded.md`. Their headings become chapters beneath the selected root. Clicking the current root collapses or expands its chapters while leaving the guide open. Local includes installation, One node, and Cluster. Cloud is a directory with a Terraform row linking to `/get-started/cloud/terraform.md`. Its localized wrappers include `content/terraform.md`, the shared live Terraform README reference. The menu follows these nested Markdown directories: clicking Cloud opens its overview, and only selecting Terraform loads the README and expands its chapters. Returning to Cloud collapses Terraform again. Edit the README in `objy-org/terraform` to update it; do not copy its content into this repository. The source must be publicly readable. Embedded keeps the common browser and Node.js example. Chapters containing code or starting with a link-only list get the setup layout, and link-only lists become buttons. Keep matching IDs, code, and destinations across translations. To add a path, add its overview row and a localized Markdown guide.
 
-The homepage’s last area contains the JSON/API overview, storage internals, and all feature cards. Edit these directly in `home.md`. The left-menu Features link jumps to this area; there is no separate Features file. Get Started remains its own page. A Markdown rule (`---`) separates the homepage footer from the full catalog.
+The homepage Features area follows the hero. It uses three illustrated Markdown subchapters with one short paragraph each. The left-menu Features link jumps to this area; there is no separate Features file. Use cases and the footer follow it. Get Started remains its own page.
 
 A list containing only links becomes a row of action buttons in the hero or a closing section without an illustration. The first link is the primary action. A horizontal rule (`---`) separates a closing section’s footer links. All labels and destinations come from the Markdown.
 
@@ -113,25 +113,23 @@ To add another guide, add a `##` heading with an icon, a short explanation, and 
 
 An image inside a `##` heading becomes a small chapter icon, for example `## ![](assets/site/icons/database.svg) Database :id=database`. Keep its alternative text empty because the adjacent heading already names the chapter. A directory row with one destination shows that icon, the chapter title, its description, and an arrow. The separate link label stays in the Markdown source but is not repeated on screen. For multiple destinations, use a bullet list containing only links; those labels appear as separate text links under the description. The layout works with any chapter name or number of entries. Pages with additional chapter content keep the ordinary Markdown layout and chapter menu.
 
-## Edit the feature catalog
+## Edit the three main advantages
 
-The left-menu Features link jumps to the Features area in `home.md`. Its `##` headline introduces the JSON/API diagram. The two catalog groups use `###` headings; each individual feature uses an icon-led `####` heading:
+Edit the `feature-highlights` section in `home.md`. Each advantage is a `###` heading, one short paragraph, and a standalone Markdown image:
 
 ```markdown
-### Database core :id=database-core
+### One API. Every way to work. :id=versatile-api
 
-The same engine, embedded in browsers and Node.js.
+CRUD, queries, aggregations, and vector search together.
 
-#### ![](assets/site/icons/features/live-references.svg) Live references, without copies :id=live-references
-
-Connect objects and expand their references when reading.
+![The four API operations.](assets/site/architecture.svg#api)
 ```
 
-Keep one icon and one short description per feature, with no fenced code examples. Give the icon empty alternative text, because its heading already names the feature. Add the same IDs and icon paths in both languages. Add or edit features directly in this one Markdown file; the renderer builds the responsive card grids automatically.
+The three images reference the same architecture artwork: `#api`, `#objects`, and `#memory`. Keep these image fragments in the order of the story. The text appears beside its corresponding layer on wide layouts and above it on narrow ones. The renderer follows the Markdown subchapters automatically; there is no JavaScript list of titles or fixed chapter count. Use a single short explanation per advantage, without extra badges, boxes, or divider rules.
 
-The JSON/API image belongs directly beneath the Features headline and introduction. The illustration shows four API labels, one JSON object, and a physical RAM module with three chips. Edit the short chip labels in the Storage diagram table of `labels.md`; these labels are shared with Learn. Keep them brief and do not add explanation lines inside the image. The single italic Markdown paragraph after the image is its small, centered caption. Keep it to one sentence; do not add a separate storage text section or second image below the diagram. Illustrated chapter headings sit above their text and image. Spacing and typography separate the chapters; do not add manual divider rules.
+The last link-only paragraph becomes the subtle Learn link below the entire story. Edit its wording and destination directly in Markdown. The four use cases follow this section. Keep matching IDs and image paths in both languages.
 
-The core runs in browsers and Node.js; authentication, files, cluster operation, and durability belong to the server. Keep S3 durability explicitly optional and replication asynchronous. Existing `#/features` bookmarks redirect to the homepage, retaining their chapter IDs.
+Short labels inside the SVG are still managed by the Architecture diagram and Storage diagram tables in `labels.md`. JSON is unframed, and the three memory chips keep short labels. The longer explanations belong in the Markdown outside the image. The core runs in browsers and Node.js; authentication, files, clusters, and optional durability belong to the server. Learn provides the deeper technical explanation. Existing `#/features` bookmarks still open the homepage Features area.
 
 ## Include live documentation
 
@@ -171,7 +169,7 @@ In `labels.md`, edit the right-hand column. Keep the headings and left-hand colu
 
 The Application diagram table controls the Apps, AI agents, and APIs labels in the homepage hero. Its four JSON rows are retained for the preserved layered-object version at `assets/site/applications-objects.svg`. The active symmetric version at `assets/site/applications-objects-scale.svg` shows hundreds of empty object brackets instead of JSON fields. The wider asymmetric experiment remains saved at `assets/site/applications-objects-chaos.svg`. The Architecture diagram table controls the four API labels and single JSON example in the homepage Features introduction. Its Object rows provide the collection name and JSON fields. Keep JSON punctuation and short labels intact. Desktop and phone layouts share the same translations; shape and layout changes remain developer concerns.
 
-Keep illustrated JSON fields and diagram labels short enough to fit. The full feature list follows the overview on the homepage.
+Keep illustrated JSON fields and diagram labels short enough to fit. The three main advantages link to Learn for more detail.
 
 ## Edit the homepage use cases
 
@@ -189,7 +187,7 @@ Keep all four use cases together for a single desktop row. Their icons are custo
 
 ## Change section images
 
-The opening hero uses the first symmetric field of 376 empty object brackets, connected to Apps, AI agents, and APIs. It can grow to 1300px; on phones, the icons sit beneath the field. To restore the saved wider asymmetric version, change the hero image path from `assets/site/applications-objects-scale.svg` to `assets/site/applications-objects-chaos.svg`. The original layered object remains at `assets/site/applications-objects.svg`. Update both localized `home.md` files and their image descriptions. All three SVGs remain unchanged. The four use cases follow the image. The homepage Features area opens with a compact API → JSON object → RAM diagram. Its three chips have short labels; the small caption explains the storage underneath, without another graphic. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
+The opening hero uses the first symmetric field of 376 empty object brackets, connected to Apps, AI agents, and APIs. It can grow to 1300px; on phones, the icons sit beneath the field. To restore the saved wider asymmetric version, change the hero image path from `assets/site/applications-objects-scale.svg` to `assets/site/applications-objects-chaos.svg`. The original layered object remains at `assets/site/applications-objects.svg`. Update both localized `home.md` files and their image descriptions. All three SVGs remain unchanged. The three main advantages follow the hero, then the four use cases. The architecture image is split into three reusable layers referenced as `architecture.svg#api`, `#objects`, and `#memory`. Each layer sits beside its Markdown headline and explanation. The three memory chips retain short labels inside the artwork. Later illustrated chapters alternate text and artwork on desktop and stack on phones.
 
 Change an image's file path to use a different image. The words inside `![]` describe it for people using screen readers. Update that description when replacing the image, and keep the image on its own line.
 

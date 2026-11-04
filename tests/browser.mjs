@@ -521,6 +521,24 @@ await check('Nested homepage catalogs retain their overview, illustrations, feat
     'A text explanation beneath the overview broke the catalog or added a second image');
 });
 
+await check('Illustrated Markdown stories support arbitrary chapters and retain prose after images', async () => {
+  const markup = '<h1 id="top">Home</h1><h2 id="story">A different story</h2><p>Introduction.</p>' +
+    '<h3 id="alpha">Alpha</h3><p><img src="../assets/site/architecture.svg#api" alt="First layer"></p>' +
+    '<p>Explanation after the first image.</p>' +
+    '<h3 id="beta">Beta</h3><p>Before the image.</p><p><img src="../assets/site/architecture.svg#objects" alt="Second layer"></p>' +
+    '<p>Keep this final paragraph.</p>';
+  const page = htmlFragment(await decorateHomepage(markup));
+  const story = page.querySelector('.section-diagram-story');
+  const chapters = [...story.querySelectorAll('.diagram-step')];
+  assert(chapters.length === 2 && chapters.map(chapter => chapter.querySelector('h3').textContent).join('|') === 'Alpha|Beta',
+    'The layout hard-coded the three homepage feature names or count');
+  assert(story.querySelector('.markdown-body > p').textContent === 'Introduction.' &&
+    chapters[0].querySelector('.diagram-copy').textContent.includes('Explanation after the first image.') &&
+    chapters[1].querySelector('.diagram-copy').textContent.includes('Keep this final paragraph.'), 'Markdown prose was lost');
+  assert(story.querySelectorAll('.diagram-art svg').length === 2 && !story.querySelector('.feature-more'),
+    'Illustrations or the optional trailing link were mishandled');
+});
+
 await check('Icon subchapters become reusable homepage columns with their own accessible headings', async () => {
   const home = '<h1 id="top">Hello</h1><h2 id="overview">Overview</h2>' +
     ['alpha', 'beta', 'gamma'].map((id) => `<h3 id="${id}"><a class="anchor"><img src="icons/${id}.svg">${id}</a></h3>` +
@@ -555,63 +573,52 @@ await check('Homepage actions and footer are derived from Markdown links', async
   assert(content.querySelector('.section-footer a').textContent === 'GitHub', 'Markdown footer missing');
 });
 
-await check('The homepage keeps its illustrated overview and complete localized feature catalog below the four use cases', async () => {
+await check('The homepage promotes three Markdown USPs before the four use cases and links to Learn', async () => {
   for (const language of ['en', 'de']) {
-    site.src = `../?lang=${language}#/?id=object-capabilities`;
+    site.src = `../?lang=${language}#/?id=feature-highlights`;
     await new Promise((resolve, reject) => {
-      const deadline = Date.now() + 5000;
+      const deadline = Date.now() + 7000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement?.lang === language && document.querySelector('.homepage-catalog')) return resolve();
-        if (Date.now() > deadline) return reject(new Error('Homepage catalog did not load'));
+        if (document?.documentElement?.lang === language && document.querySelector('.diagram-story') &&
+          document.querySelectorAll('#section-links a').length === 3) return resolve();
+        if (Date.now() > deadline) return reject(new Error('Homepage USP story did not load'));
         setTimeout(ready, 16);
       };
       ready();
     });
     const document = site.contentDocument;
-    const source = await fetch(`../content/${language}/home.md`).then((response) => response.text());
-    const expected = [...source.matchAll(/^### !\[\]\(([^)]+)\) (.+) :id=(\S+)/gm)];
-    const cards = [...document.querySelectorAll('.section-options > .section-option')];
-    assert(cards.length === expected.length && cards.length === 4, 'The homepage lost a use case');
+    const source = await fetch(`../content/${language}/home.md`).then(response => response.text());
+    const story = document.querySelector('[data-section="feature-highlights"]');
     const useCases = document.querySelector('[data-section="object-capabilities"]');
-    const overview = document.querySelector('[data-section="feature-highlights"]');
-    assert(useCases.nextElementSibling === overview && overview.querySelector(':scope > .section-footer'),
-      'The full feature catalog is not directly below the use cases or lost the footer');
-    const expectedFeatures = [...source.matchAll(/^#### !\[\]\(([^)]+)\) (.+) :id=(\S+)\n\n([^\n]+)/gm)];
-    const features = [...overview.querySelectorAll('.catalog-feature')];
-    assert(features.length === expectedFeatures.length && features.length > 3 &&
-      overview.querySelectorAll('.catalog-section').length === 2, 'The homepage only shows a feature summary');
-    features.forEach((feature, index) => {
-      const title = feature.querySelector('h4');
-      const [, icon, text, id, description] = expectedFeatures[index];
-      assert(title?.id === id && title.textContent.trim() === text && feature.querySelector('img').src.endsWith(icon) &&
-        feature.querySelector('p').textContent.trim() === description, 'A feature differs from its source Markdown');
+    const expected = [...source.split(/^## /m)[1].matchAll(/^### (.+) :id=(\S+)\n\n([^\n]+)/gm)];
+    const statements = [...story.querySelectorAll('.diagram-step')];
+    assert(story.previousElementSibling.matches('.section-hero') && story.nextElementSibling === useCases,
+      'The three advantages must sit directly between the hero and use cases');
+    assert(expected.length === 3 && statements.length === expected.length &&
+      !document.querySelector('.catalog-feature, .catalog-grid, .homepage-catalog'), 'The long feature catalog is still present');
+    statements.forEach((statement, index) => {
+      const heading = statement.querySelector('h3');
+      const [, title, id, description] = expected[index];
+      assert(heading.id === id && heading.textContent === title && statement.querySelector('p').textContent === description,
+        'A USP title or explanation differs from its Markdown source');
+      assert(statement.getAttribute('aria-labelledby') === id && statement.querySelector('figure[role="img"][aria-label]'),
+        'A USP or its illustration lost its accessible description');
     });
-    assert(overview.querySelectorAll('h3').length === 2 && overview.querySelectorAll('.document-art').length === 1 &&
-      !overview.querySelector('h1, pre'), 'The combined overview or original heading levels are missing');
-    const start = document.querySelector('.header-links a[href$="#/get-started"]');
-    assert(start?.textContent === (language === 'en' ? 'Get started' : 'Loslegen') &&
-      !document.querySelector('.setup-section, [data-section="start-building"]'), 'Deployment options remain on the homepage or their navigation link is missing');
-    cards.forEach((card, index) => {
-      const title = card.querySelector('h3');
-      assert(title.textContent.trim() === expected[index][2] && title.id === expected[index][3], 'A use-case translation changed');
-      assert(card.querySelector('img').src.endsWith(expected[index][1]) && card.querySelector('p')?.textContent.trim(),
-        'A use-case icon or description is missing');
-    });
-    for (const width of [1920, 1440, 760, 390, 320]) {
-      site.style.width = `${width}px`;
-      site.style.height = '900px';
-      await new Promise(resolve => site.contentWindow.requestAnimationFrame(() => site.contentWindow.requestAnimationFrame(resolve)));
-      assert(document.documentElement.scrollWidth <= width + 1, 'The embedded catalog overflows the page');
-      for (const feature of features) {
-        const box = feature.getBoundingClientRect();
-        assert(box.width >= 260 && box.left >= 0 && box.right <= width + 1, 'An embedded feature card is clipped');
-      }
-    }
-    assert(document.querySelector('#section-links a[href$="id=object-capabilities"]').textContent ===
-      (language === 'en' ? 'Use cases' : 'Anwendungsfälle'), 'The use-case chapter link was not updated');
-    const files = site.contentWindow.performance.getEntriesByType('resource').map((resource) => resource.name);
-    assert(!files.some((file) => /\/(?:features|get-started)\.md$/.test(file)), 'The homepage still loads the retired Features page or deployment options');
+    const link = story.querySelector('.feature-more a');
+    assert(link?.hash === '#/learn' && link.textContent ===
+      (language === 'en' ? 'Explore how OBJY works →' : 'So funktioniert OBJY →'), 'The subtle Learn link is missing or untranslated');
+    const expectedCases = [...source.matchAll(/^### !\[\]\(([^)]+)\) (.+) :id=(\S+)/gm)];
+    const cards = [...useCases.querySelectorAll('.section-option')];
+    assert(cards.length === 4 && cards.length === expectedCases.length && useCases.querySelector('.section-footer'),
+      'A use case or the homepage footer was lost');
+    cards.forEach((card, index) => assert(card.querySelector('h3').id === expectedCases[index][3] &&
+      card.querySelector('h3').textContent.trim() === expectedCases[index][2] && card.querySelector('img').src.endsWith(expectedCases[index][1]),
+      'A use case differs from the Markdown'));
+    assert(!story.querySelector('.section-footer') && !document.querySelector('.setup-section'), 'Deployment content or the footer entered the USP story');
+    const architectureRequests = site.contentWindow.performance.getEntriesByType('resource')
+      .filter(entry => entry.initiatorType === 'fetch' && new URL(entry.name).pathname.endsWith('/architecture.svg'));
+    assert(architectureRequests.length === 1, 'The three diagram layers did not share one SVG download');
   }
 });
 
@@ -874,179 +881,82 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
   }
 });
 
-await check('The homepage feature area keeps its illustrations, translations, anchors, and responsive header', async () => {
+await check('The USP story preserves SVG references, translations, centering, and responsive navigation', async () => {
   for (const language of ['en', 'de']) {
     site.src = `../?lang=${language}#/features`;
     await new Promise((resolve, reject) => {
-      const deadline = Date.now() + 5000;
+      const deadline = Date.now() + 7000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement?.lang === language && document.querySelector('.homepage-catalog')) return resolve();
-        if (Date.now() > deadline) return reject(new Error('Feature catalog did not load'));
+        if (document?.documentElement?.lang === language && document.querySelectorAll('.diagram-art svg').length === 3 &&
+          document.querySelector('#section-links a[aria-current="location"]')?.hash.endsWith('id=feature-highlights')) return resolve();
+        if (Date.now() > deadline) return reject(new Error('The Features bookmark did not open the USP story'));
         setTimeout(ready, 16);
       };
       ready();
     });
     const frame = site.contentWindow;
     const document = site.contentDocument;
-    const features = [...document.querySelectorAll('.catalog-feature')];
-    await document.fonts.ready;
-    await new Promise((resolve, reject) => {
-      const deadline = Date.now() + 5000;
-      const ready = () => {
-        if (document.querySelector('#section-links [aria-current="location"]')?.getAttribute('href').endsWith('id=feature-highlights')) return resolve();
-        if (Date.now() > deadline)
-          return reject(new Error(`The redirected Features section did not become active (${language}, ${frame.innerWidth}px)`));
-        frame.requestAnimationFrame(ready);
-      };
-      ready();
-    });
-    assert(features.length === 21 && new Set(features.map((feature) => feature.querySelector('img').src)).size === 21,
-      'A feature or distinct icon is missing');
+    const story = document.querySelector('.section-diagram-story');
+    const statements = [...story.querySelectorAll('.diagram-step')];
     const links = [...document.querySelectorAll('#section-links a')];
-    assert(links.length === 3 && links[0].hash.endsWith('id=top') &&
-      links[1].hash.endsWith('id=object-capabilities') && links[2].hash.endsWith('id=feature-highlights'),
-      'The homepage chapter menu changed');
-    assert(frame.location.hash === '#/?id=feature-highlights', 'The retired Features URL did not redirect to the homepage');
-    assert(document.querySelector('.homepage-catalog > h2').textContent === (language === 'en' ?
-      'Flexible JSON. Versatile APIs. Effective in-memory storage.' :
-      'Flexibles JSON. Vielseitige APIs. Effiziente In-Memory-Speicherung.'), 'The Features title was not updated');
-    assert(features.every((feature) => !feature.querySelector('h4').hasAttribute('data-chapter')),
-      'Individual features still participate in chapter navigation');
-    assert(!document.querySelector('.catalog-feature pre'), 'The feature catalog still shows code examples');
-    assert(document.querySelector('.header-links [aria-current="page"]').getAttribute('href').endsWith('#/?id=top'),
-      'OBJY navigation is not active on the homepage');
-    assert(document.querySelectorAll('.header-links a').length === 4 &&
-      document.querySelector('.header-links a[href$="#/get-started"]') &&
-      !document.querySelector('.header-links a[href$="id=feature-highlights"]'), 'The top bar should contain OBJY, Learn, Get Started, and Documentation');
-    const architecture = document.querySelector('.document-lead-art');
-    const caption = architecture.nextElementSibling;
-    assert(!document.getElementById('architecture') && caption.matches('p:has(> em:only-child)') &&
-      caption.nextElementSibling.matches('.catalog-section'),
-      'The architecture diagram should introduce the page without its own chapter heading');
-    assert(caption.textContent === (language === 'en' ?
-      'Each object is split into hot fields, compact columns, and compressed data for efficient in-memory storage.' :
-      'Für effiziente Speicherung im RAM wird jedes Objekt in heiße Felder, kompakte Spalten und komprimierte Daten aufgeteilt.'),
-      'The small storage caption is missing or untranslated');
-    const objectDiagram = architecture.querySelector('.objy-architecture');
-    assert(objectDiagram && objectDiagram.querySelectorAll('defs .object-snippet').length === 1,
-      'The architecture diagram must show one JSON object');
-    const object = JSON.parse([...objectDiagram.querySelectorAll('defs .object-snippet g text')].map(line => line.textContent).join('\n'));
-    assert(object._id === 'bike-01' && object.price === 15 && object._vec.length === 3,
-      'The architecture JSON is invalid or lost its example fields');
-    assert(objectDiagram.querySelector('[data-copy="architecture-diagram.query"]').textContent ===
-      (language === 'en' ? 'Query' : 'Abfragen'), 'The architecture diagram is not translated');
-    assert(!document.querySelector('.document-explanation') && architecture.querySelectorAll('.document-art').length === 1,
-      'The storage prose or a separate illustration remains below the overview');
-    assert(!objectDiagram.querySelector('[data-copy="storage-diagram.durability"], [data-copy$="-detail"], [data-copy$="-benefit"]'),
-      'The architecture diagram still contains long storage explanations or the removed S3 line');
-    assert(objectDiagram.querySelector('[data-copy="storage-diagram.hot"]').textContent ===
-      (language === 'en' ? 'Hot fields' : 'Heiße Felder'), 'The integrated storage labels are not translated');
-    for (const width of [1920, 1280, 1101, 1100, 1001, 1000, 900, 761, 760, 390, 320]) {
-      site.style.width = `${width}px`;
-      site.style.height = '900px';
-      await new Promise((resolve) => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
-      document.getElementById('feature-highlights').scrollIntoView({ behavior: 'instant', block: 'start' });
-      await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
-      assert(document.querySelector('#section-links [aria-current="location"]').getAttribute('href').endsWith('id=feature-highlights'),
-        'The left menu does not follow the homepage Features section');
-      const viewport = document.documentElement.clientWidth;
-      const article = document.querySelector('.homepage-catalog').getBoundingClientRect();
-      assert(document.documentElement.scrollWidth <= viewport + 1, `${language} catalog overflows at ${width}px`);
-      assert(Math.abs(article.left + article.width / 2 - viewport / 2) <= 1,
-        `${language} catalog is not centered at ${width}px`);
-      const chapters = [...document.querySelectorAll('.document-chapter')];
-      for (const [index, chapter] of chapters.entries()) {
-        const bounds = chapter.getBoundingClientRect();
-        const title = chapter.querySelector(':scope > h3').getBoundingClientRect();
-        assert(title.top >= bounds.top + (chapter.matches('.document-explanation') ? 24 : 40) &&
-          Math.abs(bounds.left - article.left) <= 1 && Math.abs(bounds.width - article.width) <= 1,
-          'A major chapter is missing its heading space or full-width layout');
-        if (index) assert(bounds.top >= chapters[index - 1].getBoundingClientRect().bottom - 1,
-          'Feature chapters overlap');
-      }
-      const architectureBox = objectDiagram.getBoundingClientRect();
-      const phone = width <= 640;
-      const layout = objectDiagram.querySelector(phone ? '.architecture-compact' : '.architecture-wide');
-      assert(frame.getComputedStyle(layout).display !== 'none' &&
-        layout.querySelectorAll('.architecture-object > use').length === 1 && layout.querySelectorAll('.api-option').length === 4,
-        'The architecture must keep four API variants and one JSON object');
-      assert(Math.abs(architectureBox.height / architectureBox.width - (phone ? 600 / 360 : 570 / 1000)) < .01 &&
-        architectureBox.width <= 901 &&
-        architectureBox.left >= article.left - 1 && architectureBox.right <= article.right + 1,
-        'The moved architecture diagram is stretched or clipped');
-      for (const label of layout.querySelectorAll('text')) {
-        const rect = label.getBoundingClientRect();
-        assert(rect.left >= architectureBox.left - 1 && rect.right <= architectureBox.right + 1,
-          'An architecture label is clipped');
-      }
-      const panel = layout.querySelector('.storage-panel').getBoundingClientRect();
-      const objectBounds = layout.querySelector('.architecture-object').getBoundingClientRect();
-      assert(layout.querySelectorAll('.storage-chip').length === 3 && layout.querySelector('.memory-contacts') && panel.top > objectBounds.bottom &&
-        panel.bottom < architectureBox.bottom, 'Storage is not one compact layer below the JSON objects');
-      for (const tier of layout.querySelectorAll('.storage-chip')) {
-        assert(tier.querySelectorAll('text').length === 1, 'A memory chip has more than a short label');
-        const box = tier.querySelector('rect').getBoundingClientRect();
-        for (const label of tier.querySelectorAll('text')) {
-          const text = label.getBoundingClientRect();
-          assert(text.left > box.left && text.right < box.right && text.top > box.top && text.bottom < box.bottom,
-            `A memory label is clipped inside its chip (${language}, ${width}px, ${label.textContent})`);
-        }
-      }
-      const memory = layout.querySelector('[data-copy="storage-diagram.memory"]');
-      const headingSize = parseFloat(frame.getComputedStyle(memory).fontSize);
-      assert(headingSize >= 20 && headingSize > parseFloat(frame.getComputedStyle(layout.querySelector('.storage-chip text')).fontSize),
-        'The in-memory label is not prominent');
-      const brand = document.querySelector('.header-brand').getBoundingClientRect();
-      const nav = document.querySelector('.header-links').getBoundingClientRect();
-      const actions = document.querySelector('.header-actions').getBoundingClientRect();
-      assert(nav.left >= 0 && nav.right <= viewport + 1, `${language} navigation is clipped at ${width}px`);
-      if (nav.top < brand.bottom && nav.bottom > brand.top) {
-        assert(nav.left > brand.right && nav.right < actions.left,
-          `${language} navigation overlaps header controls at ${width}px`);
-      }
-      for (const feature of features) {
-        const rect = feature.getBoundingClientRect();
-        assert(rect.width >= 260 && rect.left >= 0 && rect.right <= viewport + 1,
-          `${language} feature is too narrow or clipped at ${width}px`);
-      }
-      for (const grid of document.querySelectorAll('.catalog-grid')) {
-        const columns = frame.getComputedStyle(grid).gridTemplateColumns.split(' ').length;
-        const cards = [...grid.children];
-        cards.forEach((card, index) => {
-          const rect = card.getBoundingClientRect();
-          if (index % columns) {
-            const previous = cards[index - 1].getBoundingClientRect();
-            assert(Math.abs(rect.top - previous.top) <= 1 && rect.left >= previous.right,
-              'Feature cards do not share a row');
-          } else if (index) {
-            assert(rect.top >= Math.max(...cards.slice(index - columns, index).map((card) => card.getBoundingClientRect().bottom)) + 24,
-              'Feature card rows are too close');
-          }
-        });
-      }
-      if (width >= 1280) {
-        const groups = [...document.querySelectorAll('.catalog-section')];
-        const height = groups.at(-1).getBoundingClientRect().bottom - groups[0].getBoundingClientRect().top;
-        assert(height < 4200, `${language} feature cards are too tall on desktop`);
+    assert(links.length === 3 && links.map(link => new URLSearchParams(link.hash.split('?')[1]).get('id')).join('|') ===
+      'top|feature-highlights|object-capabilities', 'The Markdown menu does not follow the new section order');
+    assert(frame.location.hash === '#/?id=feature-highlights' &&
+      document.querySelector('.header-links [aria-current="page"]').hash === '#/?id=top', 'The old Features bookmark or homepage selection broke');
+    assert(story.querySelector('h2').textContent === (language === 'en' ? 'The OBJY advantage.' : 'Der OBJY-Vorteil.'), 'The USP heading is not translated');
+    const figures = [...story.querySelectorAll('.diagram-art')];
+    const ids = figures.flatMap(figure => [...figure.querySelectorAll('[id]')].map(node => node.id));
+    assert(new Set(ids).size === ids.length, 'SVG fragments introduced duplicate document IDs');
+    for (const figure of figures) {
+      for (const use of figure.querySelectorAll('use')) {
+        const target = use.getAttribute('href');
+        assert(target?.startsWith('#') && figure.querySelector(`[id="${target.slice(1)}"]`), 'An SVG fragment has a broken symbol reference');
       }
     }
-    frame.location.hash = '#/features?id=s3-durability';
-    await new Promise((resolve, reject) => {
-      const deadline = Date.now() + 5000;
-      const ready = () => {
-        if (frame.location.hash === '#/?id=s3-durability') return resolve();
-        if (Date.now() > deadline) return reject(new Error('The old feature bookmark did not redirect'));
-        setTimeout(ready, 16);
-      };
-      ready();
-    });
-    assert(document.getElementById('s3-durability')?.closest('.catalog-feature'), 'Individual feature anchor disappeared');
-    const target = document.querySelector('#db-server a');
-    const changed = new Promise((resolve) => frame.addEventListener('hashchange', resolve, { once: true }));
-    target.click();
-    await changed;
-    assert(frame.location.hash.endsWith('id=db-server'), 'Feature group link did not navigate');
+    assert(figures[0].querySelectorAll('.api-option').length === 4 &&
+      figures[0].querySelector('[data-copy="architecture-diagram.query"]').textContent === (language === 'en' ? 'Query' : 'Abfragen'),
+      'The API layer lost an operation or its translation');
+    const object = JSON.parse([...figures[1].querySelectorAll('.object-snippet g text')].map(line => line.textContent).join('\n'));
+    assert(object._id === 'bike-01' && object.price === 15 && object._vec.length === 3 && !figures[1].querySelector('rect'),
+      'The object layer lost its JSON example or gained a background box');
+    assert(figures[2].querySelectorAll('.storage-chip').length === 3 &&
+      figures[2].querySelector('[data-copy="storage-diagram.hot"]').textContent === (language === 'en' ? 'Hot fields' : 'Heiße Felder'),
+      'The memory layer lost a tier or its translation');
+    await document.fonts.ready;
+    for (const width of [1920, 1440, 1280, 1101, 1100, 1000, 900, 760, 390, 320]) {
+      site.style.width = `${width}px`;
+      site.style.height = '900px';
+      await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+      document.getElementById('feature-highlights').scrollIntoView({ behavior: 'instant', block: 'start' });
+      await new Promise(resolve => frame.requestAnimationFrame(() => frame.requestAnimationFrame(resolve)));
+      const viewport = document.documentElement.clientWidth;
+      const bounds = story.getBoundingClientRect();
+      assert(document.documentElement.scrollWidth <= viewport + 1 && Math.abs(bounds.left + bounds.width / 2 - viewport / 2) <= 1,
+        `${language} USP story overflows or is not centered at ${width}px`);
+      for (const [index, statement] of statements.entries()) {
+        const copy = statement.querySelector('.diagram-copy').getBoundingClientRect();
+        const art = figures[index].getBoundingClientRect();
+        assert(art.width >= Math.min(260, bounds.width) && art.left >= bounds.left - 1 && art.right <= bounds.right + 1,
+          'A diagram layer is too small or clipped');
+        assert(art.left >= copy.right - 1 || art.top >= copy.bottom + 20, 'A diagram overlaps its USP statement');
+        if (art.top >= copy.bottom) {
+          const paragraph = statement.querySelector('p').getBoundingClientRect();
+          assert(Math.abs(paragraph.left + paragraph.width / 2 - bounds.left - bounds.width / 2) <= 1,
+            'A stacked USP explanation is not centered');
+        }
+        const svg = figures[index].querySelector('svg');
+        const view = svg.viewBox.baseVal;
+        assert(Math.abs(art.height / art.width - view.height / view.width) < .01 &&
+          svg.querySelector(':scope > use').getBoundingClientRect().height > 0, 'A diagram layer is empty or stretched');
+        const headline = statement.querySelector('h3').getBoundingClientRect();
+        assert(headline.left >= bounds.left - 1 && headline.right <= bounds.right + 1, 'A USP headline is clipped');
+      }
+      const nav = document.querySelector('.header-links').getBoundingClientRect();
+      assert(nav.left >= 0 && nav.right <= viewport + 1, 'The top navigation is clipped');
+      assert(document.querySelector('#section-links [aria-current="location"]').hash.endsWith('id=feature-highlights'),
+        'The left menu does not track the new USP section');
+    }
   }
 });
 
@@ -1285,7 +1195,7 @@ await check('Linked remote Markdown preserves its setup roots, chapters, bookmar
   const waitFor = async predicate => {
     const deadline = Date.now() + 15000;
     while (!predicate()) {
-      if (Date.now() > deadline) throw new Error('Linked documentation did not finish loading');
+      if (Date.now() > deadline) throw new Error(`Linked documentation did not finish loading (${site.contentWindow.location.href}; ${site.contentDocument?.querySelector('.document-page h1')?.textContent})`);
       await new Promise(resolve => setTimeout(resolve, 20));
     }
   };
