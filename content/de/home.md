@@ -26,7 +26,7 @@ Kombiniere verschachtelte Eigenschaften, Arrays, Vektoren und Referenzen. Jedes 
 
 ![Ein flexibles JSON-Fahrradobjekt mit ID, Eigenschaften und einem Vektor.](assets/site/architecture.svg#objects)
 
-### In-Memory-Tempo. Komprimierung inklusive. :id=hot-compressed
+### In-Memory-Tempo. Smarte Speicherung. :id=hot-compressed
 
 Heiße Felder ermöglichen direkten Zugriff, kompakte Spalten beschleunigen Aggregationen und komprimierte Objektdaten senken den Speicherverbrauch.
 
