@@ -207,18 +207,128 @@ Authorization: Bearer <accessToken>
 
 ### Benutzer und Berechtigungen :id=users-permissions
 
-Beim Anmelden erhält ein Benutzer ein Zugriffstoken. Collection-Freigaben und Objektregeln bestimmen, welche Daten er nutzen darf.
+Auch Benutzer sind Objekte. Die Anmeldung liefert ein Token; der Server prüft dessen Berechtigungen bei jeder Operation.
 
-Diese Regel erlaubt Alex, Fahrräder mit seiner ID in `owner.value` zu lesen (`r`) und zu ändern (`u`). Eine Referenz allein gewährt keinen Zugriff.
+- **Objekte auswählen** mit einer `query`, etwa Alex' ID in `owner.value`.
+- **Aktionen festlegen** mit `perm`: `c` Erstellen, `r` Lesen, `u` Ändern, `d` Löschen.
+- **Ganze Collections freigeben** mit `read`- und `write`-Freigaben.
+
+Für normale Benutzer gilt: Ohne passende Regel oder Freigabe gibt es keinen Zugriff. Eine Referenz allein gewährt keinen Zugriff.
+
+![Alex' Regel zum Lesen und Ändern prüft die Besitzerreferenz des Fahrrads. Sein Fahrrad darf er lesen und ändern, das eines anderen Besitzers nicht.](assets/site/learn/permissions.svg)
+
+<details>
+<summary>Alex anlegen und anmelden</summary>
+
+Wenn die Datenbank `app` bereits eingerichtet ist, legt ein Administrator Alex in `app/users` an. Die Regel nutzt seine Profil-ID `person-42` aus der Besitzerreferenz des Fahrrads. Passwörter werden beim Schreiben gehasht.
+
+```http
+POST /api/app/users/object
+Authorization: Bearer <adminAccessToken>
+Content-Type: application/json
+
+{
+  "_id": "alex",
+  "username": "alex",
+  "password": "<alex-password>",
+  "permissions": [
+    {
+      "name": "My bikes",
+      "query": { "owner.value": "person-42" },
+      "perm": "ru"
+    }
+  ]
+}
+```
+
+Danach meldet sich Alex an. Das zurückgegebene `accessToken` wird in den nächsten Beispielen als `<alexAccessToken>` verwendet. Diese Anmeldung begrenzt seinen Zugriff auf `app`.
+
+```http
+POST /api/app/users/auth
+Content-Type: application/json
+
+{ "username": "alex", "password": "<alex-password>" }
+```
+
+</details>
+
+<details>
+<summary>Was Alex lesen und ändern darf</summary>
+
+Alex fragt nach verfügbaren Fahrrädern. Der Server kombiniert seinen Filter mit der Leseregel: Er sieht nur verfügbare Fahrräder mit `person-42` in `owner.value`.
+
+Um `owner.object` aufzulösen, braucht Alex auch Lesezugriff auf die Person. Diese Anfragen verwenden `$refDepth: 0`, um nur die Referenz zurückzugeben.
+
+```http
+POST /api/app/bikes/search
+Authorization: Bearer <alexAccessToken>
+Content-Type: application/json
+
+{ "available": true, "$refDepth": 0 }
+```
+
+Wenn `bike-01` Alex gehört, darf er den Preis ändern:
+
+```http
+PATCH /api/app/bikes/object/bike-01?$refDepth=0
+Authorization: Bearer <alexAccessToken>
+Content-Type: application/json
+
+{ "$set": { "price": 20 } }
+```
+
+| Operation mit dieser `ru`-Regel | Ergebnis |
+| --- | --- |
+| Alex' Fahrrad lesen oder ändern | Erlaubt |
+| Das Fahrrad eines anderen Besitzers lesen oder ändern | Verweigert |
+| `owner.value` auf die ID eines anderen Besitzers ändern | Verweigert: Änderungen müssen vor und nach der Operation zur Regel passen |
+| Ein Fahrrad erstellen oder Alex' Fahrrad löschen | Verweigert: Der Regel fehlen `c` und `d` |
+
+Derselbe Lesefilter begrenzt auch Abfragen, Aggregationen und Vektorsuchen. Sie umgehen die Berechtigungen nicht.
+
+</details>
+
+<details>
+<summary>Zugriff erweitern</summary>
+
+Damit Alex passende Objekte auch erstellen und löschen darf, ändert ein Administrator seine Regel auf `crud`:
+
+```http
+PATCH /api/app/users/object/alex
+Authorization: Bearer <adminAccessToken>
+Content-Type: application/json
+
+{
+  "$set": {
+    "permissions": [
+      {
+        "name": "My bikes",
+        "query": { "owner.value": "person-42" },
+        "perm": "crud"
+      }
+    ]
+  }
+}
+```
+
+Für Zugriff auf jedes Fahrrad gibt es Collection-Freigaben. Diese ergänzt Lesezugriff auf die ganze Collection, ohne eine umfassende Schreibfreigabe zu vergeben:
 
 ```json
 {
-  "permissions": [{
-    "query": { "owner.value": "person-42" },
-    "perm": "ru"
-  }]
+  "collectionPermissions": {
+    "read": ["bikes"],
+    "write": []
+  }
 }
 ```
+
+Diese Felder werden auf dem Benutzerobjekt gespeichert. Eine `write`-Freigabe erlaubt Erstellen, Ändern und Löschen in der ganzen Collection; sie schließt `read` nicht ein.
+
+Weitere Einträge in `permissions` können andere Objektgruppen freigeben. Regeln und Freigaben addieren Zugriff: Eine umfassende Freigabe wird durch eine Objektregel nicht eingeschränkt.
+
+Nach einer Änderung der Berechtigungen muss sich Alex erneut anmelden oder sein Token erneuern, um die neuen Berechtigungen zu erhalten.
+
+</details>
 
 [Authentifizierung und Berechtigungen](/content/api.md?id=authentication-and-permissions)
 

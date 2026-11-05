@@ -1038,6 +1038,7 @@ body > main > .sidebar-toggle,
 }
 .document-guide .document-lesson-example pre { margin: 0; }
 .document-guide details { margin: 0; }
+.document-lesson-details > details + details { margin-top: 18px; }
 .document-guide summary {
   display: flex;
   align-items: baseline;

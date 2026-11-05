@@ -962,12 +962,16 @@ await check('The USP story preserves SVG references, translations, centering, an
 
 await check('Learn explains a bike and owner in two Markdown chapters with working topics and examples', async () => {
   for (const language of ['en', 'de']) {
+    const markdown = await fetch(`../content/${language}/learn.md`).then(response => response.text());
+    const diagramCount = [...markdown.matchAll(/^!\[[^\n]*\]\([^\n]+\)$/gm)].length;
+    const exampleCount = [...markdown.matchAll(/^```[^\n]*\n[\s\S]*?^```/gm)].length;
+    const optionalCount = [...markdown.matchAll(/^<details>$/gm)].length;
     site.src = `../?lang=${language}#/learn`;
     await new Promise((resolve, reject) => {
       const deadline = Date.now() + 5000;
       const ready = () => {
         const document = site.contentDocument;
-        if (document?.documentElement?.lang === language && document.querySelectorAll('.document-guide .document-art > svg').length === 7 &&
+        if (document?.documentElement?.lang === language && document.querySelectorAll('.document-guide .document-art > svg').length === diagramCount &&
           document.querySelector('.header-links a[href$="#/learn"][aria-current="page"]')) return resolve();
         if (Date.now() > deadline) return reject(new Error('Learn did not finish loading'));
         setTimeout(ready, 16);
@@ -1004,24 +1008,44 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     assert(bike._id === 'bike-01' && bike.price === 15 && bike.available === true && !guide.textContent.includes('Orbit'),
       'The bike example is invalid or the old project example remains');
     const examples = [...guide.querySelectorAll('pre')];
-    assert(examples.length === 9 && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
+    assert(examples.length === exampleCount && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
       'Learn examples lost highlighting or copy controls');
     const codeIn = id => guide.querySelector(`#${id}`).closest('.document-chapter').querySelector('pre code').textContent;
     const reference = JSON.parse([...guide.querySelectorAll('.learn-references-wide .reference-parent text')]
       .map(line => line.textContent).join('\n'));
     assert(reference.owner.object.name === 'Alex' && reference.owner.value === reference.owner.object._id &&
       codeIn('references').includes('type: "reference"') &&
-      JSON.parse(codeIn('memory')).columns[0] === 'price' &&
-      JSON.parse(codeIn('users-permissions')).permissions[0].query['owner.value'] === 'person-42',
+      JSON.parse(codeIn('memory')).columns[0] === 'price',
       'The expanded owner, storage metadata, or permission rule is invalid');
+    const permissionTopic = guide.querySelector('#users-permissions').closest('.document-chapter');
+    const permissionExamples = [...permissionTopic.querySelectorAll('pre code')].map(code => code.textContent);
+    const httpBody = code => JSON.parse(code.slice(code.indexOf('\n\n') + 2));
+    const alex = httpBody(permissionExamples[0]);
+    assert(permissionTopic.querySelector('.learn-permissions') && permissionExamples.length === 6 &&
+      permissionExamples[0].startsWith('POST /api/app/users/object\nAuthorization: Bearer <adminAccessToken>') &&
+      alex.username === 'alex' && alex.permissions[0].query['owner.value'] === 'person-42' && alex.permissions[0].perm === 'ru' &&
+      permissionExamples[1].startsWith('POST /api/app/users/auth') && httpBody(permissionExamples[1]).username === alex.username &&
+      permissionExamples[2].startsWith('POST /api/app/bikes/search\nAuthorization: Bearer <alexAccessToken>') &&
+      httpBody(permissionExamples[2]).$refDepth === 0 &&
+      permissionExamples[3].startsWith('PATCH /api/app/bikes/object/bike-01?$refDepth=0') &&
+      httpBody(permissionExamples[3]).$set.price === 20 &&
+      permissionExamples[4].startsWith('PATCH /api/app/users/object/alex\nAuthorization: Bearer <adminAccessToken>') &&
+      httpBody(permissionExamples[4]).$set.permissions[0].perm === 'crud' &&
+      JSON.parse(permissionExamples[5]).collectionPermissions.read[0] === 'bikes',
+      'Permissions must explain user creation, login, scoped operations, and administrator-managed access changes');
+    assert(permissionTopic.querySelectorAll('.document-lesson-details details').length === 3 &&
+      [...permissionTopic.querySelectorAll('details')].every(details => !details.open) &&
+      permissionTopic.querySelector('[data-copy="learn-diagrams.permission-allowed"]').textContent ===
+        (language === 'en' ? 'Read + update' : 'Lesen + Ändern'),
+      'The permissions lesson must keep its examples expandable and translate the allowed/denied illustration');
     const crudHeading = guide.querySelector('h3#crud');
     const crud = [...crudHeading.closest('.document-chapter').querySelectorAll('pre code')].at(-1).textContent;
     assert(crudHeading.closest('.document-chapter').nextElementSibling.querySelector('h3').id === 'operations' &&
       ['bikes.insert(', 'bikes.find(', 'bikes.patch(', 'bikes.remove('].every(operation => crud.includes(operation)) &&
       document.querySelector('#section-links a[href$="id=crud"]').closest('li').style.getPropertyValue('--chapter-depth') === '1',
       'CRUD must precede Queries at the same heading and menu level, with all four examples');
-    assert(guide.querySelectorAll('.document-code-lesson > .document-lesson-example pre').length === 4 &&
-      guide.querySelectorAll('.document-lesson-details details').length === 5 &&
+    assert(guide.querySelectorAll('.document-code-lesson > .document-lesson-example pre').length === 3 &&
+      guide.querySelectorAll('.document-lesson-details details').length === optionalCount &&
       !guide.querySelector('.learn-objects rect, .reference-parent rect, .reference-source rect'),
       'Learn must keep code lessons readable, optional examples expandable, and JSON illustrations unframed');
     const setup = guide.querySelector('.document-lesson-details details');

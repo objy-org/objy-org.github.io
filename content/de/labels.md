@@ -120,3 +120,11 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Hot field | `available` |
 | Column field | `price` |
 | Compressed fields | `tags, location` |
+| Permission rule | Berechtigungsregel |
+| Permission user | Alex |
+| Permission filter | `owner.value = person-42` |
+| Permission actions | `r · u` |
+| Permission own bike | Alex' Fahrrad |
+| Permission other bike | Anderer Besitzer |
+| Permission allowed | Lesen + Ändern |
+| Permission denied | Kein Zugriff |

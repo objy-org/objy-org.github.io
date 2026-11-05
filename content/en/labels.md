@@ -120,3 +120,11 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Hot field | `available` |
 | Column field | `price` |
 | Compressed fields | `tags, location` |
+| Permission rule | Permission rule |
+| Permission user | Alex |
+| Permission filter | `owner.value = person-42` |
+| Permission actions | `r · u` |
+| Permission own bike | Alex's bike |
+| Permission other bike | Another owner's bike |
+| Permission allowed | Read + update |
+| Permission denied | No access |

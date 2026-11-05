@@ -207,18 +207,128 @@ Authorization: Bearer <accessToken>
 
 ### Users and permissions :id=users-permissions
 
-Signing in gives a user an access token. Collection grants and object rules determine which data they can use.
+Users are objects too. Sign-in returns a token; the server checks its permissions on every operation.
 
-This rule lets Alex read (`r`) and update (`u`) bikes whose `owner.value` is his ID. A reference alone grants no access.
+- **Match objects** with a `query`, such as Alex's ID in `owner.value`.
+- **Choose actions** with `perm`: `c` create, `r` read, `u` update, `d` delete.
+- **Grant whole collections** with `read` and `write` grants.
+
+For ordinary users, no matching rule or grant means no access. A reference alone grants no access.
+
+![Alex's read-and-update rule matches his bike's owner reference. His bike allows reading and updating; another owner's bike does not.](assets/site/learn/permissions.svg)
+
+<details>
+<summary>Create Alex and sign in</summary>
+
+With the `app` database already set up, an administrator creates Alex in `app/users`. The rule uses his profile ID, `person-42`, from the bike's owner reference. Passwords are hashed on write.
+
+```http
+POST /api/app/users/object
+Authorization: Bearer <adminAccessToken>
+Content-Type: application/json
+
+{
+  "_id": "alex",
+  "username": "alex",
+  "password": "<alex-password>",
+  "permissions": [
+    {
+      "name": "My bikes",
+      "query": { "owner.value": "person-42" },
+      "perm": "ru"
+    }
+  ]
+}
+```
+
+Alex then signs in. Use the returned `accessToken` as `<alexAccessToken>` in the next examples. This login scopes his access to `app`.
+
+```http
+POST /api/app/users/auth
+Content-Type: application/json
+
+{ "username": "alex", "password": "<alex-password>" }
+```
+
+</details>
+
+<details>
+<summary>See what Alex can read and change</summary>
+
+Alex asks for available bikes. The server combines his filter with the read rule, so he only sees available bikes whose `owner.value` is `person-42`.
+
+Expanding `owner.object` also needs read access to the person. These requests use `$refDepth: 0` to return the reference without expanding it.
+
+```http
+POST /api/app/bikes/search
+Authorization: Bearer <alexAccessToken>
+Content-Type: application/json
+
+{ "available": true, "$refDepth": 0 }
+```
+
+If `bike-01` belongs to Alex, he can change its price:
+
+```http
+PATCH /api/app/bikes/object/bike-01?$refDepth=0
+Authorization: Bearer <alexAccessToken>
+Content-Type: application/json
+
+{ "$set": { "price": 20 } }
+```
+
+| Operation with this `ru` rule | Result |
+| --- | --- |
+| Read or update Alex's bike | Allowed |
+| Read or update another owner's bike | Denied |
+| Change `owner.value` to someone else's ID | Denied: updates must match the rule before and after the change |
+| Create a bike or delete Alex's bike | Denied: the rule has neither `c` nor `d` |
+
+The same read filter also limits queries, aggregations, and vector searches. These do not bypass permissions.
+
+</details>
+
+<details>
+<summary>Build broader access</summary>
+
+To let Alex create and delete matching objects too, an administrator updates his rule to `crud`:
+
+```http
+PATCH /api/app/users/object/alex
+Authorization: Bearer <adminAccessToken>
+Content-Type: application/json
+
+{
+  "$set": {
+    "permissions": [
+      {
+        "name": "My bikes",
+        "query": { "owner.value": "person-42" },
+        "perm": "crud"
+      }
+    ]
+  }
+}
+```
+
+For access to every bike, collection grants are another option. This adds collection-wide reads without a collection-wide write grant:
 
 ```json
 {
-  "permissions": [{
-    "query": { "owner.value": "person-42" },
-    "perm": "ru"
-  }]
+  "collectionPermissions": {
+    "read": ["bikes"],
+    "write": []
+  }
 }
 ```
+
+Store these fields on the user object. A `write` grant allows create, update, and delete across that collection; it does not imply `read`.
+
+Add more entries to `permissions` for other groups of objects. Rules and grants add access: a broad grant is not narrowed by an object rule.
+
+After changing permissions, Alex must sign in again or renew his token to receive the new permissions.
+
+</details>
 
 [Authentication and permissions](/content/api.md?id=authentication-and-permissions)
 
