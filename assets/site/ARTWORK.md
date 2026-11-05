@@ -2,12 +2,11 @@
 
 ## Original branding
 
-The original assets are restored unchanged from the repository before the redesign (`e62ff79`):
+The original logo is restored unchanged from the repository before the redesign (`e62ff79`):
 
 | Current asset | Original path |
 | --- | --- |
 | `assets/site/logo.png` | `logo.png` |
-| `assets/site/favicon.png` | `logo-sm.png` |
 
 ## Icon provenance and license review
 
@@ -23,12 +22,15 @@ Reviewed on 2026-10-27. This records the assets currently used by the site, rath
 | `assets/site/applications-objects-scale.svg` | Original SVG variant created on 2026-11-01. It reuses the existing endpoint icons and connects them to a field of 376 empty object brackets. No downloaded artwork or third-party icon library is used. |
 | `assets/site/applications-objects.svg` | Custom SVG artwork revised on 2026-10-31 from the earlier apps-and-objects composition. A dominant layered object database connects to smaller application, agent, API, and object-node drawings. No external icon library or third-party artwork is used. |
 | `assets/site/branding/objy-db-mark-white.svg` and `.png` | Custom white-on-transparent OBJY DB mark created for this project. The PNG is a raster export of the matching SVG; neither includes third-party artwork. |
-| `logo.png` and `favicon.png` | Existing OBJY brand assets restored byte-for-byte from `e62ff79`. The user confirmed in this project on 2026-10-27 that OBJY owns or has permission to use the existing logo and favicon. The original README references [OBJY's MIT license](https://github.com/objy-org/objy/blob/master/LICENSE.md); a copy of that notice is retained in `assets/vendor/objy.LICENSE`. |
+| `assets/site/favicon.png` | A 64 × 64 export of the current bracket mark, created from its SVG source on 2026-11-05. White brackets sit on a dark rounded tile for contrast in light and dark browser tabs. No external artwork is used. |
+| `logo.png` | Existing OBJY brand asset restored byte-for-byte from `e62ff79`. The user confirmed in this project on 2026-10-27 that OBJY owns or has permission to use the existing logo and former favicon. The original README references [OBJY's MIT license](https://github.com/objy-org/objy/blob/master/LICENSE.md); a copy of that notice is retained in `assets/vendor/objy.LICENSE`. |
 | Artwork displayed by live documentation | The main README currently references `https://raw.githubusercontent.com/objy-org/objy/main/public/branding/objy-db-header-deep-field.png`. The user confirmed rights to the existing OBJY branding on 2026-10-27. The source repository publishes an [MIT license](https://github.com/objy-org/objy/blob/main/LICENSE) and a [brand notice](https://github.com/objy-org/objy/blob/main/NOTICE.md). The earlier source license notice remains in `assets/vendor/objy-db.LICENSE`. |
 
 The old third-party-looking raster illustrations under the historical `icons/` folder are absent from this branch and are not used by the current site. Cloud providers and GitHub are linked by text, without their logos. Menu indicators and arrows use text/CSS shapes rather than an icon font. Montserrat's SIL Open Font License remains in `assets/site/montserrat-LICENSE.txt`.
 
 No missing third-party icon attribution was found in this review. The brand-rights confirmation above comes from the user; repository history alone is not proof of ownership. Live documentation can change independently, so newly introduced remote images need their own provenance check.
+
+The top-left mark was simplified on 2026-11-05: the three bracket pairs remain, the connecting arrows are removed, the square bracket pair on the right is 35% larger, and the bottom curly bracket pair is 12% smaller than the upper-left pair. The SVG remains its editable source; the matching transparent PNG is used in the top bar. The favicon is derived from this same SVG, cropped to its visible bounds, scaled to fit a 56px area, and centered on its 64px tile. Its versioned URL refreshes previously cached favicon artwork.
 
 ## Homepage hero
 
