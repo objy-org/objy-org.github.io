@@ -14,14 +14,16 @@
     <g id="objy-arch-aggregate" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 27V16h5v11m7 0V9h5v18m7 0V3h5v24"/></g>
     <g id="objy-arch-vector" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 23 10-15 11 17m-11-17 15-3"/><circle cx="6" cy="23" r="3"/><circle cx="16" cy="8" r="3"/><circle cx="27" cy="25" r="3"/><circle cx="31" cy="5" r="3"/></g>
     <g id="objy-arch-object" class="object-snippet">
-      <text x="22" y="26" font-size="15" fill="#bfb4a9" data-copy="architecture-diagram.object-collection">bikes</text>
+      <text x="22" y="26" font-size="15" fill="#bfb4a9" data-copy="architecture-diagram.object-collection">tasks</text>
       <text x="308" y="26" text-anchor="end" font-size="12" fill="#8f8b85">JSON</text>
       <g font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="17" fill="#e4b29d">
-        <text x="22" y="68" fill="#c8c2b8">{</text>
-        <text x="40" y="92" data-copy="architecture-diagram.object-id">&quot;_id&quot;: &quot;bike-01&quot;,</text>
-        <text x="40" y="116" data-copy="architecture-diagram.object-name">&quot;name&quot;: &quot;City bike&quot;,</text>
-        <text x="40" y="140" data-copy="architecture-diagram.object-price">&quot;price&quot;: 15,</text>
-        <text x="40" y="164" data-copy="architecture-diagram.object-vector">&quot;_vec&quot;: [0.2, 0.8, 0.4]</text>
+        <text x="22" y="48" fill="#c8c2b8">{</text>
+        <text x="40" y="68" data-copy="architecture-diagram.object-id">&quot;_id&quot;: &quot;task-01&quot;,</text>
+        <text x="40" y="88" data-copy="architecture-diagram.object-title">&quot;title&quot;: &quot;Launch website&quot;,</text>
+        <text x="40" y="108" data-copy="architecture-diagram.object-status">&quot;status&quot;: &quot;open&quot;,</text>
+        <text x="40" y="128" data-copy="architecture-diagram.object-tags">&quot;tags&quot;: [&quot;design&quot;, &quot;AI&quot;],</text>
+        <text x="40" y="148" data-copy="architecture-diagram.object-details">&quot;details&quot;: {&quot;priority&quot;: 2},</text>
+        <text x="40" y="168" data-copy="architecture-diagram.object-vector">&quot;_vec&quot;: [0.2, 0.8, 0.4]</text>
         <text x="22" y="188" fill="#c8c2b8">}</text>
       </g>
     </g>

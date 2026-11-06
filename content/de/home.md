@@ -1,8 +1,10 @@
 <!-- Texte und Bilder in Markdown bearbeiten. Alle :id=... unverändert lassen. -->
 
-# Schnelle, hochskalierbare<br> In-Memory-Objektdatenbank. :id=top
+# Schnelle In-Memory-Objekte. **Für leistungsstarke Apps und Agenten.** :id=top
 
-> Baue Anwendungsfälle rund um schnelle Objekte.
+> Hochskalierbare In-Memory-Objektdatenbank
+
+Baue mit flexiblen Objekten. Kombiniere dynamische Eigenschaften, Live-Referenzen und Vektoren – und nutze Abfragen, Aggregationen und Vektorsuche direkt im Arbeitsspeicher.
 
 - ![](assets/site/icons/features/flexible-objects.svg) Flexibles JSON
 - ![](assets/site/icons/features/query-aggregate.svg) OLTP · OLAP · Vektor
@@ -14,21 +16,59 @@
 
 ## Der OBJY-Vorteil. :id=feature-highlights
 
-### CRUD. Analytics. Vektorsuche. Eine API. :id=versatile-api
+### CRUD, Analytics und Vektorsuche. Eine API. :id=versatile-api
 
-Erstellen, abfragen, aggregieren und per Vektorsuche durchsuchen: dieselben Objekte, eine einheitliche API.
+Erstelle und ändere Objekte, analysiere ihre Daten oder finde ähnliche Objekte. Eine API für Anwendungslogik, Analytics und KI.
 
 ![CRUD, Abfragen, Aggregation und Vektorsuche greifen auf dieselbe Objekt-API zu.](assets/site/architecture.svg#api)
 
-### Flexibles JSON. Kein starres Schema. :id=flexible-objects
+### Flexible Objekte. Für Apps und Agenten. :id=flexible-objects
 
-Kombiniere verschachtelte Eigenschaften, Arrays, Vektoren und Referenzen. Jedes Objekt kann sich weiterentwickeln, ohne alle Objekte in dieselbe Form zu zwingen.
+Beginne mit JSON. Ergänze verschachtelte Eigenschaften, Arrays, Live-Referenzen oder Vektoren, wenn dein Modell wächst. Deine App und ihre Agenten arbeiten mit denselben Objekten.
 
-![Ein flexibles JSON-Fahrradobjekt mit ID, Eigenschaften und einem Vektor.](assets/site/architecture.svg#objects)
+![Ein flexibles Aufgabenobjekt kombiniert Titel und Status mit Tags, verschachtelten Details und einem Vektor.](assets/site/architecture.svg#objects)
+
+<details>
+<summary>Speichern → finden → ändern. Code ansehen.</summary>
+
+```js
+import { createDatabase } from "@objy/db";
+
+const db = createDatabase();
+await db.createDatabase("app");
+const app = db.database("app");
+await app.createCollection("tasks");
+const tasks = app.collection("tasks");
+
+// An object can combine different kinds of properties.
+await tasks.insert({
+  _id: "task-01",
+  title: "Launch website",
+  status: "open",
+  tags: ["design", "AI"],
+  details: { priority: 2 },
+  _vec: [0.2, 0.8, 0.4]
+});
+await tasks.ready();
+
+// Find similar objects by their vectors.
+const matches = await tasks.search({
+  $vector: { vector: [0.21, 0.79, 0.4], limit: 1 }
+});
+
+// Add a nested property as your application evolves.
+await tasks.patch(matches[0]._id, {
+  $set: { status: "ready", "details.reviewed": true }
+});
+```
+
+Die kurzen Vektoren dienen als Beispiel; deine Anwendung liefert Embeddings aus demselben Modell. [Eingebettet starten →](/get-started/embedded.md)
+
+</details>
 
 ### In-Memory-Tempo. Clevere Speicherung. :id=hot-compressed
 
-Heiße Felder ermöglichen direkten Zugriff, kompakte Spalten beschleunigen Aggregationen und komprimierte Objektdaten senken den Speicherverbrauch.
+Halte häufig genutzte Felder direkt verfügbar, aggregiere über kompakte Spalten und komprimiere selten genutzte Daten. Objekte bleiben im Arbeitsspeicher, ohne jedes Feld gleich zu speichern.
 
 ![Ein RAM-Modul speichert heiße Felder, kompakte Spalten und komprimierte Daten.](assets/site/architecture.svg#memory)
 

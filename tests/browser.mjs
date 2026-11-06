@@ -525,6 +525,7 @@ await check('Illustrated Markdown stories support arbitrary chapters and retain 
   const markup = '<h1 id="top">Home</h1><h2 id="story">A different story</h2><p>Introduction.</p>' +
     '<h3 id="alpha">Alpha</h3><p><img src="../assets/site/architecture.svg#api" alt="First layer"></p>' +
     '<p>Explanation after the first image.</p>' +
+    '<details><summary>Optional example</summary><pre><code>arbitrary example</code></pre></details>' +
     '<h3 id="beta">Beta</h3><p>Before the image.</p><p><img src="../assets/site/architecture.svg#objects" alt="Second layer"></p>' +
     '<p>Keep this final paragraph.</p>';
   const page = htmlFragment(await decorateHomepage(markup));
@@ -537,6 +538,10 @@ await check('Illustrated Markdown stories support arbitrary chapters and retain 
     chapters[1].querySelector('.diagram-copy').textContent.includes('Keep this final paragraph.'), 'Markdown prose was lost');
   assert(story.querySelectorAll('.diagram-art svg').length === 2 && !story.querySelector('.feature-more'),
     'Illustrations or the optional trailing link were mishandled');
+  const example = chapters[0].querySelector(':scope > .diagram-examples > details');
+  assert(example && !example.open && example.querySelector('code').textContent === 'arbitrary example' &&
+    !chapters[0].querySelector('.diagram-copy details') && !chapters[1].querySelector('.diagram-examples'),
+    'Optional story examples must keep their Markdown and follow the copy and artwork without duplication');
 });
 
 await check('Icon subchapters become reusable homepage columns with their own accessible headings', async () => {
@@ -608,6 +613,11 @@ await check('The homepage promotes three Markdown USPs before the four use cases
     const link = story.querySelector('.feature-more a');
     assert(link?.hash === '#/learn' && link.textContent ===
       (language === 'en' ? 'Explore how OBJY works →' : 'So funktioniert OBJY →'), 'The subtle Learn link is missing or untranslated');
+    const example = story.querySelector('.diagram-examples details');
+    const exampleSource = source.match(/```js\n([\s\S]*?)\n```/)[1];
+    assert(example && !example.open && example.querySelector('pre code').textContent.trim() === exampleSource &&
+      example.querySelector('.token') && example.querySelectorAll('.copy-button').length === 1,
+      'The optional AI example lost its source text, highlighting, copy control, or collapsed state');
     const expectedCases = [...source.matchAll(/^### !\[\]\(([^)]+)\) (.+) :id=(\S+)/gm)];
     const cards = [...useCases.querySelectorAll('.section-option')];
     assert(cards.length === 4 && cards.length === expectedCases.length && useCases.querySelector('.section-footer'),
@@ -918,7 +928,8 @@ await check('The USP story preserves SVG references, translations, centering, an
       figures[0].querySelector('[data-copy="architecture-diagram.query"]').textContent === (language === 'en' ? 'Query' : 'Abfragen'),
       'The API layer lost an operation or its translation');
     const object = JSON.parse([...figures[1].querySelectorAll('.object-snippet g text')].map(line => line.textContent).join('\n'));
-    assert(object._id === 'bike-01' && object.price === 15 && object._vec.length === 3 && !figures[1].querySelector('rect'),
+    assert(object._id === 'task-01' && object.title === 'Launch website' && object.status === 'open' &&
+      object.tags.length === 2 && object.details.priority === 2 && object._vec.length === 3 && !figures[1].querySelector('rect'),
       'The object layer lost its JSON example or gained a background box');
     assert(figures[2].querySelectorAll('.storage-chip').length === 3 &&
       figures[2].querySelector('[data-copy="storage-diagram.hot"]').textContent === (language === 'en' ? 'Hot fields' : 'Heiße Felder'),
@@ -951,6 +962,15 @@ await check('The USP story preserves SVG references, translations, centering, an
           svg.querySelector(':scope > use').getBoundingClientRect().height > 0, 'A diagram layer is empty or stretched');
         const headline = statement.querySelector('h3').getBoundingClientRect();
         assert(headline.left >= bounds.left - 1 && headline.right <= bounds.right + 1, 'A USP headline is clipped');
+      }
+      if (width === 1440 || width === 320) {
+        const example = story.querySelector('.diagram-examples details');
+        example.open = true;
+        const code = example.querySelector('pre').getBoundingClientRect();
+        assert(code.left >= bounds.left - 1 && code.right <= bounds.right + 1 &&
+          document.documentElement.scrollWidth <= viewport + 1,
+          `${language} expanded example overflows the article at ${width}px`);
+        example.open = false;
       }
       const nav = document.querySelector('.header-links').getBoundingClientRect();
       assert(nav.left >= 0 && nav.right <= viewport + 1, 'The top navigation is clipped');
@@ -1139,7 +1159,9 @@ await check('The object database hero stays large, translated, and centered on d
     assert(highlights.map((item) => item.textContent.trim()).join('|') === (language === 'en' ?
       'Flexible JSON|OLTP · OLAP · Vector|Efficient storage|API, auth & permissions' :
       'Flexibles JSON|OLTP · OLAP · Vektor|Effiziente Speicherung|API, Auth & Berechtigungen'), 'Hero highlights are missing or untranslated');
-    assert(!document.querySelector('.section-hero .markdown-body > p'), 'The old hero subtitle is still present');
+    const description = document.querySelector('.section-hero .markdown-body > p');
+    assert(description?.textContent.includes(language === 'en' ? 'flexible objects' : 'flexiblen Objekten') &&
+      !document.querySelector('.section-hero pre'), 'The hero must introduce flexible objects without adding code');
     for (const width of [1440, 1280, 761, 641, 640, 390, 320]) {
       site.style.width = `${width}px`;
       site.style.height = '900px';

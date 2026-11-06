@@ -1,8 +1,10 @@
 <!-- Edit the words and images using Markdown. Keep each :id=... so menu links continue to work. -->
 
-# Fast, large-scale<br> in-memory object database. :id=top
+# Fast in-memory objects. **Power your apps and agents.** :id=top
 
-> Build applications around fast objects.
+> Large Scale In-Memory Object Database
+
+Build around flexible objects. Combine dynamic properties, live references, and vectors—then query, aggregate, and search it all in memory.
 
 - ![](assets/site/icons/features/flexible-objects.svg) Flexible JSON
 - ![](assets/site/icons/features/query-aggregate.svg) OLTP · OLAP · Vector
@@ -14,21 +16,59 @@
 
 ## The OBJY advantage. :id=feature-highlights
 
-### CRUD. Analytics. Vector search. One API. :id=versatile-api
+### CRUD, analytics, and vector search. One API. :id=versatile-api
 
-Create, query, aggregate, and search vectors against the same objects through one consistent API.
+Create and update objects, explore their data, or find similar ones. One API for application logic, analytics, and AI.
 
 ![CRUD, query, aggregation, and vector search feed into the same object API.](assets/site/architecture.svg#api)
 
-### Flexible JSON. No rigid schema. :id=flexible-objects
+### Flexible objects. For apps and agents. :id=flexible-objects
 
-Combine nested properties, arrays, vectors, and references. Each object can evolve without forcing every object into the same shape.
+Start with JSON. Add nested properties, arrays, live references, or vectors as your model evolves. Your app and its agents work with the same objects.
 
-![A flexible JSON bike object, with an ID, properties, and a vector.](assets/site/architecture.svg#objects)
+![A flexible task object combines its title and status with tags, nested details, and a vector.](assets/site/architecture.svg#objects)
+
+<details>
+<summary>Store → find → update. See the code.</summary>
+
+```js
+import { createDatabase } from "@objy/db";
+
+const db = createDatabase();
+await db.createDatabase("app");
+const app = db.database("app");
+await app.createCollection("tasks");
+const tasks = app.collection("tasks");
+
+// An object can combine different kinds of properties.
+await tasks.insert({
+  _id: "task-01",
+  title: "Launch website",
+  status: "open",
+  tags: ["design", "AI"],
+  details: { priority: 2 },
+  _vec: [0.2, 0.8, 0.4]
+});
+await tasks.ready();
+
+// Find similar objects by their vectors.
+const matches = await tasks.search({
+  $vector: { vector: [0.21, 0.79, 0.4], limit: 1 }
+});
+
+// Add a nested property as your application evolves.
+await tasks.patch(matches[0]._id, {
+  $set: { status: "ready", "details.reviewed": true }
+});
+```
+
+These short vectors are illustrative; your application supplies embeddings from the same model. [Run it embedded →](/get-started/embedded.md)
+
+</details>
 
 ### In-memory speed. Clever storage. :id=hot-compressed
 
-Hot fields provide direct access, compact columns accelerate aggregations, and compressed object data reduces memory use.
+Keep frequently used fields hot, aggregate over compact columns, and compress colder data. Objects stay in memory without keeping every field in the same form.
 
 ![One RAM module stores hot fields, compact columns, and compressed data.](assets/site/architecture.svg#memory)
 

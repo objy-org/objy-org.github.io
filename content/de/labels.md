@@ -6,8 +6,8 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 
 | Location | Text |
 | --- | --- |
-| Page title | objy.db — Baue Anwendungsfälle rund um schnelle Objekte. |
-| Page description | objy.db ist eine In-Memory-Objektdatenbank mit einfacher API, Authentifizierung und Benutzerverwaltung. Lokal starten, überall betreiben. |
+| Page title | OBJY — Schnelle In-Memory-Objekte. Für leistungsstarke Apps und Agenten. |
+| Page description | Flexible JSON-Objekte mit dynamischen Eigenschaften, Live-Referenzen und Vektorsuche. Eine In-Memory-Datenbank für deine App und ihre Agenten. |
 
 ## Navigation
 
@@ -52,10 +52,12 @@ Nur die rechte Spalte bearbeiten. Abschnittsüberschriften und die linke Spalte 
 | Query | Abfragen |
 | Aggregate | Aggregation |
 | Vector | Vektoren |
-| Object collection | bikes |
-| Object id | `"_id": "bike-01",` |
-| Object name | `"name": "City bike",` |
-| Object price | `"price": 15,` |
+| Object collection | tasks |
+| Object id | `"_id": "task-01",` |
+| Object title | `"title": "Launch website",` |
+| Object status | `"status": "open",` |
+| Object tags | `"tags": ["design", "AI"],` |
+| Object details | `"details": {"priority": 2},` |
 | Object vector | `"_vec": [0.2, 0.8, 0.4]` |
 
 ## Storage diagram

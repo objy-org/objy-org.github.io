@@ -366,8 +366,11 @@ body > main > .sidebar-toggle,
   text-wrap: balance;
 }
 .section-hero h1 strong {
-  font-weight: 600;
   display: block;
+  margin-top: 10px;
+  color: var(--accent);
+  font-size: 0.85em;
+  font-weight: 400;
 }
 .section-copy .eyebrow {
   color: var(--accent);
@@ -632,6 +635,19 @@ body > main > .sidebar-toggle,
   margin: 0;
 }
 .diagram-art > :is(svg, img) { display: block; width: 100%; height: auto; }
+.diagram-examples {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 800px;
+  min-width: 0;
+  justify-self: center;
+  text-align: left;
+}
+.section-diagram-story .diagram-examples p {
+  margin: 12px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+}
 .section-diagram-story .markdown-body > .feature-more { margin: 48px auto 0; text-align: center; }
 @container (max-width: 740px) {
   .diagram-step { grid-template-columns: 1fr; gap: 28px; text-align: center; }
@@ -1031,15 +1047,18 @@ body > main > .sidebar-toggle,
 .document-guide .document-art:has(.learn-objects) { max-width: 420px; }
 .document-guide .document-lesson-example { min-width: 0; }
 .document-lesson-details { grid-column: 1 / -1; min-width: 0; }
-.document-guide pre {
+.document-guide pre,
+.diagram-examples pre {
   margin: 24px 0;
   padding: 44px 22px 22px;
   font-size: 14px;
 }
 .document-guide .document-lesson-example pre { margin: 0; }
-.document-guide details { margin: 0; }
+.document-guide details,
+.diagram-examples details { margin: 0; }
 .document-lesson-details > details + details { margin-top: 18px; }
-.document-guide summary {
+.document-guide summary,
+.diagram-examples summary {
   display: flex;
   align-items: baseline;
   gap: 12px;
@@ -1050,10 +1069,10 @@ body > main > .sidebar-toggle,
   cursor: pointer;
   list-style: none;
 }
-.document-guide summary::-webkit-details-marker { display: none; }
-.document-guide summary::before { content: "+"; font-size: 20px; }
-.document-guide details[open] > summary::before { content: "−"; }
-.document-guide summary:hover { color: var(--text); }
+:is(.document-guide, .diagram-examples) summary::-webkit-details-marker { display: none; }
+:is(.document-guide, .diagram-examples) summary::before { content: "+"; font-size: 20px; }
+:is(.document-guide, .diagram-examples) details[open] > summary::before { content: "−"; }
+:is(.document-guide, .diagram-examples) summary:hover { color: var(--text); }
 @container (max-width: 760px) {
   .document-guide :is(.document-illustration, .document-code-lesson) { grid-template-columns: 1fr; gap: 28px; }
   .document-guide :is(.document-art, .document-illustration-copy, .document-lesson-example) {

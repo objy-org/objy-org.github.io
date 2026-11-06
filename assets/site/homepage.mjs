@@ -67,8 +67,15 @@ async function decorateDiagramStory(section, body) {
     copy.className = 'diagram-copy';
     copy.append(heading);
     const image = content.find(node => node.matches?.('p:has(> img:only-child)'));
-    copy.append(...content.filter(node => node !== image && node !== more));
+    const examples = content.filter(node => node.tagName === 'DETAILS');
+    copy.append(...content.filter(node => node !== image && node !== more && !examples.includes(node)));
     row.append(copy, await createIllustration(image.firstElementChild, 'diagram-art'));
+    if (examples.length) {
+      const details = document.createElement('div');
+      details.className = 'diagram-examples';
+      details.append(...examples);
+      row.append(details);
+    }
     image.remove();
     story.append(row);
   }

@@ -6,8 +6,8 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 
 | Location | Text |
 | --- | --- |
-| Page title | objy.db — Build applications around fast objects. In memory. Scalable. |
-| Page description | objy.db is an in-memory object database with a simple API. Build locally, deploy anywhere. |
+| Page title | OBJY — Fast in-memory objects. Power your apps and agents. |
+| Page description | Flexible JSON objects with dynamic properties, live references, and vector search. One in-memory database for your app and its agents. |
 
 ## Navigation
 
@@ -52,10 +52,12 @@ Edit the right-hand column. Keep section headings and the left-hand column uncha
 | Query | Query |
 | Aggregate | Aggregate |
 | Vector | Vector |
-| Object collection | bikes |
-| Object id | `"_id": "bike-01",` |
-| Object name | `"name": "City bike",` |
-| Object price | `"price": 15,` |
+| Object collection | tasks |
+| Object id | `"_id": "task-01",` |
+| Object title | `"title": "Launch website",` |
+| Object status | `"status": "open",` |
+| Object tags | `"tags": ["design", "AI"],` |
+| Object details | `"details": {"priority": 2},` |
 | Object vector | `"_vec": [0.2, 0.8, 0.4]` |
 
 ## Storage diagram
