@@ -56,9 +56,9 @@ Supported languages include `json`, `js`/`javascript`, `ts`/`typescript`, `sh`/`
 
 The words inside `[]` are the label. The destination goes inside `()`. `/?id=object-capabilities` jumps to the heading with `:id=object-capabilities`.
 
-Getting Started uses the same overview and collapsible navigation as Documentation. Edit `content/<language>/get-started.md` for its three icon rows: Bring your own cloud, Local servers, and Embedded. Each row contains an icon-led `##` heading, a short description, and one Markdown link. Those same links define the left-menu roots; no separate navigation file is needed.
+Getting Started uses the same overview and collapsible navigation as Documentation. Edit `content/<language>/get-started.md` for its cloud and local-server icon rows. Each row contains an icon-led `##` heading, a short description, and one Markdown link. Those same links define the left-menu roots; no separate navigation file is needed.
 
-Instructions live in `content/<language>/get-started/local.md`, `cloud.md`, and `embedded.md`. Their headings become chapters beneath the selected root. Clicking the current root collapses or expands its chapters while leaving the guide open. Local includes installation, One node, and Cluster. Cloud is a directory with a Terraform row linking to `/get-started/cloud/terraform.md`. Its localized wrappers include `content/terraform.md`, the shared live Terraform README reference. The menu follows these nested Markdown directories: clicking Cloud opens its overview, and only selecting Terraform loads the README and expands its chapters. Returning to Cloud collapses Terraform again. Edit the README in `objy-org/terraform` to update it; do not copy its content into this repository. The source must be publicly readable. Embedded keeps the common browser and Node.js example. Chapters containing code or starting with a link-only list get the setup layout, and link-only lists become buttons. Keep matching IDs, code, and destinations across translations. To add a path, add its overview row and a localized Markdown guide.
+Instructions live in `content/<language>/get-started/local.md` and `cloud.md`. Their headings become chapters beneath the selected root. Clicking the current root collapses or expands its chapters while leaving the guide open. Local includes installation, One node, and Cluster. Cloud is a directory with a Terraform row linking to `/get-started/cloud/terraform.md`. Its localized wrappers include `content/terraform.md`, the shared live Terraform README reference. The menu follows these nested Markdown directories: clicking Cloud opens its overview, and only selecting Terraform loads the README and expands its chapters. Returning to Cloud collapses Terraform again. Edit the README in `objy-org/terraform` to update it; do not copy its content into this repository. The source must be publicly readable. Chapters containing code or starting with a link-only list get the setup layout, and link-only lists become buttons. Keep matching IDs, code, and destinations across translations. To add a path, add its overview row and a localized Markdown guide.
 
 The homepage Features area follows the hero. It uses three illustrated Markdown subchapters with one short paragraph each. Add a standard `<details>` block to a subchapter for an optional example beneath its text and image; keep a blank line around fenced code. The flexible-object example remains editable here, with no separate JavaScript content registry. The left-menu Features link jumps to this area; there is no separate Features file. Use cases and the footer follow it. Get Started remains its own page.
 
@@ -107,7 +107,7 @@ Markdown files at the repository root work too. The site first checks the select
 
 ## Manage the documentation index
 
-The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Its entries are DB Server, Embedded Database, REST API, and JavaScript client. [Embedded Database documentation](database.md) loads `DB.md` for browsers and Node.js. [DB Server documentation](server.md) loads `SERVER.md`, [REST API documentation](api.md) loads `API.md`, and [JavaScript client documentation](client.md) loads `README.md` from `objy-org/objy-client`. Keep the JavaScript client last. Local setup links use server documentation: one node opens `deploy-a-server`, and cluster setup opens `form-a-cluster`. Cloud setup embeds the Terraform README. Browser setup opens `/content/database.md?id=install-in-a-browser`; embedding in Node.js opens `/content/database.md?id=install-in-nodejs`.
+The top-bar Documentation link opens `content/en/documentation.md` or `content/de/documentation.md`, depending on the selected language. Its entries are DB Server, REST API, and JavaScript client. [DB Server documentation](server.md) loads `SERVER.md`, [REST API documentation](api.md) loads `API.md`, and [JavaScript client documentation](client.md) loads `README.md` from `objy-org/objy-client`. Keep the JavaScript client last. Local setup links use server documentation: one node opens `deploy`, and cluster setup opens `clustering`. Cloud setup includes the live Terraform README.
 
 To add another guide, add a `##` heading with an icon, a short explanation, and one Markdown link to each language’s index. Keep each explanation and destination in separate paragraphs for the compact row styling. Additional prose keeps its ordinary Markdown layout and does not remove the menu roots. The site combines these into one fully clickable row, in Markdown order. The same headings, icons, links, and order also define the persistent left menu. Navigation is always derived from Markdown, never from a second JavaScript list. Add, remove, reorder, or rename directory entries there; edit guide headings to change their chapters. On the next navigation or reload, the site rereads these sources and updates the tree. It does not push updates into an already open page. Clicking a guide opens its content and expands its chapters, with the other guide roots still available. The small arrows expand or collapse guides and nested chapters. Chapters come from the loaded Markdown, including live remote sources; no separate navigation file is needed. Direct links open the matching guide and chapter ancestors. Link to an existing local Markdown page, or create a shared page containing a remote include as described below.
 
@@ -129,14 +129,14 @@ The three images reference the same architecture artwork: `#api`, `#objects`, an
 
 The last link-only paragraph becomes the subtle Learn link below the entire story. Edit its wording and destination directly in Markdown. The four use cases follow this section. Keep matching IDs and image paths in both languages.
 
-Short labels inside the SVG are still managed by the Architecture diagram and Storage diagram tables in `labels.md`. JSON is unframed, and the three memory chips keep short labels. The longer explanations belong in the Markdown outside the image. The core runs in browsers and Node.js; authentication, files, clusters, and optional durability belong to the server. Learn provides the deeper technical explanation. Existing `#/features` bookmarks still open the homepage Features area.
+Short labels inside the SVG are still managed by the Architecture diagram and Storage diagram tables in `labels.md`. JSON is unframed, and the three memory chips keep short labels. The longer explanations belong in the Markdown outside the image. The complete database runs on the server, including storage, authentication, files, clustering, and optional durability. Application examples use REST or `@objy/client` to connect to that server. Learn provides the deeper technical explanation. Existing `#/features` bookmarks still open the homepage Features area.
 
 ## Include live documentation
 
-The shared database page, `content/database.md`, contains only a remote include:
+The shared server page, `content/server.md`, contains only a remote include:
 
 ```markdown
-[Database documentation](https://raw.githubusercontent.com/objy-org/objy/refs/heads/main/DB.md ':include')
+[Server documentation](https://raw.githubusercontent.com/objy-org/objy/refs/heads/main/SERVER.md ':include')
 ```
 
 The source is fetched from GitHub when readers open that page. `content/server.md` loads `SERVER.md` for server and cluster operation. The client page, `content/client.md`, loads the main `README.md` from `objy-org/objy-client`, and `content/api.md` loads `API.md` from `objy-org/objy`. Edit the original files there to update the documentation; no copy or website build is needed. Each left menu follows the source headings automatically. Both website languages currently display the same English sources, while the header and controls keep the selected language.
@@ -202,18 +202,18 @@ Shared images in `assets/` are relative to the site root. Other relative image p
 1. Copy `content/en/` to a new folder named after the language code, such as `content/fr/`.
 2. Translate `home.md`, `sidebar.md`, `labels.md`, `learn.md`, `get-started.md`, `documentation.md`. Translate image descriptions too. Keep all `:id=...` values, label-table headings and left-hand keys, code examples, filenames, and internal link targets unchanged. Translate only the right-hand values in `labels.md`.
 3. Add an entry to `content/languages.json`, for example `{ "code": "fr", "name": "Français", "short": "FR" }`. The code must match the folder. The language appears in the switcher automatically; no HTML or JavaScript changes are needed.
-4. Preview `/?lang=fr`, `/?lang=fr#/get-started`, `/?lang=fr#/documentation`, and `/?lang=fr#/content/database`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
+4. Preview `/?lang=fr`, `/?lang=fr#/get-started`, `/?lang=fr#/documentation`, and `/?lang=fr#/content/server`. Check the homepage, menu, documentation, diagram text, and mobile layout. Keep diagram labels short enough to fit.
 5. Run `node --test tests/*.test.mjs` to check for missing files, labels, anchors, or broken local links.
 
 The registry's `defaultLanguage` controls the default for new visitors. Unknown URL language codes fall back to that default. Missing UI labels also fall back to the default language, but translate every label before releasing a new language. Translate the core files before registering a language. Additional Markdown pages can fall back to the default language until their translations are ready.
 
-Use language-neutral links such as `/content/server.md?id=start-one-node`, `/content/database.md?id=install-in-a-browser`, and `/get-started/local.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
+Use language-neutral links such as `/content/server.md?id=deploy`, `/content/api.md?id=collections`, and `/get-started/local.md?id=deploy-quick-start` in every translation. Do not link directly to another language folder from page content. Shared heading IDs let the switcher keep readers at the same section in either language.
 
 ## Review and publish
 
 Save your Markdown changes, review the website on desktop and mobile, and check the links. Your Markdown editor shows the content; the website preview shows its final appearance.
 
-The redesign is on `codex/objy-brand-website`. That branch does not automatically publish to the live site. Use the repository's review and publishing process; a developer can handle previews and releases.
+Preview changes locally. Publishing through the GitHub Pages branch requires an explicit request; do not automatically commit or push editorial changes.
 
 ## Edit Learn
 
@@ -227,4 +227,6 @@ Keep code identical across translations. Image paths and accessible descriptions
 
 The top-bar Learn link is translated in the Navigation table of `labels.md`. No separate page registration or chapter-menu file is required.
 
-The Vectors and HNSW topic uses illustrative embeddings on `_vec` and a `$vector` search. Keep `ready()` before the example search. Applications supply embeddings from the same model; the HNSW graphic is a schematic of graph layers, not a plot of the sample numbers. Its query and result labels are in the Learn diagrams table.
+The Vectors and HNSW topic uses illustrative embeddings on `_vec` and a `$vector` search through the server client. Explain that the server can return `503` while its vector index warms; callers retry after it is ready. Applications supply embeddings from the same model; the HNSW graphic is a schematic of graph layers, not a plot of the sample numbers. Its query and result labels are in the Learn diagrams table.
+
+Application examples connect to a running server through `@objy/client`. Keep the initial client connection and administrator login in the Collections example, then reuse its `app` and `bikes` handles in the later lessons. Collection metadata goes through the HTTP API or the client’s `setMeta()` method.

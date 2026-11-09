@@ -4,7 +4,7 @@ Starte mit einem Fahrrad. Verbinde seinen Besitzer. Baue darauf auf.
 
 ## ![](assets/site/icons/database.svg) Datenbank :id=database
 
-**Direkt in deiner Anwendung.** `@objy/db` läuft im Browser oder in deinem Node.js-Prozess. Du arbeitest mit Collections von JSON-Objekten, direkt im Arbeitsspeicher.
+**Objekte im Arbeitsspeicher des Servers.** Deine Anwendung verbindet sich über REST oder `@objy/client`. Datenbanken und Collections organisieren die JSON-Objekte.
 
 ### Collections :id=collections
 
@@ -15,11 +15,16 @@ Erstelle die Datenbank `app` und gruppiere zusammengehörige Objekte: Fahrräder
 <details>
 <summary>Datenbank und Collections anlegen</summary>
 
+Installiere den Client mit `npm install @objy/client` und verbinde dich mit einem laufenden Server. Nutze das von der CLI ausgegebene Administratorpasswort und einen neuen Datenbanknamen. Die folgenden Beispiele verwenden `app` und `bikes` weiter.
+
 ```js
-import { createDatabase } from "@objy/db";
-const objy = createDatabase();
-await objy.createDatabase("app");
-const app = objy.database("app");
+import { createClient } from "@objy/client";
+
+const client = createClient({ url: "http://localhost:8080" });
+await client.login({ username: "admin", password: "<printed-password>" });
+
+await client.createDatabase("app");
+const app = client.database("app");
 await app.createCollection("bikes");
 await app.createCollection("people");
 const bikes = app.collection("bikes");
@@ -27,7 +32,7 @@ const bikes = app.collection("bikes");
 
 </details>
 
-[Datenbank einrichten](/content/database.md?id=use-the-same-database-api)
+[Datenbank einrichten](/content/api.md?id=databases)
 
 ### Objekte :id=objects
 
@@ -55,7 +60,7 @@ await bikes.patch("bike-01", {
 
 Mit `replace` ersetzt du das ganze Objekt, mit `remove` löschst du es. Bulk-Methoden verarbeiten viele Objekte.
 
-[Schreiboperationen](/content/database.md?id=bulk-is-the-native-path)
+[Schreiboperationen](/content/api.md?id=bulk-objects)
 
 ### Referenzen :id=references
 
@@ -141,7 +146,7 @@ Der **HNSW-Index** durchsucht einen Graphen im RAM: Große Sprünge grenzen den 
 await bikes.patch("bike-01", {
   $set: { _vec: [0.2, 0.8, 0.4] }
 });
-await bikes.ready();
+// The server returns 503 while its vector index is warming. Retry then.
 const similar = await bikes.search({
   $vector: { vector: [0.21, 0.79, 0.4], limit: 3 }
 });
@@ -149,7 +154,7 @@ const similar = await bikes.search({
 
 </details>
 
-Nutze dasselbe Embedding-Modell für Objekte und Abfragen. Die kurzen Vektoren oben dienen als Beispiel; `ready()` wartet auf den Index.
+Nutze dasselbe Embedding-Modell für Objekte und Abfragen. Die kurzen Vektoren dienen als Beispiel. Wiederhole die Suche, wenn der Server beim Aufbau des Vektorindex `503` zurückgibt.
 
 [Vektorsuche](/content/api.md?id=vector-search)
 
@@ -179,13 +184,13 @@ Du liest vollständige Objekte. Collection-Metadaten bestimmen intern, wie ihre 
 
 </details>
 
-Schreibvorgänge sind sofort sichtbar. Indizes und Spalten können im Hintergrund fertig aufgebaut werden. Eingebettete Daten leben so lange wie die Seite oder der Prozess.
+Der Server hält Objekte im Arbeitsspeicher. Indizes und Spalten können im Hintergrund entstehen; die Persistenzeinstellungen bestimmen die Wiederherstellung nach einem Neustart.
 
-[Speicherung und Indizes](/content/database.md?id=shape-the-workload-with-metadata)
+[Speicherung und Indizes](/content/api.md?id=collections)
 
 ## ![](assets/site/icons/server.svg) Server :id=server
 
-**Gemeinsam für deine Anwendungen.** `@objy/server` ergänzt denselben Datenbankkern um Netzwerkzugriff, Benutzer, Berechtigungen, Clustering und Persistenz.
+**Ein gemeinsamer Datenbankdienst.** `@objy/server` betreibt Datenbankkern, HTTP-API, Benutzer, Berechtigungen, Clustering und Persistenz zusammen.
 
 ### API :id=server-api
 
@@ -330,7 +335,7 @@ Nach einer Änderung der Berechtigungen muss sich Alex erneut anmelden oder sein
 
 </details>
 
-[Authentifizierung und Berechtigungen](/content/api.md?id=authentication-and-permissions)
+[Authentifizierung](/content/api.md?id=authentication) · [Berechtigungen](/content/api.md?id=permissions)
 
 ### Cluster :id=clusters
 
@@ -343,7 +348,7 @@ Anfragen können jeden öffentlichen Knoten erreichen; das Routing findet den zu
 
 ![Zwei Objekt-Shards liegen auf unterschiedlichen Maschinen, jeweils mit einem zusätzlichen Replikat auf einer weiteren Maschine.](assets/site/learn/cluster.svg)
 
-[Cluster einrichten](/content/server.md?id=form-a-cluster)
+[Cluster einrichten](/content/server.md?id=clustering)
 
 ### Persistenz :id=persistence
 
@@ -355,4 +360,4 @@ Entscheide, was einen Neustart übersteht:
 
 Eine lokale WAL-Bestätigung wartet weder auf Replikate noch auf S3-Uploads.
 
-[Persistenzeinstellungen](/content/server.md?id=make-it-durable) · [OBJY starten](get-started.md)
+[Persistenzeinstellungen](/content/server.md?id=durability) · [OBJY starten](get-started.md)

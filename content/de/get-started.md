@@ -13,9 +13,3 @@ Betreibe OBJY auf der Infrastruktur deines Cloud-Anbieters.
 Starte einen Server oder einen Cluster auf deinem Rechner.
 
 [Lokale Server einrichten](/get-started/local.md)
-
-## ![](assets/site/icons/database.svg) Embedded :id=deploy-embedded
-
-Nutze die Datenbank direkt im Browser und in Node.js.
-
-[Embedded einrichten](/get-started/embedded.md)

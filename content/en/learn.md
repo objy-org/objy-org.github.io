@@ -4,7 +4,7 @@ Start with a bike. Connect its owner. Build from there.
 
 ## ![](assets/site/icons/database.svg) Database :id=database
 
-**Inside your application.** `@objy/db` runs in your browser or Node.js process. You work with collections of JSON objects, directly in memory.
+**Objects in memory, on the server.** Your application connects through REST or `@objy/client`. Databases and collections organize the JSON objects.
 
 ### Collections :id=collections
 
@@ -15,11 +15,16 @@ Create a database called `app`, then give related objects a home: bikes in `bike
 <details>
 <summary>Create the database and collections</summary>
 
+Run `npm install @objy/client` and connect to a running server using the administrator password printed by the CLI. Use a new database name for this example. The following examples reuse `app` and `bikes`.
+
 ```js
-import { createDatabase } from "@objy/db";
-const objy = createDatabase();
-await objy.createDatabase("app");
-const app = objy.database("app");
+import { createClient } from "@objy/client";
+
+const client = createClient({ url: "http://localhost:8080" });
+await client.login({ username: "admin", password: "<printed-password>" });
+
+await client.createDatabase("app");
+const app = client.database("app");
 await app.createCollection("bikes");
 await app.createCollection("people");
 const bikes = app.collection("bikes");
@@ -27,7 +32,7 @@ const bikes = app.collection("bikes");
 
 </details>
 
-[Database setup](/content/database.md?id=use-the-same-database-api)
+[Database setup](/content/api.md?id=databases)
 
 ### Objects :id=objects
 
@@ -55,7 +60,7 @@ await bikes.patch("bike-01", {
 
 Use `replace` for a whole new object, `remove` to delete it, and bulk methods for many objects.
 
-[Write operations](/content/database.md?id=bulk-is-the-native-path)
+[Write operations](/content/api.md?id=bulk-objects)
 
 ### References :id=references
 
@@ -141,7 +146,7 @@ The **HNSW index** searches a graph in memory: large jumps narrow the area, then
 await bikes.patch("bike-01", {
   $set: { _vec: [0.2, 0.8, 0.4] }
 });
-await bikes.ready();
+// The server returns 503 while its vector index is warming. Retry then.
 const similar = await bikes.search({
   $vector: { vector: [0.21, 0.79, 0.4], limit: 3 }
 });
@@ -149,7 +154,7 @@ const similar = await bikes.search({
 
 </details>
 
-Use the same embedding model for objects and queries. The short vectors above are illustrative; `ready()` waits for the index.
+Use the same embedding model for objects and queries. The short vectors are illustrative. Retry a search if the server returns `503` while its vector index warms.
 
 [Vector search](/content/api.md?id=vector-search)
 
@@ -179,13 +184,13 @@ You read complete objects. Internally, collection metadata lets you choose how t
 
 </details>
 
-Writes become visible immediately. Indexes and columns can finish building in the background. Embedded data lives for the lifetime of the page or process.
+The server keeps objects in memory. Indexes and columns can warm in the background; persistence settings control recovery after a restart.
 
-[Storage and indexes](/content/database.md?id=shape-the-workload-with-metadata)
+[Storage and indexes](/content/api.md?id=collections)
 
 ## ![](assets/site/icons/server.svg) Server :id=server
 
-**Shared by your applications.** `@objy/server` wraps the same database engine with network access, users, permissions, clustering, and persistence.
+**One shared database service.** `@objy/server` runs the database engine, HTTP API, users, permissions, clustering, and persistence together.
 
 ### API :id=server-api
 
@@ -330,7 +335,7 @@ After changing permissions, Alex must sign in again or renew his token to receiv
 
 </details>
 
-[Authentication and permissions](/content/api.md?id=authentication-and-permissions)
+[Authentication](/content/api.md?id=authentication) · [Permissions](/content/api.md?id=permissions)
 
 ### Clusters :id=clusters
 
@@ -343,7 +348,7 @@ Requests can reach any public node; routing finds the owner. Replicas catch up a
 
 ![Two object shards live on different machines, with one additional replica of each on another machine.](assets/site/learn/cluster.svg)
 
-[Cluster setup](/content/server.md?id=form-a-cluster)
+[Cluster setup](/content/server.md?id=clustering)
 
 ### Persistence :id=persistence
 
@@ -355,4 +360,4 @@ Choose what survives a restart:
 
 A local WAL acknowledgement does not wait for replicas or S3 uploads.
 
-[Persistence settings](/content/server.md?id=make-it-durable) · [Run OBJY](get-started.md)
+[Persistence settings](/content/server.md?id=durability) · [Run OBJY](get-started.md)

@@ -31,12 +31,16 @@ Beginne mit JSON. Ergänze verschachtelte Eigenschaften, Arrays, Live-Referenzen
 <details>
 <summary>Speichern → finden → ändern. Code ansehen.</summary>
 
-```js
-import { createDatabase } from "@objy/db";
+Installiere den Client mit `npm install @objy/client` und verbinde dich mit einem laufenden lokalen Server und dem von der CLI ausgegebenen Administratorpasswort. Nutze für dieses Beispiel einen neuen Datenbanknamen.
 
-const db = createDatabase();
-await db.createDatabase("app");
-const app = db.database("app");
+```js
+import { createClient } from "@objy/client";
+
+const client = createClient({ url: "http://localhost:8080" });
+await client.login({ username: "admin", password: "<printed-password>" });
+
+await client.createDatabase("app");
+const app = client.database("app");
 await app.createCollection("tasks");
 const tasks = app.collection("tasks");
 
@@ -49,12 +53,9 @@ await tasks.insert({
   details: { priority: 2 },
   _vec: [0.2, 0.8, 0.4]
 });
-await tasks.ready();
 
-// Find similar objects by their vectors.
-const matches = await tasks.search({
-  $vector: { vector: [0.21, 0.79, 0.4], limit: 1 }
-});
+// Find objects by their properties.
+const matches = await tasks.find({ status: "open" });
 
 // Add a nested property as your application evolves.
 await tasks.patch(matches[0]._id, {
@@ -62,7 +63,7 @@ await tasks.patch(matches[0]._id, {
 });
 ```
 
-Die kurzen Vektoren dienen als Beispiel; deine Anwendung liefert Embeddings aus demselben Modell. [Eingebettet starten →](/get-started/embedded.md)
+Der Vektor dient als Beispiel; deine Anwendung erzeugt die Embeddings. [Server starten →](/get-started/local.md)
 
 </details>
 

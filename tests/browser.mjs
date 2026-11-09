@@ -52,6 +52,17 @@ await new Promise((resolve, reject) => {
 });
 window.marked = site.contentWindow.marked;
 
+// Expectations follow the same editorial indexes as the live navigation.
+const indexEntries = async name => documentationIndex(
+  window.marked(await fetch(`../content/en/${name}.md`).then(response => response.text())),
+  href => {
+    const url = new URL(href, location.origin + '/');
+    return url.hash.startsWith('#/') ? url.hash : '#' + url.pathname.replace(/\.md$/, '') + url.search;
+  },
+);
+const docsEntries = await indexEntries('documentation');
+const setupEntries = await indexEntries('get-started');
+
 await check('Documentation loads without downloading homepage illustrations', () => {
   // Ordinary Markdown icons use image requests; homepage SVGs are fetched for inlining.
   const files = site.contentWindow.performance
@@ -69,7 +80,7 @@ await check('Documentation loads without downloading homepage illustrations', ()
   const document = site.contentDocument;
   const rows = [...document.querySelectorAll('.directory-link')];
   assert(rows.map((row) => row.querySelector('h2').textContent.trim()).join(',') ===
-    'DB Server,Embedded Database,REST API,JavaScript client', 'Directory order changed');
+    docsEntries.map(entry => entry.title).join(','), 'Directory order differs from its Markdown');
   assert(rows.every((row) => !row.querySelector('a') && row.querySelector('p')), 'Directory rows contain nested links or lost descriptions');
   assert(!document.querySelector('.page-sidebar').hidden && !document.querySelector('.section-menu-toggle').hidden &&
     document.querySelectorAll('.documentation-guide').length === rows.length,
@@ -238,17 +249,17 @@ await check('Live documentation keeps all roots across guide changes, deep links
       site.contentDocument.querySelectorAll('.documentation-guide')[index]?.getAttribute('aria-current') === 'page' &&
       site.contentDocument.querySelector('.documentation-branch[open] .documentation-chapter-link'));
   };
-  for (let index = 0; index < 4; index++) {
+  for (let index = 0; index < docsEntries.length; index++) {
     await openRoot(index);
     const document = site.contentDocument;
     const roots = [...document.querySelectorAll('.documentation-branch')];
-    assert(roots.length === 4 && roots.filter(root => root.open).length === 1 && roots[index].open,
+    assert(roots.length === docsEntries.length && roots.filter(root => root.open).length === 1 && roots[index].open,
       'A guide replaced the root tree or left another root expanded');
     assert(document.querySelector('.header-links [aria-current="page"]').hash === '#/documentation', 'A guide lost Documentation header selection');
     assert(roots[index].querySelectorAll('.documentation-chapter-link').length ===
       document.querySelectorAll('.document-page [data-chapter]').length, 'A live chapter is missing from its guide branch');
   }
-  await openRoot(2);
+  await openRoot(docsEntries.findIndex(entry => entry.path === '/content/api'));
   const document = site.contentDocument;
   const frame = site.contentWindow;
   const subchapter = document.querySelector('.document-page h3[id]');
@@ -261,7 +272,7 @@ await check('Live documentation keeps all roots across guide changes, deep links
   branch.querySelector('summary').click();
   assert(!branch.open && document.querySelector('.document-page') === article, 'Collapsing a guide changed its article');
   branch.querySelector('.documentation-guide').click();
-  await waitFor(() => document.querySelector('.documentation-branch').parentElement.parentElement.querySelectorAll('.documentation-guide').length === 4);
+  await waitFor(() => document.querySelector('.documentation-branch').parentElement.parentElement.querySelectorAll('.documentation-guide').length === docsEntries.length);
   assert(branch.open, 'Clicking the current guide did not expand it');
   for (const width of [1920, 1280, 1100, 390, 320]) {
     site.style.width = `${width}px`;
@@ -274,17 +285,17 @@ await check('Live documentation keeps all roots across guide changes, deep links
     const sidebar = document.querySelector('.page-sidebar');
     if (width <= 1100) {
       menu.click();
-      assert(frame.getComputedStyle(sidebar).display !== 'none' && sidebar.querySelectorAll('.documentation-guide').length === 4,
+      assert(frame.getComputedStyle(sidebar).display !== 'none' && sidebar.querySelectorAll('.documentation-guide').length === docsEntries.length,
         'The mobile drawer lost its documentation roots');
       menu.click();
     } else assert(sidebar.getBoundingClientRect().right <= bounds.left, 'The documentation tree overlaps its article');
   }
-  site.src = '../?lang=de#/content/database?id=install-in-a-browser';
+  site.src = '../?lang=de#/content/api?id=objects';
   await waitFor(() => site.contentDocument?.documentElement?.lang === 'de' &&
-    site.contentDocument.querySelector('.documentation-branch[open] [data-chapter-id="install-in-a-browser"]'));
-  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 4 &&
+    site.contentDocument.querySelector('.documentation-branch[open] [data-chapter-id="objects"]'));
+  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === docsEntries.length &&
     site.contentDocument.querySelector('#section-links').getAttribute('aria-label') === 'Dokumentationsnavigation' &&
-    site.contentDocument.querySelectorAll('.documentation-guide')[3].textContent === 'JavaScript-Client',
+    site.contentDocument.querySelectorAll('.documentation-guide')[docsEntries.length - 1].textContent === 'JavaScript-Client',
     'A direct German guide link lost the translated root tree');
 });
 
@@ -372,7 +383,7 @@ await check('Icon chapters keep their content visible and generate ordinary Mark
     '<h2 id="beta"><img src="cloud.svg" alt="">Beta</h2>' +
     '<ul><li><a href="https://example.com/cloud">Provider</a></li></ul>' +
     '<h2 id="gamma"><img src="browser.svg" alt="">Gamma</h2>' +
-    '<pre><code>const db = createDatabase();</code></pre>',
+    '<pre><code>const client = createClient();</code></pre>',
   )));
   const chapters = documentChapters(fixture.querySelector('.document-page'));
   const sections = [...fixture.querySelectorAll('.setup-section')];
@@ -691,7 +702,7 @@ await check('Articles stay centered in the viewport without colliding with the c
       await resize(width);
       checkCenter('.document-page');
       const document = site.contentDocument;
-      assert(document.querySelectorAll('.documentation-guide').length === 4, 'The documentation root tree is missing');
+      assert(document.querySelectorAll('.documentation-guide').length === docsEntries.length, 'The documentation root tree is missing');
       assert(!document.querySelector('.section-menu-toggle').hidden, 'Documentation menu control is hidden');
       const last = document.querySelector('.directory-list > :last-child').getBoundingClientRect();
       if (width >= 1280) assert(last.bottom <= frame.innerHeight, 'The guides do not fit together on desktop');
@@ -716,15 +727,15 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
     site.src = `../?lang=${language}#/get-started`;
     await waitFor(() => site.contentDocument?.documentElement?.lang === language &&
       site.contentDocument.querySelector('.document-directory') &&
-      site.contentDocument.querySelectorAll('.documentation-guide').length === 3);
+      site.contentDocument.querySelectorAll('.documentation-guide').length === setupEntries.length);
     const frame = site.contentWindow;
     const document = site.contentDocument;
     const rows = [...document.querySelectorAll('.directory-link')];
-    assert(rows.length === 3 && rows.every(row => row.querySelector('img') && row.querySelector('p')) &&
+    assert(rows.length === setupEntries.length && rows.every(row => row.querySelector('img') && row.querySelector('p')) &&
       !document.querySelector('.document-page pre') && !document.querySelector('.page-sidebar').hidden,
-      'The overview must show three icon rows and retain the left menu');
+      'The overview must show its Markdown icon rows and retain the left menu');
     assert(rows.map(row => new URL(row.href).hash).join('|') ===
-      '#/get-started/cloud|#/get-started/local|#/get-started/embedded', 'Overview rows lost their setup guides');
+      setupEntries.map(entry => entry.href).join('|'), 'Overview rows lost their setup guides');
     assert(document.querySelectorAll('.documentation-branch[open]').length === 0,
       'Unselected setup roots should start collapsed');
     assert(!frame.performance.getEntriesByType('resource').some(resource => resource.name.startsWith('https://raw.githubusercontent.com/')),
@@ -736,7 +747,7 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
       await waitFor(() => frame.location.hash === target && document.querySelector('.document-page') &&
         document.querySelectorAll('.documentation-guide')[index]?.getAttribute('aria-current') === 'page');
       const roots = [...document.querySelectorAll('.documentation-branch')];
-      assert(roots.length === 3 && roots.filter(root => root.open).length === 1 && roots[index].open,
+      assert(roots.length === setupEntries.length && roots.filter(root => root.open).length === 1 && roots[index].open,
         'Selecting a setup guide lost the other roots or opened multiple roots');
       if (document.querySelector('.document-directory')) {
         assert(roots[index].querySelectorAll('.documentation-subguide').length === document.querySelectorAll('.directory-link').length,
@@ -746,7 +757,7 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
       assert(document.querySelector('.header-links [aria-current="page"]').hash === '#/get-started',
         'A setup guide lost the Get Started header selection');
       assert((document.querySelector('.document-directory') || !document.querySelector('.document-page img')) &&
-        document.querySelectorAll('.documentation-guide img[width="20"][height="20"]').length === 3,
+        document.querySelectorAll('.documentation-guide img[width="20"][height="20"]').length === setupEntries.length,
         'Setup guide icons must remain in the left menu');
       return roots[index];
     };
@@ -766,7 +777,7 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
       document.querySelector('[data-chapter-id="deploy-cluster"][aria-current="location"]'));
     assert(document.querySelector(`.language-switcher a[lang="${language === 'en' ? 'de' : 'en'}"]`).hash ===
       '#/get-started/local?id=deploy-cluster', 'Language switching loses the selected setup chapter');
-    for (const index of [0, 2]) {
+    for (const index of setupEntries.map((_, index) => index).filter(index => index !== 1)) {
       await openRoot(index);
       let page = document.querySelector('.document-page');
       if (index === 0) {
@@ -825,9 +836,6 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
           frame.fetch = originalFetch;
         }
       }
-      else assert(page.querySelectorAll('pre').length === 2 && page.textContent.includes('npm i @objy/db') &&
-        page.querySelector('a[href$="id=install-in-a-browser"]') && page.querySelector('a[href$="id=install-in-nodejs"]'),
-        'Embedded setup lost its install, example, or browser and Node.js guides');
       for (const width of [1280, 760, 390, 320]) {
         site.style.width = `${width}px`;
         site.style.height = '1000px';
@@ -852,7 +860,7 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
         if (width <= 1100) {
           document.querySelector('.section-menu-toggle').click();
           assert(frame.getComputedStyle(document.querySelector('.page-sidebar')).display !== 'none' &&
-            document.querySelectorAll('.documentation-guide').length === 3, 'The mobile drawer lost its setup roots');
+            document.querySelectorAll('.documentation-guide').length === setupEntries.length, 'The mobile drawer lost its setup roots');
           if (width <= 760) {
             const currentRoot = document.querySelector(':is(.documentation-guide, .documentation-subguide)[aria-current="page"]');
             currentRoot.click();
@@ -868,18 +876,18 @@ await check('Get Started has a Markdown overview and persistent collapsible setu
     }
     document.querySelector('.header-links a[href$="#/get-started"]').click();
     await waitFor(() => document.querySelector('.document-directory .directory-link'));
-    assert(document.querySelectorAll('.directory-link').length === 3 && document.querySelectorAll('.documentation-guide').length === 3,
+    assert(document.querySelectorAll('.directory-link').length === setupEntries.length && document.querySelectorAll('.documentation-guide').length === setupEntries.length,
       'Returning to the setup overview lost its rows or root tree');
     site.src = `../?lang=${language}#/get-started/local?id=deploy-cluster`;
     await waitFor(() => site.contentDocument?.documentElement?.lang === language &&
       site.contentDocument.querySelector('.documentation-branch[open] [data-chapter-id="deploy-cluster"]'));
-    assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 3,
+    assert(site.contentDocument.querySelectorAll('.documentation-guide').length === setupEntries.length,
       'A direct setup chapter link lost the full root tree');
     site.src = `../?lang=${language}#/get-started/cloud/terraform?id=provisioning`;
     await waitFor(() => site.contentDocument?.documentElement?.lang === language &&
       site.contentDocument.querySelector('.documentation-subguide[aria-current="page"]'));
     const live = site.contentDocument;
-    assert(live.querySelectorAll('.documentation-guide').length === 3 && live.querySelector('.documentation-subbranch[open]'),
+    assert(live.querySelectorAll('.documentation-guide').length === setupEntries.length && live.querySelector('.documentation-subbranch[open]'),
       'A direct Terraform link lost its submenu or sibling roots');
     const { copy } = createCopy(await Promise.all(['en', language].map(code =>
       fetch(`../content/${code}/labels.md`).then(response => response.text()))));
@@ -1031,6 +1039,8 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     assert(examples.length === exampleCount && examples.every(pre => pre.querySelector('.token') && pre.querySelectorAll('.copy-button').length === 1),
       'Learn examples lost highlighting or copy controls');
     const codeIn = id => guide.querySelector(`#${id}`).closest('.document-chapter').querySelector('pre code').textContent;
+    assert(codeIn('collections').includes('from "@objy/client"') && codeIn('collections').includes('await client.login(') &&
+      !guide.textContent.includes('@objy/db'), 'Learn must connect to a server through the client');
     const reference = JSON.parse([...guide.querySelectorAll('.learn-references-wide .reference-parent text')]
       .map(line => line.textContent).join('\n'));
     assert(reference.owner.object.name === 'Alex' && reference.owner.value === reference.owner.object._id &&
@@ -1076,10 +1086,10 @@ await check('Learn explains a bike and owner in two Markdown chapters with worki
     setup.querySelector('summary').click();
     const vectors = guide.querySelector('#vectors').closest('.document-chapter');
     assert(vectors.closest('.document-guide-group').querySelector('h2').id === 'database' &&
-      vectors.querySelector('.learn-vectors') && codeIn('vectors').includes('await bikes.ready()') &&
+      vectors.querySelector('.learn-vectors') && codeIn('vectors').includes('503') && !codeIn('vectors').includes('.ready(') &&
       codeIn('vectors').includes('$vector') && vectors.querySelector('[data-copy="learn-diagrams.vector-matches"]').textContent ===
       (language === 'en' ? 'Similar bikes' : 'Ähnliche Fahrräder'),
-      'The vector lesson lost its index readiness, search example, illustration, or translation');
+      'The vector lesson lost its server readiness explanation, search example, illustration, or translation');
     assert(guide.querySelector('[data-copy="learn-diagrams.database"]').textContent ===
       (language === 'en' ? 'Database' : 'Datenbank'), 'Server artwork is not translated');
     for (const width of [1440, 1100, 1000, 760, 390, 320]) {
@@ -1259,7 +1269,7 @@ await check('Linked remote Markdown preserves its setup roots, chapters, bookmar
     };
   };
   site.src = '../?lang=en#/get-started';
-  await waitFor(() => site.contentDocument?.querySelectorAll('.documentation-guide').length === 3);
+  await waitFor(() => site.contentDocument?.querySelectorAll('.documentation-guide').length === setupEntries.length);
   patchFetch();
   let frame = site.contentWindow;
   frame.location.hash = '#/get-started/cloud/terraform';
@@ -1267,7 +1277,7 @@ await check('Linked remote Markdown preserves its setup roots, chapters, bookmar
   site.contentDocument.querySelector('.document-page a[href*="/remote/"]').click();
   await waitFor(() => site.contentDocument.querySelector('.document-page h1')?.textContent === 'Linked setup');
   assert(guideContext(frame.location.hash) === '#/get-started/cloud/terraform', 'The linked document has no bookmarkable parent');
-  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 3 &&
+  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === setupEntries.length &&
     site.contentDocument.querySelector('.header-links [aria-current="page"]').hash === '#/get-started',
     'A linked Markdown file switched to Documentation or lost the setup roots');
   const chapter = site.contentDocument.querySelector('[data-chapter-id="configuration"]');
@@ -1282,7 +1292,7 @@ await check('Linked remote Markdown preserves its setup roots, chapters, bookmar
   await waitFor(() => site.contentDocument?.documentElement.lang === 'de' &&
     site.contentDocument.querySelector('.document-page h1')?.textContent === 'Linked setup' &&
     site.contentDocument.querySelector('.documentation-subguide[aria-current="page"]'));
-  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === 3 &&
+  assert(site.contentDocument.querySelectorAll('.documentation-guide').length === setupEntries.length &&
     site.contentDocument.querySelector('.header-links [aria-current="page"]').hash === '#/get-started' &&
     site.contentDocument.querySelector('[data-chapter-id="configuration"]'), 'Reloading a translated bookmark lost the dynamic tree');
   assert(withGuideContext('/remote/example?id=install', '#/manual/guide').includes('id=install'), 'Context removed the chapter query');

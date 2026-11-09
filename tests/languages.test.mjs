@@ -75,7 +75,7 @@ test('registry rejects duplicate codes, unsafe folder paths, and absent defaults
 
 const source = (file) => read(`content/${registry.defaultLanguage}/${file}`);
 test('externally maintained documentation contains only live references', () => {
-  for (const file of ['database.md', 'server.md', 'api.md', 'client.md', 'terraform.md']) {
+  for (const file of ['server.md', 'api.md', 'client.md', 'terraform.md']) {
     const target = markdownInclude(read(`content/${file}`), `content/${file}`);
     assert.match(target || '', /^https:\/\/raw\.githubusercontent\.com\//, `${file} must reference its upstream source without a copied body`);
   }

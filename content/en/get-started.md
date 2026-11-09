@@ -13,9 +13,3 @@ Run OBJY on your cloud provider's infrastructure.
 Start one server or a cluster on your own machine.
 
 [Local server setup](/get-started/local.md)
-
-## ![](assets/site/icons/database.svg) Embedded :id=deploy-embedded
-
-Run the database directly in browsers and Node.js.
-
-[Embedded setup](/get-started/embedded.md)

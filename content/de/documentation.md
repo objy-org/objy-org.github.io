@@ -8,12 +8,6 @@ OBJY betreiben und skalieren.
 
 [DB-Server-Dokumentation](/content/server.md)
 
-## ![](assets/site/icons/database.svg) Embedded Database :id=database
-
-Die Datenbank für Browser und Node.js.
-
-[Embedded-Database-Dokumentation](/content/database.md)
-
 ## ![](assets/site/icons/api.svg) REST API :id=api
 
 Mit Objekten über HTTP arbeiten.

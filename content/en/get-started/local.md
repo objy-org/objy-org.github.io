@@ -15,7 +15,7 @@ objy deploy local --name dev --size tiny
 objy status dev
 ```
 
-[Server guide](/content/server.md?id=deploy-a-server)
+[Server guide](/content/server.md?id=deploy)
 
 ## Cluster :id=deploy-cluster
 
@@ -24,4 +24,4 @@ objy deploy local --name dev-cluster --size custom --shards 2 --replicas 2 --mem
 objy status dev-cluster
 ```
 
-[Cluster setup](/content/server.md?id=form-a-cluster)
+[Cluster setup](/content/server.md?id=clustering)
