@@ -348,7 +348,7 @@ Anfragen können jeden öffentlichen Knoten erreichen; das Routing findet den zu
 
 ![Zwei Objekt-Shards liegen auf unterschiedlichen Maschinen, jeweils mit einem zusätzlichen Replikat auf einer weiteren Maschine.](assets/site/learn/cluster.svg)
 
-[Cluster einrichten](/content/server.md?id=clustering)
+[Cluster einrichten](/content/server.md?id=configuration)
 
 ### Persistenz :id=persistence
 
@@ -360,4 +360,4 @@ Entscheide, was einen Neustart übersteht:
 
 Eine lokale WAL-Bestätigung wartet weder auf Replikate noch auf S3-Uploads.
 
-[Persistenzeinstellungen](/content/server.md?id=durability) · [OBJY starten](get-started.md)
+[Persistenzeinstellungen](/content/server.md?id=configuration) · [OBJY starten](get-started.md)

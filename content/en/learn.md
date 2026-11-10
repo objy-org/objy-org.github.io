@@ -348,7 +348,7 @@ Requests can reach any public node; routing finds the owner. Replicas catch up a
 
 ![Two object shards live on different machines, with one additional replica of each on another machine.](assets/site/learn/cluster.svg)
 
-[Cluster setup](/content/server.md?id=clustering)
+[Cluster setup](/content/server.md?id=configuration)
 
 ### Persistence :id=persistence
 
@@ -360,4 +360,4 @@ Choose what survives a restart:
 
 A local WAL acknowledgement does not wait for replicas or S3 uploads.
 
-[Persistence settings](/content/server.md?id=durability) · [Run OBJY](get-started.md)
+[Persistence settings](/content/server.md?id=configuration) · [Run OBJY](get-started.md)
